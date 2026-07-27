@@ -86,14 +86,19 @@ export function iiifUrl(imageId: string, width: number): string {
 	return `${IIIF}/${imageId}/full/${width},/0/default.jpg`;
 }
 
-/** Parse "Dutch, 1853–1890" (2nd line of artist_display) into vitals. */
+/**
+ * Parse AIC artist_display vitals. Live formats observed:
+ *   "Vincent van Gogh (Dutch, 1853–1890)"        — single line, parenthetical
+ *   "Georges Seurat\nFrench, 1859–1891"          — two lines
+ */
 export function parseAicArtistDisplay(display: string | null): {
 	nationality: string | null;
 	born: number | null;
 	died: number | null;
 } {
 	if (!display) return { nationality: null, born: null, died: null };
-	const line = display.split('\n')[1] ?? display;
+	const paren = display.match(/\(([^)]+)\)/);
+	const line = paren ? (paren[1] as string) : (display.split('\n')[1] ?? display);
 	const years = line.match(/(\d{4})\s*[–-]\s*(\d{4})/);
 	const single = line.match(/born\s+(\d{4})/i);
 	const nationality = (line.split(',')[0] ?? '').trim() || null;

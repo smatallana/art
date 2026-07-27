@@ -31,11 +31,18 @@ describe('AIC normalization', () => {
 		expect(result).toEqual({ reject: 'no-image' });
 	});
 
-	it('parses artist display vitals', () => {
-		expect(parseAicArtistDisplay('Vincent van Gogh\nDutch, 1853–1890')).toEqual({
+	it('parses artist display vitals in both live formats', () => {
+		// single-line parenthetical (dominant live format)
+		expect(parseAicArtistDisplay('Vincent van Gogh (Dutch, 1853–1890)')).toEqual({
 			nationality: 'Dutch',
 			born: 1853,
 			died: 1890
+		});
+		// two-line format
+		expect(parseAicArtistDisplay('Georges Seurat\nFrench, 1859–1891')).toEqual({
+			nationality: 'French',
+			born: 1859,
+			died: 1891
 		});
 		expect(parseAicArtistDisplay(null)).toEqual({ nationality: null, born: null, died: null });
 	});
