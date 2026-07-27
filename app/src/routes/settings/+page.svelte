@@ -30,7 +30,10 @@
 		const a = document.createElement('a');
 		a.href = url;
 		a.download = `beholder-export-${new Date().toISOString().slice(0, 10)}.json`;
+		// WebKit only fires downloads for anchors attached to the document.
+		document.body.appendChild(a);
 		a.click();
+		a.remove();
 		URL.revokeObjectURL(url);
 	}
 

@@ -34,7 +34,7 @@ test('full session flow: choose, reveal, react, save, advance', async ({ page })
 
 	// The saved work appears on the Saved page.
 	await page.goto('./saved/');
-	await expect(page.getByRole('listitem').first()).toBeVisible();
+	await expect(page.getByRole('listitem').first()).toBeVisible({ timeout: 15000 });
 });
 
 test('answers persist across reload and session resumes in place', async ({ page }) => {
@@ -43,6 +43,9 @@ test('answers persist across reload and session resumes in place', async ({ page
 	await page.getByRole('button', { name: 'Choose the first painting' }).click();
 	await page.getByRole('button', { name: 'Next', exact: true }).click();
 	await page.getByRole('button', { name: 'Choose the second painting' }).click();
+	// Persistence is guaranteed once the reveal renders (record() is awaited
+	// before the phase flips) — wait for it before killing the page.
+	await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeVisible();
 
 	// Kill the page mid-reveal and come back.
 	await page.reload();

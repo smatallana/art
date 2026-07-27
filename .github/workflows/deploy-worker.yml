@@ -70,10 +70,35 @@ jobs:
             echo "::notice::Google OAuth secrets not set — /auth endpoints answer 501 until configured."
           fi
 
+      - name: Ensure workers.dev subdomain (idempotent)
+        if: steps.creds.outputs.missing == 'false'
+        run: |
+          SUB=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain" \
+            | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{console.log(JSON.parse(s).result?.subdomain??'')}catch{console.log('')}})")
+          if [ -n "$SUB" ]; then
+            echo "workers.dev subdomain already registered: $SUB"
+            exit 0
+          fi
+          for CAND in beholder-app beholder-smatallana smatallana-beholder; do
+            CODE=$(curl -s -o /tmp/sub.json -w '%{http_code}' -X PUT \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"subdomain\":\"$CAND\"}" \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")
+            if [ "$CODE" = "200" ]; then
+              echo "registered workers.dev subdomain: $CAND"
+              exit 0
+            fi
+            echo "candidate $CAND rejected (HTTP $CODE): $(cat /tmp/sub.json | head -c 300)"
+          done
+          echo "::warning::Could not register a workers.dev subdomain automatically. One-time manual step: dash.cloudflare.com → Workers & Pages → set your workers.dev subdomain, then re-run this workflow."
+
       - name: Deploy
         if: steps.creds.outputs.missing == 'false'
         working-directory: worker
         run: |
+          set -o pipefail
           npx wrangler deploy | tee deploy.log
           URL=$(grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 || true)
           echo "::notice::Worker deployed at: ${URL:-unknown}"
