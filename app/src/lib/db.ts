@@ -12,12 +12,6 @@ import type { Work } from './catalog/types';
 const DB_NAME = 'beholder';
 const DB_VERSION = 1;
 
-interface Stores {
-	events: AppEvent;
-	kv: unknown;
-	works: Work;
-}
-
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
 function db(): Promise<IDBPDatabase> {

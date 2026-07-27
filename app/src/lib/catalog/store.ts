@@ -24,9 +24,7 @@ async function fetchJson<T>(path: string): Promise<T> {
 
 async function loadFromNetwork(root: string): Promise<{ index: CatalogIndex; works: Work[] }> {
 	const index = await fetchJson<CatalogIndex>(`${root}/index.json`);
-	const shards = await Promise.all(
-		index.shards.map((s) => fetchJson<Work[]>(`${root}/${s.file}`))
-	);
+	const shards = await Promise.all(index.shards.map((s) => fetchJson<Work[]>(`${root}/${s.file}`)));
 	return { index, works: shards.flat() };
 }
 
@@ -36,9 +34,7 @@ async function loadFromNetwork(root: string): Promise<{ index: CatalogIndex; wor
  * 2. Refresh from network in the background; real catalog preferred,
  *    dev fixture as fallback so the app always has something to show.
  */
-export async function loadCatalog(
-	onUpdate: (state: CatalogState) => void
-): Promise<CatalogState> {
+export async function loadCatalog(onUpdate: (state: CatalogState) => void): Promise<CatalogState> {
 	const state: CatalogState = {
 		status: 'loading',
 		works: [],

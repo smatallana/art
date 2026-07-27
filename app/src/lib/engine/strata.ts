@@ -26,7 +26,11 @@ export function subjectFamily(w: Work): SubjectFamily {
 	if (tagOn(w, 'subject.portrait') || tagOn(w, 'subject.figure') || tagOn(w, 'subject.group')) {
 		return 'people';
 	}
-	if (tagOn(w, 'subject.landscape') || tagOn(w, 'subject.marine') || tagOn(w, 'subject.cityscape')) {
+	if (
+		tagOn(w, 'subject.landscape') ||
+		tagOn(w, 'subject.marine') ||
+		tagOn(w, 'subject.cityscape')
+	) {
 		return 'land';
 	}
 	if (tagOn(w, 'subject.interior') || tagOn(w, 'subject.genre')) return 'interior';

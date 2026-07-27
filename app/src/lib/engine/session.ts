@@ -64,10 +64,7 @@ export function createSession(
 }
 
 /** Restore a session from a snapshot + the event log. */
-export function resumeSession(
-	snapshot: SessionState,
-	events: AppEvent[]
-): SessionEngine {
+export function resumeSession(snapshot: SessionState, events: AppEvent[]): SessionEngine {
 	return { state: snapshot, history: historyFromEvents(events) };
 }
 

@@ -90,13 +90,15 @@ export const t = {
 		exportBtn: 'Export my data (JSON)',
 		exportHint: 'Everything: your responses, saves and notes. Yours to keep.',
 		resetBtn: 'Erase local data',
-		resetConfirm: 'Erase all local responses, saves and cached works from this device? This cannot be undone.',
+		resetConfirm:
+			'Erase all local responses, saves and cached works from this device? This cannot be undone.',
 		resetDone: 'Local data erased.',
 		about: 'About',
 		aboutBody:
 			'Beholder is an open, non-commercial project. All artworks are in the public domain; metadata and images come from the source museums under CC0.',
 		attributions: 'Collections',
-		privacy: 'No analytics, no tracking. Your responses stay on this device until you create an account and choose to sync.'
+		privacy:
+			'No analytics, no tracking. Your responses stay on this device until you create an account and choose to sync.'
 	},
 
 	nav: {

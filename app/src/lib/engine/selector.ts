@@ -157,7 +157,13 @@ export function selectPair(
 				const [e1, sub1] = s1.split('|');
 				const [e2, sub2] = s2.split('|');
 				const probe: SelectedPair['probe'] =
-					s1 === s2 ? 'within-stratum' : e1 !== e2 && sub1 === sub2 ? 'cross-era' : e1 === e2 ? 'cross-subject' : 'coverage';
+					s1 === s2
+						? 'within-stratum'
+						: e1 !== e2 && sub1 === sub2
+							? 'cross-era'
+							: e1 === e2
+								? 'cross-subject'
+								: 'coverage';
 				return { a, b, probe };
 			}
 		}

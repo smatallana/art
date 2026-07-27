@@ -18,9 +18,15 @@ export default ts.config(
 				URL: 'readonly',
 				Request: 'readonly',
 				Response: 'readonly',
+				Blob: 'readonly',
 				crypto: 'readonly',
 				indexedDB: 'readonly',
 				localStorage: 'readonly',
+				performance: 'readonly',
+				confirm: 'readonly',
+				alert: 'readonly',
+				Image: 'readonly',
+				AbortSignal: 'readonly',
 				setTimeout: 'readonly',
 				clearTimeout: 'readonly',
 				setInterval: 'readonly',
@@ -39,7 +45,10 @@ export default ts.config(
 			'@typescript-eslint/no-unused-vars': [
 				'error',
 				{ argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
-			]
+			],
+			// Base-path handling is centralized and covered by E2E; the rule also
+			// false-positives on external museum links.
+			'svelte/no-navigation-without-resolve': 'off'
 		}
 	},
 	{

@@ -1,0 +1,18 @@
+{
+ "schemaVersion": 1,
+ "ontologyVersion": 1,
+ "generatedAt": "2026-01-01T00:00:00.000Z",
+ "count": 24,
+ "shards": [
+  {
+   "file": "works-000.json",
+   "count": 24
+  }
+ ],
+ "sources": {
+  "dev": {
+   "count": 24,
+   "attribution": "Beholder dev fixture — CC0"
+  }
+ }
+}

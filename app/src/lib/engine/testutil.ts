@@ -32,7 +32,12 @@ export function testWork(
 		},
 		medium: 'Oil on canvas',
 		dimensions: null,
-		museum: { name: 'Test Museum', department: null, accession: null, url: 'https://example.org/w' },
+		museum: {
+			name: 'Test Museum',
+			department: null,
+			accession: null,
+			url: 'https://example.org/w'
+		},
 		rights: { status: 'cc0', attribution: 'Test — CC0' },
 		images: {
 			aspect: overrides.aspect ?? 1.3,
@@ -56,7 +61,7 @@ export function testWork(
 export function testPool(size = 60): Work[] {
 	const works: Work[] = [];
 	const eras = [1450, 1600, 1780, 1870, 1930];
-	const families = [
+	const families: Record<string, number>[] = [
 		{ 'subject.portrait': 1, 'subject.figure': 1 },
 		{ 'subject.landscape': 1, 'subject.nature': 1 },
 		{ 'subject.interior': 1, 'subject.genre': 1 },

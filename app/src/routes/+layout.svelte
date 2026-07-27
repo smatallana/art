@@ -1,8 +1,14 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
+	import { page } from '$app/state';
+	import { t } from '$lib/i18n/en';
 
 	let { children } = $props();
+
+	const path = $derived(page.url.pathname);
+	const onSession = $derived(path.includes('/session'));
 
 	onMount(async () => {
 		// Register the service worker (production builds only — the virtual
@@ -18,6 +24,16 @@
 
 <div class="shell">
 	{@render children()}
+
+	{#if !onSession}
+		<nav class="tabs" aria-label="Main">
+			<a href={`${base}/`} class:active={path === `${base}/` || path === base}>{t.nav.home}</a>
+			<a href={`${base}/saved/`} class:active={path.startsWith(`${base}/saved`)}>{t.nav.saved}</a>
+			<a href={`${base}/settings/`} class:active={path.startsWith(`${base}/settings`)}>
+				{t.nav.settings}
+			</a>
+		</nav>
+	{/if}
 </div>
 
 <style>
@@ -28,5 +44,35 @@
 		padding-right: var(--safe-right);
 		display: flex;
 		flex-direction: column;
+	}
+	.tabs {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		gap: var(--space-5);
+		padding: 10px 0 max(var(--safe-bottom), 10px);
+		background: color-mix(in srgb, var(--bg) 88%, transparent);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border-top: 1px solid var(--hairline);
+	}
+	.tabs a {
+		color: var(--ink-faint);
+		font-size: 0.8rem;
+		letter-spacing: 0.05em;
+		padding: 8px 10px;
+		min-height: 40px;
+		display: inline-flex;
+		align-items: center;
+	}
+	.tabs a.active {
+		color: var(--gold);
+	}
+	.tabs a:hover {
+		text-decoration: none;
+		color: var(--ink-muted);
 	}
 </style>

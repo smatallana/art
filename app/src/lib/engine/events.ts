@@ -44,6 +44,7 @@ export type AppEvent = Base &
 				strength: 'slight' | 'clear' | 'strong' | null;
 				ms: number | null; // decision time; weak signal, can be disabled
 		  }
+		| { t: 'strength'; a: string; b: string; level: 'slight' | 'clear' | 'strong' }
 		| { t: 'reaction'; work: string; emotions: EmotionId[]; elements: ElementId[] }
 		| { t: 'rating'; work: string; value: 1 | 2 | 3 | 4 | 5 }
 		| { t: 'save'; work: string }
@@ -81,8 +82,13 @@ export function deviceId(): string {
 	return id;
 }
 
+/** Omit that distributes over unions (plain Omit collapses them). */
+type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never;
+
+export type AppEventPayload = DistributiveOmit<AppEvent, keyof Base>;
+
 /** Create a fully-stamped event from a payload. */
-export function makeEvent<T extends Omit<AppEvent, keyof Base>>(payload: T): AppEvent {
+export function makeEvent<T extends AppEventPayload>(payload: T): AppEvent {
 	const now = new Date();
 	return {
 		id: crypto.randomUUID(),
