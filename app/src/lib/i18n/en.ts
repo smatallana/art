@@ -101,9 +101,38 @@ export const t = {
 			'No analytics, no tracking. Your responses stay on this device until you create an account and choose to sync.'
 	},
 
+	profile: {
+		title: 'Your eye',
+		empty: 'No choices yet — your profile begins with your first session.',
+		basis: (n: number) =>
+			`Built from ${n} recorded ${n === 1 ? 'choice' : 'choices'} and your saves, reactions and skips.`,
+		drawsYou: 'What draws you in',
+		leavesYou: 'What you tend to pass on',
+		contradictions: 'Where your responses disagree',
+		conflictLine: (label: string) =>
+			`${label}: your responses pull in both directions — possibly context-dependent.`,
+		stillOpen: 'Still an open question',
+		artists: 'Artists',
+		seeded: 'imported',
+		evolution: 'How your eye has moved',
+		afterChoices: (n: number) => `after ${n} choices`,
+		artistRecord: (w: number, l: number, s: number) =>
+			`${w}–${l} in comparisons${s > 0 ? `, ${s} saved` : ''}`,
+		noObservations: 'no encounters yet',
+		provisional: 'provisional',
+		tierStrong: 'strong evidence',
+		tierModerate: 'moderate',
+		tierWeak: 'early signal',
+		tierInsufficient: 'not enough yet',
+		observations: (n: number) => `${n} ${n === 1 ? 'observation' : 'observations'}`,
+		honesty:
+			'Beholder never invents precision: bars show relative confidence, and every claim carries its evidence level. Conclusions change as your choices accumulate.'
+	},
+
 	nav: {
 		home: 'Home',
 		saved: 'Saved',
+		profile: 'Your eye',
 		settings: 'Settings'
 	},
 

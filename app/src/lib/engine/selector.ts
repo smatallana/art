@@ -194,6 +194,54 @@ export function selectPair(
 	return null;
 }
 
+/**
+ * Random constraint-respecting candidate pairs for the active learner.
+ * Cheap generate-then-score: the smart selector ranks these by expected
+ * information gain instead of taking the first valid pair.
+ */
+export function candidatePairs(
+	works: Work[],
+	h: SelectionHistory,
+	count: number,
+	options: Partial<SelectorOptions> = {}
+): SelectedPair[] {
+	const o = { ...DEFAULT_SELECTOR_OPTIONS, ...options };
+	const rng: Rng = mulberry32(o.seed * 31 + h.interactionIndex * 101);
+	const byStratum = eligibleByStratum(works, h, o);
+	const eligibleFlat = shuffle(rng, [...byStratum.values()].flat());
+	const out: SelectedPair[] = [];
+	const used = new Set<string>();
+	let attempts = 0;
+	while (out.length < count && attempts < count * 30 && eligibleFlat.length >= 2) {
+		attempts++;
+		const a = eligibleFlat[Math.floor(rng() * eligibleFlat.length)] as Work;
+		const b = eligibleFlat[Math.floor(rng() * eligibleFlat.length)] as Work;
+		if (a.id === b.id) continue;
+		if (a.artist.name === b.artist.name && a.artist.name !== 'Unknown artist') continue;
+		const key = pairKey(a.id, b.id);
+		if (used.has(key) || h.seenPairs.has(key)) continue;
+		if (!aspectCompatible(a, b)) continue;
+		used.add(key);
+		const s1 = stratumOf(a);
+		const s2 = stratumOf(b);
+		const [e1, sub1] = s1.split('|');
+		const [e2, sub2] = s2.split('|');
+		out.push({
+			a,
+			b,
+			probe:
+				s1 === s2
+					? 'within-stratum'
+					: e1 !== e2 && sub1 === sub2
+						? 'cross-era'
+						: e1 === e2
+							? 'cross-subject'
+							: 'coverage'
+		});
+	}
+	return out;
+}
+
 /** Update history after showing a pair (mirrors historyFromEvents increments). */
 export function recordShown(h: SelectionHistory, a: Work, b: Work): void {
 	h.interactionIndex++;

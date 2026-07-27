@@ -14,7 +14,11 @@ const config = {
 			fallback: '404.html'
 		}),
 		paths: { base },
-		serviceWorker: { register: false }
+		serviceWorker: { register: false },
+		alias: {
+			// Repo-level shared data (taste ontology) bundled at build time.
+			$data: '../data'
+		}
 	}
 };
 

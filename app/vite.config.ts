@@ -69,6 +69,12 @@ export default defineConfig({
 			devOptions: { enabled: false }
 		})
 	],
+	server: {
+		fs: {
+			// allow importing repo-level /data (ontology) during dev
+			allow: ['..']
+		}
+	},
 	test: {
 		include: ['src/**/*.test.ts'],
 		environment: 'node'

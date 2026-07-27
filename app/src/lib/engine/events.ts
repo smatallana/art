@@ -54,8 +54,24 @@ export type AppEvent = Base &
 		| { t: 'familiar'; work: string; level: 'knew-it' | 'seen-before' | 'new-to-me' }
 		| { t: 'seen_in_person'; work: string; museum: string | null }
 		| { t: 'note'; work: string; text: string }
-		| { t: 'prior_import'; version: number } // owner's manual hypotheses loaded
+		| {
+				/** Imported starting hypotheses. The spec travels inside the event so
+				 *  the log stays fully self-contained for export/replay. */
+				t: 'prior_import';
+				spec: PriorSpec;
+		  }
 	);
+
+export interface PriorSpec {
+	version: number;
+	label: string;
+	/** dim id → prior mean in [-1, 1]; imported with high variance + provisional flag */
+	weights: Record<string, number>;
+	/** artist display-name fragments → seed affinity in [-1, 1] */
+	artists: Record<string, number>;
+	/** dims the import is explicitly unsure about (kept wide) */
+	uncertain: string[];
+}
 
 export type AppEventType = AppEvent['t'];
 
