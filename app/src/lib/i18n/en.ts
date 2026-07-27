@@ -180,6 +180,21 @@ export const t = {
 		authPending: 'Sign-in is being set up - sync will be available shortly.'
 	},
 
+	memory: {
+		title: 'Remember',
+		empty:
+			'Mark works with "Remember this" during sessions and they will resurface here at widening intervals.',
+		dueCount: (n: number) => (n === 1 ? '1 work to revisit' : `${n} works to revisit`),
+		prompt: 'Do you remember this one?',
+		reveal: 'Reveal',
+		gradePrompt: 'Be honest - it only tunes the timing.',
+		knewIt: 'Knew it',
+		almost: 'Almost',
+		notYet: 'Not yet',
+		allDone: 'Nothing due right now - your remembered works will return when the time is right.',
+		knownTitle: (n: number) => `Works you recognize (${n})`
+	},
+
 	nav: {
 		home: 'Home',
 		discover: 'Discover',

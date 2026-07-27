@@ -50,6 +50,7 @@ export type AppEvent = Base &
 		| { t: 'save'; work: string }
 		| { t: 'unsave'; work: string }
 		| { t: 'remember'; work: string } // "I want to remember this one"
+		| { t: 'memory_review'; work: string; outcome: 'recognized' | 'partial' | 'missed' }
 		| { t: 'skip'; work: string; reason: 'not-now' | 'seen-too-often' | null }
 		| { t: 'familiar'; work: string; level: 'knew-it' | 'seen-before' | 'new-to-me' }
 		| { t: 'seen_in_person'; work: string; museum: string | null }

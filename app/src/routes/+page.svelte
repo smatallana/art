@@ -3,8 +3,11 @@
 	import { onMount } from 'svelte';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
+	import { dueItems } from '$lib/engine/memory';
 
 	onMount(() => void app.init());
+
+	const memoryDue = $derived(app.catalog.status === 'ready' ? dueItems(app.events).length : 0);
 </script>
 
 <svelte:head>
@@ -38,6 +41,9 @@
 		<a class="start" href={`${base}/session/`} data-sveltekit-preload-data="tap">
 			{app.engine && app.engine.state.phase !== 'done' ? t.home.continue : t.home.start}
 		</a>
+		{#if memoryDue > 0}
+			<a class="memory-cta" href={`${base}/remember/`}>{t.memory.dueCount(memoryDue)} →</a>
+		{/if}
 		{#if app.totalChoices > 0}
 			<p class="stats">
 				{t.home.sessionsDone(app.totalSessions)} · {t.home.answersLogged(app.totalChoices)}
@@ -95,6 +101,11 @@
 	.start:hover {
 		text-decoration: none;
 		filter: brightness(1.06);
+	}
+	.memory-cta {
+		color: var(--gold-deep);
+		font-size: 0.9rem;
+		margin-top: var(--space-2);
 	}
 	.stats {
 		color: var(--ink-faint);
