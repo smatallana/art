@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.2.6",
+    "@huggingface/transformers": "^4.2.0",
     "idb": "^8.0.3"
   }
 }

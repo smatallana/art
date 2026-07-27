@@ -180,6 +180,32 @@ export const t = {
 		authPending: 'Sign-in is being set up - sync will be available shortly.'
 	},
 
+	snap: {
+		title: 'Snap',
+		intro:
+			'Saw a painting in the wild? Photograph it and Beholder will try to find it in the collection - your confirmation is the signal.',
+		takePhoto: 'Photograph a painting',
+		privacy: 'Photos never leave this device. No location is recorded.',
+		loadingCatalog: 'Loading the visual index…',
+		loadingModel: 'First time: downloading the vision model (~30 MB, cached after this)…',
+		matching: 'Looking through the collection…',
+		firstTime: 'The first snap takes longer while the model downloads.',
+		isItOne: 'Is it one of these?',
+		likely: 'strong resemblance',
+		maybe: 'possible match',
+		itsThis: 'It is this one',
+		noneOfThese: 'None of these',
+		noCandidates: 'Nothing in the collection resembles this photo closely enough to guess.',
+		confirmedNote: (artist: string) =>
+			`Recorded: seen in person, loved, and saved - a strong signal for your eye. (${artist})`,
+		archivedNote:
+			'Kept in your private field notebook on this device. As the collection grows, future versions can retry the match.',
+		another: 'Another one',
+		back: 'Back',
+		unavailable:
+			'Snap needs the visual index, which has not been generated for this deployment yet - or the model could not download. Try again later.'
+	},
+
 	memory: {
 		title: 'Remember',
 		empty:

@@ -82,6 +82,7 @@
 			bind:value={query}
 			aria-label={t.discover.searchPlaceholder}
 		/>
+		<a class="snap-link" href={`${base}/snap/`}>{t.snap.title} ↗</a>
 	</header>
 
 	{#if !ready}
@@ -197,6 +198,11 @@
 	.search:focus {
 		outline: none;
 		border-color: var(--gold-deep);
+	}
+	.snap-link {
+		color: var(--gold);
+		font-size: 0.9rem;
+		white-space: nowrap;
 	}
 	section {
 		margin-bottom: var(--space-5);

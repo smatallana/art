@@ -10,7 +10,7 @@ import type { AppEvent } from './engine/events';
 import type { Work } from './catalog/types';
 
 const DB_NAME = 'beholder';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
@@ -24,6 +24,8 @@ function db(): Promise<IDBPDatabase> {
 				}
 				if (!d.objectStoreNames.contains('kv')) d.createObjectStore('kv');
 				if (!d.objectStoreNames.contains('works')) d.createObjectStore('works', { keyPath: 'id' });
+				// v2: private field-notebook photos (blobs stay on-device)
+				if (!d.objectStoreNames.contains('photos')) d.createObjectStore('photos');
 			}
 		});
 	}
@@ -72,7 +74,19 @@ export async function cachedWorks(): Promise<Work[]> {
 
 export async function clearAllLocalData(): Promise<void> {
 	const d = await db();
-	await Promise.all([d.clear('events'), d.clear('kv'), d.clear('works')]);
+	await Promise.all([d.clear('events'), d.clear('kv'), d.clear('works'), d.clear('photos')]);
+}
+
+export async function savePhoto(id: string, blob: Blob): Promise<void> {
+	await (await db()).put('photos', blob, id);
+}
+
+export async function getPhoto(id: string): Promise<Blob | undefined> {
+	return (await db()).get('photos', id) as Promise<Blob | undefined>;
+}
+
+export async function allPhotoIds(): Promise<string[]> {
+	return (await db()).getAllKeys('photos') as Promise<string[]>;
 }
 
 /** Ask the browser to make our storage durable (silent heuristic on iOS). */

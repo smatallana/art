@@ -54,6 +54,11 @@ export type AppEvent = Base &
 		| { t: 'skip'; work: string; reason: 'not-now' | 'seen-too-often' | null }
 		| { t: 'familiar'; work: string; level: 'knew-it' | 'seen-before' | 'new-to-me' }
 		| { t: 'seen_in_person'; work: string; museum: string | null }
+		| {
+				/** A real-world photo was matched (work id) or archived unmatched (null). */
+				t: 'photo_capture';
+				work: string | null;
+		  }
 		| { t: 'note'; work: string; text: string }
 		| {
 				/** Imported starting hypotheses. The spec travels inside the event so
