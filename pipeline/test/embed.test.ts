@@ -37,7 +37,7 @@ describe('loadExistingEmbeddings', () => {
 		expect(await loadExistingEmbeddings(dir)).toBeNull();
 	});
 
-	it('round-trips ids, scales and row data', async () => {
+	it('round-trips ids, scales and row data; origins default to source', async () => {
 		const dir = await mkdtemp(path.join(tmpdir(), 'embed-'));
 		await writeStore(dir, ['cma-1', 'cma-2']);
 		const store = await loadExistingEmbeddings(dir);
@@ -47,6 +47,15 @@ describe('loadExistingEmbeddings', () => {
 		expect(store?.rows).toHaveLength(2);
 		// Second row starts where the first ends in the flat matrix.
 		expect(store?.rows[1]?.[0]).toBe(DIM % 256);
+		// Pre-origins stores (like the first committed one) default to 's'.
+		expect(store?.origins).toEqual(['s', 's']);
+	});
+
+	it('preserves recorded origins', async () => {
+		const dir = await mkdtemp(path.join(tmpdir(), 'embed-'));
+		await writeStore(dir, ['aic-1', 'cma-1'], { origins: ['c', 's'] });
+		const store = await loadExistingEmbeddings(dir);
+		expect(store?.origins).toEqual(['c', 's']);
 	});
 
 	it('rejects a store from a different model', async () => {

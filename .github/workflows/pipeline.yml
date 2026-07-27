@@ -8,7 +8,7 @@ on:
         required: true
         default: sample
         type: choice
-        options: [sample, build, embed]
+        options: [sample, build, embed, commons-map]
       limit:
         description: 'max works per source (build mode)'
         required: false
@@ -56,6 +56,10 @@ jobs:
         env:
           HF_HUB_DISABLE_TELEMETRY: '1'
 
+      - name: Commons-map mode — map AIC works to Wikimedia Commons files
+        if: inputs.mode == 'commons-map'
+        run: npm run -w pipeline run commons-map
+
       - uses: actions/upload-artifact@v4
         if: inputs.mode == 'build'
         with:
@@ -64,11 +68,12 @@ jobs:
           retention-days: 30
 
       - name: Commit catalog to the branch
-        if: inputs.mode == 'build' || inputs.mode == 'embed'
+        if: inputs.mode == 'build' || inputs.mode == 'embed' || inputs.mode == 'commons-map'
         run: |
           git config user.name "beholder-pipeline[bot]"
           git config user.email "noreply@github.com"
           git add app/static/catalog
+          if [ -f data/commons-map.json ]; then git add data/commons-map.json; fi
           if git diff --cached --quiet; then
             echo "No catalog changes."
           else

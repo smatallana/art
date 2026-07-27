@@ -174,14 +174,25 @@ async function cmdBuild(): Promise<void> {
 async function cmdEmbed(): Promise<void> {
 	const { runEmbedStage } = await import('./embed.js');
 	const catalogDir = path.resolve(arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog')));
-	await runEmbedStage({ catalogDir, log });
+	const commonsMapFile = path.join(here, '..', '..', 'data', 'commons-map.json');
+	await runEmbedStage({ catalogDir, commonsMapFile, log });
+}
+
+async function cmdCommonsMap(): Promise<void> {
+	const { runCommonsMapStage } = await import('./commons.js');
+	const catalogDir = path.resolve(arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog')));
+	const outFile = path.join(here, '..', '..', 'data', 'commons-map.json');
+	await runCommonsMapStage({ catalogDir, outFile, log });
 }
 
 const cmd = process.argv[2];
 if (cmd === 'sample') await cmdSample();
 else if (cmd === 'build') await cmdBuild();
 else if (cmd === 'embed') await cmdEmbed();
+else if (cmd === 'commons-map') await cmdCommonsMap();
 else {
-	console.error('usage: tsx src/run.ts <sample|build|embed> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe]');
+	console.error(
+		'usage: tsx src/run.ts <sample|build|embed|commons-map> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe]'
+	);
 	process.exit(1);
 }

@@ -8,33 +8,43 @@
  * Output (app/static/catalog/):
  *   embeddings.bin        Uint8 matrix [n × 512], per-vector symmetric
  *                         int8 quantization mapped to 0..255
- *   embeddings-meta.json  { ids[], dim, scales[] } aligned with the matrix
+ *   embeddings-meta.json  { ids[], dim, scales[], origins[] } aligned with
+ *                         the matrix; origins records where each image came
+ *                         from ('s' = museum source, 'c' = Wikimedia Commons)
  *
  * The stage is INCREMENTAL: existing committed embeddings are reused (and
  * pruned to the current catalog), only missing works are fetched. This
- * matters because museum CDNs sometimes block datacenter IPs for a while
- * (AIC's Cloudflare has done so): partial coverage can ship — a missing
- * embedding only excludes that work from Snap matching — and a later run
- * fills the gap without refetching anything.
+ * matters because museum CDNs sometimes block datacenter IPs (AIC's
+ * Cloudflare does — see DECISIONS 2026-07-27): partial coverage can ship,
+ * and a later run fills the gap without refetching anything.
  *
- * Politeness: AIC images fetched serially at ~1 rps (their IIIF etiquette);
- * other hosts at moderate concurrency. A per-host circuit breaker stops
- * hammering a host that persistently refuses (e.g. a CDN-level block).
- * Safety: the stage aborts rather than write a file with zero vectors or
- * fewer vectors than are already committed.
+ * Image sources, per work:
+ *   - blocked hosts (artic.edu) with a Commons mapping (data/commons-map.json)
+ *     → fetched from Wikimedia Commons (same painting, different digitization
+ *     — fine for Snap: museum-photo variation dominates digitization variation)
+ *   - blocked hosts without a mapping → tried directly, behind a per-host
+ *     circuit breaker so a refusing CDN is not hammered
+ *   - everything else → fetched directly at small concurrency
+ * Safety: the stage aborts rather than write zero vectors or fewer vectors
+ * than are already committed.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Work } from './types.js';
 import { fetchBuffer, sleep } from './util.js';
+import { loadCatalog } from './catalog.js';
+import { commonsThumbUrl, type CommonsEntry } from './commons.js';
 
 const DIM = 512;
 const MODEL = 'Xenova/clip-vit-base-patch32';
 /** Consecutive failures on a polite host before we stop hitting it this run. */
 const HOST_BREAKER_LIMIT = 25;
 
+export type Origin = 's' | 'c';
+
 interface EmbedOptions {
 	catalogDir: string;
+	commonsMapFile?: string;
 	log: (msg: string) => void;
 }
 
@@ -42,28 +52,19 @@ export interface EmbeddingStore {
 	ids: string[];
 	scales: number[];
 	rows: Uint8Array[];
-}
-
-async function loadCatalog(catalogDir: string): Promise<Work[]> {
-	const index = JSON.parse(await readFile(path.join(catalogDir, 'index.json'), 'utf8')) as {
-		shards: { file: string }[];
-	};
-	const works: Work[] = [];
-	for (const s of index.shards) {
-		works.push(...(JSON.parse(await readFile(path.join(catalogDir, s.file), 'utf8')) as Work[]));
-	}
-	return works;
+	origins: Origin[];
 }
 
 /**
  * Load previously committed embeddings, or null when absent/incompatible
- * (different model or dim, or a bin/meta size mismatch).
+ * (different model or dim, or a bin/meta size mismatch). Stores written
+ * before origins existed default every vector to 's'.
  */
 export async function loadExistingEmbeddings(catalogDir: string): Promise<EmbeddingStore | null> {
 	try {
 		const meta = JSON.parse(
 			await readFile(path.join(catalogDir, 'embeddings-meta.json'), 'utf8')
-		) as { model?: string; dim: number; ids: string[]; scales: number[] };
+		) as { model?: string; dim: number; ids: string[]; scales: number[]; origins?: Origin[] };
 		if (meta.model !== MODEL || meta.dim !== DIM) return null;
 		if (!Array.isArray(meta.ids) || meta.ids.length !== meta.scales.length) return null;
 		const bin = await readFile(path.join(catalogDir, 'embeddings.bin'));
@@ -71,18 +72,35 @@ export async function loadExistingEmbeddings(catalogDir: string): Promise<Embedd
 		const rows = meta.ids.map(
 			(_, i) => new Uint8Array(bin.buffer, bin.byteOffset + i * DIM, DIM)
 		);
-		return { ids: meta.ids, scales: meta.scales, rows };
+		const origins =
+			meta.origins && meta.origins.length === meta.ids.length
+				? meta.origins
+				: meta.ids.map((): Origin => 's');
+		return { ids: meta.ids, scales: meta.scales, rows, origins };
 	} catch {
 		return null;
 	}
 }
 
-function isPoliteHost(url: string): boolean {
+/** Hosts that require serial ~1 rps politeness AND block datacenter GETs. */
+function isBlockedHost(url: string): boolean {
 	try {
 		return new URL(url).hostname.includes('artic.edu');
 	} catch {
 		return false;
 	}
+}
+
+/** Where to fetch a work's image from, and how to record its provenance. */
+export function fetchTargetFor(
+	work: Pick<Work, 'id'> & { images: { thumb: string } },
+	commons: Record<string, CommonsEntry>
+): { url: string; origin: Origin } {
+	if (isBlockedHost(work.images.thumb)) {
+		const m = commons[work.id];
+		if (m) return { url: commonsThumbUrl(m.file), origin: 'c' };
+	}
+	return { url: work.images.thumb, origin: 's' };
 }
 
 async function writeStore(
@@ -104,21 +122,41 @@ async function writeStore(
 			failed,
 			generatedAt: new Date().toISOString(),
 			ids: store.ids,
-			scales: store.scales
+			scales: store.scales,
+			origins: store.origins
 		})
 	);
-	log(`embeddings written: ${store.ids.length} vectors (${failed} failed this run)`);
+	const fromCommons = store.origins.filter((o) => o === 'c').length;
+	log(
+		`embeddings written: ${store.ids.length} vectors ` +
+			`(${store.ids.length - fromCommons} from museum sources, ${fromCommons} from Commons; ` +
+			`${failed} failed this run)`
+	);
 }
 
-export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<void> {
+export async function runEmbedStage({ catalogDir, commonsMapFile, log }: EmbedOptions): Promise<void> {
 	const works = await loadCatalog(catalogDir);
 	const catalogIds = new Set(works.map((w) => w.id));
+
+	let commons: Record<string, CommonsEntry> = {};
+	if (commonsMapFile) {
+		try {
+			const parsed = JSON.parse(await readFile(commonsMapFile, 'utf8')) as {
+				map?: Record<string, CommonsEntry>;
+			};
+			commons = parsed.map ?? {};
+			log(`commons map loaded: ${Object.keys(commons).length} works`);
+		} catch {
+			log('no commons map found — blocked hosts will be tried directly');
+		}
+	}
 
 	// Reuse committed embeddings, pruned to works still in the catalog.
 	const existing = await loadExistingEmbeddings(catalogDir);
 	const ids: string[] = [];
 	const scales: number[] = [];
 	const rows: Uint8Array[] = [];
+	const origins: Origin[] = [];
 	if (existing) {
 		for (let i = 0; i < existing.ids.length; i++) {
 			const id = existing.ids[i] as string;
@@ -126,6 +164,7 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 			ids.push(id);
 			scales.push(existing.scales[i] as number);
 			rows.push(existing.rows[i] as Uint8Array);
+			origins.push(existing.origins[i] as Origin);
 		}
 	}
 	const reused = ids.length;
@@ -134,7 +173,7 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 	log(`embedding ${todo.length} of ${works.length} works (${reused} reused)…`);
 
 	if (todo.length === 0) {
-		await writeStore(catalogDir, { ids, scales, rows }, 0, log);
+		await writeStore(catalogDir, { ids, scales, rows, origins }, 0, log);
 		return;
 	}
 
@@ -145,10 +184,11 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 
 	let failed = 0;
 	const embedOne = async (w: Work): Promise<boolean> => {
+		const target = fetchTargetFor(w, commons);
 		try {
 			// Fetch ourselves (pipeline UA + backoff): AIC's CDN rejects the
 			// bare fetch RawImage.fromURL would issue.
-			const buf = await fetchBuffer(w.images.thumb);
+			const buf = await fetchBuffer(target.url);
 			const image = await RawImage.fromBlob(new Blob([buf]));
 			const output = await extractor(image);
 			const vec = Array.from(output.data as Float32Array).slice(0, DIM);
@@ -163,6 +203,7 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 			ids.push(w.id);
 			scales.push(maxAbs);
 			rows.push(row);
+			origins.push(target.origin);
 			return true;
 		} catch (e) {
 			failed++;
@@ -171,8 +212,19 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 		}
 	};
 
-	const polite = todo.filter((w) => isPoliteHost(w.images.thumb));
-	const fast = todo.filter((w) => !isPoliteHost(w.images.thumb));
+	// Three pools by fetch target: direct museum CDNs (small concurrency),
+	// Commons (gentler concurrency + spacing), blocked hosts tried directly
+	// (serial ~1 rps behind the circuit breaker).
+	const direct: Work[] = [];
+	const viaCommons: Work[] = [];
+	const blocked: Work[] = [];
+	for (const w of todo) {
+		const t = fetchTargetFor(w, commons);
+		if (t.origin === 'c') viaCommons.push(w);
+		else if (isBlockedHost(t.url)) blocked.push(w);
+		else direct.push(w);
+	}
+	log(`pools: ${direct.length} direct, ${viaCommons.length} via Commons, ${blocked.length} blocked-host`);
 
 	let progress = 0;
 	const tick = (): void => {
@@ -180,24 +232,26 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 		if (progress % 100 === 0) log(`embed: ${progress}/${todo.length} (${failed} failed)`);
 	};
 
-	// Fast hosts with small concurrency (encoding is the bottleneck anyway).
-	const CONCURRENCY = 3;
-	let next = 0;
-	await Promise.all(
-		Array.from({ length: CONCURRENCY }, async () => {
-			while (next < fast.length) {
-				const w = fast[next++] as Work;
-				await embedOne(w);
-				tick();
-			}
-		})
-	);
-	// Polite hosts serially at ~1 rps, with a circuit breaker: if the host
-	// refuses HOST_BREAKER_LIMIT works in a row (CDN-level block), stop
-	// hitting it — the incremental next run will pick these up.
+	const runPool = async (pool: Work[], concurrency: number, delayMs: number): Promise<void> => {
+		let next = 0;
+		await Promise.all(
+			Array.from({ length: concurrency }, async () => {
+				while (next < pool.length) {
+					const w = pool[next++] as Work;
+					await embedOne(w);
+					tick();
+					if (delayMs > 0) await sleep(delayMs);
+				}
+			})
+		);
+	};
+
+	await runPool(direct, 3, 0);
+	await runPool(viaCommons, 2, 250);
+
 	let consecutive = 0;
 	let tripped = 0;
-	for (const w of polite) {
+	for (const w of blocked) {
 		if (consecutive >= HOST_BREAKER_LIMIT) {
 			failed++;
 			tripped++;
@@ -209,7 +263,7 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 	}
 	if (tripped > 0) {
 		log(
-			`circuit breaker: polite host refused ${HOST_BREAKER_LIMIT} in a row — ` +
+			`circuit breaker: blocked host refused ${HOST_BREAKER_LIMIT} in a row — ` +
 				`skipped the remaining ${tripped} works this run (a later run will retry them)`
 		);
 	}
@@ -220,5 +274,5 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 				`aborting instead of committing a regression`
 		);
 	}
-	await writeStore(catalogDir, { ids, scales, rows }, failed, log);
+	await writeStore(catalogDir, { ids, scales, rows, origins }, failed, log);
 }
