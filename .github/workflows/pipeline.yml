@@ -1,0 +1,72 @@
+name: Catalog pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'sample = fetch tiny raw samples; build = full catalog build'
+        required: true
+        default: sample
+        type: choice
+        options: [sample, build]
+      limit:
+        description: 'max works per source (build mode)'
+        required: false
+        default: '1500'
+      sources:
+        description: 'comma-separated sources (build mode)'
+        required: false
+        default: 'aic,cma'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Sample mode — fetch raw records for shape inspection
+        if: inputs.mode == 'sample'
+        run: npm run -w pipeline run sample
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'sample'
+        with:
+          name: raw-samples
+          path: pipeline/work/samples/
+          retention-days: 7
+
+      - name: Build mode — full catalog build with live image probing
+        if: inputs.mode == 'build'
+        run: npm run -w pipeline run build -- --limit=${{ inputs.limit }} --sources=${{ inputs.sources }} --out=../app/static/catalog
+
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'build'
+        with:
+          name: pipeline-report
+          path: pipeline/work/report.json
+          retention-days: 30
+
+      - name: Commit catalog to the branch
+        if: inputs.mode == 'build'
+        run: |
+          git config user.name "beholder-pipeline[bot]"
+          git config user.email "noreply@github.com"
+          git add app/static/catalog
+          if git diff --cached --quiet; then
+            echo "No catalog changes."
+          else
+            COUNT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('app/static/catalog/index.json','utf8')).count)")
+            git commit -m "pipeline: catalog build — ${COUNT} works (${{ inputs.sources }})"
+            git push
+          fi

@@ -3,11 +3,19 @@
 	"private": true,
 	"version": "0.1.0",
 	"type": "module",
-	"description": "Beholder catalog pipeline — fetch, normalize, dedupe, tag, validate, publish. Built in milestone M1.",
+	"description": "Beholder catalog pipeline — fetch, normalize, dedupe, tag, validate, publish.",
 	"scripts": {
-		"test": "vitest run --passWithNoTests"
+		"run": "tsx src/run.ts",
+		"test": "vitest run",
+		"check": "tsc --noEmit"
 	},
 	"devDependencies": {
+		"@types/node": "^22.19.0",
+		"tsx": "^4.20.0",
+		"typescript": "^5.9.3",
 		"vitest": "^4.0.18"
+	},
+	"dependencies": {
+		"zod": "^4.1.0"
 	}
 }
