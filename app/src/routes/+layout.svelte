@@ -28,6 +28,12 @@
 	{#if !onSession}
 		<nav class="tabs" aria-label="Main">
 			<a href={`${base}/`} class:active={path === `${base}/` || path === base}>{t.nav.home}</a>
+			<a
+				href={`${base}/discover/`}
+				class:active={path.startsWith(`${base}/discover`) || path.startsWith(`${base}/work`)}
+			>
+				{t.nav.discover}
+			</a>
 			<a href={`${base}/profile/`} class:active={path.startsWith(`${base}/profile`)}>
 				{t.nav.profile}
 			</a>

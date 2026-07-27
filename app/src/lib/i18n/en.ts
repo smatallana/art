@@ -129,6 +129,36 @@ export const t = {
 			'Beholder never invents precision: bars show relative confidence, and every claim carries its evidence level. Conclusions change as your choices accumulate.'
 	},
 
+	discover: {
+		title: 'Discover',
+		searchPlaceholder: 'Search artist, title, museum…',
+		results: (n: number) => (n === 1 ? '1 work found' : `${n} works found`),
+		clear: 'Clear',
+		close: 'Close to your eye',
+		closeHint: 'Unseen works the model expects you to respond to — each card says why.',
+		challenge: 'Challenges your eye',
+		challengeHint: 'Outside your comfort zone on purpose — the map stays honest this way.',
+		needSessions:
+			'Personal recommendations unlock after a few sessions — the explorer below works right away.',
+		surprise: 'Surprise me',
+		artists: 'Artists you have not met',
+		artistsHint: 'Predicted from their whole body of work in the collection.',
+		explore: 'Explore the collection'
+	},
+
+	work: {
+		whyTitle: 'Why this might speak to you',
+		viewFull: 'View full screen',
+		closeFull: 'Close full screen',
+		seenInPerson: 'Seen in person',
+		seenInPersonDone: 'Seen in person ✓',
+		notes: 'Your notes',
+		notePlaceholder: 'A thought to keep with this work…',
+		noteSave: 'Keep note',
+		noteSaved: 'Kept',
+		notFound: 'This work is not in the current collection.'
+	},
+
 	account: {
 		title: 'Account & sync',
 		guestHint:
@@ -151,6 +181,7 @@ export const t = {
 
 	nav: {
 		home: 'Home',
+		discover: 'Discover',
 		saved: 'Saved',
 		profile: 'Your eye',
 		settings: 'Settings'
