@@ -56,3 +56,24 @@ tiers, GitHub limits) informed these choices — summarized in ARCHITECTURE.md:
   (locally only Chromium is preinstalled).
 - Service worker runtime caches are capped (600 artwork images, 60-day TTL, purge on quota
   error) so iOS storage pressure never breaks the app.
+
+## 2026-07-27 — Tramo 2 (M4–M7) implementation notes
+
+- **Cookie-free auth**: better-auth was planned, but Safari's third-party
+  cookie blocking between github.io and workers.dev breaks cookie sessions
+  on the priority platform. Implemented OAuth directly on the worker with a
+  one-time-code fragment handoff and opaque hashed bearer tokens — fewer
+  dependencies, fully unit-tested against a strict FakeD1.
+- **AIC operational learnings** (from live failures): the search API caps
+  any query's window at 1,000 results → date-bucket partitioning; probing
+  their IIIF at concurrency 6 gets blocked → per-host polite validation
+  (serial ~1 rps, sampled), full sweep for Cleveland.
+- **CI red herring**: E2E step lacked BASE_PATH → relative navigations
+  escaped /art only in CI. Fixed + WebKit download-anchor and
+  reveal-before-reload race fixes.
+- **workers.dev subdomain** auto-registered via the CF API (candidate
+  fallbacks); deploy step hardened with pipefail after a masked failure.
+- **Snap** ships fully client-side (same CLIP checkpoint as the pipeline)
+  rather than Workers AI — no model-mismatch risk, photos never leave the
+  device; server assist stays in backlog.
+- **Met deferred** until R2 mirroring (their image host is anti-bot).

@@ -11,18 +11,22 @@ seen.
 
 **Live app:** https://smatallana.github.io/art/
 
+**API:** https://beholder-api.beholder-app.workers.dev (health: `/health`)
+
 ## Status
 
 | Milestone | Scope | Status |
 |---|---|---|
 | M0 | Foundation: monorepo, CI, installable PWA shell on GitHub Pages | ✅ |
-| M1 | Catalog v1: reproducible pipeline (AIC, Cleveland, Met, Rijksmuseum), ~2–3k public-domain paintings | 🔜 |
-| M2 | Core session loop, local-first persistence, offline queue | ⏳ |
-| M3 | Adaptive engine (Bayesian Bradley–Terry + active learning) and taste profile | ⏳ |
-| M4 | Accounts (Google sign-in), multi-device sync (Cloudflare Workers + D1) | ⏳ |
-| M5 | Discovery layer + Snap (photograph a painting in the wild) | ⏳ |
-| M6 | Memory: spaced repetition and recognition | ⏳ |
-| M7 | Polish, accessibility, performance budgets, full docs | ⏳ |
+| M1 | Catalog v1: reproducible pipeline — **3,665 public-domain paintings** (Art Institute of Chicago + Cleveland Museum of Art), live image validation | ✅ |
+| M2 | Core session loop, reveal with micro-stories, local-first persistence, session resume | ✅ |
+| M3 | Bayesian taste model + active learning (info-gain / exploration / challenge / refutation / consistency slots), explainable profile with evidence tiers | ✅ |
+| M4 | Accounts (Google sign-in, cookie-free across origins), idempotent multi-device sync, export & delete (Cloudflare Workers + D1) | ✅ |
+| M5 | Discovery (explainable recs, artists, explore, search) + Snap (photograph a real painting → CLIP match → confirm) | ✅ |
+| M6 | Memory: SM-2-lite spaced repetition, self-graded recognition | ✅ |
+| M7 | Docs, acceptance checklist, keyboard shortcuts, prior import | ✅ |
+
+Named caveats and next steps: `docs/ACCEPTANCE.md`, `docs/RISKS.md`, `docs/BACKLOG.md`.
 
 ## Repository layout
 

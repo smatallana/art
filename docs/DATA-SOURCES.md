@@ -1,0 +1,62 @@
+# Data sources, licensing & attribution
+
+Beholder is public and non-commercial; the catalog is restricted to
+**public-domain works with CC0/open metadata**, verified against each
+institution's official documentation (research date: 2026-07-27).
+
+## Active sources (v1)
+
+### Art Institute of Chicago
+- API: `https://api.artic.edu/api/v1/artworks/search` (no key). Anonymous
+  limit 60 req/min; the pipeline pages politely and partitions queries by
+  `date_start` ranges (the search window exposes only the first 1,000 hits).
+- License: **CC0** metadata; works flagged `is_public_domain` have CC0
+  images. Their docs explicitly permit pulling from the IIIF Image API at
+  ~1 request/second — the only source we hotlink by their own invitation.
+- Images: IIIF — thumb `/full/400,/`, display `/full/843,/`, large
+  `/full/1686,/`.
+- Attribution shown in-app: *"Art Institute of Chicago — CC0 Public Domain
+  Designation"*.
+
+### The Cleveland Museum of Art
+- API: `https://openaccess-api.clevelandart.org/api/artworks/` (no key,
+  no published rate limit; we stay polite). Filter
+  `type=Painting&cc0=1&has_image=1`.
+- License: **CC0** dataset and CC0 images for open-access works.
+  `did_you_know` / `fun_fact` fields feed the micro-stories.
+- Images: direct CDN URLs (`web` ~900px, `print` large master).
+- Attribution shown in-app: *"The Cleveland Museum of Art — CC0"*.
+
+## Evaluated and deferred / rejected
+
+- **The Met** (CC0, ~5k PD paintings): deferred — no IIIF, anti-bot image
+  host; requires the R2 mirroring stage before inclusion. Backlog.
+- **Rijksmuseum** (CC0, full IIIF, keyless Search/OAI-PMH): deferred to the
+  next catalog expansion. (Their old keyed API is deprecated.)
+- **NGA Washington / Wikidata**: enrichment + cross-source dedupe layer
+  (Q-ids). Backlog.
+- **SMK Denmark / Yale LUX**: good CC0 candidates; backlog.
+- **Harvard Art Museums**: **rejected** — images restricted to
+  non-commercial use, mandatory hotlinking, 2-week cache cap, 2.5k calls/day.
+- **WikiArt**: **rejected** — aggregated images without open licensing.
+
+## Pipeline guarantees
+
+Every published record carries: canonical id, source id, rights status and
+an attribution string (always rendered in the UI), the official museum page
+URL, image dimensions/aspect, per-dimension tags with `{value, confidence,
+source: meta|clip|curated}`, and quality flags. Cross-museum artist+title
+collisions are **flagged** (`possible-duplicate`), never silently dropped —
+versions and copies of a composition are art-historically legitimate.
+
+Live image validation runs at build time: full sweep on fast hosts,
+serial ~1 rps sampled sweep on AIC (their etiquette; their IIIF URL scheme
+is uniform). Works whose display image fails are excluded from publication.
+
+## Adding a source
+
+Implement `SourceAdapter` (`pipeline/src/types.ts`): `fetchSample`,
+`fetchRaw` (polite paging), `normalize` (→ canonical `Work` with rights +
+attribution) and a tag-fields extractor; register it in `run.ts`; verify
+with `pipeline.yml` sample mode (it normalizes live records into the job
+log); then run a `build`. Document license terms here first.

@@ -1,0 +1,15 @@
+{
+	"version": 1,
+	"label": "Example starting profile",
+	"weights": {
+		"form.abstraction": -0.3,
+		"color.restraint": -0.25,
+		"narr.implicit": 0.3,
+		"mood.mystery": 0.25
+	},
+	"artists": {
+		"Edward Hopper": 0.6,
+		"Johannes Vermeer": 0.5
+	},
+	"uncertain": ["subject.interior", "form.brushwork"]
+}

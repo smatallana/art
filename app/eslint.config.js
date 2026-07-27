@@ -30,6 +30,7 @@ export default ts.config(
 				Image: 'readonly',
 				AbortSignal: 'readonly',
 				Event: 'readonly',
+				KeyboardEvent: 'readonly',
 				HTMLInputElement: 'readonly',
 				HTMLElement: 'readonly',
 				setTimeout: 'readonly',

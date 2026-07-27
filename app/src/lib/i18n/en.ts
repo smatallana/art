@@ -97,6 +97,11 @@ export const t = {
 		aboutBody:
 			'Beholder is an open, non-commercial project. All artworks are in the public domain; metadata and images come from the source museums under CC0.',
 		attributions: 'Collections',
+		priorHint:
+			'Have starting hypotheses from earlier comparisons? Import them as a low-confidence prior - the sessions ahead will test them, not confirm them.',
+		priorBtn: 'Import starting profile (JSON)',
+		priorDone: 'Starting profile imported as provisional hypotheses.',
+		priorFailed: 'That file does not look like a Beholder starting profile.',
 		privacy:
 			'No analytics, no tracking. Your responses stay on this device until you create an account and choose to sync.'
 	},
@@ -185,6 +190,11 @@ export const t = {
 		intro:
 			'Saw a painting in the wild? Photograph it and Beholder will try to find it in the collection - your confirmation is the signal.',
 		takePhoto: 'Photograph a painting',
+		priorHint:
+			'Have starting hypotheses from earlier comparisons? Import them as a low-confidence prior - the sessions ahead will test them, not confirm them.',
+		priorBtn: 'Import starting profile (JSON)',
+		priorDone: 'Starting profile imported as provisional hypotheses.',
+		priorFailed: 'That file does not look like a Beholder starting profile.',
 		privacy: 'Photos never leave this device. No location is recorded.',
 		loadingCatalog: 'Loading the visual index…',
 		loadingModel: 'First time: downloading the vision model (~30 MB, cached after this)…',

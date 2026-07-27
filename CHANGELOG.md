@@ -3,6 +3,29 @@
 All notable changes to Beholder are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.2.0] — 2026-07-27
+
+### Added
+- Catalog v1: 3,665 public-domain paintings (AIC + Cleveland) via the
+  reproducible pipeline; live image validation; micro-stories; ontology tags.
+- Core session loop with reveal, reactions, strength, save/remember,
+  "why this pairing"; local-first persistence and session resume.
+- Bayesian taste model (Bradley–Terry + weak signals, evidence tiers,
+  consistency temperature, conflict detection) with active pair selection
+  (information gain, exploration, challenge, refutation, consistency).
+- "Your eye" profile: natural-language reading, affinities/aversions with
+  evidence badges, contradictions, artist records, evolution timeline.
+- Accounts and multi-device sync: Cloudflare Worker + D1, cookie-free
+  Google OAuth, idempotent append-only event sync, export, account deletion.
+- Discovery: explainable close/challenge recommendations, era-stratified
+  surprise, unmet artists, explore filters, search; work detail with notes,
+  seen-in-person, fullscreen viewer.
+- Snap: photograph a painting → client-side CLIP match against catalog
+  embeddings → human-confirmed strong signal, or private field notebook.
+- Memory: SM-2-lite spaced repetition with self-graded recognition.
+- Starting-profile import (low-confidence provisional priors with
+  refutation probes); session keyboard shortcuts; full documentation set.
+
 ## [0.1.0] — 2026-07-27
 
 ### Added

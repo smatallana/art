@@ -37,6 +37,40 @@
 		URL.revokeObjectURL(url);
 	}
 
+	let priorMsg = $state('');
+
+	async function importPrior(e: Event): Promise<void> {
+		const input = e.currentTarget as HTMLInputElement;
+		const file = input.files?.[0];
+		input.value = '';
+		if (!file) return;
+		try {
+			const spec = JSON.parse(await file.text());
+			if (
+				typeof spec !== 'object' ||
+				spec == null ||
+				typeof spec.version !== 'number' ||
+				typeof spec.weights !== 'object'
+			) {
+				throw new Error('shape');
+			}
+			await app.record({
+				t: 'prior_import',
+				spec: {
+					version: spec.version,
+					label: String(spec.label ?? 'imported'),
+					weights: spec.weights,
+					artists: spec.artists ?? {},
+					uncertain: spec.uncertain ?? []
+				}
+			});
+			app.rebuildModel();
+			priorMsg = t.settings.priorDone;
+		} catch {
+			priorMsg = t.settings.priorFailed;
+		}
+	}
+
 	async function resetLocal(): Promise<void> {
 		if (!confirm(t.settings.resetConfirm)) return;
 		await clearAllLocalData();
@@ -97,6 +131,16 @@
 		</div>
 		{#if resetDone}
 			<p class="hint">{t.settings.resetDone}</p>
+		{/if}
+		<p class="hint">{t.settings.priorHint}</p>
+		<div class="row">
+			<label class="btn file-btn">
+				<input type="file" accept="application/json" onchange={importPrior} />
+				{t.settings.priorBtn}
+			</label>
+		</div>
+		{#if priorMsg}
+			<p class="hint">{priorMsg}</p>
 		{/if}
 		<p class="hint">{t.settings.privacy}</p>
 	</section>
@@ -170,6 +214,17 @@
 	a.btn {
 		display: inline-flex;
 		align-items: center;
+	}
+	.file-btn {
+		display: inline-flex;
+		align-items: center;
+		cursor: pointer;
+	}
+	.file-btn input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
 	}
 	a.btn:hover {
 		text-decoration: none;

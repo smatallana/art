@@ -39,7 +39,19 @@
 		await app.endSession();
 		goto(`${base}/`);
 	}
+
+	function onKey(e: KeyboardEvent): void {
+		if (!sess) return;
+		if (sess.phase === 'choosing') {
+			if (e.key === '1' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') void choose('a');
+			else if (e.key === '2' || e.key === 'ArrowDown' || e.key === 'ArrowRight') void choose('b');
+		} else if (sess.phase === 'revealed' && e.key === 'Enter') {
+			void next();
+		}
+	}
 </script>
+
+<svelte:window onkeydown={onKey} />
 
 <svelte:head>
 	<title>Session — Beholder</title>
