@@ -70,7 +70,11 @@ export interface AicRecord {
 	credit_line: string | null;
 }
 
-async function searchPage(offset: number, limit: number): Promise<AicSearchResponse> {
+async function searchPage(
+	offset: number,
+	limit: number,
+	dateRange?: { gte?: number; lt?: number }
+): Promise<AicSearchResponse> {
 	const params = new URLSearchParams({
 		'query[bool][must][0][term][is_public_domain]': 'true',
 		'query[bool][must][1][term][artwork_type_title.keyword]': 'Painting',
@@ -79,8 +83,31 @@ async function searchPage(offset: number, limit: number): Promise<AicSearchRespo
 		limit: String(limit),
 		from: String(offset)
 	});
+	if (dateRange?.gte != null) {
+		params.set('query[bool][must][3][range][date_start][gte]', String(dateRange.gte));
+	}
+	if (dateRange?.lt != null) {
+		params.set('query[bool][must][3][range][date_start][lt]', String(dateRange.lt));
+	}
 	return fetchJson<AicSearchResponse>(`${API}?${params}`);
 }
+
+/**
+ * The AIC search API only exposes the first 1,000 results of any query, so
+ * the full sweep partitions the collection by date_start ranges — each
+ * bucket stays under the cap; ids are deduped across buckets.
+ */
+const DATE_BUCKETS: { gte?: number; lt?: number }[] = [
+	{ lt: 1500 },
+	{ gte: 1500, lt: 1650 },
+	{ gte: 1650, lt: 1780 },
+	{ gte: 1780, lt: 1850 },
+	{ gte: 1850, lt: 1875 },
+	{ gte: 1875, lt: 1900 },
+	{ gte: 1900, lt: 1925 },
+	{ gte: 1925 }
+];
+const SEARCH_WINDOW_CAP = 1000;
 
 export function iiifUrl(imageId: string, width: number): string {
 	return `${IIIF}/${imageId}/full/${width},/0/default.jpg`;
@@ -118,15 +145,34 @@ export const aic: SourceAdapter = {
 	},
 
 	async fetchRaw(limit: number, log): Promise<unknown[]> {
+		const seen = new Set<number>();
 		const out: unknown[] = [];
-		let offset = 0;
-		while (out.length < limit) {
-			const page = await searchPage(offset, Math.min(PAGE_SIZE, limit - out.length));
-			out.push(...page.data);
-			offset += page.data.length;
-			log(`aic: ${out.length}/${Math.min(limit, page.pagination.total)}`);
-			if (offset >= page.pagination.total || page.data.length === 0) break;
-			await sleep(1100); // stay well under 60 req/min
+		for (const bucket of DATE_BUCKETS) {
+			if (out.length >= limit) break;
+			let offset = 0;
+			while (out.length < limit && offset < SEARCH_WINDOW_CAP) {
+				let page: AicSearchResponse;
+				try {
+					page = await searchPage(
+						offset,
+						Math.min(PAGE_SIZE, limit - out.length, SEARCH_WINDOW_CAP - offset),
+						bucket
+					);
+				} catch (e) {
+					log(`aic: bucket ${JSON.stringify(bucket)} page at ${offset} failed (${e}); moving on`);
+					break;
+				}
+				for (const r of page.data) {
+					if (!seen.has(r.id)) {
+						seen.add(r.id);
+						out.push(r);
+					}
+				}
+				offset += page.data.length;
+				log(`aic: ${out.length} collected (bucket ${JSON.stringify(bucket)}: ${offset}/${Math.min(page.pagination.total, SEARCH_WINDOW_CAP)})`);
+				if (offset >= page.pagination.total || page.data.length === 0) break;
+				await sleep(1100); // stay well under 60 req/min
+			}
 		}
 		return out;
 	},

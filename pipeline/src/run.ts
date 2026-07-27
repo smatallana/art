@@ -109,7 +109,15 @@ async function cmdBuild(): Promise<void> {
 		const adapter = ADAPTERS[id];
 		if (!adapter) throw new Error(`unknown source: ${id}`);
 		log(`fetching up to ${limit} from ${id}…`);
-		const raws = await adapter.fetchRaw(limit, log);
+		let raws: unknown[] = [];
+		try {
+			raws = await adapter.fetchRaw(limit, log);
+		} catch (e) {
+			// One source failing must not sink the whole build.
+			log(`source ${id} FAILED: ${e}`);
+			rejects[`${id}:fetch-failed`] = 1;
+			continue;
+		}
 		for (const raw of raws) {
 			const result = adapter.normalize(raw);
 			if ('reject' in result) {
