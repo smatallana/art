@@ -1,0 +1,4935 @@
+{
+	"generatedAt": "2026-07-27T20:34:06.373Z",
+	"counts": {
+		"aicWorks": 1557,
+		"wikidata": 1220,
+		"insource": 11,
+		"unmatched": 326
+	},
+	"map": {
+		"aic-100060": {
+			"file": "Pierre Henri de Valenciennes - Alexander at the Tomb of Cyrus the Great - 1983.35 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100061": {
+			"file": "Pierre Henri de Valenciennes - Mount Athos Carved as a Monument to Alexander the Great - 1983.36 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100191": {
+			"file": "Claude Monet - Stack of Wheat (Thaw, Sunset) - 1983.166 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100342": {
+			"file": "Peter Paul Rubens - Saint Francis - 1983.372 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100345": {
+			"file": "Jacob Cornelisz. van Oostsanen - The Adoration of the Christ Child - 1983.375 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100346": {
+			"file": "Jean Bellegambe - Saint Catherine - 1983.376 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100347": {
+			"file": "Jean Bellegambe - Saint Barbara - 1983.377 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100348": {
+			"file": "Anonymous - Giafar - 1983.378 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100350": {
+			"file": "Jean Léon Gérôme - Chariot Race - 1983.380 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100351": {
+			"file": "Odalisque by Jules Lefebvre (1874).jpg",
+			"method": "wikidata"
+		},
+		"aic-100352": {
+			"file": "Mariano Fortuny y Marsal - African Chief - 1983.382 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100354": {
+			"file": "Antonio Vivarini - Saint Peter Martyr Exorcizing a Woman Possessed by a Devil - 1983.384 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100356": {
+			"file": "Follower of Peter Paul Rubens - The Apotheosis of the Hero - 1983.386 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100476": {
+			"file": "Henri Edmond Cross - Beach at Cabasson (Baigne-Cul) - 1983.513 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100487": {
+			"file": "Anonymous - Shah Inayat Allah of Sind with his Musician Makkhu and his Attendant Shaykh Qiyam al-Din, page from the Fraser Album - 1983.526 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100489": {
+			"file": "William Bradford - The Coast of Labrador - 1983.529 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-100829": {
+			"file": "Martin Johnson Heade - Magnolias on Light Blue Velvet Cloth - 1983.791 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102087": {
+			"file": "Unknown Central Italian - Virgin and Child - 1984.16 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102088": {
+			"file": "Marcellus Koffermans - Assumption of the Virgin - 1984.17 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102089": {
+			"file": "Adriaan de Lelie - Mother and Two Children with Still Life - 1984.18 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102090": {
+			"file": "Master Palanquinos - The Beheading of Saint John the Baptist - 1984.19 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102098": {
+			"file": "Unknown artist - Phaeton Driving the Chariot of Phoebus - 1984.27 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102227": {
+			"file": "Benjamin West - The Expulsion of Adam and Eve from Paradise - 1984.175 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-102777": {
+			"file": "Joseph Blackburn - Abigail Chesebrough (Mrs. Alexander Grant) - 1984.725 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-10281": {
+			"file": "School of Anthonis Mor - Portrait of a Man - 1931.937 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-10287": {
+			"file": "François Boucher - Bathing Nymph - 1931.938 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-103302": {
+			"file": "Li Shizhuo - Landscape, Beautiful Scenery Frozen in Mist - 1984.1339 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-103305": {
+			"file": "Anonymous - Painted Banner (Thangka) of Vajrasattva Mandala - 1984.1342 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-103391": {
+			"file": "Adolphe Joseph Thomas Monticelli - Mephisto from the Opera Faust - 1984.1493 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-104082": {
+			"file": "Shepard Alonzo Mount - Fish - 1985.239 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-104106": {
+			"file": "Jean-François Rafaëlli - Two Washerwomen Crossing a Small Park in Paris - 1985.262 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-104107": {
+			"file": "Thomas Hudson - John Newton - 1985.263 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-10509": {
+			"file": "Tintoretto - Saint Helen Testing the True Cross - 1932.44 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105100": {
+			"file": "Rembrandt Peale - Samuel Fisher Bradford - 1986.21 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105462": {
+			"file": "Childe Hassam - The Little Pond, Appledore - 1986.421 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105466": {
+			"file": "Joachim Antonisz. Wtewael - The Battle between the Gods and the Giants - 1986.426 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105474": {
+			"file": "Anonymous - Houses on the Fox River, Illinois - 1986.434 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-10550": {
+			"file": "Pietro Longhi - The Dance - 1932.52 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105528": {
+			"file": "Jiang Hong - Birds on a Tree with Fruit and Autumn Foliage - 1986.862 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105600": {
+			"file": "Mrs. Philip Dupont, c. 1778, by Thomas Gainsborough - Art Institute of Chicago - DSC09480.JPG",
+			"method": "wikidata"
+		},
+		"aic-105604": {
+			"file": "Anne-Louis Girodet de Roussy-Trioson - Portrait of the Katchef Dahouth, Christian Mameluke - 1987.260 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105698": {
+			"file": "Anonymous - La Bonne Aventure (The Fortune Teller) - 1977.6 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105704": {
+			"file": "Jean Baptiste Henri Deshays - Saint John the Baptist Preaching in the Desert - 1979.540 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105786": {
+			"file": "Guo Xi - Water Pavilion by Twin Pines - 1955.17 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105887": {
+			"file": "Aert de Gelder - Portrait of a Young Woman - 1932.1175 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-105945": {
+			"file": "Frans Hals - Portrait of a Lady - 1954.287 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-107836": {
+			"file": "Follower of Jean Auguste Dominique Ingres - Portrait of Luigi Edouardo Rossi, Count Pellegrino - 1963.204 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-107862": {
+			"file": "Childe Hassam - Bailey's Beach, Newport, R.I. - 1936.243 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-107920": {
+			"file": "Imitator of François Clouet - Portrait of Elizabeth of Austria, Wife of King Charles IX of France - 1951.317 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-107938": {
+			"file": "Jean Antoine Watteau - Fête champêtre (Pastoral Gathering) - 1954.295 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-107939": {
+			"file": "Ezra Ames - Mrs. Noah Smith and Family - 1954.311 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109220": {
+			"file": "Jacopo Bassano - Annunciation to the Shepherds - 1935.297 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109228": {
+			"file": "John Frederick Kensett - Near Newport - 1944.686 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109314": {
+			"file": "Vincent van Gogh - Fishing in Spring, the Pont de Clichy (Asnières) - 1965.1169 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109323": {
+			"file": "Jacopo Bassano - Virgin and Child with the Young Saint John the Baptist - 1968.320 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109418": {
+			"file": "Paul Cézanne - Bathers - 1973.672 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109426": {
+			"file": "Pieter Mulier, (il Cavaliere Tempesta) - Tobias and the Angel - 1974.12 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109487": {
+			"file": "Joachim Beuckelaer - Portrait of a Young Woman - 1989.100 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109571": {
+			"file": "Anonymous - Tantric Temple Banner of a Dancing Goddess Flanked by Dakinis - 1984.1503 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109693": {
+			"file": "Paul Camille Guigou - The Banks of the River Durance at Saint Paul - 1986.137 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109780": {
+			"file": "George Bellows - Love of Winter, 1914.jpg",
+			"method": "wikidata"
+		},
+		"aic-109819": {
+			"file": "Piet Mondrian - Lozenge Composition with Yellow, Black, Blue, Red, and Gray - 1957.307 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-109885": {
+			"file": "Style of Jean Baptiste Greuze - Ange Laurent de Lalive de Jully - 1969.109 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11": {
+			"file": "Self-Portrait 1878.jpg",
+			"method": "insource"
+		},
+		"aic-11003": {
+			"file": "John Singleton Copley - Mrs. Henry Hill (Anna Barrett) - 1959.511 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11022": {
+			"file": "Giulio Carpioni - The Sacrifice of Polyxena - 1932.203 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110242": {
+			"file": "Giorgio Vasari - The Temptation of Saint Jerome - 1964.64 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11025": {
+			"file": "John Smibert - Captain John Garish - 1959.517 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110305": {
+			"file": "Anonymous - Courtesan - 1933.8 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110306": {
+			"file": "Chôbunsai Eishi - The Salt Maidens, Matsukaze with Yukihira's Coat - 1933.10 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110416": {
+			"file": "Anonymous - Samurai - 1933.7 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110507": {
+			"file": "Arnold Böcklin - In the Sea - 1990.443 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110527": {
+			"file": "Jan van Scorel - Landscape with Tournament and Hunters - 1990.560 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110541": {
+			"file": "Camille Pissarro - Le Crystal Palace, Londres.jpg",
+			"method": "wikidata"
+		},
+		"aic-110559": {
+			"file": "Dutch School - Portrait of a Woman - 1954.284 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110661": {
+			"file": "Frédéric Bazille - Self-Portrait - 1962.336 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110673": {
+			"file": "Dieric Bouts - Mater Dolorosa (Sorrowing Virgin) - 1986.998 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110759": {
+			"file": "Pontormo, (Jacopo Carrucci) - Alessandro de' Medici - 1933.1002 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110760": {
+			"file": "Apollonio di Giovanni - The Adventures of Ulysses - 1933.1006 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110761": {
+			"file": "John Singer Sargent - Venetian Glass Workers - 1933.1217 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110767": {
+			"file": "Joos de Momper, II - Mountain Landscape - 1935.157 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110782": {
+			"file": "Jacopo Bassano - Diana and Actaeon - 1939.2239 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110798": {
+			"file": "Renoir - Seated Bather, 1914.jpg",
+			"method": "wikidata"
+		},
+		"aic-110824": {
+			"file": "Anonymous - Woman with Female Servant in a Palace Garden - 1947.535 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110867": {
+			"file": "Jean Louis Forain - Tight-Rope Walker - 1951.208 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110869": {
+			"file": "Master of the 1540s - Portrait of a Woman - 1953.471 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110871": {
+			"file": "Anonymous - Portrait of a Gentleman - 1954.195 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110873": {
+			"file": "Jean Baptiste Santerre - Portrait of a Sculptor - 1954.303 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-110879": {
+			"file": "Chicago art inst singer sargent m dyer.JPG",
+			"method": "wikidata"
+		},
+		"aic-110982": {
+			"file": "Odilon Redon - Still Life with Flowers - 1988.141.22 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111057": {
+			"file": "Adolphe Joseph Thomas Monticelli - The Fairies - 1947.96 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111059": {
+			"file": "Juan de Zurbarán - Flowers and Fruit in a China Bowl - 1947.511 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111062": {
+			"file": "Paul Gauguin - Te raau rahi (The Big Tree) - 1949.513 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111074": {
+			"file": "Francesco Guardi - The Grand Canal, Venice - 1951.21 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111078": {
+			"file": "Anonymous - Portrait of a Man - 1951.224 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111250": {
+			"file": "Antonio Rimpatta - The Holy Family with Four Saints and a Female Donor - 1963.209 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111295": {
+			"file": "Samuel Jones - Conflagration of the Masonic Hall, Chestnut Street, Philadelphia, Pennsylvania - 1983.28 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111317": {
+			"file": "Jean Auguste Dominique Ingres - Amédée-David, the Comte de Pastoret - 1971.452 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111318": {
+			"file": "Claude Monet - Stack of Wheat - 1983.29 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111377": {
+			"file": "William Michael Harnett - For Sunday's Dinner - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-111418": {
+			"file": "Laurent de La Hyre - Panthea, Cyrus, and Araspas - 1976.292 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111427": {
+			"file": "Spanish School - Democritus, the Laughing Philosopher - 1897.291 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111428": {
+			"file": "Spanish School - Heraclitus, the Weeping Philosopher - 1897.296 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111436": {
+			"file": "Paul Cézanne - The Basket of Apples - 1926.252 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111441": {
+			"file": "Follower of Lucas van Leyden - The Adoration of the Magi - 1933.1045 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111442": {
+			"file": "Mary Cassatt - The Child's Bath - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-111444": {
+			"file": "Master of Riglos - Retable of Saints Athanasius, Blaise, and Agatha - 1911.201 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111453": {
+			"file": "Jacob Patinir - Landscape with the Penitent Saint Jerome - 1953.27 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111455": {
+			"file": "Master of the Freising Visitation - Christ Carrying the Cross - 1916.371 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111456": {
+			"file": "Jan Gossart - Virgin and Child - 1957.47 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11146": {
+			"file": "Painting of Chigo Daishi with Goyuigo Inscription, 15th century - Crop and contrast.jpg",
+			"method": "insource"
+		},
+		"aic-111467": {
+			"file": "Follower of Rembrandt Harmenszoon van Rijn - The Raising of Lazarus - 1970.1010 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111478": {
+			"file": "James McNeill Whistler - Portrait of Dr. William McNeill Whistler - 1977.235 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111559": {
+			"file": "Francisco José de Goya y Lucientes - Boy on a Ram - 1979.479 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111608": {
+			"file": "Anonymous - Emperor Heraclius Slays the King of Persia - 1990.561 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111609": {
+			"file": "Anonymous - Emperor Heraclius Denied Entry into Jerusalem - 1990.562 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111610": {
+			"file": "Francesco Guardi - The Garden of Palazzo Contarini dal Zaffo - 1991.112 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111614": {
+			"file": "Nicolaes Maes - Portrait of a Man - 1925.716 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111615": {
+			"file": "Philippe Jacques de Loutherbourg, II - The Destruction of Pharaoh's Army - 1991.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111616": {
+			"file": "John Theodore Heins, Sr. - Family Group on a Terrace - 1951.204 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111618": {
+			"file": "Cornelis Cort - The Battle of Zama - 1990.563 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111622": {
+			"file": "Carlo Crivelli - The Crucifixion - 1929.862 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111623": {
+			"file": "Constant Troyon - A Clump of Trees - 1894.1070 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111625": {
+			"file": "Mariano Fortuny y Marsal - Cavalier - 1894.1059 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111626": {
+			"file": "Jules-Élie Delaunay - Portrait of Mrs. Charles L. Hutchinson - 1936.122 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111630": {
+			"file": "Johan Barthold Jongkind - The Church of Overschie - 1933.1129 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111631": {
+			"file": "Don Francisco Bayeu y Subías - Old Testament Figures in Paradise - 1941.830 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111632": {
+			"file": "Maxime Maufra - Douarnenez in Sunshine - 1905.335 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111637": {
+			"file": "Andrés López López Polanco - Queen Margaret of Spain - 1941.975 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111639": {
+			"file": "Michele Tosini, called Michele di Ridolfo - Portrait of a Lady - 1937.459 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111645": {
+			"file": "David Teniers, the younger - The Rape of Europa - 1936.125 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111647": {
+			"file": "David Teniers, the younger - The Rape of Europa - 1936.124 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111648": {
+			"file": "Jean François Millet - Peasants Bringing Home a Calf Born in the Fields - 1894.1063 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111649": {
+			"file": "David Teniers, the younger - Abraham's Sacrifice of Isaac - 1936.123 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111650": {
+			"file": "Antoine Auguste Ernest Hébert - On Guard - 1894.1061 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111651": {
+			"file": "Eugène Fromentin - Women of the Ouled Nayls - 1894.1060 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111655": {
+			"file": "Stanislas Lépine - The Apple Market - 1933.1133 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111657": {
+			"file": "Anonymous - Double Portrait, Two Women - 1937.460 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111660": {
+			"file": "Pedro Girard - Saint Sebastian - 1942.603 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111663": {
+			"file": "Circle of Adriaen Isenbrant - Virgin and Child - 1929.863 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111667": {
+			"file": "Giovanni Paolo Panini - Festival in Piazza Navona - 1933.914 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111669": {
+			"file": "Harry Thompson - Landscape with Sheep, Picardy - 1904.15 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111670": {
+			"file": "Antwerp Mannerist - King Solomon Receiving the Queen of Sheba - 1936.126 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111671": {
+			"file": "Antwerp Mannerist - King David Receiving the Cistern Water of Bethlehem - 1936.127 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111718": {
+			"file": "Lucas Cranach the Elder - Adam - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-111730": {
+			"file": "Charles Louis-Lucien Muller - The Roll Call of the Last Victims of the Terror - RofO37672.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-111736": {
+			"file": "Alberto Pasini - Circassian Cavalry Awaiting their Commanding Officer at the Door of a Byzantine Monument, Memory of the Orient - 2003.48 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11272": {
+			"file": "Tawaraya Sôtatsu - Maize and Cockscombs - 1959.599 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11312": {
+			"file": "Kvinde der lapper.jpg",
+			"method": "wikidata"
+		},
+		"aic-11316": {
+			"file": "Anonymous - Portrait of a Gentleman - 1924.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11390": {
+			"file": "Jacopo da Empoli - Portrait of a Noblewoman Dressed in Mourning - 1960.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11392": {
+			"file": "Bartolomé Estéban Murillo - Saint John the Baptist Pointing to Christ - 1960.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11434": {
+			"file": "Guido Reni - Salome with the Head of Saint John the Baptist - 1960.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11548": {
+			"file": "Anonymous - Portrait of Kobo Daishi (Kukai) - 1960.40 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-116101": {
+			"file": "Henry Fuseli - Head of a Damned Soul from Dante's \"Inferno,\" (verso) - 1992.1531 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11613": {
+			"file": "Katsukawa Shunsho - Three Beauties Chatting by a Veranda - 1960.65 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-117201": {
+			"file": "Anonymous - Daruma - 1992.98 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-11723": {
+			"file": "Berthe Morisot - Woman at Her Toilette - 1924.127 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-117476": {
+			"file": "Adriaen van Ostade - Merrymakers in an Inn - 1894.1028 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-117477": {
+			"file": "François Bonvin - The Maid - 1933.1110 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-119264": {
+			"file": "Jean Louis André Théodore Géricault - Head of a Guillotined Man - 1992.628 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-119985": {
+			"file": "Henry Benbridge - Dr. Jonathan Potts (1745-1781) - 1990.484 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12007": {
+			"file": "Jean Antoine Watteau - The Dreamer (La Rêveuse) - 1960.305 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120081": {
+			"file": "Thomas Doughty - Landscape with Dog - 1990.485 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120102": {
+			"file": "Jonas Welch Holman - Woman with a Book - 1946.393 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120103": {
+			"file": "Jonas Welch Holman - Man with a Pen - 1946.392 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120104": {
+			"file": "Anonymous - Boy of Hallett Family with Dog - 1938.1333 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120154": {
+			"file": "Raphaelle Peale - Still Life - Strawberries, Nuts, ^c. - 1991.100 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120163": {
+			"file": "Thomas Birch - Capture of the Tripoli by the Enterprise - 1991.30 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120170": {
+			"file": "Eastman Johnson - Self-Portrait - 1924.126 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120171": {
+			"file": "William Turner Dannat - Study for \"An Aragonese Smuggler\" - 1887.231 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120172": {
+			"file": "Jusepe de Ribera - Penitent Saint Peter - 1993.60 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120296": {
+			"file": "William Merritt Chase - Wind-Swept Sands - 1991.249 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120662": {
+			"file": "Islamic - Zal Climbing to Rudaba, page from a copy of the Shahnama of Firdausi - 1983.627 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120668": {
+			"file": "Anonymous - Two Rajput Noblemen with a Child - 1983.633 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-120669": {
+			"file": "Mughal - Seduction Scene on a Terrace by Moonlight - 1983.634 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-121403": {
+			"file": "Julian Alden Weir - The Grey Bodice - 1911.536 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-121628": {
+			"file": "John Singer Sargent - Rehearsal of the Pasdeloup Orchestra at the Cirque d'Hiver - 81.1972 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-121629": {
+			"file": "Sargent - Life Study (Study of an Egyptian Girl).jpg",
+			"method": "wikidata"
+		},
+		"aic-122130": {
+			"file": "Paul Signac - Les Andelys, Côte d'Aval - 1993.208 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12314": {
+			"file": "Gao Kekong - Scholar in Landscape - 1960.745 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12325": {
+			"file": "Anonymous - Two Ladies Converse at a Step-Well (Baoli) in a Walled Garden - 1960.749 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-123402": {
+			"file": "Furuyama Moromasa - Portrait of Ichikawa Danjuro II as Kamakura no Gongorô - 1993.245 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-125112": {
+			"file": "Anonymous - The Bodhisattva Kannon, from the triptych Approach of the Amida Trinity - 1929.857 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12658": {
+			"file": "Angelica Kauffmann - Mrs. Hugh Morgan and Her Daughter - 1960.873 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12683": {
+			"file": "Anonymous - Saint Catherine Delivered from the Wheel - 1932.989 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-127644": {
+			"file": "Tosa Mitsuoki - Autumn Maples with Poem Slips - 1977.157 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12813": {
+			"file": "Kano Isen'in - Mount Horai - 1932.1031 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12875": {
+			"file": "Johann Michael Rottmayr - Mercury rescues the disguised Io after beheading Argus - 1961.37 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12879": {
+			"file": "Johann Michael Rottmayr - Venus and Cupid at the Forge of Vulcan - 1961.40 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12883": {
+			"file": "Johann Michael Rottmayr - Jove casts his Thunderbolts at the Rebellious Giants - 1961.41 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12888": {
+			"file": "Georges Lemmen - Portrait of the Artist's Sister - 1961.42 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-12891": {
+			"file": "Sant'Ambrogio scaccia Teodosio dalla chiesa - Magnasco.jpg",
+			"method": "wikidata"
+		},
+		"aic-12895": {
+			"file": "Anonymous - View of Pirna with the Fortress of Sonnenstein - 1961.44 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129639": {
+			"file": "Jasper Francis Cropsey - Blasted Tree - 1997.898 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129756": {
+			"file": "Fra Angelico - Saint Anthony Abbot - 2001.329 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129849": {
+			"file": "Vasily Kandinsky - Houses at Murnau - 1994.33 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129856": {
+			"file": "Anonymous - Ragini Bhairavi, Page from a Jaipur Ragamala Set - 1962.147.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129857": {
+			"file": "Anonymous - Nat Ragini, Page from a Jaipur Ragamala Set - 1962.147.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129858": {
+			"file": "Anonymous - Malashri Ragini, Page from a Jaipur Ragamala Set - 1962.147.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129859": {
+			"file": "Anonymous - Ragini Patmanjari, Page from a Jaipur Ragamala Set - 1962.147.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129860": {
+			"file": "Anonymous - Raga Malkaushika, Page from a Jaipur Ragamala Set - 1962.147.7 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129863": {
+			"file": "Anonymous - Ragini Khambavati, Page from a Jaipur Ragamala Set - 1962.147.9 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129864": {
+			"file": "Anonymous - Malavagaudi Ragini, Page from a Jaipur Ragamala Set - 1962.147.10 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129865": {
+			"file": "Anonymous - Ragini Gunakali, Page from a Jaipur Ragamala Set - 1962.147.12 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129866": {
+			"file": "Anonymous - Hindol Raga, Page from a Jaipur Ragamala Set - 1962.147.13 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129867": {
+			"file": "Anonymous - Ragini Manavati, Page from a Jaipur Ragamala Set - 1962.147.11 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129869": {
+			"file": "Anonymous - Ragini Todi, Page from a Jaipur Ragamala Set - 1962.147.15 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129870": {
+			"file": "Anonymous - Ragini Desakh, Page from a Jaipur Ragamala Set - 1962.147.16 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129871": {
+			"file": "Anonymous - Ragini Devagandhari, Page from a Jaipur Ragamala Set - 1962.147.17 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129872": {
+			"file": "Anonymous - Ragini Madhumadhavi, Page from a Jaipur Ragamala Set - 1962.147.18 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129873": {
+			"file": "Anonymous - Raga Dipak, Page from a Jaipur Ragamala Set - 1962.147.19 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129874": {
+			"file": "Anonymous - Ragini Dhanashri, Page from a Jaipur Ragamala Set - 1962.147.20 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129875": {
+			"file": "Anonymous - Ragini Vasanta, Page from a Jaipur Ragamala Set - 1962.147.21 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129878": {
+			"file": "Anonymous - Ragini Bairari, Page from a Jaipur Ragamala Set - 1962.147.23 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129879": {
+			"file": "Anonymous - Ragini Desavaradi, Page from a Jaipur Ragamala Set - 1962.147.24 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129881": {
+			"file": "Anonymous - Ragini Gujari, Page from a Jaipur Ragamala Set - 1962.147.26 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129882": {
+			"file": "Anonymous - Ragini Gaund, Page from a Jaipur Ragamala Set - 1962.147.27 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129883": {
+			"file": "Anonymous - Ragini Kakubha, Page from a Jaipur Ragamala Set - 1962.147.28 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129885": {
+			"file": "Anonymous - Ragini Vibhas, Page from a Jaipur Ragamala Set - 1962.147.29 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129888": {
+			"file": "Anonymous - Raga Shri-rag, Page from a Jaipur Ragamala Set - 1962.147.31 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129889": {
+			"file": "Anonymous - Panchama Ragini, Page from a Jaipur Ragamala Set - 1962.147.32 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129890": {
+			"file": "Anonymous - Ragini Kamod, Page from a Jaipur Ragamala Set - 1962.147.33 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129891": {
+			"file": "Anonymous - Ragini Setmalar, Page from a Jaipur Ragamala Set - 1962.147.34 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129892": {
+			"file": "Anonymous - Ragini Asavari, Page from a Jaipur Ragamala Set - 1962.147.35 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-129905": {
+			"file": "Anonymous - Ragini Kanada, Page from a Jaipur Ragamala Set - 1962.147.22 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-13120": {
+			"file": "Anonymous - Krishna's Fifth and Sixth Avatars, page from a copy of the Gitagovinda of Jayaveda - 1961.125 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131407": {
+			"file": "John F. Francis - Wine, Cheese, and Fruit - 1994.239 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131815": {
+			"file": "Anonymous - Krishna Fluting for the Gopis - 2014.1193 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131816": {
+			"file": "Anonymous - Painted Banner (paubha) of Goddess Ushnishavijaya Within a Funerary Mound (chaitya) and Surrounded by Chaityas - 2014.1040 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131822": {
+			"file": "Anonymous - Four Princes in Procession Visit a Sage, page from a copy of the Ramayana - 1998.176 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131858": {
+			"file": "Anonymous - Abhisarika Nayika (Heroine Running to Meet her Lover) - 1998.175 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131884": {
+			"file": "Constant Mayer - Love's Melancholy - 1994.6 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131892": {
+			"file": "Islamic - The Constellation Leo, folio probably from the Kitab suwar al-kawakib al-thabita (Book of the Images of the Fixed Stars) - 1998.201 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131906": {
+			"file": "Anonymous - Iskander Comforts the Dying Darius - 1998.212 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131908": {
+			"file": "Anonymous - The Infant Krishna Spirited Away by Vasudev, page from the Dispersed Bhagavatapurana manuscript - 1998.182 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131912": {
+			"file": "Anonymous - Royal Women Feeding Fish - 1998.189 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131915": {
+			"file": "Mughal - Lovers in a Zenana Garden at Night - 1998.192 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-131916": {
+			"file": "Anonymous - A Young Prince on Horseback - 1998.190 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-133859": {
+			"file": "Auguste Bernard, called Bernard d'Agesci - Lady Reading the Letters of Heloise and Abelard - 1994.430 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-133864": {
+			"file": "Jean Louis Ernest Meissonier - The Defense of Paris - 1994.432 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-13455": {
+			"file": "Shen Zhou - Clouds over the River before Rain - 1961.224 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-13487": {
+			"file": "Hilaire Germain Edgar Degas - Young Spartan Girls Challenging Boys - 1961.334 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-136190": {
+			"file": "George Peter Alexander Healy - Self-Portrait - 1913.134 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-136394": {
+			"file": "Edward Lamson Henry - The Attack on Chew's House during the Battle of Germantown, 1777 - 1982.770 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-13745": {
+			"file": "Art Institute of Chicago-1000-3.jpg",
+			"method": "wikidata"
+		},
+		"aic-138": {
+			"file": "George Hitchcock - Flower Girl in Holland - 1888.169 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-13954": {
+			"file": "Xia Kui - Visiting Dai Kui on a Snowy Night - 1924.1045 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-13956": {
+			"file": "Xia Kui - Watching the Waterfall - 1924.1046 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-139886": {
+			"file": "Venetian School - The Assumption of the Virgin with Saints from an Augustinian altarpiece - 1984.24d - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-139907": {
+			"file": "Jules Dupré - The Estuary Farm - 1995.186 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14027": {
+			"file": "Kitao Masanobu - Two Beauties on a Veranda - 1933.27 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-140588": {
+			"file": "Mughal - Kichik Beg Wounded during Babur's Attack on Qalat, page from a copy of the Baburnama (Book of Babur) - 1995.242 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-140599": {
+			"file": "Zhang Yin - Mansion by the River - 1995.200 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-140604": {
+			"file": "Anonymous - Baskets with Flowers of the Four Seasons - 1995.205 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-142422": {
+			"file": "Anonymous - Purple Heron (Ardea purpurea) - 1995.259 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-142517": {
+			"file": "Anonymous - Double-Sided Painted Banner (Paubha) with God Shiva and Goddess Durga - 1995.268a-b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-142521": {
+			"file": "Dong Bangda - Mount Langya - 1995.272 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-142526": {
+			"file": "Anonymous - Milarepa on Mount Kailash - 1995.277 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14309": {
+			"file": "James McNeill Whistler - Coast Scene, Bathers - 1933.208 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14317": {
+			"file": "James McNeill Whistler - Study of a Young Girl's Head and Shoulders (Baroness de Meyer) - 1933.212 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-144397": {
+			"file": "Anonymous - Painted Banner (Thangka) with the Medicine Buddha (Bhaishajyaguru) - 1996.29 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-144467": {
+			"file": "Piet Mondrian - Farm near Duivendrecht - 2001.479 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-144969": {
+			"file": "Carl Blechen - The Interior of the Palm House on the Pfaueninsel Near Potsdam - 1996.388 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-144972": {
+			"file": "Anonymous - Painted Banner (Thangka) with Guru Dragpur, a Wrathful Form of Padmasambhava - 1996.85 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14556": {
+			"file": "Paul Cézanne - Auvers, Panoramic View - 1933.422 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14561": {
+			"file": "Paul Cézanne - The Vase of Tulips - 1933.423 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-145677": {
+			"file": "Ni Zan - Poetic Thoughts in a Forest Pavilion - 1996.432 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14569": {
+			"file": "Honoré-Victorin Daumier - Two Lawyers - 1933.425 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14572": {
+			"file": "Edgar Degas - The Millinery Shop - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-14574": {
+			"file": "Hilaire Germain Edgar Degas - Henri Degas and His Niece Lucie Degas (The Artist's Uncle and Cousin) - 1933.429 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-145805": {
+			"file": "John Frederick Kensett - Rocky Coast - 1996.444 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-145808": {
+			"file": "Sargent - Study of Two Bedouins, 1905-6, 1996.447.jpg",
+			"method": "wikidata"
+		},
+		"aic-14586": {
+			"file": "Vincent van Gogh - The Poet's Garden - 1933.433 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14591": {
+			"file": "Édouard Manet - Woman Reading - 1933.435 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14594": {
+			"file": "Édouard Manet - Portrait of a Woman with a Black Fichu - 1933.436 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14598": {
+			"file": "Claude Monet - The Beach at Sainte-Adresse - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-14624": {
+			"file": "Claude Monet - Stacks of Wheat (End of Day, Autumn) - 1933.444 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-146272": {
+			"file": "Constant Troyon - The Marsh - 1996.649 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-146282": {
+			"file": "Anonymous - Two Scholar-Musicians in a Landscape - 1996.651 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14634": {
+			"file": "Monet - Vétheuil, 1901.jpg",
+			"method": "wikidata"
+		},
+		"aic-14647": {
+			"file": "Pierre-Auguste Renoir - Young Woman Sewing - 1933.452 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14650": {
+			"file": "Pierre-Auguste Renoir - Alfred Sisley - 1933.453 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14655": {
+			"file": "Pierre-Auguste Renoir - Two Sisters (On the Terrace) - 1933.455 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-146559": {
+			"file": "NoguchiReunion.jpg",
+			"method": "insource"
+		},
+		"aic-14664": {
+			"file": "Henri de Toulouse-Lautrec - Moulin de la Galette - 1933.458 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-146648": {
+			"file": "Richard Westall - David Garrick as King Lear - 1996.741 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-146860": {
+			"file": "Anonymous - Lady Offering Food to a Monk, From a Set of Initiation Cards (Tsakali) - 1995.203.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-147005": {
+			"file": "Tibeto-Chinese - Painted Banner (Thangka) of Vajriputra, One of the Sixteen Great Arhats - 1997.54 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-147451": {
+			"file": "Anonymous - Fashionable Figures, with a Man in Turkish Costume - 1925.1682b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14780": {
+			"file": "Anonymous - The Tale of Genji - 1962.575 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-148424": {
+			"file": "Anonymous - Painted Banner (Thangka) of Skull-Cup Bearing (Kapâladhara) Hevajra - 1997.547 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14848": {
+			"file": "Anonymous - Amir Khusraw Dedicates His Poem to Sultan Ala al-Din Khalji, page from a copy of the Khamsa of Amir Khusraw Dihlavi - 1962.640 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-14896": {
+			"file": "Giovanni Bellini - Virgin and Child - 1933.550 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-149075": {
+			"file": "Su Liupeng - Barbarian Envoys Presenting Tribute - 1997.702 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-149778": {
+			"file": "Pompeo Girolamo Batoni - Allegory of Peace and War - 1998.152 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-149966": {
+			"file": "Anonymous - Boy of Hallett Family with Lamb - 1938.1334 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-150054": {
+			"file": "Joshua Johnson - Mrs. Andrew Bedford Bankson and Son, Gunning Bedford Bankson - 1998.315 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-150406": {
+			"file": "Dai Jin - Landscape with Daoist Immortals Playing Weiqi - 1998.148 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-150426": {
+			"file": "Islamic - Layla Visiting Majnun in the Desert, page from a copy of the Khamsa of Nizami - 1998.216 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-150991": {
+			"file": "Anonymous - Woman in Black - 1980.735 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-151048": {
+			"file": "Katsukawa Shunsho - Chinese Beauty (Yang Guifei) - 1998.525 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-151108": {
+			"file": "George Inness - The Mill Pond - 1911.30 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-152019": {
+			"file": "Denys Calvaert - Saint John the Baptist in the Wilderness - 1999.296 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-152437": {
+			"file": "Fisherman's cottage sohlberg.jpg",
+			"method": "wikidata"
+		},
+		"aic-15260": {
+			"file": "Otto van Veen - The Judgement of Zaleucus - 1962.812 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-152747": {
+			"file": "Martin Johnson Heade - York Harbor, Coast of Maine - 1999.291 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15279": {
+			"file": "Luigi Loir - The Boathouse - 1962.816 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-152846": {
+			"file": "Anonymous - The Buddha Preaching the “Perfection of Wisdom” (Prajnaparamita) Sutra - 1999.258 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-152851": {
+			"file": "Anne-Louis Girodet de Roussy-Trioson - La révolte du Caire (ca. 1810).jpg",
+			"method": "wikidata"
+		},
+		"aic-15303": {
+			"file": "Mathias Stoltenberg - Portrait of a Woman - 1962.822 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15305": {
+			"file": "Francesco Albani - Virgin and Child Adored by Saint Francis - 1962.823 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-153797": {
+			"file": "Paul Gauguin - Nature Morte à la Cruche d'Argile et Tasse en Fer (1880).jpg",
+			"method": "wikidata"
+		},
+		"aic-153798": {
+			"file": "Berthe Morisot - Woman in a Garden - 1999.363 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-153799": {
+			"file": "Fodbad.jpg",
+			"method": "wikidata"
+		},
+		"aic-153993": {
+			"file": "Gustave Courbet - Falaise au bord de la mer (1865).jpg",
+			"method": "wikidata"
+		},
+		"aic-15401": {
+			"file": "William James Glackens - At Mouquin's - 1925.295 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-154037": {
+			"file": "Andrea del Sarto - Domenico da Gambassi - 1964.1097a - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15406": {
+			"file": "Honoré-Victorin Daumier - Don Quixote and the Windmills - 1925.296 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-154121": {
+			"file": "Gustave Caillebotte - Calf's Head and Ox Tongue - 1999.561 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-154235": {
+			"file": "Edvard Munch - The Girl by the Window - 2000.50 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-154495": {
+			"file": "Art Institute of Chicago-1113.jpg",
+			"method": "wikidata"
+		},
+		"aic-154496": {
+			"file": "William A. Mitchell - Rack Picture for Dr. Nones - 2000.135 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15486": {
+			"file": "Jonathan Richardson, the elder - Sir Andrew Fountaine - 1933.798.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15496": {
+			"file": "Master of the Historia Friderici et Maximiliani - The Nativity - 1933.799 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-156072": {
+			"file": "Rembrandt Peale - Abigail Inskeep Bradford - 2000.339 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-156596": {
+			"file": "Hannah Brown Skeele - Fruit Piece - 2001.6 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15698": {
+			"file": "Peter Paul Rubens - Portrait of Isabella of Bourbon - 1962.958 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15701": {
+			"file": "Alessandro Longhi - Portrait of a Young Woman - 1962.959 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15708": {
+			"file": "Sir Henry Raeburn - Portrait of a Man with Gray Hair - 1962.961 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-157107": {
+			"file": "Anonymous - Monastic Decree - 2001.106 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15714": {
+			"file": "Gerard van Soest - Portrait of Thomas Bulwer - 1962.963 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15716": {
+			"file": "Martin de Soria - Saint Christopher Meets Satan, Saint Christopher before the King of Lycia - 1962.964 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15717": {
+			"file": "Martin de Soria - Saint Christopher Taking Leave of the King Who Feared Satan, Saint Christopher and His Converts - 1962.965 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-15720": {
+			"file": "John Rathbone - Landscape with Figures Crossing a Bridge - 1962.967 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-158137": {
+			"file": "Giovanni Girolamo Savoldo - The Death of St. Peter Martyr - 2001.330 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-159722": {
+			"file": "John Singer Sargent - Mrs. Charles Deering (Marion Denison Whipple) - 9.2002 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-160030": {
+			"file": "Giovanni Baglione - The Ecstasy of St Francis - WGA1155.jpg",
+			"method": "wikidata"
+		},
+		"aic-160229": {
+			"file": "Thomas Fearnley - Pergola with Oranges - Art Institute of Chicago - 2002.599.jpg",
+			"method": "wikidata"
+		},
+		"aic-16134": {
+			"file": "Bernardino Jacobi Butinone - The Flight into Egypt - 1933.1003 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16137": {
+			"file": "Bernardino Jacobi Butinone - The Descent from the Cross - 1933.1004 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16146": {
+			"file": "Henri de Toulouse-Lautrec - Equestrienne (At the Cirque Fernando) - 1925.523 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16147": {
+			"file": "Girolamo da Santacroce - Virgin and Child Enthroned - 1933.1008 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16151": {
+			"file": "Ridolfo Ghirlandaio - Portrait of a Gentleman - 1933.1009 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16156": {
+			"file": "Giovanni di Paolo - Saint John the Baptist Entering the Wilderness - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16166": {
+			"file": "Giovanni di Paolo - Salome Asking Herod for the Head of Saint John the Baptist - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16169": {
+			"file": "Giovanni di Paolo - The Beheading of Saint John the Baptist - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16171": {
+			"file": "Giovanni di Paolo - The Head of Saint John the Baptist Brought before Herod - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16177": {
+			"file": "Gherardo Starnina - The Death of the Virgin - 1933.1017 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16179": {
+			"file": "Matteo di Giovanni - The Dream of Saint Jerome - 1933.1018 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16183": {
+			"file": "Matteo di Giovanni - Saint Augustine's Vision of Saints Jerome and John the Baptist - 1933.1019 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16192": {
+			"file": "Allegretto Nuzi - Bishop Saint Enthroned - 1933.1022 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16197": {
+			"file": "Perugino - The Baptism of Christ - 1933.1023 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16200": {
+			"file": "Perugino - Christ and the Woman of Samaria - 1933.1024 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16205": {
+			"file": "Perugino - The Nativity - 1933.1025 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16207": {
+			"file": "Perugino - Noli Me Tangere - 1933.1026 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16212": {
+			"file": "Sano di Pietro - Virgin and Child with Saints Jerome, Bernardino of Siena, and Angels - 1933.1027 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16223": {
+			"file": "Master of Apollo and Daphne - Daniel Saving Susanna, the Judgment of Daniel, and the Execution of the Elders - 1933.1030 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16228": {
+			"file": "Spinello Aretino - Saint Francis before the Pope (The Approva of the Franciscan Rule) - 1933.1031 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16231": {
+			"file": "Lorenzo Monaco - Processional Cross with Saint Mary Magdalene and a Blessed Hermit - 1933.1032 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16234": {
+			"file": "Taddeo di Bartolo - The Crucifixion - 1933.1033 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16237": {
+			"file": "Anonymous - Virgin and Child - 1933.1034 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16241": {
+			"file": "Anonymous - Diptych of the Virgin and Child Enthroned and the Crucifixion - 1933.1035 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16246": {
+			"file": "Workshop of Apollonio di Giovanni - The Continence of Scipio - 1933.1036 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16250": {
+			"file": "Cosimo Tura - Pietà - 1933.1037 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16253": {
+			"file": "Joos van Cleve - Holy Family - 1933.1038 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16257": {
+			"file": "Colyn de Coter - Virgin and Child Crowned by Angels - 1933.1039 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16261": {
+			"file": "Gerard David - Lamentation over the Body of Christ - 1933.1040 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16264": {
+			"file": "Northern Netherlandish School - Saint Augustine and an Augustinian Canoness - 1933.1041 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16267": {
+			"file": "Northern Netherlandish School - Saint Gertrude of Nivelles and an Augustinian Canoness - 1933.1042 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16275": {
+			"file": "Northern Netherlandish School - Holy Family - 1933.1044 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16281": {
+			"file": "Martin Archer Shee - John Philip Kemble - 1925.587 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16298": {
+			"file": "Rogier van der Weyden - Portrait of Jean Gros - 1933.1051a - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16303": {
+			"file": "Workshop of Rogier van der Weyden - Virgin and Child - 1933.1052 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16305": {
+			"file": "Adriaen Isenbrant - Virgin and Child - 1933.1053 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16307": {
+			"file": "French School - Panels from the High Altar of the Charterhouse of Saint-Honoré, Thuison-les-Abbeville, Virgin and Child - 1933.1054 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16309": {
+			"file": "French School - Panels from the High Altar of the Charterhouse of Saint-Honoré, Thuison-les-Abbeville, Saint John the Baptist - 1933.1055 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16312": {
+			"file": "French School - Panels from the High Altar of the Charterhouse of Saint-Honoré, Thuison-les-Abbeville, The Last Supper - 1933.1056 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16313": {
+			"file": "French School - Altarpiece from Thuison-les-Abbeville, The Ascension - 1933.1057 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16316": {
+			"file": "French School - Panels from the High Altar of the Charterhouse of Saint-Honoré, Thuison-les-Abbeville, Pentecost - 1933.1058 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16319": {
+			"file": "French School - Altarpiece from Thuison-les-Abbeville, Saint Honoré - 1933.1059 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16321": {
+			"file": "French School - Altarpiece from Thuison-les-Abbeville, Saint Hugh of Lincoln - 1933.1060 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16324": {
+			"file": "Corneille de Lyon - Portrait of Louise de Halluin, dame de Cipierre - 1933.1061 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16327": {
+			"file": "Jean Hey, (the Master of Moulins) - The Annunciation - 1933.1062 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16329": {
+			"file": "Bartel Bruyn, the elder - Virgin and Child with Saint Anne, Saint Gereon, and a Donor - 1933.1063 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16333": {
+			"file": "Johann Koerbecke - The Annunciation - 1933.1064 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16336": {
+			"file": "Anonymous - Triptych of the Virgin and Child with Saints - 1933.1065 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16340": {
+			"file": "Joos de Momper, II - Mountain Road with Travelers - 1933.1067 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16343": {
+			"file": "Jan van de Cappelle - Fishing Boats in a Calm - 1933.1068 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16349": {
+			"file": "Pieter De Neyn - Travellers Arriving at an Inn - 1933.1070 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16354": {
+			"file": "Francisco José de Goya y Lucientes - Friar Pedro Offers Shoes to El Maragato and Prepares to Push Aside His Gun - 1933.1072 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16355": {
+			"file": "Francisco José de Goya y Lucientes - Friar Pedro Wrests the Gun from El Maragato - 1933.1073 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16359": {
+			"file": "Francisco José de Goya y Lucientes - Friar Pedro Clubs El Maragato with the Butt of the Gun - 1933.1074 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16362": {
+			"file": "Francisco José de Goya y Lucientes - Friar Pedro Shoots El Maragato as His Horse Runs Off - 1933.1075 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16365": {
+			"file": "Francisco José de Goya y Lucientes - Friar Pedro Binds El Maragato with a Rope - 1933.1076 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16367": {
+			"file": "Francisco José de Goya y Lucientes - Portrait of Isidoro Maiquez - 1933.1077 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16373": {
+			"file": "Follower of Jean Baptiste Greuze - Little Girl Pouting - 1933.1079 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16376": {
+			"file": "Francesco Guardi - Ruined Archway - 1933.1080 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16385": {
+			"file": "Cornelis Huysmans - The Hollow Road - 1933.1084 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16389": {
+			"file": "Alessandro Magnasco - Monks at Supper - 1933.1085 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16394": {
+			"file": "Caspar Netscher - Portrait of a Gentleman - 1933.1087 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16398": {
+			"file": "Jacob Ochtervelt - The Music Lesson - 1933.1088 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16405": {
+			"file": "Pierre Paul Prud'hon - Innocence Choosing Between Love and Riches - 1933.1090 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16410": {
+			"file": "Hendrik Martensz. Sorgh - The Housekeeper - 1933.1092 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16413": {
+			"file": "Italian School - Portrait of an Officer - 1933.1093 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16417": {
+			"file": "David Teniers, the younger - The Flageolet Player - 1933.1095 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16434": {
+			"file": "Giambattista Tiepolo - Virgin and Child with Saints Dominic and Hyacinth - 1933.1099 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16439": {
+			"file": "Morning, 1760, by Claude-Joseph Vernet - Art Institute of Chicago - DSC09460.JPG",
+			"method": "wikidata"
+		},
+		"aic-16473": {
+			"file": "Ricardo Canals y Llambí - Cigar Making in Seville - 1933.1113 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16485": {
+			"file": "Giambattista Tiepolo - Rinaldo and Armida in Her Garden - 1925.699 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16487": {
+			"file": "Paul Cézanne - The Bay of Marseilles, Seen from L'Estaque - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16488": {
+			"file": "Giambattista Tiepolo - Armida Encounters the Sleeping Rinaldo - 1925.700 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16492": {
+			"file": "Giambattista Tiepolo - Armida Abandoned by Rinaldo - 1925.701 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16494": {
+			"file": "Jacques Blanchard - Virgin and Child with Saint Elizabeth and the Infant Saint John the Baptist - 1963.43 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16495": {
+			"file": "Giambattista Tiepolo - Rinaldo and the Magus of Ascalon - 1925.702 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16497": {
+			"file": "Abraham Jansz. van Diepenbeeck - The Flight into Egypt - 1963.44 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16499": {
+			"file": "Édouard Manet - Jesus Mocked by the Soldiers - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16502": {
+			"file": "Jean Baptiste Armand Guillaumin - Mill of Pont Maupuit - 1933.1123 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16512": {
+			"file": "Victor Pierre Huguet - Ravine Near Biskra - 1933.1128 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16542": {
+			"file": "Monet - The Customs House at Varengeville, 1897.jpg",
+			"method": "wikidata"
+		},
+		"aic-16544": {
+			"file": "Monet - Charing Cross Bridge, London, 1901.jpg",
+			"method": "wikidata"
+		},
+		"aic-16545": {
+			"file": "Henry Ward Ranger - Brooklyn Bridge - 1925.720 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16549": {
+			"file": "Claude Monet - Apples and Grapes - 1933.1152 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16551": {
+			"file": "Beata Beatrix (replica with frame).jpg",
+			"method": "wikidata"
+		},
+		"aic-16554": {
+			"file": "Claude Monet - The Artist's House at Argenteuil - 1933.1153 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16557": {
+			"file": "George Frederick Watts - Time, Death and Judgment - 1925.724 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16560": {
+			"file": "Claude Monet - Stack of Wheat (Snow Effect, Overcast Day) - 1933.1155 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16564": {
+			"file": "Monet - Branch of the Seine near Giverny (Mist), from the series “Mornings on the Seine”, 1897.jpg",
+			"method": "wikidata"
+		},
+		"aic-16568": {
+			"file": "Claude Monet - Water Lilies - 1906, Ryerson.jpg",
+			"method": "wikidata"
+		},
+		"aic-16571": {
+			"file": "Claude Monet - Arrival of the Normandy Train, Gare Saint-Lazare - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-16579": {
+			"file": "Claude Monet - Vétheuil - 1933.1161 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16584": {
+			"file": "Claude Monet, Houses of Parliament, London, 1900-1903, 1933.1164, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16600": {
+			"file": "Pierre-Auguste Renoir - Lucie Berard (Child in White) - 1933.1172 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16617": {
+			"file": "Pierre-Auguste Renoir - Chrysanthemums - 1933.1173 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16622": {
+			"file": "Pierre-Auguste Renoir - Madame Léon Clapisson - 1933.1174 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16629": {
+			"file": "Pierre-Auguste Renoir - Fruits of the Midi - 1933.1176 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16633": {
+			"file": "Alfred Sisley - The Seine at Port-Marly, Piles of Sand - 1933.1177 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16636": {
+			"file": "Alfred Stevens - Hesitation (Madame Monteaux^) - 1933.1178 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16648": {
+			"file": "Paul Gauguin - Woman in front of a Still Life by Cézanne - 1925.753 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-16659": {
+			"file": "Samuel Colman - Old Tower at Avignon - 1933.1187 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-17161": {
+			"file": "Jean Baptiste Joseph Wicar - Virgil Reading the \"Aeneid\" to Augustus, Octavia, and Livia - 1963.258 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-17841": {
+			"file": "Mihata Jôryû - High Ranking Courtesan - AIC 1933.1627.jpg",
+			"method": "wikidata"
+		},
+		"aic-17948": {
+			"file": "Kanô Tsunenobu - Fei Jiang-fang with a Crane - 1933.1651 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-17951": {
+			"file": "Kanô Tsunenobu - Fei Jiang-fang with a Crane - 1933.1652 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-17956": {
+			"file": "Kanô Tsunenobu - Landsape with Waterfall - 1933.1653 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-181339": {
+			"file": "Sheldon Peck - Portrait of Mr. William W. Welch - 1990.100.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-181478": {
+			"file": "Ferdinand Georg Waldmüller - The Actor Maximilian Korn in a Landscape - 2003.118 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-181702": {
+			"file": "Aelbert Cuyp - A View of Vianen with a Herdsman and Cattle by a River - 2003.169 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-181777": {
+			"file": "De Scott Evans - The Irish Question - 2004.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-183006": {
+			"file": "Jean Hey (Master of Moulins) - Fragment from Christ Carrying the Cross, Mourning Virgin, c1500 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-184371": {
+			"file": "Fra Bartolommeo - The Nativity - 2005.49 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-184372": {
+			"file": "Albert Schindler - Portrait of a Gardener and Horn Player in the Household of the Emperor Francis I - 2005.153 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-184668": {
+			"file": "Anonymous - Pair of Buddhist Manuscript Covers - 2004.757.4b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-185008": {
+			"file": "Anonymous - Pair of Manuscript Covers with Twelve Durgas on Snow Lions Slaying the Buffalo Demon (Mahishasuramardini) - 2005.614b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-185185": {
+			"file": "Thomas Doughty - Coming Squall (Nahant Beach with a Summer Shower) - 2005.159 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-185651": {
+			"file": "2006.11 - Triptych Icon.jpg",
+			"method": "insource"
+		},
+		"aic-18743": {
+			"file": "Johan Barthold Jongkind - A Roadside Tavern - 1963.836 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-190405": {
+			"file": "Girolamo da Carpi - Saint Luke Drawing the Virgin and Christ Child - 2007.246 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-191183": {
+			"file": "Sargent - Madame Paul Escudier (Louise Lefevre), 1882, 2007.391.jpg",
+			"method": "wikidata"
+		},
+		"aic-191564": {
+			"file": "Paul Cézanne - Standing Bather, Seen from the Back - 2007.289 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-19200": {
+			"file": "Giuseppe Cades - The Meeting of Gautier, Count of Antwerp, and his Daughter, Violante - 1963.1142 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-192691": {
+			"file": "Hans Thoma - Apollo und Marsyas.jpg",
+			"method": "wikidata"
+		},
+		"aic-19322": {
+			"file": "Jan Lievens - Christ Washing the Disciples' Feet - 1934.385 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-193241": {
+			"file": "Anonymous - Jingoji Sutra - 2008.157 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-19333": {
+			"file": "Paolo Antonio Barbieri - Kitchen Still Life - 1934.389 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-19336": {
+			"file": "Francesco Buoneri, called Cecco del Caravaggio - The Resurrection - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-19339": {
+			"file": "Paul Gauguin - Arlésiennes (Mistral) - 1934.391 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-193664": {
+			"file": "John Philip Simpson - The Captive Slave - 2008.188 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-194773": {
+			"file": "Giovanni Domenico Ferretti - Sketch for a Ceiling Fresco - 2008.425 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-196282": {
+			"file": "Art Institute of Chicago-1122.jpg",
+			"method": "wikidata"
+		},
+		"aic-198905": {
+			"file": "Pieter Gerritsz. van Roestraeten - Still Life with Ostrich Egg Cup and the Whitfield Heirlooms - 2009.114 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-198908": {
+			"file": "Anonymous - Rebirth of the Nun Anyo - 1963.268-1963.269 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-198910": {
+			"file": "Kishi Ganku - Bamboo - 1967.378-1967.379 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-198948": {
+			"file": "Sesson Shukei - Landscape of the Four Seasons - 1958.168 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20155": {
+			"file": "Johann Michael Rottmayr - Apollo Granting Phaeton Permission to Drive the Chariot of the Sun - 1961.39 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20199": {
+			"file": "Georges Seurat - Final Study for \"Bathers at Asnières\" - 1962.578 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-203330": {
+			"file": "Lodovico Carracci - The Vision of Saint Francis - 2010.274 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20419": {
+			"file": "Alessandro Turchi - Venus and Cupid - 1964.65 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20526": {
+			"file": "British School - Portrait of a Lady, Possibly of the Stanley Family - 1964.197 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20530": {
+			"file": "The Rabbit-Warren, Côte Saint-Denis at Pontoise, Effect of Snow.jpg",
+			"method": "wikidata"
+		},
+		"aic-20535": {
+			"file": "Claude Monet - Étretat, The Beach and the Falaise d'Amont - 1964.204 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20545": {
+			"file": "Paysage à Port-Goulphar.jpg",
+			"method": "wikidata"
+		},
+		"aic-20556": {
+			"file": "Berthe Morisot - Young Girl with Hat - 1964.214 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20579": {
+			"file": "Hercules and the Lernaean Hydra, 1875-1876, by Gustave Moreau - Art Institute of Chicago - DSC09590.JPG",
+			"method": "wikidata"
+		},
+		"aic-20597": {
+			"file": "Francesco Guardi - Capriccio, The Lagoon - 1964.242 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20598": {
+			"file": "Giovanni Antonio Guardi - Interior, A Sultana taking Coffee in the Harem - 1964.243 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20684": {
+			"file": "Gustave Caillebotte - Paris Street, Rainy Day - 1964.336 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20686": {
+			"file": "Jean Léon Gérôme - Portrait of a Woman - 1964.338 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20692": {
+			"file": "Francisco José de Goya y Lucientes - El Maragato Threatens Friar Pedro de Zaldivia with His Gun - 1933.1071 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20697": {
+			"file": "Eugène Carrière - Portrait of a Lady with a Dog - 1933.1115 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-20701": {
+			"file": "Monet - Waterloo Bridge, Sunlight Effect, 1903.jpg",
+			"method": "wikidata"
+		},
+		"aic-20887": {
+			"file": "Pieter Dubordieu - Portrait of a Young Girl - 1934.386 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-209942": {
+			"file": "Ludwig Richter - Am Brunnen bei Grottaferrara (1832).jpg",
+			"method": "wikidata"
+		},
+		"aic-209969": {
+			"file": "Paul Bril - Landscape with Hunters - 2011.122 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-210482": {
+			"file": "Anonymous - I'timad-ud-Daula's Tomb at Agra - 2011.284 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-210511": {
+			"file": "India; Rajasthan, Mewar, Udaipur; Attributed to the \"Stipple Master\" - A Monumental Portrait of a Monkey - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-210893": {
+			"file": "Jozseph Rippl-Rónaï - Slender Woman with Vase - 2011.308 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-21165": {
+			"file": "Marcellin Gilbert Desboutin - The Conversation - 1935.71 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-213758": {
+			"file": "Adam Elsheimer (Umkreis) - Johannes der Täufer in der Wüste.jpg",
+			"method": "wikidata"
+		},
+		"aic-21445": {
+			"file": "Moretto da Brescia - Mary Magdalene - 1935.161 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-2156": {
+			"file": "John Frederick Peto - Lights of Other Days - 1956.125 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-2166": {
+			"file": "Giuseppe Maria Crespi - The Wedding at Cana - 1956.129 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-21668": {
+			"file": "Lucas Cranach the Elder - Eve - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-21672": {
+			"file": "Conrad Faber - Portrait of Fridrich Rorbach - 1935.296 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-216794": {
+			"file": "Martin Rørbye, Young Clergyman Reading, 1836, 2013.56, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-21682": {
+			"file": "Pieter Claesz - Still Life - 1935.300 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-2169": {
+			"file": "Arthur Devis - John Thomlinson and His Family - 1956.130 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217534": {
+			"file": "Bernardino Nocchi - Deposition (after Antonio Canova) - 2013.57 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217537": {
+			"file": "Hu Gongshou - One of Sixteen Album Leaves - 1943.104.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217675": {
+			"file": "Xugu - Landscape with Figure, from an album of Landscapes and Calligraphy for Liu Songfu - 1943.106.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217679": {
+			"file": "Xugu - Landscapes for Liu Songfu - 1943.106.9 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217681": {
+			"file": "Xugu - Landscapes for Liu Songfu - 1943.106.11 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217683": {
+			"file": "Xugu - Landscapes for Liu Songfu - 1943.106.13 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217685": {
+			"file": "Xugu - Landscape and Figure, from an album of Landscapes and Calligraphy for Liu Songfu - 1943.106.15 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217696": {
+			"file": "Xugu - Landscapes for Liu Songfu - 1943.106.23 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-217698": {
+			"file": "Xugu - Landscapes for Liu Songfu - 1943.106.25 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-2179": {
+			"file": "Antonio Maria Esquivel - Portrait of a Man - 1956.134 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-218072": {
+			"file": "Anonymous - Portrait of a Man in a Red Cap - 2013.1093 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-218470": {
+			"file": "Anonymous - Painted Banner (Thangka) from a Set of Seven Honoring Gayadhara, a Sakya Pandit from India - 1923.963 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-218471": {
+			"file": "Anonymous - Painted Banner (Thangka) from a Set of Seven Honoring Gayadhara, a Pandit from India - 1923.964 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-218472": {
+			"file": "Anonymous - Painted Banner (Thangka) from a Set of Seven Honoring Gayadhara, a Sakya Pandit from India - 1923.965 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-218473": {
+			"file": "Anonymous - Painted Banner (Thangka) from a Set of Seven Honoring Gayadhara, a Sakya Pandit from India - 1923.966 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-218475": {
+			"file": "Anonymous - Painted Banner (Thangka) from a Set of Seven Honoring Gayadhara, a Sakya Pandit from India - 1923.968 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-21907": {
+			"file": "Domenico Theotokópoulos, called El Greco - Saint Francis Kneeling in Meditation - 1935.372 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-21914": {
+			"file": "Georges Michel - The Storm - 1935.374 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-219254": {
+			"file": "Franz Ludwig Catel - Inside the Colosseum - 2013.1094 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-21934": {
+			"file": "Diego Velázquez - Kitchen Scene - 1935.380 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-220160": {
+			"file": "Anonymous - Pair of Buddhist Manuscript Covers - 2004.757.4b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-220168": {
+			"file": "Anonymous - Pair of Manuscript Covers with Twelve Durgas on Snow Lions Slaying the Buffalo Demon (Mahishasuramardini) - 2005.614b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22153": {
+			"file": "John Singer Sargent - Water Carriers on the Nile - 1935.445 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22194": {
+			"file": "Jules Pascin - Hermine David - 1936.12 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-222002": {
+			"file": "Louis Anquetin Elégante de profil au Bal Mabille 1888.jpg",
+			"method": "wikidata"
+		},
+		"aic-222003": {
+			"file": "Theodor Esbern Philipsen, Les Oies, 1897, 2014.1066, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22270": {
+			"file": "Sarto, Andrea del - The Wife of Domenico da Gambassi.jpg",
+			"method": "wikidata"
+		},
+		"aic-22475": {
+			"file": "Pietro Labruzzi - Portrait of the Architect Giuseppe Valadier - 1964.1168 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22527": {
+			"file": "Maestro del bigallo, crocifisso, chicago art institute.jpg",
+			"method": "wikidata"
+		},
+		"aic-226550": {
+			"file": "Merry Joseph Blondel - Venus Healing Aeneas - 2015.412 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-227532": {
+			"file": "Wilhelm Tischbein - Paris - 2015.321 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-227534": {
+			"file": "Wilhelm Tischbein - Helen - 2015.322 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22808": {
+			"file": "Francisco José de Goya y Lucientes - The Hanged Monk - 1936.225 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22857": {
+			"file": "Imitator of Hieronymus Bosch - The Garden of Paradise - 1936.239 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22862": {
+			"file": "Workshop of Jacob Cornelisz. van Oostsanen - Saint Matthias (^) and a Donor, Saint Andrew (reverse) - 1936.240 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-22866": {
+			"file": "Workshop of Jacob Cornelisz. van Oostsanen - Saint Peter and a Donor, Saint Thomas (reverse) - 1936.241 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-228951": {
+			"file": "Kôetsu - A Poem from the Shin Kokinshu with Design of Shinobugusa Grasses - 2015.170 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-234781": {
+			"file": "Sebastiano del Piombo - Christ Carrying the Cross - 2016.15 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-23480": {
+			"file": "Anonymous - Southern Barbarians - 1965.400 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-23481": {
+			"file": "Anonymous - Southern Barbarians - 1965.401 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-234877": {
+			"file": "Akseli gallen-kallela, ad astra, 1894.jpg",
+			"method": "wikidata"
+		},
+		"aic-235046": {
+			"file": "La Moisson du blé noir, par Paul Sérusier.jpg",
+			"method": "wikidata"
+		},
+		"aic-236975": {
+			"file": "Anonymous - Saint Jerome in Penitence - 2016.435 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-238272": {
+			"file": "Salomon van Ruysdael - River Landscape with a View of Naarden - 2016.434 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-23972": {
+			"file": "Correggio - Virgin and Child with the Young Saint John the Baptist - 1965.688 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-241452": {
+			"file": "Kano Yasunobu - Monkey Trainers and Scenes of Chinese Life - 2001.417.1-2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-243872": {
+			"file": "Honthorst - A Boy Blowing on a Firebrand, 1621-22, 2018.135.jpg",
+			"method": "wikidata"
+		},
+		"aic-244013": {
+			"file": "Shipwreck near a Rocky Coast by Thomas Birch - detail (Chicago, Art Inst 2018.363).jpg",
+			"method": "insource"
+		},
+		"aic-24442": {
+			"file": "Anonymous - An Actor on Stage - 1965.913 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24445": {
+			"file": "Chôbunsai Eishi - Beauty Replacing Her Hairpin - 1965.914 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24463": {
+			"file": "Torii Kiyonobu I - Courtesan and Two Attendants - 1965.921 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24539": {
+			"file": "Anonymous - Bhairavi Ragini, Page from a Bundi Ragamala Set - 1965.1127 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24545": {
+			"file": "Chôbunsai Eishi - A Courtesan Reading a Letter - 1965.1129 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24674": {
+			"file": "Cornelis de Man - The Oude Kerk, Delft - 1965.1176 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24677": {
+			"file": "Pietro della Vecchia - The Adoration of the Magi - 1965.1177 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24681": {
+			"file": "Nicolas Toussaint Charlet - The Diligence - 1965.1178 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-24684": {
+			"file": "Alessandro Allori - Francesco de' Medici - 1965.1179 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25740": {
+			"file": "Bartolommeo di Giovanni - Scenes from the Life of Saint John the Baptist - 1937.996 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25743": {
+			"file": "Raffaello Botticini - The Adoration of the Magi.jpg",
+			"method": "wikidata"
+		},
+		"aic-25749": {
+			"file": "Jean Hey, (the Master of Moulins) - Fragment from Christ Carrying the Cross, Saint John the Evangelist - 1937.1000 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25753": {
+			"file": "Matteo di Giovanni - Two Putti - 1937.1001 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25770": {
+			"file": "Francescuccio Ghissi - The Crucifixion - 1937.1006 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25774": {
+			"file": "Ugolino di Nerio - Virgin and Child Enthroned with Saints Peter, Paul, John the Baptist, and Dominic and a Dominican Supplicant - 1937.1007 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25778": {
+			"file": "Spagna, Lo - Saint Catherine of Siena - 1937.1008 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25781": {
+			"file": "Botticini - Virgin and Child with Two Angels.jpg",
+			"method": "wikidata"
+		},
+		"aic-25790": {
+			"file": "Peter Paul Rubens - The Adoration of the Eucharist - 1937.1012 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25806": {
+			"file": "Jean-Baptiste-Camille Corot - Vue de Gênes (1834).jpg",
+			"method": "wikidata"
+		},
+		"aic-25810": {
+			"file": "Stanislas Lépine - The Courtyard - 1937.1018 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25812": {
+			"file": "Édouard Manet - Bullfight - 1937.1019 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25825": {
+			"file": "Pierre-Auguste Renoir - Woman at the Piano - 1937.1025 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25832": {
+			"file": "Pierre-Auguste Renoir - Jean Renoir Sewing - 1937.1027 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-258490": {
+			"file": "EDWAERT COLLIER VANITAS STILL LIFE.jpg",
+			"method": "wikidata"
+		},
+		"aic-25865": {
+			"file": "Winslow Homer - The Herring Net - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-25872": {
+			"file": "John Henry Twachtman - The White Bridge - 1937.1042 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-25964": {
+			"file": "Samuel Lovett Waldo - Harriet White - 1937.1100 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-26217": {
+			"file": "Franz Xavier Karl Palko - St. John of Matha and St. Felix of Valois Ransoming Christian Slaves - 1966.550 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-265263": {
+			"file": "Mélanie de Comoléra Still Life with Grapes and Flowers.jpg",
+			"method": "insource"
+		},
+		"aic-27027": {
+			"file": "Gustave Courbet - Les Roches de Hautepierre (ca. 1869).jpg",
+			"method": "wikidata"
+		},
+		"aic-27138": {
+			"file": "Thomas Hicks - A Friendly Warning - 1967.174 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27148": {
+			"file": "John Hesselius - Mrs. William Carmichael - 1967.177 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27160": {
+			"file": "John Wollaston - Portrait of a Naval Officer - 1967.180 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27163": {
+			"file": "Jasper Francis Cropsey - Niagara Falls in Winter - 1967.181 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27170": {
+			"file": "Eugène Carrière - Still Life - 1967.183 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27281": {
+			"file": "Amedeo Modigliani 004.jpg",
+			"method": "wikidata"
+		},
+		"aic-27307": {
+			"file": "Jacques Louis David - Madame de Pastoret and Her Son - 1967.228 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27309": {
+			"file": "Anonymous - Two Monks in a Landscape - 1938.223 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27310": {
+			"file": "Peter Paul Rubens - The Holy Family with Saints Elizabeth and John the Baptist - 1967.229 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27764": {
+			"file": "Eugène Louis Boudin - Approaching Storm - 1938.1276 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27777": {
+			"file": "George Inness - The Sisters - 1926.132 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27819": {
+			"file": "Augustin Théodule Ribot - The Scullion - 1938.1297 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27943": {
+			"file": "Paul Gauguin - Mahana no atua (Day of the God) - 1926.198 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27949": {
+			"file": "Vincent van Gogh - Madame Roulin Rocking the Cradle (La berceuse) - 1926.200 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27954": {
+			"file": "Vincent van Gogh - Terrace and Observation Deck at the Moulin de Blute-Fin, Montmartre - 1926.202 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27962": {
+			"file": "Ferdinand Hodler - James Vibert, Sculptor - 1926.212 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-27980": {
+			"file": "Femme au divan rose, par Henri Matisse.jpg",
+			"method": "wikidata"
+		},
+		"aic-27984": {
+			"file": "Femme devant un aquarium, par Henri Matisse.jpg",
+			"method": "wikidata"
+		},
+		"aic-27987": {
+			"file": "Amedeo Modigliani - Jacques and Berthe Lipchitz - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-27992": {
+			"file": "A Sunday on La Grande Jatte, Georges Seurat, 1884.jpg",
+			"method": "wikidata"
+		},
+		"aic-28086": {
+			"file": "Walter Greaves - James McNeill Whistler - 1926.259 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28102": {
+			"file": "Gawen Hamilton - Thomas Walker and Peter Monamy - 1926.264 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28143": {
+			"file": "Anonymous - Architectural Landscape with Belisarius Receiving Alms - 1967.587 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28146": {
+			"file": "Gustave Doré - Alpine Scene - 1967.588 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28173": {
+			"file": "Bartholomeus Breenbergh - The Resurrection - 1967.596 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-2823": {
+			"file": "Eugène Carrière - Portrait of a Boy - 1956.341 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28275": {
+			"file": "Portrait of an Aged Courtier, c. 1680 0.jpg",
+			"method": "wikidata"
+		},
+		"aic-28423": {
+			"file": "Iran, foglio da un manoscritto del corano, xiii-xiv secolo.jpg",
+			"method": "wikidata"
+		},
+		"aic-28426": {
+			"file": "Anonymous - Calligraphy, probably from the set \"The Four Accomplishments\" - 1926.377 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28430": {
+			"file": "Anonymous - Painting, from the set \"The Four Accomplishments\" - 1926.378 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28560": {
+			"file": "Vincent van Gogh - The Bedroom - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-28849": {
+			"file": "William Merritt Chase - A City Park - 1968.88 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28853": {
+			"file": "Charles François Daubigny - River Boat - 1968.89 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28857": {
+			"file": "Anthony van Dyck - Man with a Ruff - 1968.90 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28860": {
+			"file": "Thomas Eakins - Study for \"William Rush Carving His Allegorical Figure of the Schuylkill River\" - 1968.91 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28862": {
+			"file": "Vincent van Gogh - A Peasant Woman Digging in Front of Her Cottage - 1968.92 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28868": {
+			"file": "Jean François Millet - Woman and Child (Silence) - 1968.94 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28874": {
+			"file": "Peter Paul Rubens - St. Albert of Louvain - 1968.96 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-28876": {
+			"file": "Attributed to Francesco Solimena (Italian, 1657–1747) - Portrait of a Girl - 1968.97 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29009": {
+			"file": "Domenico Morelli - The Gladiator - 1968.161 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29095": {
+			"file": "German School - Entombment - 1926.570 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29392": {
+			"file": "Édouard Manet - Boy with Pitcher (La Régalade) - 1968.303 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29395": {
+			"file": "Pierre Puvis de Chavannes - In the Heather - 1968.304 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29401": {
+			"file": "Gustave Courbet - Wooded Landscape - 1968.306 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29446": {
+			"file": "Anonymous - Triptych of the Virgin and Child with Scenes from the Life of Christ - 1968.321 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-29488": {
+			"file": "India, forse deccan, donna sotto un albero, xviii secolo.jpg",
+			"method": "wikidata"
+		},
+		"aic-30361": {
+			"file": "Johan Barthold Jongkind - Entrance to the Port of Honfleur - 1968.614 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-30365": {
+			"file": "Mattia Preti - Portrait of a Grand Master of the Knights of Malta, Martin de Redin - 1968.615 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-30419": {
+			"file": "Anonymous - Flowers of All Seasons - 1926.1045 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-30420": {
+			"file": "Anonymous - Flowers of All Seasons - 1926.1046 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-30701": {
+			"file": "George Inness - The old mill, 1849.jpg",
+			"method": "wikidata"
+		},
+		"aic-30709": {
+			"file": "William Sidney Mount - Bar-room Scene - 1939.392 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-30899": {
+			"file": "Portrait of Cardinal Zelada, 1773, by Anton Raphael Mengs - Art Institute of Chicago - DSC09475.JPG",
+			"method": "wikidata"
+		},
+		"aic-30901": {
+			"file": "Hendrick Terbrugghen - The Denial of Saint Peter - 1969.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-31176": {
+			"file": "Jan Baptist Weenix - Portrait of a Man - 1969.111 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-31233": {
+			"file": "Jean Baptiste François Désoria - Portrait of Constance Pipelet - 1939.533 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-31285": {
+			"file": "Thomas Eakins - Portrait of Mary Adeline Williams - 1939.548 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-31809": {
+			"file": "Anonymous - Head of a Woman - 1969.330 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-31816": {
+			"file": "Mary Cassatt - After the Bullfight - 1969.332 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-32086": {
+			"file": "John Hoppner - William Gifford - 1969.624 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-32091": {
+			"file": "Giulio Cesare Procaccini - Virgin and Child with Angels - 1969.626 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-32094": {
+			"file": "Ary Scheffer - Portrait of an Artist - 1969.627 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-32132": {
+			"file": "Utagawa Toyohiro - Beauty at the Mimeguri Shrine - 1969.641 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-32640": {
+			"file": "Anonymous - Puxian, the Bodhisattva of Benevolence - 1969.839 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-33212": {
+			"file": "Jean Baptiste Armand Guillaumin - The Arcueil Aqueduct at Sceaux Railroad Crossing - 1970.95 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-33249": {
+			"file": "Sebastiano Ricci - The Continence of Scipio - 1970.106 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-33552": {
+			"file": "Chester Harding - Thomas Abthorpe Cooper (1776-1849) - 1927.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-34310": {
+			"file": "Anonymous - Painted Banner (Thangka) of Sage Guru Padmasambhava Seated Holding a Thunderbolt (Vajra) and Skull Cup (Kapala) - 1970.486 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-34461": {
+			"file": "Polynesian Woman with Children 1901 Paul Gauguin.jpg",
+			"method": "wikidata"
+		},
+		"aic-34497": {
+			"file": "Qi Zhaijia - Landscape after Wang Meng - 1970.551 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35145": {
+			"file": "Pierre Andrieu - The Lion Hunt - 1970.999 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35149": {
+			"file": "Jean Baptiste Camille Corot - Nymphs Leaving the Bath - 1970.1000 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35155": {
+			"file": "Narcisse Virgile Diaz de la Peña - Education of Cupid - 1970.1002 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35175": {
+			"file": "Isaac van Ostade - Travellers Halting at an Inn - 1970.1007 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35180": {
+			"file": "Jean François Millet, I - Classical Landscape with Two Women and a Man on a Path - 1970.1008 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35184": {
+			"file": "Augustus Cordus - Der Sündenfall (1544).jpg",
+			"method": "wikidata"
+		},
+		"aic-35195": {
+			"file": "Andrea Vaccaro - The Lamentation - 1970.1013 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35229": {
+			"file": "Raphael Vergos - Saint Agatha - 1970.1024 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35259": {
+			"file": "Adolphe Schreyer - Peasants and Horses - 1970.1033 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35262": {
+			"file": "Benjamin Marshall - The Earl of Coventry's Horse - 1970.1034 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35280": {
+			"file": "Dirck van der Lisse - Nymphs Bathing - 1970.1040 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35427": {
+			"file": "Utagawa Hiroshige - Matsuchiyama on the Sumida River - 1939.1863 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-3551": {
+			"file": "James McNeill Whistler - Study for \"Arrangement in Grey and Black, No. 2, Thomas Carlyle\" - 1956.763 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35669": {
+			"file": "Rifû - Seated Beauty - 1939.1941 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35677": {
+			"file": "Anonymous - Female Dancer - 1939.1943 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35682": {
+			"file": "Katsukawa Shunchô - Girl on River Bank - 1939.1945 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-35686": {
+			"file": "Katsukawa Shunsho - Dancer with a Maple Branch - 1939.1946 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-36492": {
+			"file": "Francesco de Mura - Charity - 1971.429 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-36495": {
+			"file": "Anonymous - Liberation of Saint Peter from Prison - 1971.430 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-36508": {
+			"file": "Anonymous - Landscape with Figures and Buildings - 1971.439 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-36525": {
+			"file": "Felice Ficherelli - Judith with the Head of Holofernes - 1939.2240 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-36550": {
+			"file": "Kitao Shigemasa - Women's Bathhouse and Laundry - 1971.455 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-36610": {
+			"file": "1940.4 - Joyous Banquet of Guo Ziyi (곽분양행락도).jpg",
+			"method": "insource"
+		},
+		"aic-37741": {
+			"file": "Alfred Sisley - Watering Place at Marly - 1971.875 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-37743": {
+			"file": "Frans Francken, II - The Annunciation - 1971.876 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39070": {
+			"file": "Jean Baptiste Regnault - Cupid and Psyche - 1972.363 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39479": {
+			"file": "Francesco Paolo Michetti - Springtime and Love - 1901.429 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39493": {
+			"file": "Mihály Munkácsy - The Wrestler's Challenge - 1901.435 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39496": {
+			"file": "Alfred Stevens - At the Railway Station - 1901.436 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39510": {
+			"file": "Hans Makart - Treasures of the Sea - 1901.440 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39528": {
+			"file": "Jean Louis Ernest Meissonier - The Out-Post - 1901.446 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39542": {
+			"file": "Rosa Bonheur - Cattle at Rest on a Hillside in the Alps (1885).jpg",
+			"method": "wikidata"
+		},
+		"aic-39554": {
+			"file": "Gustave Courbet - An Alpine Scene - 1901.456 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39560": {
+			"file": "William Adolphe Bouguereau - The Bathers - 1901.458 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39652": {
+			"file": "Anders Zorn - Maria Sheldon Scammon - 1902.39 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39691": {
+			"file": "Emil Carlsen, Nantasket Beach, 1876, 1940.1087, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-39954": {
+			"file": "Charles Gifford Dyer - Seventeenth-Century Interior - 1902.227 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-3999": {
+			"file": "Mughal - Portrait of a Princess - 1929.890 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-40381": {
+			"file": "Imitator of Narcisse Virgile Diaz de la Peña - In the Woods - 1940.1322 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-40388": {
+			"file": "James Peale - Olivia Simes Morris - 1940.1324 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-40507": {
+			"file": "Heinrich Jansen - Christ in the Storm - 1941.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-40549": {
+			"file": "Theodore Robinson - The Valley of Arconville - 1941.11 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-40652": {
+			"file": "John Jackson - \"Portrait of the Artist\" - 1905.56 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4081": {
+			"file": "Giovanni Battista Moroni - Gian Lodovico Madruzzo - 1929.912 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4089": {
+			"file": "Domenico Tintoretto - Venus and Mars with Cupid and the Three Graces in a Landscape - 1929.914 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4092": {
+			"file": "Alessandro Magnasco - Arcadian Landscape with Figures - 1929.915 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-41208": {
+			"file": "Stefano Pozzi - The Presentation in the Temple - 1972.1133 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-41211": {
+			"file": "Studio of Diego Rodriguez de Velázquez - Portrait of Philip IV - 1972.1134 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-41217": {
+			"file": "Follower of Bernard van Orley - Pentecost - 1972.1136 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-41426": {
+			"file": "Gao Yang - Strange Rocks - 1972.1203 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-42949": {
+			"file": "Lautrec jeanne wenz 1886.jpg",
+			"method": "wikidata"
+		},
+		"aic-43145": {
+			"file": "Claude Lorrain - View of Delphi with a Procession - 1941.1020 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-43169": {
+			"file": "Pei Zhi - Landscape - 1941.1027 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-43173": {
+			"file": "Wang Guxiang - Narcissus - 1941.1028 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-43183": {
+			"file": "Cheng Jiasui - Scholar Playing a Qin (Zither) - 1941.1031 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-43211": {
+			"file": "Emanuel de Witte - Interior of the Oude Kerk, Delft - 1941.1038 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44017": {
+			"file": "Bazille, Frédéric - Landscape at Chailly.jpeg",
+			"method": "wikidata"
+		},
+		"aic-44018": {
+			"file": "Winslow Homer - Croquet Scene - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-44065": {
+			"file": "William Michael Harnett - Just Dessert - 1942.50 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4428": {
+			"file": "Gustave Courbet - Mère Grégoire - 1930.78 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44739": {
+			"file": "Henry Fuseli - Milton Dictating to His Daughter - 1973.303 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44742": {
+			"file": "François Boucher - Are They Thinking about the Grape? (Pensent-ils au raisin?) - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-44770": {
+			"file": "Anonymous - Love in the Open Air - 1973.312 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44775": {
+			"file": "Sir Henry Raeburn - Eleanor Margaret Gibson-Carmichael - 1973.314 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44816": {
+			"file": "Luca Cambiaso - Venus and Cupid - 1942.290 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44826": {
+			"file": "Salvator Rosa - Polycrates and the Fisherman - 1942.291 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44829": {
+			"file": "Salvator Rosa - Polycrates' Crucifixion - 1942.292 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44831": {
+			"file": "1850s BostonCommon ARTIC.png",
+			"method": "wikidata"
+		},
+		"aic-44886": {
+			"file": "(discard) French School - Woman in a Straw Hat - 1942.308 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-44892": {
+			"file": "Édouard Manet - Fish (Still Life) - 1942.311 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-45240": {
+			"file": "Paul Cézanne - The Bathers - 1942.457 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-45267": {
+			"file": "Jean Baptiste Camille Corot - Monte Pincio, Rome - 1942.466 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4575": {
+			"file": "Jan Sanders van Hemessen - Judith - 1956.1109 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-45829": {
+			"file": "Gaspard Dughet - Landscape with a Herdsman and Goats - 1973.669 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-45838": {
+			"file": "Grounds of the Château du Pont under Snow, Louveciennes.jpg",
+			"method": "wikidata"
+		},
+		"aic-46092": {
+			"file": "Martin Rico y Ortega - Canal in Venice - 1973.766 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46264": {
+			"file": "Anonymous - The Demon Sambar Throws the Infant Pradyumna into the River, page from a manuscript of the Bhagavata Purana - 1973.835 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46266": {
+			"file": "Anonymous - Pradyumna Enters the Palace of the Demon Sambar and Challenges him to Battle, page from a manuscript of the Bhagavata Purana - 1973.836 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46321": {
+			"file": "Homer Dodge Martin - On the Seine - 1943.92 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46359": {
+			"file": "Xugu - Bridge on a Reed Pond, from an album of Landscapes and Calligraphy for Liu Songfu - 1943.106.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46382": {
+			"file": "Johann Georg Platzer - Nymphs and Satyrs Drinking - 1974.13 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46383": {
+			"file": "Johann Georg Platzer - Bacchic Revels - 1974.14 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46387": {
+			"file": "Anonymous - Portrait of Tao Yuanming - 1943.120 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46401": {
+			"file": "Xugu - Black Birds - 1943.125 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46423": {
+			"file": "Ren Yi - The Five Virtues - 1943.133 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46435": {
+			"file": "Ren Yi - Mandarin Ducks and Lotus - 1943.137 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46450": {
+			"file": "Ren Yi - Paradise Flycatchers and Wisteria - 1943.142 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46461": {
+			"file": "Ren Yi - Mynah and Bamboo - 1943.146 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46466": {
+			"file": "Ren Yi - Birds on Red Plum - 1943.148 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46472": {
+			"file": "Xugu - Wisteria and Goldfish - 1943.150 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46477": {
+			"file": "Xugu - Crested Myna Birds and Chrysanthemums - 1943.152 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-46487": {
+			"file": "Xugu - Prunus, Pine and Bamboo - 1943.155 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47089": {
+			"file": "Xugu - Plum Blossoms, Crane, and Spring - 1943.505 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47153": {
+			"file": "Jozef Israëls - Mother and Child on a Seashore - 1974.231 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47159": {
+			"file": "Eustache Le Sueur - Meekness - 1974.233 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47181": {
+			"file": "Claude Marie Dubufe - Portrait of Mr. Delvalle - 1943.531 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4749": {
+			"file": "John Singer Sargent - Mrs. George Swinton (Elizabeth Ebsworth) - 1922.4450 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47578": {
+			"file": "Pompeo Girolamo Batoni - Don José Moñino y Redondo, Conde de Floridablanca - 1974.386 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4758": {
+			"file": "John Constable - Stoke-by-Nayland - 1922.4453 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47582": {
+			"file": "John Constable - Hampstead, Stormy Sky - 1974.387 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47590": {
+			"file": "James Northcote - Mrs. Allan Maconochie - 1974.390 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47596": {
+			"file": "Stefano Pozzi - The Circumcision - 1974.392 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4760": {
+			"file": "Jean Baptiste Camille Corot - Bathing Nymphs and Child - 1922.4454 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-47601": {
+			"file": "Apollonio di Giovanni - The Battle of Pharsalus and the Death of Pompey - 1974.394 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4770": {
+			"file": "Meindert Hobbema - Wooded Landscape with Cottage and Horseman - 1922.4460 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4773": {
+			"file": "Sir Thomas Lawrence - Mrs. Jens Wolff - 1922.4461 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4776": {
+			"file": "Jean François Millet - The Keeper of the Herd - 1922.4462 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4788": {
+			"file": "Sir Joshua Reynolds - Lady Sarah Bunbury Sacrificing to the Graces - 1922.4468 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4791": {
+			"file": "George Romney - Mrs. Francis Russell - 1922.4469 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4796": {
+			"file": "Joseph Mallord William Turner - Fishing Boats with Hucksters Bargaining for Fish - 1922.4472 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-48532": {
+			"file": "Joos van Cleve - The Infants Christ and Saint John the Baptist Embracing - 1975.136 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-48535": {
+			"file": "Joseph Siffred Duplessis - Portrait of a Lady - 1975.137 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-48679": {
+			"file": "Antonio Molleno - Saint Blasius - 1975.174 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-48719": {
+			"file": "John Singleton Copley - Robert Hyde, Squire of Hyde - 1943.1002 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-48776": {
+			"file": "Antonio Puga - Man in Armour - 1975.213 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-4887": {
+			"file": "Monet - Irises, 1914-17, 1956.1202.jpg",
+			"method": "wikidata"
+		},
+		"aic-4896": {
+			"file": "Franz Seraph von Lenbach - Prince Otto von Bismarck - 1956.1205 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49011": {
+			"file": "Li Zongmo - History of the Life of Tao Yuanming - 1943.1146 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49025": {
+			"file": "Anonymous - King Yu Moving a Mountain to Control the Floods - 1943.1152 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49068": {
+			"file": "Eglon van der Neer - Lady Playing with a Dog - 1943.1183 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49195": {
+			"file": "Ghasi - Maharana Bhim Singh in Procession - 1975.507 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49229": {
+			"file": "Anonymous - Dhanasri Ragini - 1975.523 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49262": {
+			"file": "Anonymous - Painted Banner (Thangka) of Amitayus Buddha Surrounded by One Hundred Buddhas - 1975.536 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49336": {
+			"file": "Mughal - A Procession Scene with Musicians, from a copy of the Padshanama - 1975.555 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49422": {
+			"file": "Sébastien Bourdon - Portrait of a Man - 1975.582 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49425": {
+			"file": "William Rimmer - Horses at a Fountain - 1975.583 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49439": {
+			"file": "Madonna and Child Appearing to Saint Louis Gonzaga.png",
+			"method": "wikidata"
+		},
+		"aic-495": {
+			"file": "Reinier Zeeman, (Reinier Nooms) - Coast Scene - 1890.40 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49651": {
+			"file": "John Constable - Landscape with Cottages - 1944.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49661": {
+			"file": "Théodore Rousseau - Landscape - 1975.668 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49702": {
+			"file": "John Smibert - Richard Bill - 1944.28 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-49723": {
+			"file": "Jozef Israëls - Old Age - 1944.35 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-50306": {
+			"file": "Anonymous - Praying Virgin - 1976.31 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-50309": {
+			"file": "Bartolomeo Salvestrini - Hercules and Hesione - 1976.32 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-50983": {
+			"file": "Yuan Jiang - Spring Arriving in the Han Palace - 1944.437 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-51130": {
+			"file": "Pompeo Girolamo Batoni - Time Unveiling Truth - 1976.291 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-512": {
+			"file": "Géraerd Ter Borch - The Music Lesson - 1891.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-51450": {
+			"file": "Chen Chun - Pavilion of Eight Poems - 1944.600 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-51541": {
+			"file": "Jean Louis André Théodore Géricault - Prancing Horse - 1944.687 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-51577": {
+			"file": "Jean Baptiste Siméon Chardin - The White Tablecloth - 1944.699 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-51582": {
+			"file": "Sir William Beechey - Mark Pringle - 1944.700 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-51811": {
+			"file": "Islamic - Zal and Rudaba in a Palace, page from a copy of the Shahnama of Firdausi - 1976.524 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-52177": {
+			"file": "Francesco Trevisani - Holy Family with the Infant St. John - 1978.107 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-52293": {
+			"file": "Anonymous - Manuchehr Kills Tur, Manuscript from Shahnama - 1978.148 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-52306": {
+			"file": "Anonymous - Prince and Princess Hunting Blackbuck - 1978.153 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5288": {
+			"file": "Follower of Canaletto - Portico with a Lantern - 1957.48 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5292": {
+			"file": "Follower of Canaletto - The Terrace - 1957.49 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5304": {
+			"file": "Pier Francesco Mola - Homer Dictating - 1930.337 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-53058": {
+			"file": "Berthe Morisot - Forêt de Compiègne - 1885.jpg",
+			"method": "wikidata"
+		},
+		"aic-53061": {
+			"file": "Follower of Simon Vouet - Christ on the Cross with Mary Magdalene - 1978.423 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-53488": {
+			"file": "Giuseppe Angeli - Rape of the Sabines - 1945.288 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5349": {
+			"file": "Childe Hassam - New England Headlands - 1930.349 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-53495": {
+			"file": "Cornelis Saftleven - A Witches' Sabbath - 1945.290 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5355": {
+			"file": "Charles François Daubigny - Village in Brittany - 1957.71 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5502": {
+			"file": "Marco Marcola - An Italian Comedy in Verona - 1922.4790 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-55380": {
+			"file": "David Gilmour Blythe - Old Virginia Home - 1979.55 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-55494": {
+			"file": "Winslow Homer - Peach Blossoms, 1878.jpg",
+			"method": "wikidata"
+		},
+		"aic-55692": {
+			"file": "Michele Felice Cornè - New England Country Seat - 1946.391 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-55706": {
+			"file": "Ammi Phillips - Cornelius Allerton - 1946.394 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-55710": {
+			"file": "Ammi Phillips - Mrs. Reuben Allerton (Lois Atherton) - 1946.395 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-561": {
+			"file": "Jan Steen - The Family Concert - 1891.65 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-56464": {
+			"file": "Léon Joseph Florentin Bonnat - Portrait of Henry Field - 1898.6 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-56556": {
+			"file": "James Forbes - Alexander N. Fullerton - 1898.236 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-56731": {
+			"file": "Anonymous - Legends of the Yuzu Nembutsu Sect - 1956.1256 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-56862": {
+			"file": "Carducius Plantagenet Ream - Purple Plums - 1899.907 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-56905": {
+			"file": "James McNeill Whistler - Nocturne, Blue and Gold—Southampton Water - 1900.52 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57048": {
+			"file": "Hubert Robert - The Old Temple - 1900.382 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57049": {
+			"file": "Hubert Robert - The Obelisk - 1900.383 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57050": {
+			"file": "Hubert Robert - The Landing Place - 1900.384 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57148": {
+			"file": "Benjamin West - The Death of Procris - 1900.445 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57163": {
+			"file": "Thomas Cole - New England Scenery - 1900.558 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57191": {
+			"file": "Eugène Fromentin - On the Nile, Near Philae - 1900.580 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57215": {
+			"file": "Elihu Vedder - Storm in Umbria - 1900.605 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57652": {
+			"file": "Benjamin West - Queen Philippa at the Battle of Neville's Cross - 1972.1153 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57727": {
+			"file": "Nicolas Antoine Taunay - The Show (La Parade) - 1973.313 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57854": {
+			"file": "Eugène Isabey - Shipwreck - 1975.667 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-57996": {
+			"file": "Pierre-Jacques Volaire - The Eruption of Vesuvius - 1978.426 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-58052": {
+			"file": "Nicolas Bertin - Christ Washing the Feet of His Disciples - 1979.305 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-5848": {
+			"file": "Nicolas Poussin - Landscape with Saint John on Patmos - 1930.500 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-58698": {
+			"file": "Bartholomaeus Bruyn, the younger - Portrait of a Woman with a Prayer Book - 1940.934 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-58984": {
+			"file": "Alfred Sisley - Landscape along the Seine with the Institut de France and the Pont des Arts - 1979.1030 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59002": {
+			"file": "Jean Baptiste Camille Corot - Souvenir of the Environs of Lake Nemi - 1979.1280 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59455": {
+			"file": "1799 Roxbury byJRPenniman ArtInstituteChicago.png",
+			"method": "wikidata"
+		},
+		"aic-59779": {
+			"file": "Monticelli, attributed to - Portrait of a Lady, 1870-79, 1947.25.jpg",
+			"method": "insource"
+		},
+		"aic-59784": {
+			"file": "John Singleton Copley - Daniel Hubbard - 1947.27 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59787": {
+			"file": "John Singleton Copley - Mrs. Daniel Hubbard (Mary Greene) - 1947.28 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59798": {
+			"file": "Abbott Handerson Thayer - Winged Figure - 1947.32 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59809": {
+			"file": "Sir Henry Raeburn - Robert Brown of Newhall - 1980.74 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59823": {
+			"file": "Eugène Louis Boudin - La Touques near Deauville - 1980.79 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59837": {
+			"file": "Anonymous - The Crucifixion - 1947.52 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59843": {
+			"file": "Carlo da Camerino - Madonna of Humility - 1947.56 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59847": {
+			"file": "ManfrediMarsCupid.jpg",
+			"method": "wikidata"
+		},
+		"aic-59856": {
+			"file": "Lucas Cranach (I) - Crucifixion, 1538 (Chicago).jpg",
+			"method": "wikidata"
+		},
+		"aic-59874": {
+			"file": "Hans Eworth - Portrait of a Woman - 1947.70 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59882": {
+			"file": "French School - The Carousal (Scene from Faust^) - 1947.73 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59891": {
+			"file": "German School - Portrait of a Young Artist - 1947.77 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59894": {
+			"file": "Follower of Frans Hals - The Rommel-Pot Player - 1947.78 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59897": {
+			"file": "Worcester-Master.jpg",
+			"method": "wikidata"
+		},
+		"aic-59907": {
+			"file": "Alessandro Longhi - Portrait of a girl with a dog - 1947.84 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59912": {
+			"file": "Anonymous - Christ Carrying the Cross - 1947.87 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59914": {
+			"file": "Fuchs Leonhart - Portrait of Leonhard Fuchs - 1947.88 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59916": {
+			"file": "Ercole de'Roberti - Virgin and Child - 1947.90 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59930": {
+			"file": "Adolphe Joseph Thomas Monticelli - The Princesses - 1947.97 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59940": {
+			"file": "German School - Diptych of Saints Achatius, Barbara, Apollonia, and Sebald - 1947.100 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59944": {
+			"file": "Pierre-Auguste Renoir - The Laundress - 1947.102 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59956": {
+			"file": "Peter Paul Rubens - The Wedding of Peleus and Thetis - 1947.108 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59960": {
+			"file": "Martin Schaffner - Portrait of a Man - 1947.109 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59969": {
+			"file": "Unknown Italian - Portrait Presumed to Be of Antonio Zantani - 1947.115 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59971": {
+			"file": "Workshop of Paolo Veneziano - Saints John the Baptist and Catherine of Alexandria - 1947.116 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-59974": {
+			"file": "Bottega del veronese, san girolamo nel deserto, 1585-90 ca.jpg",
+			"method": "wikidata"
+		},
+		"aic-59989": {
+			"file": "Henry Fuseli - Sketch for \"Oath on the Rütli,\" Female Figure (verso) - 1980.170 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-6002": {
+			"file": "Honoré-Victorin Daumier - The Print Collector - 1957.305 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-6005": {
+			"file": "Camille Pissarro - Bords de la Marne en Hiver.jpg",
+			"method": "wikidata"
+		},
+		"aic-6009": {
+			"file": "Giovanni Battista Piazzetta - The Beggar Boy (The Young Pilgrim) - 1930.747 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60237": {
+			"file": "Anonymous - Krishna's Marriage to Kalinda, page from a manuscript of the Bhagavata Purana - 1980.278 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60294": {
+			"file": "Chicago art inst hassam new york street.JPG",
+			"method": "wikidata"
+		},
+		"aic-60300": {
+			"file": "Suzuki Kiitsu - Morning Glories - 1980.291 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60503": {
+			"file": "Artist Unknown - Flowers of the Four Seasons - 1947.390 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60514": {
+			"file": "Bartolomé de Cárdenas, (called Bermejo) - Saint Augustine - 1947.393 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60627": {
+			"file": "Pietro Longhi - Lady at Her Toilette - 1947.433 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60755": {
+			"file": "Jacob van Ruisdael - Landscape with the Ruins of the Castle of Egmond.jpg",
+			"method": "wikidata"
+		},
+		"aic-60804": {
+			"file": "Thomas Hudson - John Van der Wall - 1980.611 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60809": {
+			"file": "Eugène Blery - Landscape - 1980.612 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-60812": {
+			"file": "Paul Gauguin - The Ancestors of Tehamana OR Tehamana Has Many Parents (Merahi metua no Tehamana) - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-60867": {
+			"file": "Henri Regnault - General Juan Prim (1814-1870) - 1947.510 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61108": {
+			"file": "School of William Matthew Prior - Woman in a Blue Dress - 1980.728 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61112": {
+			"file": "School of William Matthew Prior - Portrait of Fred Adelbert Haywood - 1980.729 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61117": {
+			"file": "Anonymous - Emblems for Royal Crown Lodge No. 22 - 1980.731 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61125": {
+			"file": "Anonymous - Man in Black - 1980.734 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61128": {
+			"file": "Henri de Toulouse-Lautrec - At the Moulin Rouge - 1928.610 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61136": {
+			"file": "Frederick R. Spencer - Lady in Brown - 1980.738 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61139": {
+			"file": "William Bonnell - William Bonham - 1980.739 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61141": {
+			"file": "William Bonnell - Mrs. William Bonham (Ann Warford) - 1980.740 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61148": {
+			"file": "Jacob Eichholtz - Mr. Benjamin Schaum - 1980.742 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61156": {
+			"file": "Jacob Eichholtz - Master Schaum - 1980.744 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61158": {
+			"file": "Erastus Salisbury Field - Woman with a Green Book (Louisa Gallond Cook) - 1980.746 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61483": {
+			"file": "Wang Meng - Quiet Life in a Wooded Glen - 1947.728 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61616": {
+			"file": "Georges Seurat - Oil Sketch for \"La Grande Jatte\" - 1981.15 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61642": {
+			"file": "Jean Victor Bertin - Entrance to the Park at Saint-Cloud - 1981.25 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61665": {
+			"file": "Francisco de Zurbarán - Saint Romanus of Antioch and Saint Barulas - 1947.793 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-61741": {
+			"file": "(discard) French School - Portrait of a Woman Artist - 1981.66 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-62144": {
+			"file": "Islamic - Farhad Carrying Shirin and Her Horse, from a copy of the Khamsa of Nizami - 1981.214 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-62169": {
+			"file": "Anonymous - Angel (Peri) Riding a Composite Camel - 1981.219 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-62243": {
+			"file": "Mughal - Portrait of Emperor Jahangir - 1981.249 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-62371": {
+			"file": "Paul Cézanne - Madame Cézanne in a Yellow Chair - 1948.54 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-62393": {
+			"file": "John La Farge - Snow Field, Morning, Roxbury - 1981.287 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-62450": {
+			"file": "Louise Moillon - Still Life with a Basket of Fruit and a Bunch of Asparagus - 1948.78 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64001": {
+			"file": "Henri matisse, mele, 1916.jpg",
+			"method": "wikidata"
+		},
+		"aic-64007": {
+			"file": "Nicolas Lancret - The Beautiful Greek Woman - 1948.565 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64029": {
+			"file": "Jan Brueghel, the elder - Bouquet of Flowers in an Earthenware Vase - 1948.570 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64412": {
+			"file": "Emile van Marcke de Lummen - Study of a Cow - 1910.288 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64686": {
+			"file": "Jacob Eichholtz - Miss Schaum - 1980.745 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64715": {
+			"file": "George Inness - After a Summer Shower - 1911.29 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64724": {
+			"file": "George Inness - The Home of the Heron - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-64729": {
+			"file": "George Inness - Early Morning, Tarpon Springs - 1911.32 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64740": {
+			"file": "George Inness - Landscape, Sunset - 1911.35 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64754": {
+			"file": "George Inness - Moonrise - 1911.39 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64818": {
+			"file": "Claude Monet - Stacks of Wheat (End of Summer) - 1985.1103 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64920": {
+			"file": "Tintoretto - Tarquin and Lucretia - 1949.203 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64957": {
+			"file": "Vincent van Gogh - Grapes, Lemons, Pears, and Apples - 1949.215 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64979": {
+			"file": "C.W. Eckersberg, The Cloisters, San Lorenzo fuori le mura, 1824, 1986.991, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-64996": {
+			"file": "Abraham Janssens - Jupiter Rebuked by Venus - 1986.996 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65011": {
+			"file": "Anonymous - Hillside with Trees - 1986.1000 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65170": {
+			"file": "George Inness - Afterglow - 1911.441 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65353": {
+			"file": "George Inness - The Storm - 1912.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65709": {
+			"file": "James McNeill Whistler - The Artist in His Studio - 1912.141 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65811": {
+			"file": "Paul Cézanne - The Plate of Apples - 1949.512 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65821": {
+			"file": "Mondrian, Compositie met rood en grijs.jpg",
+			"method": "wikidata"
+		},
+		"aic-65845": {
+			"file": "David Bates - Autumn River Scene, The Brook - 1986.1280 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65848": {
+			"file": "Heinrich Reinhold - Italian Landscape - 1986.1282 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-65926": {
+			"file": "Anonymous - Painted Banner (Thangka) of Green Tara Surrounded by Twenty Manifestations - 1986.1314 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-66022": {
+			"file": "Jan Mijtens - Portrait of a Man - 1986.1367 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-66042": {
+			"file": "Adriaen van der Spelt - Trompe-l'Oeil Still Life with a Flower Garland and a Curtain - 1949.585 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-66046": {
+			"file": "Alessandro Magnasco - The Synagogue - 1949.586 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-663": {
+			"file": "William Merritt Chase - Alice - 1893.107 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-67362": {
+			"file": "Domenico Theotokópoulos, called El Greco - Saint Martin and the Beggar - 1949.1093 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-6793": {
+			"file": "Portrait of Wen Zhengming.jpg",
+			"method": "wikidata"
+		},
+		"aic-6831": {
+			"file": "Diego Velázquez - Saint John the Baptist in the Wilderness - 1957.563 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-6835": {
+			"file": "John Singleton Copley - Joseph Gerrish - 1957.564 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-68428": {
+			"file": "Augustin Théodule Ribot - The Artist's Daughter - 1950.132 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-68433": {
+			"file": "Henri Rousseau - Sawmill, Outskirts of Paris - 1950.133 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-68784": {
+			"file": "George Inness - Summer in the Catskills - 1912.1837 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-68792": {
+			"file": "George Inness - A Marine - 1913.90 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-68931": {
+			"file": "Charles Spencer Humphreys - George Franklin Archer and the Archer Residence - 1987.43 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69003": {
+			"file": "Nicolas de Largillière - Self-Portrait - 1987.57 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69137": {
+			"file": "Adolphe Joseph Thomas Monticelli - Persons in Louis XV Costumes - 1987.92.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69138": {
+			"file": "Adolphe Joseph Thomas Monticelli - Fête d'Après-Midi - 1987.92.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69533": {
+			"file": "Fidelia Bridges - Bird's Nest and Ferns - 1987.169 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69538": {
+			"file": "Charles B. Lawrence - Point Breeze, the Estate of Joseph Napoleon Bonaparte at Bordentown, New Jersey - 1987.170 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69541": {
+			"file": "Victor Dubreuil - One Dollar Silver Certificate - 1987.171 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-69844": {
+			"file": "George Inness - The Lonely Farm, Nantucket - 1914.189 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-70118": {
+			"file": "Johann Carl Loth - Old Peasant Lighting a Pipe - 1987.258 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-70133": {
+			"file": "John Russell - Portrait of a Man in a Tricorn Hat - 1987.262.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-70134": {
+			"file": "Joseph Highmore - Mrs. Freeman Flower - 1987.262.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-70135": {
+			"file": "Joseph Highmore - Freeman Flower - 1987.262.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-70594": {
+			"file": "Sadiqi - The Lion Tamer - 1987.360.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-71018": {
+			"file": "Edwin Henry Landseer - Head of a Roebuck and Two Ptarmigan - 1988.42 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-71191": {
+			"file": "Pierre Puvis de Chavannes - The Fisherman's Family - 1915.227 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-71573": {
+			"file": "1915.560 - A Holiday.jpg",
+			"method": "insource"
+		},
+		"aic-71771": {
+			"file": "Xie Shichen - Winter Landscape - 1950.1151 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-71777": {
+			"file": "Lin Xue - Prunus and Bamboo - 1988.172 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72180": {
+			"file": "Henri Fantin-Latour - Still Life with Flowers - 1988.260 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72183": {
+			"file": "Adolphe Joseph Thomas Monticelli - Still Life with Fruit and Wine Jug - 1988.261 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72190": {
+			"file": "Karel van der Pluym - An Old Man in a Fur Cap - 1988.265 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72193": {
+			"file": "Veneto-Lombardian School - Portrait of a Gentleman - 1988.266 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72320": {
+			"file": "Toby Edward Rosenthal - Elaine - 1917.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72375": {
+			"file": "Thomas Sully - Mrs. Klapp (Anna Milnor) - 1950.1362 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72398": {
+			"file": "Sanford Robinson Gifford - Cows in a Pond at Sunset - 1988.317 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72801": {
+			"file": "John Henry Twachtman - Icebound - 1917.200 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72864": {
+			"file": "Thomas Eakins - Riter Fitzgerald - 1950.1511 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72951": {
+			"file": "Frank Duveneck - J. Frank Currier (1843-1909) - 1917.263 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-72953": {
+			"file": "Thomas Sully - Mrs. George Lingen - 1917.264 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-73054": {
+			"file": "Alfred Sisley - The Loire - 1988.504 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-74242": {
+			"file": "Anonymous - Standing Beauty - 1989.207 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-7489": {
+			"file": "Adolphe Joseph Thomas Monticelli - Portrait of Monsieur Rouland - 1958.117 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-74967": {
+			"file": "Elihu Vedder - The Fates Gathering in the Stars - 1919.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-7503": {
+			"file": "George Hitchcock - The Annunciation - 1930.1289 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75091": {
+			"file": "Shen Quan - One Hundred Cranes - 1989.627 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75320": {
+			"file": "Shen Zhou - Return to Stone Lake - 1951.187 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75361": {
+			"file": "Qiu Ying - The Peach Blossom Spring - 1951.196 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75374": {
+			"file": "Sir Thomas Lawrence - Anna Maria Dashwood, later Marchioness of Ely - 1951.199 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75390": {
+			"file": "Arthur Devis - Thomas Lister and Family at Gisburne Park - 1951.203 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75392": {
+			"file": "British School - Family in a Room - 1951.205 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75393": {
+			"file": "Arthur Devis - Sir John Shaw and his Family in the Park at Eltham Lodge, Kent - 1951.206 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75409": {
+			"file": "Arthur Devis - Portrait of a Man - 1951.207 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75507": {
+			"file": "Henri Fantin-Latour - Still Life, Corner of a Table - 1951.226 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75568": {
+			"file": "Mi Wanzhong - Recluse Dwellings in the Autumn Mountains - 1951.238 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75574": {
+			"file": "Wang Wên - Song of a Fisherman - 1951.239 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75957": {
+			"file": "Mount Washington, by Winslow Homer (Chicago Art Institute 1951.313) B.jpg",
+			"method": "wikidata"
+		},
+		"aic-75974": {
+			"file": "Anthonis Mor - Portrait of a Court Lady - 1951.314 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75980": {
+			"file": "Anders Zorn - Portrait Study of a Man - 1951.316 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-75988": {
+			"file": "Pietro Marescalchi - Portrait of a Gentleman - 1951.318 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76166": {
+			"file": "Sheldon Peck - Portrait of Mrs. William W. Welch - 1990.100.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76212": {
+			"file": "Baron Antoine Jean Gros - Portrait of the Maistre Sisters - 1990.110 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76267": {
+			"file": "Xiang Shengmo - River and Mountain Landscape - 1952.7 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76279": {
+			"file": "Anonymous - Yang Pu Moving His Family - 1952.9 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-7633": {
+			"file": "Sesson Shukei - Landscape of the Four Seasons - 1958.167 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-7634": {
+			"file": "Sesson Shukei - Landscape of the Four Seasons - 1958.167-168 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76571": {
+			"file": "Frederic Edwin Church - View of Cotopaxi - 1919.753 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76810": {
+			"file": "Mughal - European Banquet Scene - 1919.891 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76816": {
+			"file": "Basawan - The Young Emperor Akbar Arrests the Insolent Shah Abu’l-Maali, page from a manuscript of the Akbarnama - 1919.898 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76868": {
+			"file": "Anonymous - Portrait of a Ladakhi Mountain Goat - 1919.944 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76869": {
+			"file": "Royal Horse Inspection, Safavid dynasty (1501–1722), late 17th century, Iran, probably Isfahan, Ali Quli Jabbadar - 1919.945 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76877": {
+			"file": "Mughal - Beauty Holding a Flower - 1919.948 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76893": {
+			"file": "Anonymous - Young Woman Smoking a Huqqa - 1919.954 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76899": {
+			"file": "Anonymous - Asavari Ragini, A Female Yogini (Page from a Ragamala Set) - 1919.955 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-76900": {
+			"file": "Mughal - Two Girls Performing Kathak - 1919.956 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-78289": {
+			"file": "1920.457 - Korean Buddhist Painting.jpg",
+			"method": "insource"
+		},
+		"aic-78506": {
+			"file": "Charles Willson Peale - John Nicholson - 1952.1000 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-78507": {
+			"file": "Charles Willson Peale - Mrs. John Nicholson (Hannah Duncan) and John Nicholson, Jr. - 1952.1001 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79025": {
+			"file": "Anonymous - Mrs. Daniel Embury (Emma Catherine Manley) - 1953.8 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79037": {
+			"file": "Agostino Brunias - View on the River Roseau, Dominica - 1953.14 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79310": {
+			"file": "Lu Zhi - Pulling Oars under Clearing Autumn Skies (Distant Mountains) - 1953.159 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79505": {
+			"file": "Anonymous - A Hunt in the Mountains of Heaven - 1953.280 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79572": {
+			"file": "Qian Shumei - The Xuehong Pavilion in a Scholar's Garden - 1953.327 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79584": {
+			"file": "Anonymous - Fête Champêtre - 1953.334 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79586": {
+			"file": "Hilaire Germain Edgar Degas - Portrait of Mme. Lisle and Mme Loubens - 1953.335 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79716": {
+			"file": "Anonymous - Flight of Geese - 1953.439 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79765": {
+			"file": "John Wollaston - Portrait of a Woman - 1953.462 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79768": {
+			"file": "John Wollaston - Portrait of a Young Man - 1953.463 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79774": {
+			"file": "Corneille de Lyon - Portrait of a Man - 1953.466 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79777": {
+			"file": "Hans Memling - Saint Anthony of Padua - 1953.467 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-79789": {
+			"file": "Anonymous - Portrait of a Man - 1953.472 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80072": {
+			"file": "Kano Motonobu - Ink Landscape - 1954.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80073": {
+			"file": "Anonymous - Illustrated Legends of the Tenchi-in (Tenchi-in engi) - 1954.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80084": {
+			"file": "Francisco de Zurbarán - The Crucifixion - 1954.15 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80213": {
+			"file": "Sheng Mao - Fishing Recluse by an Autumn Grove (秋林漁隱圖) - 1954.103 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80450": {
+			"file": "Charles Cottet - Portrait of a Woman - 1921.82 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80460": {
+			"file": "Edward Savage - George Washington - 1921.88 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80463": {
+			"file": "Henri Regnault - Portrait of a Young Woman - 1921.90 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80478": {
+			"file": "Samuel Lovett Waldo - Mrs. James Mackie - 1921.98 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80480": {
+			"file": "Samuel Lovett Waldo - Mr. James Mackie - 1921.99 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80499": {
+			"file": "Beaux, Cecilia - Dorothea and Francesca -1898.jpg",
+			"method": "wikidata"
+		},
+		"aic-805": {
+			"file": "Scene from the Book of the Dead.jpg",
+			"method": "wikidata"
+		},
+		"aic-80510": {
+			"file": "Li Shan - Birds, Flowers and Insects - 1954.275 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80524": {
+			"file": "Ferdinand Bol - Portrait of a woman - 1954.281 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80526": {
+			"file": "Sandro Botticelli - Virgin and Child with Two Angels - 1954.282 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80530": {
+			"file": "Sandro Botticelli - Virgin and Child with an Angel - 1954.283 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80535": {
+			"file": "Follower of Anthonie van Dyck - Portrait of a Man - 1954.286 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80537": {
+			"file": "Vincenzo Frediani - The Adoration of the Christ Child - 1954.289 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80538": {
+			"file": "Master of the Female Half-Lengths - A Lady Reading (Saint Mary Magdalene) - 1954.290 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80539": {
+			"file": "Paulus Moreelse - Portrait of a Young Lady - 1954.292 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80540": {
+			"file": "Alonso Sánchez Coello - Portrait of Don Juan of Austria - 1954.293 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80542": {
+			"file": "Anonymous - The Lamentation - 1954.294 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80547": {
+			"file": "Anonymous - Nehan, Death of the Buddha - 1921.161 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80548": {
+			"file": "Follower of Rembrandt Harmenszoon van Rijn - Young Man in a Turban - 1954.297 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80553": {
+			"file": "Peter Paul Rubens - Nicolas Rubens, the artist's son - 1954.299 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80560": {
+			"file": "Studio of Diego Rodriguez de Velázquez - Isabella of Bourbon, Wife of Philip IV of Spain - 1954.302 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80567": {
+			"file": "Marcel Ordinaire - Landscape - 1954.306 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80570": {
+			"file": "Master Alejo (Alejo Andía^) - Saints Apollonia, Barbara, and Agatha - 1954.307 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80579": {
+			"file": "Agustin Esteve y Marqués - Manuel Godoy - 1954.312 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80586": {
+			"file": "Portrait of a Woman c1917-19 Amedeo Modigliani.jpg",
+			"method": "wikidata"
+		},
+		"aic-80587": {
+			"file": "Adolphe Joseph Thomas Monticelli - Meditation (Seated Woman) - 1954.317 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80589": {
+			"file": "Lippi-Pesellino Imitator - Virgin and Child - 1954.318 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-80604": {
+			"file": "Hilaire Germain Edgar Degas - Portrait after a Costume Ball (Portrait of Madame Dietz-Monnin) - 1954.325 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8104": {
+			"file": "Bernardo Strozzi - Portrait of St. Gerardo Sagredo, Bishop of Csanád.jpg",
+			"method": "wikidata"
+		},
+		"aic-81500": {
+			"file": "Jean Charles Cazin - Theocritus - 1922.401 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81501": {
+			"file": "Eugène Delacroix - Dante's Bark - 1922.402 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81503": {
+			"file": "Eugène Delacroix - Arab Horseman Attacked by a Lion - 1922.403 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81505": {
+			"file": "Eugène Delacroix - Lion Hunt - 1922.404 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81509": {
+			"file": "Jean Baptiste Camille Corot - Arleux-Palluel, The Bridge of Trysts - 1922.407 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81510": {
+			"file": "Jean Baptiste Camille Corot - Souvenir of Italy - 1922.408 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81512": {
+			"file": "Jean Baptiste Camille Corot - Interrupted Reading - 1922.410 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81515": {
+			"file": "Jean François Millet - The Little Shepherdess - 1922.413 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81516": {
+			"file": "Jean François Millet - In the Auvergne - 1922.414 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81519": {
+			"file": "Jean François Millet - Young Woman - 1922.415 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81521": {
+			"file": "Jean François Millet - The Woodchopper - 1922.416 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81522": {
+			"file": "Jean François Millet - The Sheepshearers - 1922.417 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81525": {
+			"file": "Albert Besnard - Woman's Head - 1922.420 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81533": {
+			"file": "Édouard Manet - The Races at Longchamp - 1922.424 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81535": {
+			"file": "Édouard Manet - Steamboat Leaving Boulogne - 1922.425 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81537": {
+			"file": "Bordighera.jpg",
+			"method": "wikidata"
+		},
+		"aic-81539": {
+			"file": "Claude Monet - On the Bank of the Seine, Bennecourt - 1922.427 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81540": {
+			"file": "Claude Monet - The Departure of the Boats, Étretat - 1922.428 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81545": {
+			"file": "Claude Monet - Stacks of Wheat (Sunset, Snow Effect) - 1922.431 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81546": {
+			"file": "Monet - The Petite Creuse River, 1889.jpg",
+			"method": "wikidata"
+		},
+		"aic-81548": {
+			"file": "Young Peasant Having Her Coffee.jpg",
+			"method": "wikidata"
+		},
+		"aic-81551": {
+			"file": "Camille Pissarro - La Place du Havre et la rue d’Amsterdam, matin, soleil - Art Institute Chicago (PD 986).jpg",
+			"method": "wikidata"
+		},
+		"aic-81552": {
+			"file": "Young-woman-and-child-at-the-well-1882.jpg",
+			"method": "wikidata"
+		},
+		"aic-81555": {
+			"file": "Pierre-Auguste Renoir - Lunch at the Restaurant Fournaise (The Rowers' Lunch) - 1922.437 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81557": {
+			"file": "Vague-renoir.jpg",
+			"method": "wikidata"
+		},
+		"aic-81561": {
+			"file": "Alfred Sisley - Street in Moret - 1922.441 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81562": {
+			"file": "Pascal Adolphe Jean Dagnan-Bouveret - Woman from Brittany - 1922.442 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81564": {
+			"file": "Eastman Johnson - Husking Bee, Island of Nantucket - 1922.444 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81566": {
+			"file": "Pierre Puvis de Chavannes - The Sacred Grove, Beloved of the Arts and the Muses - 1922.445 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81568": {
+			"file": "Chicago art inst raffaelli notre dame.JPG",
+			"method": "wikidata"
+		},
+		"aic-81572": {
+			"file": "James McNeill Whistler - Trouville (Grey and Green, the Silver Sea) - 1922.448 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-81576": {
+			"file": "Anders Zorn - Mrs. Potter Palmer - 1922.450 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8209": {
+			"file": "Lan Ying - Landscape in the Style of Ancient Masters, after Gao Kegong (1248-1310) - 1958.395.b - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-82511": {
+			"file": "Anonymous - Icon with the Virgin and Child - 1954.1359 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8360": {
+			"file": "Paul Gauguin - Te burao (The Hibiscus Tree) - 1923.308 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84076": {
+			"file": "Hilaire Germain Edgar Degas - Café Singer - 1955.738 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84088": {
+			"file": "James McNeill Whistler - Violet and Silver - The Deep Sea - 1955.743 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84096": {
+			"file": "Pieter Boel - Dead Birds and Shot Bags - 1955.747 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84123": {
+			"file": "Tang Yin - Drinking at Night - 1955.761 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84707": {
+			"file": "Sir Joshua Reynolds - Sir Thomas Rumbold, Bt. - 1955.1202 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84709": {
+			"file": "Juan Sánchez Cotán - Still Life with Game Fowl - 1955.1203 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8475": {
+			"file": "Charles Robert Leslie - James William Wallack - 1923.359 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-84767": {
+			"file": "Wang Hui - The Bamboo Slope - 1955.1235 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8528": {
+			"file": "Robert Matthew Sully - Junius Brutus Booth - 1923.384 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8606": {
+			"file": "The Master of the Children's Caps - Peasant Family at a Well - 1923.415 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-862": {
+			"file": "Follower of Frans Hals - Portrait of an Artist - 1894.1023 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86232": {
+			"file": "Zhu Da - Lotus and Waterfowl - 1956.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86233": {
+			"file": "Wang Shimin - Landscape after Wang Meng - 1956.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86236": {
+			"file": "Wang Yuanqi - Mountainous Landscape after Wang Meng - 1956.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86297": {
+			"file": "Jules Dupré - Two Boats in a Storm - 1894.1056 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86298": {
+			"file": "Emile van Marcke de Lummen - Study of a Cow - 1894.1072 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-863": {
+			"file": "Adriaen van de Velde - Pastoral Landscape with Ruins - 1894.1024 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86338": {
+			"file": "Anonymous - Portrait of a Gentleman - 1924.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-864": {
+			"file": "Quentin Massys - Portrait of a Man with a Pink - 1894.1025 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86441": {
+			"file": "Flemish School - Portrait of a Man - 1924.575 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86451": {
+			"file": "Gong Xian - Landscape - 1924.1047 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-866": {
+			"file": "Anthony van Dyck - Helena Leonora Sieveri - 1894.1027 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-867": {
+			"file": "David Teniers, the younger - The Guardhouse - 1894.1029 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-86780": {
+			"file": "Art Institute of Chicago-0992.jpg",
+			"method": "wikidata"
+		},
+		"aic-86904": {
+			"file": "Anonymous - Fashionable Figures, with Two Women Holding Fans - 1925.1682a - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87000": {
+			"file": "Camille Pissarro, Haymaking at Éragny, 1892, 1961.791, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87045": {
+			"file": "Henri matisse, il geranio, 1906.jpg",
+			"method": "wikidata"
+		},
+		"aic-87054": {
+			"file": "John Martin - The Covenant - 1961.884 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87056": {
+			"file": "Baron François Pascal Simon Gérard - Monsieur Tortoni - 1961.886 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87088": {
+			"file": "Claude Monet - Water Lily Pond - 1933.441 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87201": {
+			"file": "Anonymous - Sumiyoshi Monogatari - 1961.963 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-874": {
+			"file": "Jean Charles Cazin - Landscape - 1894.1037 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87467": {
+			"file": "Henri Fantin-Latour - Édouard Manet - 1905.207 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87479": {
+			"file": "Domenikos Theotokópoulos, called El Greco - The Assumption of the Virgin - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-87515": {
+			"file": "Spanish School - Job, 1618–1630.jpg",
+			"method": "wikidata"
+		},
+		"aic-876": {
+			"file": "Jean Charles Cazin - October Day - 1894.1039 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87633": {
+			"file": "Rembrandt Harmenszoon van Rijn - Jacob's Farewell to Benjamin - 1937.463 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87637": {
+			"file": "Anonymous - The Birth of Bacchus - 1937.497 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87643": {
+			"file": "Henry Ossawa Tanner - The Two Disciples at the Tomb - 1906.300 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-877": {
+			"file": "Jean Baptiste Camille Corot - Landscape - 1894.1041 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-87760": {
+			"file": "Lucas Cranach d.Ä. - Bildnis der Magdalene von Sachsen (Art Institute of Chicago).jpg",
+			"method": "wikidata"
+		},
+		"aic-87763": {
+			"file": "Anonymous - Henry VIII, Elizabeth I, and Edward VI - 1938.311 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-878": {
+			"file": "Jean Baptiste Camille Corot - Wounded Eurydice - 1894.1042 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-879": {
+			"file": "John Constable - Landscape (The Lock) - 1894.1043 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-880": {
+			"file": "Charles François Daubigny - The Marsh - 1894.1044 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-882": {
+			"file": "Alexandre Gabriel Decamps - Study of Pigs - 1894.1047 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88258": {
+			"file": "Islamic - Book Binding - 1938.476 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-883": {
+			"file": "Pierre Andrieu - Wounded Lioness - 1894.1048 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88372": {
+			"file": "Anton Raffael Mengs - Portrait of the Artist's Father, Ismael Mengs - 1962.75 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88374": {
+			"file": "Alessandro Longhi - Portrait of a Musician - 1962.76 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88404": {
+			"file": "Master of the Visitation - Warrior Saint - 1962.86 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-885": {
+			"file": "Jean Baptiste Édouard Detaille - A Mounted Officer - 1894.1050 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88582": {
+			"file": "Anonymous - Raga Bhairaon, Page from a Jaipur Ragamala Set - 1962.147.1 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88619": {
+			"file": "Hendrick van Steenwijck, the Younger - Aeneas Rescuing Anchises from Burning Troy - 1962.817 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88632": {
+			"file": "Jacques Louis David - Madame François Buron - 1963.205 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-887": {
+			"file": "Narcisse Virgile Diaz de la Peña - Landscape with Figures - 1894.1052 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-88793": {
+			"file": "Retable and Frontal of the Life of Christ and the Virgin (Kexaa).jpg",
+			"method": "insource"
+		},
+		"aic-889": {
+			"file": "Jules Dupré - Barks Fleeing Before the Storm - 1894.1055 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-890": {
+			"file": "Jules Dupré - On the Road - 1894.1057 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8900": {
+			"file": "Isoda Koryusai - Beauty Beneath a Willow Tree - 1931.483 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-89043": {
+			"file": "Francisco José de Goya y Lucientes - Portrait of General José Manuel Romero - 1970.1036 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-893": {
+			"file": "Théodore Rousseau - Landscape - 1894.1065 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-894": {
+			"file": "Théodore Rousseau - Springtime - 1894.1066 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-895": {
+			"file": "Adolphe Schreyer - Man with Lance Riding through the Snow - 1894.1067 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-89516": {
+			"file": "Anonymous - Four Recruits in White Dhotis, page from the Fraser Album - 1981.247 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8953": {
+			"file": "Peter Paul Rubens - The Capture of Samson - 1923.551 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8958": {
+			"file": "James McNeill Whistler - Arrangement in Flesh Color and Brown, Portrait of Arthur Jerome Eddy - 1931.501 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-896": {
+			"file": "Constant Troyon - The Road to Market - 1894.1068 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-89626": {
+			"file": "Walter Shirlaw - Toning the Bell - 1938.1280 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-897": {
+			"file": "Constant Troyon - Pasture in Normandy - 1894.1069 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8971": {
+			"file": "Winslow Homer - Coast of Maine - 1931.505 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-898": {
+			"file": "Constant Troyon - Unfinished Study of Sheep - 1894.1071 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8980": {
+			"file": "Vasily Kandinsky - Landscape with Two Poplars - 1931.508 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8983": {
+			"file": "Vasily Kandinsky - Painting with Troika - 1931.509 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8987": {
+			"file": "Vasily Kandinsky - Painting with Green Center - 1931.510 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-8991": {
+			"file": "Vasily Kandinsky, Improvisation No. 30 (Cannons), 1913, 1931.511, Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-89984": {
+			"file": "Chang Shêng-yu - Washing the White Elephant - 1943.1147 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-9": {
+			"file": "David Dalhoff Neal - Interior of St. Mark's, Venice - 1887.232 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-90024": {
+			"file": "Giovanni Domenico Tiepolo - Head of a Philosopher - 1945.175 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-90048": {
+			"file": "Distant View of Niagara Falls 1830 Thomas Cole.jpg",
+			"method": "wikidata"
+		},
+		"aic-90060": {
+			"file": "Imitator of Gentile Bellini - Sinan the Jew and Haireddin Barbarossa - 1947.53 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-90062": {
+			"file": "Ralph Albert Blakelock - Ghost Dance (The Vision of Life) - 1947.55 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-90064": {
+			"file": "French School - The Carousal (Scene from Faust^) - 1947.72 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-90071": {
+			"file": "Anonymous - Triptych of the Crucifixion with Saints Anthony, Christopher, James and George - 1947.394 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-9021": {
+			"file": "Franz Marc - The Bewitched Mill - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-90333": {
+			"file": "Charles Courtney Curran - An Alcove in the Art Students' League - 1950.1514 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-90437": {
+			"file": "Anonymous - Monju Dressed in a Robe of Braided Grass (Nawa Monju) - 1929.68 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-9148": {
+			"file": "Henri de Toulouse-Lautrec - Ballet Dancers - 1931.571 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-9255": {
+			"file": "John Trumbull - William Brown - 1923.920 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93342": {
+			"file": "Gustave Courbet - Rêverie (1862).jpg",
+			"method": "wikidata"
+		},
+		"aic-93372": {
+			"file": "Frans Floris, I - Study Head of a Bearded Man - 1990.557 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93450": {
+			"file": "Francisco José de Goya y Lucientes - Winter Scene - 1990.558 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93554": {
+			"file": "Hans Eworth - Portrait of a Lady of the Wentworth Family (Probably Jane Cheyne) - 1920.1035 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93737": {
+			"file": "Joos de Momper, II - Landscape with Figures - 1976.1269 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93780": {
+			"file": "Cosmo Alexander - Alexander Grant - 1977.2 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93781": {
+			"file": "Rosa Bonheur - Study for The Horse Fair - 1977.3 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93782": {
+			"file": "Henri Leopold Lévy - The Death of Orpheus - 1977.4 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93783": {
+			"file": "Sir Henry Raeburn - Adam Rolland of Gask II - 1977.5 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93784": {
+			"file": "Jean Baptiste Joseph Peter - La Fête du Mai - 1977.7 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93900": {
+			"file": "Jean Honoré Fragonard - Portrait of a Man in Spanish Costume - 1977.123 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-93926": {
+			"file": "Anonymous - Krishna and Radha in a Pavilion, page from a copy of the Sat Sai Seven Hundred Verses) - 1977.150 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94123": {
+			"file": "Pierre Charles Trémolières - Sancho Panza Being Tossed in a Blanket - 1977.483 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94124": {
+			"file": "Antoine Wiertz - St. Cecilia - 1977.484 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94125": {
+			"file": "Agostino Masucci - The Madonna with the Seven Founders of the Servite Order - 1977.485 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94126": {
+			"file": "Jean-Baptiste Oudry - Still Life with Monkey, Fruits, and Flowers - 1977.486 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94239": {
+			"file": "Théodore Rousseau - Landscape - 1977.604 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94240": {
+			"file": "Odilon Redon - Flowers, Poppies and Daisies - 1977.605 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94241": {
+			"file": "Félix Edouard Vallotton - Madame Vallotton and her Niece, Germaine Aghion - 1977.606 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-94840": {
+			"file": "Samuel van Hoogstraten - Young woman at an open half-door (1645).jpg",
+			"method": "wikidata"
+		},
+		"aic-94841": {
+			"file": "Jules Breton, le chant de l'alouette.1884.jpg",
+			"method": "wikidata"
+		},
+		"aic-94842": {
+			"file": "Charles François Daubigny - Houses in Optevoz, France - 1894.1045 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95108": {
+			"file": "John Jackson - Portrait of a Gentleman - 1905.57 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95183": {
+			"file": "Édouard Manet - Beggar with a Duffle Coat (Philosopher) - 1910.304 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95420": {
+			"file": "Benjamin West - Portrait of a Man - 1916.209 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95613": {
+			"file": "Pieter Verhaert - At the Justice of The Peace - 1921.121 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95654": {
+			"file": "Pierre-Auguste Renoir - Near the Lake - 1922.439 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95993": {
+			"file": "Narcisse Virgile Diaz de la Peña - Pond in the Woods - 1922.4455 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-95998": {
+			"file": "Rembrandt Harmensz. van Rijn - Old Man with a Gold Chain - Google Art Project.jpg",
+			"method": "wikidata"
+		},
+		"aic-96558": {
+			"file": "Unknown Venetian - The Flight into Egypt - 1947.111 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-96559": {
+			"file": "Alfred Sisley - A Turn in the Road - 1947.112 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-9672": {
+			"file": "Sébastien Bourdon - Christ Receiving the Children - 1959.57 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97291": {
+			"file": "Sanford Robinson Gifford - Kauterskill Clove, Catskill Mountains - 1982.270 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97292": {
+			"file": "Robert William Vonnoh - Spring in France - 1982.272 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97681": {
+			"file": "Louis-Léopold Boilly - The Movings - 1982.494 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97873": {
+			"file": "John Quidor - Rip Van Winkle - 1982.765 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97884": {
+			"file": "Elihu Vedder - A Glimpse into Hell, or Fear - 1982.776 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97887": {
+			"file": "Frederic Remington - The Interpreter Waved at the Youth - 1982.779 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97890": {
+			"file": "Frederic Remington - Ceremony of the Fastest Horse - 1982.782 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97891": {
+			"file": "Frederic Remington - I Will Tell the White Man - 1982.783 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97892": {
+			"file": "Frederic Remington - Nothing But Cheerful Looks Followed the Bat - 1982.784 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97893": {
+			"file": "Frederic Remington - This Was a Fatal Embarkation - 1982.785 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97894": {
+			"file": "Frederic Remington - Rushing Red Lodges Passed through the Line - 1982.786 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97895": {
+			"file": "Frederic Remington - The Fire Eater Raised His Arms to the Thunder Bird - 1982.787 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97896": {
+			"file": "Frederic Remington - First and Best Camp of the Trip - 1982.788 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97897": {
+			"file": "Frederic Remington - The Fire-Eater Slung His Victim Across His Pony - 1982.789 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97898": {
+			"file": "Frederic Remington - Paddling the Wounded British Officer - 1982.790 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97902": {
+			"file": "Frederic Remington - How the Horses Died for Their Country at Santiago - 1982.794 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97907": {
+			"file": "Frederic Remington - A Mexican Vaquero - 1982.799 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97908": {
+			"file": "Frederic Remington - Slave Market - 1982.800 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97909": {
+			"file": "Frederic Remington - Historians of the Tribe - 1982.801 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-97933": {
+			"file": "Monet - Water Lily Pond, 1917-19, 1982.825.jpg",
+			"method": "wikidata"
+		},
+		"aic-99306": {
+			"file": "Mughal - Mother and Child - 1982.1214 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-99362": {
+			"file": "Anonymous - Krishna Watches A Juggler, from a copy of Bihari's Sat Sai - 1982.1315 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-99424": {
+			"file": "Jean Restout - Saint Hymer in Solitude - 1982.1378 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		},
+		"aic-99652": {
+			"file": "Leopold Kupelwieser - St. Joseph and Christ Child - 1982.1670 - Art Institute of Chicago.jpg",
+			"method": "wikidata"
+		}
+	}
+}
