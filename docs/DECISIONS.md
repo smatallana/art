@@ -87,6 +87,14 @@ tiers, GitHub limits) informed these choices — summarized in ARCHITECTURE.md:
   fetch path can never commit a mostly-empty embeddings file.
 - The same run's commit push was rejected ("fetch first") because the branch
   advanced during the ~30-minute run → the workflow now rebases and retries.
+- Second run showed the real cause: AIC's Cloudflare returns 403 to Actions
+  runners for **every** method/header combination (verified with a curl+node
+  matrix via the new `net-probe.yml`), i.e. a CDN-level datacenter-IP block
+  that appeared mid-day (validation HEADs passed at 14:07). The embed stage
+  is now **incremental** (reuses committed vectors, prunes to the catalog,
+  only fetches missing works) with a per-host circuit breaker, so partial
+  coverage ships (Cleveland now, AIC when the block decays or via R2
+  mirroring, BACKLOG #1) and no run ever regresses committed coverage.
 - Owner declined importing his personal starting profile — the app starts
   from zero evidence for him, like any new user (prior-import stays available
   as a feature).
