@@ -11,13 +11,15 @@
  *   embeddings-meta.json  { ids[], dim, scales[] } aligned with the matrix
  *
  * Politeness: AIC images fetched serially at ~1 rps (their IIIF etiquette);
- * other hosts at moderate concurrency. Failures are skipped and reported —
- * a missing embedding only excludes that work from Snap matching.
+ * other hosts at moderate concurrency. Isolated failures are skipped and
+ * reported — a missing embedding only excludes that work from Snap matching —
+ * but the stage aborts if >20% fail, so a broken fetch path can never commit
+ * a mostly-empty embeddings file.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Work } from './types.js';
-import { sleep } from './util.js';
+import { fetchBuffer, sleep } from './util.js';
 
 const DIM = 512;
 
@@ -63,7 +65,10 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 
 	const embedOne = async (w: Work): Promise<void> => {
 		try {
-			const image = await RawImage.fromURL(w.images.thumb);
+			// Fetch ourselves (pipeline UA + backoff): AIC's CDN rejects the
+			// bare fetch RawImage.fromURL would issue.
+			const buf = await fetchBuffer(w.images.thumb);
+			const image = await RawImage.fromBlob(new Blob([buf]));
 			const output = await extractor(image);
 			const vec = Array.from(output.data as Float32Array).slice(0, DIM);
 			// L2 normalize, then symmetric int8 quantization.
@@ -109,6 +114,12 @@ export async function runEmbedStage({ catalogDir, log }: EmbedOptions): Promise<
 		await embedOne(w);
 		tick();
 		await sleep(1000);
+	}
+
+	if (failed > works.length * 0.2) {
+		throw new Error(
+			`embed stage failed for ${failed}/${works.length} works — aborting instead of committing a mostly-empty embeddings file`
+		);
 	}
 
 	const matrix = new Uint8Array(rows.length * DIM);

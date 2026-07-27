@@ -74,5 +74,10 @@ jobs:
           else
             COUNT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('app/static/catalog/index.json','utf8')).count)")
             git commit -m "pipeline: ${{ inputs.mode }} — catalog at ${COUNT} works"
-            git push
+            # The branch may have advanced during a long run: rebase and retry.
+            n=0
+            until git push; do
+              n=$((n+1)); [ "$n" -ge 3 ] && exit 1
+              git pull --rebase origin "${GITHUB_REF_NAME}"
+            done
           fi

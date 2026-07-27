@@ -77,3 +77,16 @@ tiers, GitHub limits) informed these choices — summarized in ARCHITECTURE.md:
   rather than Workers AI — no model-mismatch risk, photos never leave the
   device; server assist stays in backlog.
 - **Met deferred** until R2 mirroring (their image host is anti-bot).
+
+## 2026-07-27 — Embed-stage hardening (tramo 3)
+
+- First embed run failed for all 1,557 AIC works: `RawImage.fromURL` issues a
+  bare fetch (no User-Agent) that AIC's CDN rejects. Fixed by fetching bytes
+  with the pipeline's polite UA + backoff (`fetchBuffer`) and decoding via
+  `RawImage.fromBlob`; the stage now aborts if >20% of embeds fail so a broken
+  fetch path can never commit a mostly-empty embeddings file.
+- The same run's commit push was rejected ("fetch first") because the branch
+  advanced during the ~30-minute run → the workflow now rebases and retries.
+- Owner declined importing his personal starting profile — the app starts
+  from zero evidence for him, like any new user (prior-import stays available
+  as a feature).

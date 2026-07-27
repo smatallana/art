@@ -40,6 +40,33 @@ export async function fetchJson<T = unknown>(
 	throw lastError;
 }
 
+/** GET binary content (images) with the pipeline UA and backoff on 429/5xx. */
+export async function fetchBuffer(
+	url: string,
+	{ retries = 3, baseDelayMs = 1000, timeoutMs = 45000 }: FetchJsonOptions = {}
+): Promise<Uint8Array> {
+	let lastError: unknown;
+	for (let attempt = 0; attempt <= retries; attempt++) {
+		try {
+			const res = await fetch(url, {
+				headers: { 'user-agent': USER_AGENT, accept: 'image/*' },
+				signal: AbortSignal.timeout(timeoutMs),
+				redirect: 'follow'
+			});
+			if (res.ok) return new Uint8Array(await res.arrayBuffer());
+			if (res.status !== 429 && res.status < 500) {
+				throw new Error(`HTTP ${res.status} for ${url}`);
+			}
+			lastError = new Error(`HTTP ${res.status} for ${url}`);
+		} catch (e) {
+			lastError = e;
+			if (e instanceof Error && e.message.startsWith('HTTP 4')) throw e;
+		}
+		if (attempt < retries) await sleep(baseDelayMs * 2 ** attempt);
+	}
+	throw lastError;
+}
+
 /** HEAD (falling back to ranged GET) to verify an image URL responds. */
 export async function probeUrl(url: string, timeoutMs = 20000): Promise<boolean> {
 	try {
