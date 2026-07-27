@@ -85,3 +85,13 @@ describe('fetchTargetFor', () => {
 		expect(t.url).toContain('clevelandart.org');
 	});
 });
+
+describe('retryAfterMs', () => {
+	it('parses seconds, dates and garbage', async () => {
+		const { retryAfterMs } = await import('../src/util.js');
+		expect(retryAfterMs('30')).toBe(30000);
+		expect(retryAfterMs(null)).toBe(0);
+		expect(retryAfterMs('garbage')).toBe(0);
+		expect(retryAfterMs(new Date(Date.now() + 5000).toUTCString())).toBeGreaterThan(2000);
+	});
+});

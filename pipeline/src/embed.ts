@@ -187,8 +187,12 @@ export async function runEmbedStage({ catalogDir, commonsMapFile, log }: EmbedOp
 		const target = fetchTargetFor(w, commons);
 		try {
 			// Fetch ourselves (pipeline UA + backoff): AIC's CDN rejects the
-			// bare fetch RawImage.fromURL would issue.
-			const buf = await fetchBuffer(target.url);
+			// bare fetch RawImage.fromURL would issue. Commons thumbs get long,
+			// patient retries — fresh renders are rate-limited per IP.
+			const buf = await fetchBuffer(
+				target.url,
+				target.origin === 'c' ? { retries: 5, baseDelayMs: 2000 } : {}
+			);
 			const image = await RawImage.fromBlob(new Blob([buf]));
 			const output = await extractor(image);
 			const vec = Array.from(output.data as Float32Array).slice(0, DIM);
@@ -247,7 +251,9 @@ export async function runEmbedStage({ catalogDir, commonsMapFile, log }: EmbedOp
 	};
 
 	await runPool(direct, 3, 0);
-	await runPool(viaCommons, 2, 250);
+	// Serial with generous spacing: nearly every Commons request at our width
+	// is a fresh thumbnail render, which Wikimedia rate-limits per IP.
+	await runPool(viaCommons, 1, 500);
 
 	let consecutive = 0;
 	let tripped = 0;

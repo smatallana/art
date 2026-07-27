@@ -40,13 +40,27 @@ export async function fetchJson<T = unknown>(
 	throw lastError;
 }
 
-/** GET binary content (images) with the pipeline UA and backoff on 429/5xx. */
+/** Parse a Retry-After header (seconds or HTTP date) into milliseconds. */
+export function retryAfterMs(header: string | null): number {
+	if (!header) return 0;
+	const secs = Number(header);
+	if (Number.isFinite(secs)) return Math.max(0, secs * 1000);
+	const at = Date.parse(header);
+	return Number.isFinite(at) ? Math.max(0, at - Date.now()) : 0;
+}
+
+/**
+ * GET binary content (images) with the pipeline UA and backoff on 429/5xx.
+ * A 429's Retry-After header is honored when longer than the backoff
+ * (Wikimedia's thumbnailer rate-limits fresh renders per IP).
+ */
 export async function fetchBuffer(
 	url: string,
 	{ retries = 3, baseDelayMs = 1000, timeoutMs = 45000 }: FetchJsonOptions = {}
 ): Promise<Uint8Array> {
 	let lastError: unknown;
 	for (let attempt = 0; attempt <= retries; attempt++) {
+		let waitMs = baseDelayMs * 2 ** attempt;
 		try {
 			const res = await fetch(url, {
 				headers: { 'user-agent': USER_AGENT, accept: 'image/*' },
@@ -57,12 +71,15 @@ export async function fetchBuffer(
 			if (res.status !== 429 && res.status < 500) {
 				throw new Error(`HTTP ${res.status} for ${url}`);
 			}
+			if (res.status === 429) {
+				waitMs = Math.max(waitMs, retryAfterMs(res.headers.get('retry-after')));
+			}
 			lastError = new Error(`HTTP ${res.status} for ${url}`);
 		} catch (e) {
 			lastError = e;
 			if (e instanceof Error && e.message.startsWith('HTTP 4')) throw e;
 		}
-		if (attempt < retries) await sleep(baseDelayMs * 2 ** attempt);
+		if (attempt < retries) await sleep(Math.min(waitMs, 60000));
 	}
 	throw lastError;
 }
