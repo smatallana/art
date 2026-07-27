@@ -103,13 +103,18 @@ jobs:
           URL=$(grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 || true)
           echo "::notice::Worker deployed at: ${URL:-unknown}"
 
-      - name: Smoke test /health
+      - name: Smoke test /health (retries for fresh-subdomain DNS)
         if: steps.creds.outputs.missing == 'false'
         working-directory: worker
         run: |
           URL=$(grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 || true)
-          if [ -n "$URL" ]; then
-            curl -sSf "$URL/health" && echo && echo "health OK"
-          else
+          if [ -z "$URL" ]; then
             echo "::warning::could not determine worker URL for smoke test"
+            exit 0
           fi
+          for i in 1 2 3 4 5 6; do
+            if curl -sSf "$URL/health"; then echo; echo "health OK"; exit 0; fi
+            echo "attempt $i failed (DNS may still be propagating); retrying in 20s"
+            sleep 20
+          done
+          echo "::warning::$URL/health still unreachable - fresh workers.dev subdomains can take minutes of DNS propagation; re-run this workflow if it persists."

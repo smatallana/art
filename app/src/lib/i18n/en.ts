@@ -176,7 +176,8 @@ export const t = {
 		signingIn: 'Completing sign-in…',
 		signInFailed: 'Sign-in did not complete',
 		signInFailedHint: 'The sign-in link expired or was already used. Please try again.',
-		notConfigured: 'Accounts are not available yet on this deployment.'
+		notConfigured: 'Accounts are not available yet on this deployment.',
+		authPending: 'Sign-in is being set up - sync will be available shortly.'
 	},
 
 	nav: {

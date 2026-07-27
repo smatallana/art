@@ -78,10 +78,12 @@
 			</div>
 		{:else}
 			<p class="hint">{t.account.guestHint}</p>
-			{#if authUrl}
+			{#if sync.authReady && authUrl}
 				<div class="row">
 					<a class="btn" href={authUrl}>{t.account.signIn}</a>
 				</div>
+			{:else}
+				<p class="hint">{t.account.authPending}</p>
 			{/if}
 		{/if}
 	</section>

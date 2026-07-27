@@ -19,6 +19,7 @@ const PUSHED_KEY = 'sync-pushed-upto';
 
 class SyncState {
 	available = $state(false); // api configured
+	authReady = $state(false); // worker has Google OAuth configured
 	user = $state<ApiUser | null>(null);
 	status = $state<'idle' | 'syncing' | 'offline' | 'error'>('idle');
 	lastSyncAt = $state<string | null>(null);
@@ -28,6 +29,10 @@ class SyncState {
 	async init(): Promise<void> {
 		this.available = (await apiBase()) != null;
 		if (!this.available) return;
+		void api
+			.health()
+			.then((h) => (this.authReady = h.auth === 'google'))
+			.catch(() => (this.authReady = false));
 		if (getToken()) {
 			try {
 				this.user = (await api.me()).user;
