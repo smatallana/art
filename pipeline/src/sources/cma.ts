@@ -137,12 +137,12 @@ export const cma: SourceAdapter = {
 				end: r.creation_date_latest ?? null,
 				display: r.creation_date ?? 'date unknown'
 			},
-			medium: r.technique,
-			dimensions: r.measurements,
+			medium: r.technique ?? null,
+			dimensions: r.measurements ?? null,
 			museum: {
 				name: 'The Cleveland Museum of Art',
-				department: r.department,
-				accession: r.accession_number,
+				department: r.department ?? null,
+				accession: r.accession_number ?? null,
 				url: r.url ?? `https://www.clevelandart.org/art/${r.accession_number ?? r.id}`
 			},
 			rights: {

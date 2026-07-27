@@ -207,12 +207,12 @@ export const aic: SourceAdapter = {
 				end: r.date_end ?? null,
 				display: r.date_display ?? 'date unknown'
 			},
-			medium: r.medium_display,
-			dimensions: r.dimensions,
+			medium: r.medium_display ?? null,
+			dimensions: r.dimensions ?? null,
 			museum: {
 				name: 'Art Institute of Chicago',
-				department: r.department_title,
-				accession: r.main_reference_number,
+				department: r.department_title ?? null,
+				accession: r.main_reference_number ?? null,
 				url: `https://www.artic.edu/artworks/${r.id}`
 			},
 			rights: {
@@ -228,9 +228,9 @@ export const aic: SourceAdapter = {
 				full: dims.width >= 1686 ? iiifUrl(r.image_id, 1686) : null,
 				host: 'museum'
 			},
-			movement: r.style_title,
+			movement: r.style_title ?? null,
 			culture: null,
-			place: r.place_of_origin,
+			place: r.place_of_origin ?? null,
 			story: desc ? firstSentences(desc) : null,
 			tags: {},
 			quality: { score: 0, flags: [] }

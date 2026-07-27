@@ -1,46 +1,79 @@
 /**
- * Live validation: probe image URLs, drop works whose display image is dead,
- * and report everything. Run in CI (the dev sandbox blocks museum domains).
+ * Live image validation with per-host politeness.
+ *
+ * AIC's IIIF etiquette is ~1 request/second, single-file — probing thousands
+ * of works at high concurrency gets the runner blocked (observed: every AIC
+ * probe 403'd at concurrency 6). Hosts declared "polite" are probed serially
+ * with a delay and SAMPLED (their IIIF service is uniform: URLs are derived
+ * from image_id by one pattern, so a healthy sample validates the scheme;
+ * the R2 mirroring stage later touches every file individually anyway).
+ * All other hosts get a full sweep at moderate concurrency.
  */
 import type { Work } from './types.js';
-import { mapLimit, probeUrl } from './util.js';
+import { mapLimit, probeUrl, sleep } from './util.js';
+
+const POLITE_HOSTS: { match: string; delayMs: number; sampleEvery: number }[] = [
+	{ match: 'artic.edu', delayMs: 1000, sampleEvery: 8 }
+];
 
 export interface ValidationReport {
 	checked: number;
+	sampled: number;
 	deadDisplay: string[];
-	deadThumb: string[];
+	politeHosts: string[];
 	survivors: number;
+}
+
+function politeRule(url: string): { delayMs: number; sampleEvery: number } | null {
+	try {
+		const host = new URL(url).hostname;
+		for (const rule of POLITE_HOSTS) if (host.includes(rule.match)) return rule;
+	} catch {
+		// invalid URL → treated as dead by the probe below
+	}
+	return null;
 }
 
 export async function validateImages(
 	works: Work[],
-	{ concurrency = 6, thumbSampleEvery = 10 }: { concurrency?: number; thumbSampleEvery?: number } = {},
+	{ concurrency = 6 }: { concurrency?: number } = {},
 	log: (msg: string) => void = () => {}
 ): Promise<{ works: Work[]; report: ValidationReport }> {
-	const deadDisplay: string[] = [];
-	const deadThumb: string[] = [];
-	let done = 0;
+	const dead = new Set<string>();
+	const politeQueue: Work[] = [];
+	const fastQueue: Work[] = [];
+	for (const w of works) {
+		(politeRule(w.images.display) ? politeQueue : fastQueue).push(w);
+	}
 
-	const results = await mapLimit(works, concurrency, async (w, i) => {
-		const displayOk = await probeUrl(w.images.display);
-		if (!displayOk) deadDisplay.push(w.id);
-		// Thumbs share infrastructure with display URLs; sample them.
-		if (displayOk && i % thumbSampleEvery === 0 && w.images.thumb !== w.images.display) {
-			const thumbOk = await probeUrl(w.images.thumb);
-			if (!thumbOk) deadThumb.push(w.id);
-		}
+	// Full sweep of fast hosts.
+	let done = 0;
+	await mapLimit(fastQueue, concurrency, async (w) => {
+		if (!(await probeUrl(w.images.display))) dead.add(w.id);
 		done++;
-		if (done % 200 === 0) log(`probe: ${done}/${works.length}`);
-		return displayOk;
+		if (done % 250 === 0) log(`probe(fast): ${done}/${fastQueue.length}`);
 	});
 
-	const survivors = works.filter((_, i) => results[i]);
+	// Serial, delayed, sampled sweep of polite hosts.
+	let sampled = 0;
+	for (let i = 0; i < politeQueue.length; i++) {
+		const w = politeQueue[i] as Work;
+		const rule = politeRule(w.images.display) as { delayMs: number; sampleEvery: number };
+		if (i % rule.sampleEvery !== 0) continue;
+		sampled++;
+		if (!(await probeUrl(w.images.display))) dead.add(w.id);
+		if (sampled % 25 === 0) log(`probe(polite): ${sampled} sampled of ${politeQueue.length}`);
+		await sleep(rule.delayMs);
+	}
+
+	const survivors = works.filter((w) => !dead.has(w.id));
 	return {
 		works: survivors,
 		report: {
-			checked: works.length,
-			deadDisplay,
-			deadThumb,
+			checked: fastQueue.length + sampled,
+			sampled,
+			deadDisplay: [...dead],
+			politeHosts: POLITE_HOSTS.map((p) => p.match),
 			survivors: survivors.length
 		}
 	};
