@@ -1,0 +1,78 @@
+{
+ "schemaVersion": 1,
+ "ontologyVersion": 1,
+ "generatedAt": "2026-07-27T14:13:24.642Z",
+ "count": 3665,
+ "shards": [
+  {
+   "file": "works-000.json",
+   "count": 250
+  },
+  {
+   "file": "works-001.json",
+   "count": 250
+  },
+  {
+   "file": "works-002.json",
+   "count": 250
+  },
+  {
+   "file": "works-003.json",
+   "count": 250
+  },
+  {
+   "file": "works-004.json",
+   "count": 250
+  },
+  {
+   "file": "works-005.json",
+   "count": 250
+  },
+  {
+   "file": "works-006.json",
+   "count": 250
+  },
+  {
+   "file": "works-007.json",
+   "count": 250
+  },
+  {
+   "file": "works-008.json",
+   "count": 250
+  },
+  {
+   "file": "works-009.json",
+   "count": 250
+  },
+  {
+   "file": "works-010.json",
+   "count": 250
+  },
+  {
+   "file": "works-011.json",
+   "count": 250
+  },
+  {
+   "file": "works-012.json",
+   "count": 250
+  },
+  {
+   "file": "works-013.json",
+   "count": 250
+  },
+  {
+   "file": "works-014.json",
+   "count": 165
+  }
+ ],
+ "sources": {
+  "aic": {
+   "count": 1557,
+   "attribution": "Art Institute of Chicago — CC0 Public Domain Designation"
+  },
+  "cma": {
+   "count": 2108,
+   "attribution": "The Cleveland Museum of Art — CC0"
+  }
+ }
+}
