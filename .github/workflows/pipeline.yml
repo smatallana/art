@@ -8,7 +8,7 @@ on:
         required: true
         default: sample
         type: choice
-        options: [sample, build]
+        options: [sample, build, embed]
       limit:
         description: 'max works per source (build mode)'
         required: false
@@ -50,6 +50,12 @@ jobs:
         if: inputs.mode == 'build'
         run: npm run -w pipeline run build -- --limit=${{ inputs.limit }} --sources=${{ inputs.sources }} --out=../app/static/catalog
 
+      - name: Embed mode — CLIP embeddings for the committed catalog
+        if: inputs.mode == 'embed'
+        run: npm run -w pipeline run embed
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+
       - uses: actions/upload-artifact@v4
         if: inputs.mode == 'build'
         with:
@@ -58,7 +64,7 @@ jobs:
           retention-days: 30
 
       - name: Commit catalog to the branch
-        if: inputs.mode == 'build'
+        if: inputs.mode == 'build' || inputs.mode == 'embed'
         run: |
           git config user.name "beholder-pipeline[bot]"
           git config user.email "noreply@github.com"
@@ -67,6 +73,6 @@ jobs:
             echo "No catalog changes."
           else
             COUNT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('app/static/catalog/index.json','utf8')).count)")
-            git commit -m "pipeline: catalog build — ${COUNT} works (${{ inputs.sources }})"
+            git commit -m "pipeline: ${{ inputs.mode }} — catalog at ${COUNT} works"
             git push
           fi

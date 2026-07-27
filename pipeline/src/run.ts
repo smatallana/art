@@ -171,10 +171,17 @@ async function cmdBuild(): Promise<void> {
 	log(`published ${index.count} works → ${outDir}`);
 }
 
+async function cmdEmbed(): Promise<void> {
+	const { runEmbedStage } = await import('./embed.js');
+	const catalogDir = path.resolve(arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog')));
+	await runEmbedStage({ catalogDir, log });
+}
+
 const cmd = process.argv[2];
 if (cmd === 'sample') await cmdSample();
 else if (cmd === 'build') await cmdBuild();
+else if (cmd === 'embed') await cmdEmbed();
 else {
-	console.error('usage: tsx src/run.ts <sample|build> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe]');
+	console.error('usage: tsx src/run.ts <sample|build|embed> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe]');
 	process.exit(1);
 }
