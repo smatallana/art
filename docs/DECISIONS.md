@@ -99,12 +99,29 @@ tiers, GitHub limits) informed these choices — summarized in ARCHITECTURE.md:
   after #151), so the app itself is unaffected — only server-side fetching is.
 - The embed stage is now **incremental** (reuses committed vectors, prunes to
   the catalog, only fetches missing works) with a per-host circuit breaker,
-  so partial coverage ships (Cleveland: 2,108 vectors live) and no run ever
-  regresses committed coverage. AIC's 1,557 vectors need a non-datacenter
-  path: the documented options are emailing engineering@artic.edu (their
-  stated channel for automated use), a one-off run of the same embed stage
-  from a residential connection (see DEPLOY.md), or mirroring AIC's CC0
-  images from Wikimedia Commons (BACKLOG).
+  so partial coverage ships and no run ever regresses committed coverage.
+
+## 2026-07-27 — AIC embeddings via Wikimedia Commons (tramo 4)
+
+- Implemented the Commons route end-to-end: `commons-map` pipeline stage
+  joins our `aic-<id>` works to Commons files **exactly** — Wikidata P4610
+  *is* the artic.edu artwork id → P18 image — plus a polite
+  `insource:"artic.edu/artworks/<id>"` search fallback. Result:
+  **1,231/1,557 mapped** (1,220 wikidata + 11 insource), map committed as
+  `data/commons-map.json`.
+- The embed stage routes mapped works through Commons thumbs
+  (`Special:FilePath?width=400`) and records per-vector provenance
+  (`origins`: source|commons) in `embeddings-meta.json`.
+- Operational lesson: at our width nearly every request is a **fresh
+  thumbnail render**, which Wikimedia rate-limits per IP — 58% of the first
+  pass 429'd. Fixed by fetching serially with 500ms spacing and honoring
+  `Retry-After`; second pass completed all 1,231.
+- Final coverage: **3,339/3,665 works (91.1%)** — 2,108 from museum
+  sources + 1,231 from Commons. The remaining **326** AIC works have no
+  locatable Commons replica; they fill in whenever AIC's CDN unblocks
+  scripted GETs (incremental runs retry them behind the breaker), via a
+  residential-connection run (DEPLOY.md), or an allowlist from
+  engineering@artic.edu.
 - Owner declined importing his personal starting profile — the app starts
   from zero evidence for him, like any new user (prior-import stays available
   as a feature).

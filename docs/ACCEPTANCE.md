@@ -26,7 +26,7 @@ Legend: ✅ done & verified · 🟡 done with a noted caveat · 🔜 pending.
 | 19 | Promised features actually implemented | ✅ | This table + RISKS.md name every caveat explicitly |
 | 20 | No decorative dead buttons | ✅ | Every control records/navigates; verified per route |
 | 21 | No fake data / invented percentages | ✅ | Tiers + relative bars only; catalog is real museum data |
-| 22 | No hidden dependencies on local files/chat | 🟡 | App+pipeline self-contained. Pending one-time owner steps: Google OAuth secrets (sign-in), personal prior import (owner-held file by privacy design) |
+| 22 | No hidden dependencies on local files/chat | ✅ | App+pipeline self-contained. Google OAuth secrets applied (sign-in live, `/health` reports `auth:google`); owner declined the optional prior import — the feature remains available with a documented schema |
 
 Session-loop items also verified by 44 unit tests (model convergence,
 selector fairness, memory scheduling, discovery, pipeline normalization)

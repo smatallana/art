@@ -3,6 +3,18 @@
 All notable changes to Beholder are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.2.1] — 2026-07-27
+
+### Added
+- Snap catalog embeddings shipped: 3,339/3,665 works (91%). AIC works are
+  embedded via their Wikimedia Commons replicas (exact Wikidata P4610
+  join, `commons-map` pipeline stage) because AIC's CDN challenges
+  datacenter IPs; per-vector provenance recorded in the embeddings meta.
+- Incremental embed stage: reuses committed vectors, fetches only missing
+  works, per-host circuit breaker, Retry-After-aware polite fetching;
+  never regresses committed coverage.
+- Google sign-in live (worker secrets applied; `/health` reports google).
+
 ## [0.2.0] — 2026-07-27
 
 ### Added

@@ -38,10 +38,12 @@ live only in GitHub Secrets (never in the repo).
 - **Regenerate embeddings** (after a catalog change): mode `embed`. The
   stage is incremental: it reuses committed vectors and only fetches works
   that don't have one yet, so partial runs always make forward progress.
-- **Filling AIC embeddings** — AIC's CDN serves a Cloudflare challenge to
+- **Filling the last AIC embeddings** — most AIC works are embedded via
+  their Wikimedia Commons replicas (`commons-map` mode), but 326 have no
+  Commons replica, and AIC's own CDN serves a Cloudflare challenge to
   datacenter IPs (see DECISIONS 2026-07-27), so the Actions runner cannot
-  fetch their images; a home connection can (their etiquette: 1 req/s,
-  which the stage already enforces). One-off from any machine with Node 20+:
+  fetch them; a home connection can (their etiquette: 1 req/s, which the
+  stage already enforces). One-off from any machine with Node 20+:
 
   ```bash
   git clone https://github.com/smatallana/art && cd art

@@ -9,11 +9,13 @@ Ordered by leverage.
    Cloudflare challenge blocks image GETs from datacenter IPs (Actions), so
    the AIC leg needs one of: an allowlist from engineering@artic.edu, a
    residential-IP fetch step, or the Commons mirror below.
-1b. **AIC images via Wikimedia Commons** — AIC's open-access works are CC0
-   and mirrored on Commons (bulk API access with a proper User-Agent is
-   sanctioned). Map works via Wikidata/accession-number → Commons file →
-   fetch from Commons for embeddings and the R2 mirror. Removes the AIC
-   CDN dependency entirely for server-side fetching.
+1b. **AIC images via Wikimedia Commons** — ✅ implemented for embeddings
+   (2026-07-27): `commons-map` stage joins works to Commons files via
+   Wikidata P4610 + insource fallback (1,231/1,557 mapped), embed fetches
+   from Commons with per-vector provenance. Remaining uses: feed the same
+   map to the R2 mirror stage (above), and re-run `commons-map`
+   periodically — Commons coverage grows over time, shrinking the 326
+   unmapped works.
 2. **CLIP zero-shot ontology tagging** — prompt ensembles per dimension over
    the existing embeddings; confidence-thresholded `src:'clip'` tags for
    moods/light/composition (metadata can't see these). Curatorial overrides
