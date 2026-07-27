@@ -39,6 +39,15 @@ jobs:
       - name: Sample mode — fetch raw records for shape inspection
         if: inputs.mode == 'sample'
         run: npm run -w pipeline run sample
+      - name: Print samples to log (dev sandbox cannot download artifacts)
+        if: inputs.mode == 'sample'
+        run: |
+          for f in pipeline/work/samples/*.json; do
+            echo "::group::$f"
+            head -c 26000 "$f"
+            echo
+            echo "::endgroup::"
+          done
       - uses: actions/upload-artifact@v4
         if: inputs.mode == 'sample'
         with:
