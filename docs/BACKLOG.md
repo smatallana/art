@@ -5,7 +5,15 @@ Ordered by leverage.
 1. **R2 image mirroring** — pipeline stage: polite originals download →
    WebP derivatives (320/1280, frame-crop detection) → R2 upload → catalog
    URLs rewritten with museum fallback; weekly `image-audit.yml`. Unlocks
-   The Met and removes all hotlink risk.
+   The Met and removes all hotlink risk. **Caveat learned 2026-07-27:** AIC's
+   Cloudflare challenge blocks image GETs from datacenter IPs (Actions), so
+   the AIC leg needs one of: an allowlist from engineering@artic.edu, a
+   residential-IP fetch step, or the Commons mirror below.
+1b. **AIC images via Wikimedia Commons** — AIC's open-access works are CC0
+   and mirrored on Commons (bulk API access with a proper User-Agent is
+   sanctioned). Map works via Wikidata/accession-number → Commons file →
+   fetch from Commons for embeddings and the R2 mirror. Removes the AIC
+   CDN dependency entirely for server-side fetching.
 2. **CLIP zero-shot ontology tagging** — prompt ensembles per dimension over
    the existing embeddings; confidence-thresholded `src:'clip'` tags for
    moods/light/composition (metadata can't see these). Curatorial overrides

@@ -4,7 +4,13 @@
    the two most hotlink-tolerant sources, validated at build time and cached
    by the service worker with graceful skip-on-error — but they remain
    third-party infrastructure. Mitigation in progress: R2 mirroring stage
-   (BACKLOG #1) makes images first-party.
+   (BACKLOG #1) makes images first-party. Known specifics: AIC's Cloudflare
+   challenges non-browser clients on image GETs (browsers/hotlinking are
+   fine; server-side fetching from datacenter IPs is not — see DECISIONS
+   2026-07-27), and our build-time validation uses HEAD requests, which that
+   challenge exempts — so validation attests existence, not scriptability.
+   Consequence today: Snap embeddings cover Cleveland (2,108); AIC's 1,557
+   pend a non-datacenter fetch (DEPLOY.md) or the Commons mirror (BACKLOG).
 2. **Metadata-only tags for ~half the catalog.** Cleveland exposes no
    subject taxonomy, so many of its works carry few ontology tags until the
    CLIP zero-shot tagging stage lands (BACKLOG #2). The model degrades

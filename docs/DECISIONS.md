@@ -88,13 +88,23 @@ tiers, GitHub limits) informed these choices — summarized in ARCHITECTURE.md:
 - The same run's commit push was rejected ("fetch first") because the branch
   advanced during the ~30-minute run → the workflow now rebases and retries.
 - Second run showed the real cause: AIC's Cloudflare returns 403 to Actions
-  runners for **every** method/header combination (verified with a curl+node
-  matrix via the new `net-probe.yml`), i.e. a CDN-level datacenter-IP block
-  that appeared mid-day (validation HEADs passed at 14:07). The embed stage
-  is now **incremental** (reuses committed vectors, prunes to the catalog,
-  only fetches missing works) with a per-host circuit breaker, so partial
-  coverage ships (Cleveland now, AIC when the block decays or via R2
-  mirroring, BACKLOG #1) and no run ever regresses committed coverage.
+  runners for **every** header combination on image GETs (verified with a
+  curl+node matrix via the new `net-probe.yml`). Research against AIC's own
+  issue trackers dates this to a **managed challenge on `/iiif/2/*` active
+  since Dec 2025** (data-aggregator #151/#157, api-data #9): passing requires
+  JS execution in a real browser, and datacenter IPs essentially never pass.
+  Two corollaries recorded honestly: (1) our validation HEADs returning 200
+  was a **false signal** — the challenge only fires on content GETs, so HEAD
+  says nothing about GET; (2) browser hotlinking still works (AIC relaxed it
+  after #151), so the app itself is unaffected — only server-side fetching is.
+- The embed stage is now **incremental** (reuses committed vectors, prunes to
+  the catalog, only fetches missing works) with a per-host circuit breaker,
+  so partial coverage ships (Cleveland: 2,108 vectors live) and no run ever
+  regresses committed coverage. AIC's 1,557 vectors need a non-datacenter
+  path: the documented options are emailing engineering@artic.edu (their
+  stated channel for automated use), a one-off run of the same embed stage
+  from a residential connection (see DEPLOY.md), or mirroring AIC's CC0
+  images from Wikimedia Commons (BACKLOG).
 - Owner declined importing his personal starting profile — the app starts
   from zero evidence for him, like any new user (prior-import stays available
   as a feature).
