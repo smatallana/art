@@ -1,0 +1,13 @@
+{
+	"name": "@beholder/pipeline",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"description": "Beholder catalog pipeline — fetch, normalize, dedupe, tag, validate, publish. Built in milestone M1.",
+	"scripts": {
+		"test": "vitest run --passWithNoTests"
+	},
+	"devDependencies": {
+		"vitest": "^4.0.18"
+	}
+}

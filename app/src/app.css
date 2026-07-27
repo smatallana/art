@@ -1,0 +1,127 @@
+/* ── Beholder design tokens — direction: "Night gallery" ─────────────────
+   A contemporary museum after hours: charcoal walls, work lit warmly,
+   editorial serif, old-gold micro-accents. Light theme derives from the
+   same identity (paper & ink) and is offered via prefers-color-scheme. */
+
+@import '@fontsource-variable/fraunces';
+
+:root {
+	/* palette — night (primary) */
+	--bg: #121014;
+	--bg-elevated: #1a171d;
+	--surface: #201c24;
+	--ink: #ece7df;
+	--ink-muted: #a29a90;
+	--ink-faint: #6e675f;
+	--gold: #c9a96a;
+	--gold-deep: #8a744c;
+	--hairline: rgba(236, 231, 223, 0.14);
+	--shadow-work: 0 24px 80px rgba(0, 0, 0, 0.55);
+	--focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold);
+
+	/* type */
+	--font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+	--font-body:
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+	/* rhythm */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 1rem;
+	--space-4: 1.5rem;
+	--space-5: 2.5rem;
+	--space-6: 4rem;
+	--radius: 10px;
+
+	/* safe areas (iOS notch / home indicator) */
+	--safe-top: env(safe-area-inset-top, 0px);
+	--safe-bottom: env(safe-area-inset-bottom, 0px);
+	--safe-left: env(safe-area-inset-left, 0px);
+	--safe-right: env(safe-area-inset-right, 0px);
+
+	color-scheme: dark;
+	accent-color: var(--gold);
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg: #faf7f2;
+		--bg-elevated: #ffffff;
+		--surface: #f1ece4;
+		--ink: #1a1714;
+		--ink-muted: #5d564e;
+		--ink-faint: #948b80;
+		--gold: #9a7b3f;
+		--gold-deep: #7a6233;
+		--hairline: rgba(26, 23, 20, 0.14);
+		--shadow-work: 0 18px 60px rgba(26, 23, 20, 0.18);
+		--focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold);
+		color-scheme: light;
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--bg);
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--font-body);
+	font-size: 16px;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	min-height: 100dvh;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	font-weight: 480;
+	letter-spacing: 0.01em;
+	margin: 0;
+}
+
+a {
+	color: var(--gold);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	touch-action: manipulation;
+}
+
+:focus-visible {
+	outline: none;
+	box-shadow: var(--focus-ring);
+	border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run check -w app
+      - name: Lint
+        run: npm run lint -w app
+      - name: Unit tests
+        run: npm run test -w app && npm run test -w pipeline && npm run test -w worker
+      - name: Build
+        run: npm run build -w app
+        env:
+          BASE_PATH: /art
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps webkit chromium
+        working-directory: app
+      - name: E2E (iPhone WebKit + desktop Chromium)
+        run: npm run e2e -w app
+        env:
+          CI: 'true'
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: app/playwright-report
+          retention-days: 7

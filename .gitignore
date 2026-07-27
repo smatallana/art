@@ -1,0 +1,23 @@
+node_modules/
+.DS_Store
+*.log
+
+# builds
+app/build/
+app/.svelte-kit/
+worker/dist/
+.wrangler/
+
+# local env & secrets — never commit credentials
+.env
+.env.*
+!.env.example
+
+# pipeline working data (large; artifacts are published, not committed)
+pipeline/.cache/
+pipeline/work/
+
+# test output
+app/test-results/
+app/playwright-report/
+coverage/

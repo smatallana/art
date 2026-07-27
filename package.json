@@ -1,0 +1,24 @@
+{
+  "name": "beholder",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Beholder — a personal art-taste discovery app. Learn your own eye.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "app",
+    "worker",
+    "pipeline"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w app",
+    "build": "npm run build -w app",
+    "check": "npm run check -w app",
+    "lint": "npm run lint -w app",
+    "test": "npm run test -w app && npm run test -w pipeline",
+    "e2e": "npm run e2e -w app"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
