@@ -58,6 +58,40 @@ async function cmdSample(): Promise<void> {
 		const sample = await adapter.fetchSample(3);
 		await writeFile(path.join(outDir, `${adapter.id}.json`), JSON.stringify(sample, null, 2));
 		log(`sample: wrote ${adapter.id}.json (${sample.length} records)`);
+		// End-to-end check against live data: normalize + tag each sample and
+		// print a compact summary so CI logs verify the adapters truly work.
+		for (const raw of sample) {
+			const result = adapter.normalize(raw);
+			if ('reject' in result) {
+				console.log(`SAMPLE ${adapter.id} REJECT: ${result.reject}`);
+				continue;
+			}
+			const w = result.work;
+			const fields = TAG_FIELDS[adapter.id];
+			const tags = fields
+				? tagFromMetadata({
+						title: w.title,
+						movement: w.movement,
+						culture: w.culture,
+						medium: w.medium,
+						...fields(raw)
+					})
+				: {};
+			console.log(
+				`SAMPLE ${adapter.id} OK: ` +
+					JSON.stringify({
+						id: w.id,
+						title: w.title.slice(0, 40),
+						artist: `${w.artist.name} (${w.artist.born}–${w.artist.died}, ${w.artist.nationality})`,
+						date: w.date.display,
+						aspect: w.images.aspect,
+						px: `${w.images.width}x${w.images.height}`,
+						display: w.images.display.slice(0, 90),
+						story: w.story ? w.story.slice(0, 60) : null,
+						tags: Object.keys(tags)
+					})
+			);
+		}
 	}
 }
 
