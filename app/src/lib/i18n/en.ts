@@ -129,6 +129,26 @@ export const t = {
 			'Beholder never invents precision: bars show relative confidence, and every claim carries its evidence level. Conclusions change as your choices accumulate.'
 	},
 
+	account: {
+		title: 'Account & sync',
+		guestHint:
+			'You are using Beholder as a guest — everything lives on this device. Sign in to sync your eye across devices.',
+		signIn: 'Sign in with Google',
+		signedInAs: (label: string) => `Signed in as ${label}`,
+		signOut: 'Sign out',
+		deleteBtn: 'Delete account & data',
+		deleteConfirm:
+			'Delete your account and every synced response from the server? Local data on this device stays until you erase it. This cannot be undone.',
+		syncing: 'Syncing…',
+		syncOffline: 'Offline — will sync when you return',
+		syncError: 'Sync hit a snag — it will retry',
+		lastSync: (when: string) => `Last synced ${when}`,
+		signingIn: 'Completing sign-in…',
+		signInFailed: 'Sign-in did not complete',
+		signInFailedHint: 'The sign-in link expired or was already used. Please try again.',
+		notConfigured: 'Accounts are not available yet on this deployment.'
+	},
+
 	nav: {
 		home: 'Home',
 		saved: 'Saved',

@@ -22,6 +22,8 @@ export default ts.config(
 				crypto: 'readonly',
 				indexedDB: 'readonly',
 				localStorage: 'readonly',
+				location: 'readonly',
+				history: 'readonly',
 				performance: 'readonly',
 				confirm: 'readonly',
 				alert: 'readonly',

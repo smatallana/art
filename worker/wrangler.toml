@@ -1,0 +1,17 @@
+name = "beholder-api"
+main = "src/index.ts"
+compatibility_date = "2026-07-01"
+
+# database_id is substituted by .github/workflows/deploy-worker.yml after
+# idempotent provisioning (wrangler d1 create / list).
+[[d1_databases]]
+binding = "DB"
+database_name = "beholder-db"
+database_id = "REPLACED_AT_DEPLOY"
+
+[vars]
+APP_ORIGIN = "https://smatallana.github.io"
+APP_START_URL = "https://smatallana.github.io/art/"
+
+# Secrets (set at deploy from GitHub Secrets when present):
+#   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET

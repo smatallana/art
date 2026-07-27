@@ -1,0 +1,90 @@
+name: Deploy worker
+
+on:
+  push:
+    branches: [claude/arte-painting-discovery-app-nh09q4]
+    paths: ['worker/**', '.github/workflows/deploy-worker.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: worker-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Check Cloudflare credentials
+        id: creds
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID secrets are not set — skipping worker deploy."
+          else
+            echo "missing=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Provision D1 (idempotent) and resolve database_id
+        if: steps.creds.outputs.missing == 'false'
+        working-directory: worker
+        run: |
+          npx wrangler d1 create beholder-db 2>/dev/null || echo "beholder-db already exists"
+          DB_ID=$(npx wrangler d1 list --json | node -e "
+            let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{
+              const db=JSON.parse(s).find(d=>d.name==='beholder-db');
+              if(!db){console.error('beholder-db not found');process.exit(1);}
+              console.log(db.uuid);
+            })")
+          echo "database_id resolved"
+          sed -i "s/REPLACED_AT_DEPLOY/$DB_ID/" wrangler.toml
+
+      - name: Apply D1 migrations
+        if: steps.creds.outputs.missing == 'false'
+        working-directory: worker
+        run: npx wrangler d1 migrations apply beholder-db --remote
+
+      - name: Set Google OAuth secrets (when provided)
+        if: steps.creds.outputs.missing == 'false'
+        working-directory: worker
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          if [ -n "$GOOGLE_CLIENT_ID" ] && [ -n "$GOOGLE_CLIENT_SECRET" ]; then
+            echo "$GOOGLE_CLIENT_ID" | npx wrangler secret put GOOGLE_CLIENT_ID
+            echo "$GOOGLE_CLIENT_SECRET" | npx wrangler secret put GOOGLE_CLIENT_SECRET
+          else
+            echo "::notice::Google OAuth secrets not set — /auth endpoints answer 501 until configured."
+          fi
+
+      - name: Deploy
+        if: steps.creds.outputs.missing == 'false'
+        working-directory: worker
+        run: |
+          npx wrangler deploy | tee deploy.log
+          URL=$(grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 || true)
+          echo "::notice::Worker deployed at: ${URL:-unknown}"
+
+      - name: Smoke test /health
+        if: steps.creds.outputs.missing == 'false'
+        working-directory: worker
+        run: |
+          URL=$(grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 || true)
+          if [ -n "$URL" ]; then
+            curl -sSf "$URL/health" && echo && echo "health OK"
+          else
+            echo "::warning::could not determine worker URL for smoke test"
+          fi

@@ -2,13 +2,26 @@
 	import { onMount } from 'svelte';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
+	import { sync } from '$lib/state/sync.svelte';
+	import { signInUrl } from '$lib/api';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { clearAllLocalData } from '$lib/db';
 	import { APP_VERSION } from '$lib/version';
 
-	onMount(() => void app.init());
+	let authUrl = $state<string | null>(null);
+
+	onMount(async () => {
+		void app.init();
+		await sync.init();
+		authUrl = await signInUrl();
+	});
 
 	let resetDone = $state(false);
+
+	async function deleteAccount(): Promise<void> {
+		if (!confirm(t.account.deleteConfirm)) return;
+		await sync.deleteAccount();
+	}
 
 	async function exportData(): Promise<void> {
 		const json = await app.exportData();
@@ -38,6 +51,37 @@
 
 <main class="page">
 	<h1>{t.settings.title}</h1>
+
+	<section>
+		<h2>{t.account.title}</h2>
+		{#if !sync.available}
+			<p class="hint">{t.account.notConfigured}</p>
+		{:else if sync.user}
+			<p class="hint">
+				{t.account.signedInAs(sync.user.name ?? sync.user.email ?? sync.user.id)}
+			</p>
+			<p class="hint">
+				{#if sync.status === 'syncing'}{t.account.syncing}
+				{:else if sync.status === 'offline'}{t.account.syncOffline}
+				{:else if sync.status === 'error'}{t.account.syncError}
+				{:else if sync.lastSyncAt}{t.account.lastSync(
+						new Date(sync.lastSyncAt).toLocaleTimeString()
+					)}
+				{/if}
+			</p>
+			<div class="row">
+				<button class="btn" onclick={() => sync.signOut()}>{t.account.signOut}</button>
+				<button class="btn danger" onclick={deleteAccount}>{t.account.deleteBtn}</button>
+			</div>
+		{:else}
+			<p class="hint">{t.account.guestHint}</p>
+			{#if authUrl}
+				<div class="row">
+					<a class="btn" href={authUrl}>{t.account.signIn}</a>
+				</div>
+			{/if}
+		{/if}
+	</section>
 
 	<section>
 		<h2>{t.settings.data}</h2>
@@ -117,6 +161,13 @@
 	.btn.danger {
 		border-color: var(--hairline);
 		color: var(--ink-muted);
+	}
+	a.btn {
+		display: inline-flex;
+		align-items: center;
+	}
+	a.btn:hover {
+		text-decoration: none;
 	}
 	.plain {
 		list-style: none;

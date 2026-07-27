@@ -47,6 +47,8 @@ class AppState {
 	savedIds = $state<Set<string>>(new SvelteSet());
 	rememberedIds = $state<Set<string>>(new SvelteSet());
 	initialized = $state(false);
+	/** set by the sync module to hear about new events without an import cycle */
+	onEventRecorded: (() => void) | null = null;
 
 	get totalChoices(): number {
 		return this.events.filter((e) => e.t === 'pair_choice').length;
@@ -109,6 +111,7 @@ class AppState {
 			// shallow-clone to notify runes subscribers of the deep mutation
 			this.model = { ...this.model };
 		}
+		this.onEventRecorded?.();
 		return event;
 	}
 

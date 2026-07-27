@@ -3,11 +3,16 @@
 	"private": true,
 	"version": "0.1.0",
 	"type": "module",
-	"description": "Beholder API — auth, event sync, backups (Cloudflare Workers + D1). Built in milestone M4.",
+	"description": "Beholder API — auth, event sync, export/delete (Cloudflare Workers + D1).",
 	"scripts": {
-		"test": "vitest run --passWithNoTests"
+		"test": "vitest run",
+		"check": "tsc --noEmit",
+		"deploy": "wrangler deploy"
 	},
 	"devDependencies": {
-		"vitest": "^4.0.18"
+		"@cloudflare/workers-types": "^4.20260501.0",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.18",
+		"wrangler": "^4.48.0"
 	}
 }
