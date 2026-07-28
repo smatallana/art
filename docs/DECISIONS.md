@@ -167,6 +167,16 @@ catalog stores URLs only, they are excluded from any future mirror, and
 the app always shows an explicit © attribution. PD works keep CC0/PD
 labeling.
 
+**AIC operational status (2026-07-28):** Cloudflare's challenge now covers
+`api.artic.edu` too — AIC can no longer be fetched OR probed from
+datacenter IPs at all (every data-API request 403s; browsers unaffected).
+Consequences, all implemented: blocked-host probe failures flag instead of
+dropping works; the AIC slice of the catalog is **frozen from git history**
+(restored after a fetch-failure build briefly published without it);
+rebuild runs must use `--merge` so unavailable sources are carried
+forward, and refreshing AIC now requires a residential-connection run or
+their cooperation (engineering@artic.edu).
+
 **Canon source:** `data/canon/canon.json` (~175 artists, all periods,
 Western and non-Western, with per-artist targets) resolved via Wikidata
 exact-label matching (painter occupation, sitelinks tiebreak), works
