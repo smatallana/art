@@ -1,8 +1,8 @@
 {
  "schemaVersion": 1,
  "ontologyVersion": 1,
- "generatedAt": "2026-07-28T11:28:15.214Z",
- "count": 4124,
+ "generatedAt": "2026-07-28T11:43:14.199Z",
+ "count": 3881,
  "shards": [
   {
    "file": "works-000.json",
@@ -66,24 +66,16 @@
   },
   {
    "file": "works-015.json",
-   "count": 250
-  },
-  {
-   "file": "works-016.json",
-   "count": 124
+   "count": 131
   }
  ],
  "sources": {
-  "aic": {
-   "count": 1532,
-   "attribution": "Art Institute of Chicago — CC0 Public Domain Designation"
-  },
   "cma": {
-   "count": 1530,
+   "count": 2799,
    "attribution": "The Cleveland Museum of Art — CC0"
   },
   "wd": {
-   "count": 1062,
+   "count": 1082,
    "attribution": "© Andrew Wyeth (or estate) — image linked from Wikipedia, not redistributed"
   }
  }
