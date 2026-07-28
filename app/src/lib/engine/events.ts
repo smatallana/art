@@ -41,7 +41,6 @@ export type AppEvent = Base &
 				a: string; // work id
 				b: string;
 				pick: 'a' | 'b' | 'both' | 'neither' | 'unsure';
-				strength: 'slight' | 'clear' | 'strong' | null;
 				ms: number | null; // decision time; weak signal, can be disabled
 		  }
 		| { t: 'strength'; a: string; b: string; level: 'slight' | 'clear' | 'strong' }
@@ -51,7 +50,27 @@ export type AppEvent = Base &
 		| { t: 'unsave'; work: string }
 		| { t: 'remember'; work: string } // "I want to remember this one"
 		| { t: 'memory_review'; work: string; outcome: 'recognized' | 'partial' | 'missed' }
-		| { t: 'skip'; work: string; reason: 'not-now' | 'seen-too-often' | null }
+		| {
+				/** User-initiated pass on a pair. Historic 'not-now' events were
+				 *  emitted automatically on image load failures and are ignored by
+				 *  every fold; only 'pass' carries preference signal. */
+				t: 'skip';
+				work: string;
+				reason: 'pass' | 'not-now' | 'seen-too-often' | null;
+		  }
+		| {
+				/** Infrastructure: an artwork image failed to load. Never treated
+				 *  as preference — kept for diagnostics only. */
+				t: 'image_error';
+				work: string;
+				context: 'session' | 'detail';
+		  }
+		| {
+				/** Tombstone: the listed event ids are excluded from every fold
+				 *  (sync-safe undo — events are never deleted, only masked). */
+				t: 'undo';
+				ids: string[];
+		  }
 		| { t: 'familiar'; work: string; level: 'knew-it' | 'seen-before' | 'new-to-me' }
 		| { t: 'seen_in_person'; work: string; museum: string | null }
 		| {
@@ -80,6 +99,20 @@ export interface PriorSpec {
 }
 
 export type AppEventType = AppEvent['t'];
+
+/**
+ * The events every fold should consume: undo tombstones are applied (masked
+ * events and the tombstones themselves are removed). Raw events still sync
+ * and export unchanged — masking is a read-time concern.
+ */
+export function effectiveEvents(events: AppEvent[]): AppEvent[] {
+	const undone = new Set<string>();
+	for (const e of events) {
+		if (e.t === 'undo') for (const id of e.ids) undone.add(id);
+	}
+	if (undone.size === 0) return events.filter((e) => e.t !== 'undo');
+	return events.filter((e) => e.t !== 'undo' && !undone.has(e.id));
+}
 
 let cachedDeviceId: string | null = null;
 

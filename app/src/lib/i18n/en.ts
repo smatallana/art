@@ -38,6 +38,8 @@ export const t = {
 		remember: 'Remember this',
 		remembered: 'Marked to remember',
 		next: 'Next',
+		undo: 'Undo choice',
+		skip: 'Skip',
 		finish: 'Finish session',
 		progress: (i: number, n: number) => `${i} of ${n}`,
 		probeExplain: {
@@ -247,7 +249,9 @@ export const t = {
 		artworkPair: 'Two paintings to compare',
 		choiceA: 'Choose the first painting',
 		choiceB: 'Choose the second painting',
-		artworkImage: (alt: string) => `Painting: ${alt}`
+		artworkImage: (alt: string) => `Painting: ${alt}`,
+		// Blind phase: the identity of the work must not leak before the reveal.
+		artworkBlind: 'Painting'
 	}
 };
 

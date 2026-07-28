@@ -10,6 +10,7 @@
  */
 import { api, apiBase, getToken, setToken, type ApiUser } from '../api';
 import { allEvents, appendEvent, kvGet, kvSet } from '../db';
+import { effectiveEvents } from '../engine/events';
 import { deviceId } from '../engine/events';
 import type { AppEvent } from '../engine/events';
 import { app } from './app.svelte';
@@ -118,7 +119,7 @@ class SyncState {
 			}
 			await kvSet(CURSOR_KEY, cursor);
 			if (merged > 0) {
-				app.events = await allEvents();
+				app.events = effectiveEvents(await allEvents());
 				app.rebuildModel();
 				// pushed-upto counts local rows; refresh after merge
 				await kvSet(PUSHED_KEY, app.events.length);

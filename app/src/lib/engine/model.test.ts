@@ -56,7 +56,6 @@ function simulate(
 			a: pair.a.id,
 			b: pair.b.id,
 			pick,
-			strength: null,
 			ms: null
 		});
 	}
@@ -147,7 +146,6 @@ describe('taste model convergence (synthetic users)', () => {
 				a: pair.a.id,
 				b: pair.b.id,
 				pick: rng() < p ? 'a' : 'b',
-				strength: null,
 				ms: null
 			});
 		}
@@ -172,7 +170,6 @@ describe('taste model convergence (synthetic users)', () => {
 			a: a.id,
 			b: b.id,
 			pick,
-			strength: null,
 			ms: null
 		});
 		const inconsistent = modelFromEvents(

@@ -40,7 +40,6 @@ function pairEvent(i: number, a: string, b: string, pick: 'a' | 'b'): AppEvent {
 		a,
 		b,
 		pick,
-		strength: null,
 		ms: null
 	};
 }

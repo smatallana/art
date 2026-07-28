@@ -13,6 +13,18 @@
 	const sess = $derived(app.engine?.state ?? null);
 	const workA = $derived(sess?.current ? app.work(sess.current.aId) : undefined);
 	const workB = $derived(sess?.current ? app.work(sess.current.bId) : undefined);
+	// Deterministic per-pair coin flip so display side never correlates with
+	// the selector's slot assignment (position-bias control). Stable across
+	// re-renders and resume; recording still refers to engine slots a/b.
+	const flipped = $derived.by(() => {
+		if (!sess?.current) return false;
+		const key = sess.current.aId + sess.current.bId;
+		let h = 0;
+		for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) | 0;
+		return (h & 1) === 1;
+	});
+	const firstWork = $derived(flipped ? workB : workA);
+	const secondWork = $derived(flipped ? workA : workB);
 	const chosen = $derived(lastPick === 'a' ? workA : lastPick === 'b' ? workB : undefined);
 	const other = $derived(lastPick === 'a' ? workB : lastPick === 'b' ? workA : undefined);
 
@@ -43,8 +55,8 @@
 	function onKey(e: KeyboardEvent): void {
 		if (!sess) return;
 		if (sess.phase === 'choosing') {
-			if (e.key === '1' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') void choose('a');
-			else if (e.key === '2' || e.key === 'ArrowDown' || e.key === 'ArrowRight') void choose('b');
+			if (e.key === '1' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') void choose(flipped ? 'b' : 'a');
+			else if (e.key === '2' || e.key === 'ArrowDown' || e.key === 'ArrowRight') void choose(flipped ? 'a' : 'b');
 		} else if (sess.phase === 'revealed' && e.key === 'Enter') {
 			void next();
 		}
@@ -72,22 +84,24 @@
 			<span class="count">
 				{t.session.progress(Math.min(sess.position + 1, sess.length), sess.length)}
 			</span>
+			<button class="exit" onclick={finish}>{t.session.finish}</button>
 		</header>
 
-		{#if sess.phase === 'choosing' && workA && workB}
+		{#if sess.phase === 'choosing' && firstWork && secondWork}
 			<h1 class="prompt">{t.session.whichOne}</h1>
 			<div class="pair" role="group" aria-label={t.a11y.artworkPair}>
-				<button class="art" aria-label={t.a11y.choiceA} onclick={() => choose('a')}>
-					<ArtworkImage work={workA} onError={() => app.skipPair()} />
+				<button class="art" aria-label={t.a11y.choiceA} onclick={() => choose(flipped ? 'b' : 'a')}>
+					<ArtworkImage work={firstWork} blind onError={(id) => app.reportImageFailure(id)} />
 				</button>
-				<button class="art" aria-label={t.a11y.choiceB} onclick={() => choose('b')}>
-					<ArtworkImage work={workB} onError={() => app.skipPair()} />
+				<button class="art" aria-label={t.a11y.choiceB} onclick={() => choose(flipped ? 'a' : 'b')}>
+					<ArtworkImage work={secondWork} blind onError={(id) => app.reportImageFailure(id)} />
 				</button>
 			</div>
 			<div class="alt-row">
 				<button class="alt" onclick={() => choose('both')}>{t.session.both}</button>
 				<button class="alt" onclick={() => choose('neither')}>{t.session.neither}</button>
 				<button class="alt" onclick={() => choose('unsure')}>{t.session.unsure}</button>
+				<button class="alt" onclick={() => app.skipPair()}>{t.session.skip}</button>
 			</div>
 		{:else if sess.phase === 'revealed' && workA && workB}
 			<Reveal
@@ -152,6 +166,19 @@
 		color: var(--ink-faint);
 		font-size: 0.72rem;
 		letter-spacing: 0.06em;
+	}
+	.exit {
+		color: var(--ink-faint);
+		font-size: 0.72rem;
+		letter-spacing: 0.04em;
+		padding: 8px 10px;
+		min-height: 36px;
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+	.exit:hover {
+		color: var(--ink-muted);
 	}
 	.prompt {
 		text-align: center;

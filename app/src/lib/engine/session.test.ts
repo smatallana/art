@@ -74,7 +74,6 @@ describe('session engine', () => {
 			a: pool[(i * 2) % pool.length]!.id,
 			b: pool[(i * 2 + 1) % pool.length]!.id,
 			pick: 'a' as const,
-			strength: null,
 			ms: null
 		}));
 		const ctx = ctxFor(pool, events);

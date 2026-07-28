@@ -147,6 +147,9 @@
 	{/if}
 
 	<div class="next-bar">
+		{#if app.undoableIds.length > 0}
+			<button class="undo" onclick={() => void app.undoLastPair()}>{t.session.undo}</button>
+		{/if}
 		<button class="next" onclick={onNext}>{t.session.next}</button>
 	</div>
 </section>
@@ -254,6 +257,15 @@
 		background: linear-gradient(transparent, var(--bg) 35%);
 		display: flex;
 		justify-content: center;
+		gap: var(--space-3);
+	}
+	.undo {
+		color: var(--ink-muted);
+		border: 1px solid var(--hairline);
+		border-radius: 999px;
+		padding: 14px 22px;
+		font-size: 0.9rem;
+		min-height: 48px;
 	}
 	.next {
 		background: var(--gold);

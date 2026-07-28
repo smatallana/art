@@ -10,7 +10,7 @@ import { loadCatalog, retryCatalog } from '../catalog/store';
 import type { Work } from '../catalog/types';
 import { allEvents, appendEvent, kvDelete, kvGet, kvSet, requestPersistence } from '../db';
 import type { AppEvent, AppEventPayload } from '../engine/events';
-import { makeEvent } from '../engine/events';
+import { effectiveEvents, makeEvent } from '../engine/events';
 import { applyEvent, modelFromEvents, type TasteModel } from '../engine/model';
 import {
 	advance as engineAdvance,
@@ -47,6 +47,8 @@ class AppState {
 	events = $state<AppEvent[]>([]);
 	model = $state<TasteModel | null>(null);
 	engine = $state<SessionEngine | null>(null);
+	/** Event ids of the current pair's choice + reveal annotations (undo scope). */
+	undoableIds = $state<string[]>([]);
 	savedIds = $state<Set<string>>(new SvelteSet());
 	rememberedIds = $state<Set<string>>(new SvelteSet());
 	initialized = $state(false);
@@ -78,7 +80,7 @@ class AppState {
 		if (this.initialized) return;
 		this.initialized = true;
 		void requestPersistence();
-		this.events = await allEvents();
+		this.events = effectiveEvents(await allEvents());
 		this.recomputeCollections();
 		await loadCatalog((s) => {
 			this.catalog = s;
@@ -117,8 +119,14 @@ class AppState {
 	async record(payload: AppEventPayload): Promise<AppEvent> {
 		const event = makeEvent(payload);
 		await appendEvent(event);
-		this.events = [...this.events, event];
+		// In-memory view is the effective log: an undo masks its targets and
+		// never appears itself (storage and sync keep the full raw log).
+		this.events =
+			event.t === 'undo'
+				? this.events.filter((e) => !event.ids.includes(e.id))
+				: [...this.events, event];
 		this.recomputeCollections();
+		if (this.isRevealAnnotation(event)) this.undoableIds.push(event.id);
 		if (this.model) {
 			applyEvent(this.model, event, { workById: (id) => this.catalog.byId.get(id) });
 			// shallow-clone to notify runes subscribers of the deep mutation
@@ -156,14 +164,28 @@ class AppState {
 	): Promise<void> {
 		if (!this.engine?.state.current) return;
 		const { aId, bId } = this.engine.state.current;
-		await this.record({ t: 'pair_choice', a: aId, b: bId, pick, strength: null, ms });
+		const choice = await this.record({ t: 'pair_choice', a: aId, b: bId, pick, ms });
+		this.undoableIds = [choice.id];
 		markAnswered(this.engine);
 		this.engine = { ...this.engine };
 		await this.persistSnapshot();
 	}
 
+	/** Reveal-screen annotations belong to the current pair's undo scope. */
+	private isRevealAnnotation(event: AppEvent): boolean {
+		const cur = this.engine?.state.current;
+		if (!cur || this.engine?.state.phase !== 'revealed') return false;
+		const ids = new Set([cur.aId, cur.bId]);
+		if (event.t === 'strength') return ids.has(event.a) && ids.has(event.b);
+		if (event.t === 'reaction' || event.t === 'save' || event.t === 'unsave' || event.t === 'remember') {
+			return ids.has(event.work);
+		}
+		return false;
+	}
+
 	async nextPair(): Promise<void> {
 		if (!this.engine) return;
+		this.undoableIds = [];
 		engineAdvance(this.engine, this.sessionCtx());
 		this.engine = { ...this.engine };
 		await this.persistSnapshot();
@@ -178,11 +200,37 @@ class AppState {
 		}
 	}
 
+	/** Deliberate user pass on the current pair (weak negative on both works). */
 	async skipPair(): Promise<void> {
 		if (!this.engine?.state.current) return;
-		const { aId } = this.engine.state.current;
-		await this.record({ t: 'skip', work: aId, reason: 'not-now' });
+		const { aId, bId } = this.engine.state.current;
+		await this.record({ t: 'skip', work: aId, reason: 'pass' });
+		await this.record({ t: 'skip', work: bId, reason: 'pass' });
 		skipCurrent(this.engine, this.sessionCtx());
+		this.engine = { ...this.engine };
+		await this.persistSnapshot();
+	}
+
+	/**
+	 * An artwork image failed to load: pure infrastructure. Log it for
+	 * diagnostics, advance to a fresh pair — the taste model never sees it.
+	 */
+	async reportImageFailure(workId: string): Promise<void> {
+		if (!this.engine?.state.current) return;
+		await this.record({ t: 'image_error', work: workId, context: 'session' });
+		skipCurrent(this.engine, this.sessionCtx());
+		this.engine = { ...this.engine };
+		await this.persistSnapshot();
+	}
+
+	/** Undo the current pair's choice and annotations; re-present the pair. */
+	async undoLastPair(): Promise<void> {
+		if (!this.engine || this.engine.state.phase !== 'revealed') return;
+		if (this.undoableIds.length === 0) return;
+		await this.record({ t: 'undo', ids: [...this.undoableIds] });
+		this.undoableIds = [];
+		this.rebuildModel();
+		this.engine.state.phase = 'choosing';
 		this.engine = { ...this.engine };
 		await this.persistSnapshot();
 	}

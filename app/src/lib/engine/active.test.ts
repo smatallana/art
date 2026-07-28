@@ -88,7 +88,6 @@ describe('selectPairSmart', () => {
 				a: pair!.a.id,
 				b: pair!.b.id,
 				pick: 'a',
-				strength: null,
 				ms: null
 			});
 		}

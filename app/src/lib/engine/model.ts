@@ -15,7 +15,7 @@
  * replayable, exportable, upgradeable.
  */
 import type { Work } from '../catalog/types';
-import type { AppEvent } from './events';
+import { effectiveEvents, type AppEvent } from './events';
 import { eraBucket, type EraBucket } from './strata';
 
 export const ERA_FEATURES: EraBucket[] = ['pre1500', 'e1500', 'e1700', 'e1850', 'e1900'];
@@ -177,14 +177,15 @@ export function modelFromEvents(
 	base?: TasteModel
 ): TasteModel {
 	const model = base ?? createModel(cfg);
+	const live = effectiveEvents(events);
 	// strength events arrive after their pair_choice; look ahead by pair key.
 	const strengthByPair = new Map<string, string>();
-	for (const e of events) {
+	for (const e of live) {
 		if (e.t === 'strength') strengthByPair.set(`${e.a}::${e.b}`, e.level);
 	}
 	const seenPairOutcome = new Map<string, 'a' | 'b'>();
 
-	for (const e of events) {
+	for (const e of live) {
 		applyEvent(model, e, ctx, cfg, strengthByPair, seenPairOutcome);
 	}
 	return model;
@@ -207,9 +208,7 @@ export function applyEvent(
 			const fb = features(b);
 			if (e.pick === 'a' || e.pick === 'b') {
 				const level =
-					e.strength ??
-					strengthByPair?.get(`${e.a}::${e.b}`) ??
-					strengthByPair?.get(`${e.b}::${e.a}`);
+					strengthByPair?.get(`${e.a}::${e.b}`) ?? strengthByPair?.get(`${e.b}::${e.a}`);
 				const omega = cfg.pairWeight * (level ? (STRENGTH_OMEGA[level] ?? 1) : 1);
 				observe(model, diff(fa, fb), e.pick === 'a' ? 1 : 0, omega, cfg);
 				// consistency probes: same unordered pair answered before
@@ -246,6 +245,10 @@ export function applyEvent(
 			return;
 		}
 		case 'skip': {
+			// Only deliberate user passes carry signal. Historic 'not-now' skips
+			// were emitted automatically on image load failures — infrastructure
+			// noise, never preference — so they are excluded from the fold.
+			if (e.reason !== 'pass') return;
 			const w = ctx.workById(e.work);
 			if (w) observe(model, features(w), 0, cfg.skipWeight, cfg);
 			return;

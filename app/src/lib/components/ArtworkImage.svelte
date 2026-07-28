@@ -11,12 +11,17 @@
 	let {
 		work,
 		size = 'display',
+		blind = false,
 		onError = undefined
 	}: {
 		work: Work;
 		size?: 'thumb' | 'display';
+		/** Blind comparison phase: alt text must not leak title or artist. */
+		blind?: boolean;
 		onError?: (workId: string) => void;
 	} = $props();
+
+	const altText = $derived(blind ? t.a11y.artworkBlind : t.a11y.artworkImage(work.title));
 
 	let loaded = $state(false);
 	let failed = $state(false);
@@ -51,7 +56,7 @@
 	{#if !failed}
 		<img
 			{src}
-			alt={t.a11y.artworkImage(work.title)}
+			alt={altText}
 			class:loaded
 			loading="eager"
 			decoding="async"
@@ -63,7 +68,7 @@
 			<div class="shimmer" aria-hidden="true"></div>
 		{/if}
 	{:else}
-		<div class="fallback" role="img" aria-label={t.a11y.artworkImage(work.title)}>
+		<div class="fallback" role="img" aria-label={altText}>
 			<svg viewBox="0 0 48 24" width="48" height="24" aria-hidden="true">
 				<path
 					d="M2 12 C 10 2, 38 2, 46 12 C 38 22, 10 22, 2 12 Z"

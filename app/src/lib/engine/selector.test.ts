@@ -111,7 +111,6 @@ describe('selectPair', () => {
 				a: 'w001',
 				b: 'w002',
 				pick: 'a' as const,
-				strength: null,
 				ms: null
 			}
 		];
