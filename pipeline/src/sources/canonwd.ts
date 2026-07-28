@@ -85,10 +85,14 @@ export async function resolveArtists(
 	for (let i = 0; i < artists.length; i += ARTIST_BATCH) {
 		const chunk = artists.slice(i, i + ARTIST_BATCH);
 		const values = chunk.map((a) => JSON.stringify(a.name) + '@en').join(' ');
+		// Labels AND aliases (canonical short names like "Tintoretto" or
+		// "Pieter Bruegel the Elder" are often altLabels), and any occupation
+		// that is painter or a subclass of it (portraitist, watercolorist…).
 		const rows = await sparql(`
 			SELECT ?name ?item ?links ?born ?died ?natLabel WHERE {
 				VALUES ?name { ${values} }
-				?item rdfs:label ?name ; wdt:P106 wd:${PAINTER} ; wikibase:sitelinks ?links .
+				?item (rdfs:label|skos:altLabel) ?name ; wikibase:sitelinks ?links .
+				?item wdt:P106 ?occ . ?occ wdt:P279* wd:${PAINTER} .
 				OPTIONAL { ?item wdt:P569 ?born }
 				OPTIONAL { ?item wdt:P570 ?died }
 				OPTIONAL { ?item wdt:P27 ?nat . ?nat rdfs:label ?natLabel FILTER(LANG(?natLabel)="en") }
@@ -334,16 +338,19 @@ async function resolveManualFile(
 		}
 	}
 	if (m.search) {
-		try {
-			const res = await fetchJson<{ query?: { search?: { title: string }[] } }>(
-				`${ENWIKI_API}?action=query&format=json&list=search&srnamespace=6&srlimit=5&srsearch=${encodeURIComponent(m.search)}`
-			);
-			const hit = (res.query?.search ?? [])
-				.map((s) => s.title.replace(/^File:/, ''))
-				.find((f) => /\.(jpe?g|png)$/i.test(f));
-			if (hit) return { file: hit, api: ENWIKI_API };
-		} catch {
-			// fall through
+		for (const api of [ENWIKI_API, COMMONS_API]) {
+			try {
+				const res = await fetchJson<{ query?: { search?: { title: string }[] } }>(
+					`${api}?action=query&format=json&list=search&srnamespace=6&srlimit=5&srsearch=${encodeURIComponent(m.search)}`
+				);
+				const hit = (res.query?.search ?? [])
+					.map((s) => s.title.replace(/^File:/, ''))
+					.find((f) => /\.(jpe?g|png)$/i.test(f));
+				if (hit) return { file: hit, api };
+			} catch {
+				// try the next endpoint
+			}
+			await sleep(500);
 		}
 	}
 	log(`canon: manual work UNRESOLVED — ${m.artist}, "${m.title}"`);
