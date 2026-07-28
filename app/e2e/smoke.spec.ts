@@ -1,12 +1,15 @@
 import { expect, test } from '@playwright/test';
 
-test('home page renders the Beholder shell', async ({ page }) => {
+test('the app opens straight into a session with two paintings', async ({ page }) => {
 	const errors: string[] = [];
 	page.on('pageerror', (e) => errors.push(String(e)));
 
 	await page.goto('./');
 	await expect(page).toHaveTitle(/Beholder/);
-	await expect(page.getByRole('heading', { level: 1, name: 'Beholder' })).toBeVisible();
+	// Home forwards into the session as soon as the pool is usable.
+	await expect(page.getByRole('button', { name: 'Choose the first painting' })).toBeVisible({
+		timeout: 15000
+	});
 	expect(errors).toEqual([]);
 });
 

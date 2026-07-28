@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { t } from '$lib/i18n/en';
+	import { dueItems } from '$lib/engine/memory';
 	import { ONTOLOGY_DIMS, ONTOLOGY_GROUPS } from '$lib/engine/ontology';
 	import { buildProfile, type TasteProfile } from '$lib/engine/profile';
 	import { app, type TimelineSnapshot } from '$lib/state/app.svelte';
@@ -11,6 +13,8 @@
 		await app.init();
 		timeline = await app.timeline();
 	});
+
+	const memoryDue = $derived(app.catalog.works.length > 0 ? dueItems(app.events).length : 0);
 
 	const profile = $derived.by((): TasteProfile | null => {
 		if (!app.model || app.catalog.works.length === 0) return null;
@@ -39,7 +43,13 @@
 </svelte:head>
 
 <main class="page">
-	<h1>{t.profile.title}</h1>
+	<header class="page-head">
+		<h1>{t.profile.title}</h1>
+		<a class="settings-link" href={`${base}/settings/`}>{t.nav.settings}</a>
+	</header>
+	{#if memoryDue > 0}
+		<a class="memory-cta" href={`${base}/remember/`}>{t.memory.dueCount(memoryDue)} →</a>
+	{/if}
 
 	{#if !profile}
 		<p class="hint">{t.home.catalogLoading}</p>
@@ -176,6 +186,23 @@
 </main>
 
 <style>
+	.page-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-3);
+	}
+	.settings-link {
+		color: var(--ink-faint);
+		font-size: 0.85rem;
+	}
+	.memory-cta {
+		display: inline-block;
+		color: var(--gold-deep);
+		font-size: 0.9rem;
+		margin-bottom: var(--space-2);
+	}
+
 	.page {
 		flex: 1;
 		padding: var(--space-4) var(--space-3) calc(80px + var(--safe-bottom));

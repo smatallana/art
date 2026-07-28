@@ -1,18 +1,16 @@
 import { expect, test } from '@playwright/test';
 
 /**
- * Core game-loop E2E against the committed dev-fixture catalog.
+ * Core game-loop E2E against the committed catalog.
  * Covers acceptance criteria: interact without typing, responses persist,
  * close-and-return resumes, next selection adapts (no repeated pair).
+ * The home route forwards straight into an auto-started session.
  */
 
 test('full session flow: choose, reveal, react, save, advance', async ({ page }) => {
 	await page.goto('./');
-	const start = page.getByRole('link', { name: /begin a session|continue your session/i });
-	await expect(start).toBeVisible({ timeout: 15000 });
-	await start.click();
 
-	// Pair is shown — two artwork buttons.
+	// Pair is shown — two artwork buttons (home forwards into the session).
 	const choiceA = page.getByRole('button', { name: 'Choose the first painting' });
 	await expect(choiceA).toBeVisible({ timeout: 15000 });
 	await choiceA.click();
@@ -39,8 +37,7 @@ test('full session flow: choose, reveal, react, save, advance', async ({ page })
 
 test('answers persist across reload and session resumes in place', async ({ page }) => {
 	await page.goto('./');
-	await page.getByRole('link', { name: /begin a session|continue/i }).click();
-	await page.getByRole('button', { name: 'Choose the first painting' }).click();
+	await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
 	await page.getByRole('button', { name: 'Next', exact: true }).click();
 	await page.getByRole('button', { name: 'Choose the second painting' }).click();
 	// Persistence is guaranteed once the reveal renders (record() is awaited
@@ -53,14 +50,13 @@ test('answers persist across reload and session resumes in place', async ({ page
 	// the progress counter must not reset to 1.
 	await expect(page.getByText(/(2|3) of \d+/)).toBeVisible({ timeout: 15000 });
 
-	// Home shows recorded history after finishing the visit.
-	await page.goto('./');
-	await expect(page.getByText(/choices recorded/)).toBeVisible();
+	// The profile shows recorded history.
+	await page.goto('./profile/');
+	await expect(page.getByText(/Built from \d+ recorded/)).toBeVisible({ timeout: 15000 });
 });
 
 test('pairs do not repeat within a session', async ({ page }) => {
 	await page.goto('./');
-	await page.getByRole('link', { name: /begin a session|continue/i }).click();
 
 	const seen = new Set<string>();
 	for (let i = 0; i < 5; i++) {
@@ -78,8 +74,7 @@ test('pairs do not repeat within a session', async ({ page }) => {
 
 test('export produces a JSON download without any typing', async ({ page }) => {
 	await page.goto('./');
-	await page.getByRole('link', { name: /begin a session|continue/i }).click();
-	await page.getByRole('button', { name: 'Choose the first painting' }).click();
+	await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
 	await page.getByRole('button', { name: 'Next', exact: true }).click();
 
 	await page.goto('./settings/');

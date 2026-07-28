@@ -238,7 +238,7 @@ export const t = {
 	},
 
 	nav: {
-		home: 'Home',
+		play: 'Play',
 		discover: 'Discover',
 		saved: 'Saved',
 		profile: 'Your eye',

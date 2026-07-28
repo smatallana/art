@@ -49,7 +49,8 @@
 
 	async function finish(): Promise<void> {
 		await app.endSession();
-		goto(`${base}/`);
+		// Home forwards into a session, so the resting place is the profile.
+		goto(`${base}/profile/`);
 	}
 
 	function onKey(e: KeyboardEvent): void {

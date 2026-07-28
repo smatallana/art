@@ -1,15 +1,21 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
-	import { dueItems } from '$lib/engine/memory';
 	import { catalogUsable } from '$lib/catalog/store';
 
 	onMount(() => void app.init());
 
 	const usable = $derived(catalogUsable(app.catalog));
-	const memoryDue = $derived(usable ? dueItems(app.events).length : 0);
+
+	// The first thing a visitor should see is art, not a dashboard: forward
+	// into the session as soon as the pool is usable. The hall stays as the
+	// loading/error surface only.
+	$effect(() => {
+		if (usable) void goto(`${base}/session/`, { replaceState: true });
+	});
 </script>
 
 <svelte:head>
@@ -33,29 +39,9 @@
 	<p class="tagline">{t.tagline}</p>
 
 	{#if usable}
-		{#if app.catalog.fromCache && app.catalog.error}
-			<p class="status">{t.home.catalogOffline}</p>
-		{:else if app.catalog.status === 'degraded'}
-			<p class="status">{t.home.catalogDegraded}</p>
-		{:else if app.catalog.status === 'partial' || app.catalog.status === 'loading'}
-			<p class="status">
-				{t.home.catalogProgress(app.catalog.loadedShards, app.catalog.totalShards)}
-			</p>
-		{/if}
 		<a class="start" href={`${base}/session/`} data-sveltekit-preload-data="tap">
 			{app.engine && app.engine.state.phase !== 'done' ? t.home.continue : t.home.start}
 		</a>
-		{#if app.catalog.status === 'degraded'}
-			<button class="retry" onclick={() => void app.retryCatalog()}>{t.home.retry}</button>
-		{/if}
-		{#if memoryDue > 0}
-			<a class="memory-cta" href={`${base}/remember/`}>{t.memory.dueCount(memoryDue)} →</a>
-		{/if}
-		{#if app.totalChoices > 0}
-			<p class="stats">
-				{t.home.sessionsDone(app.totalSessions)} · {t.home.answersLogged(app.totalChoices)}
-			</p>
-		{/if}
 	{:else if app.catalog.status === 'error' || app.catalog.status === 'degraded'}
 		<p class="status error">{t.home.catalogError}</p>
 		<button class="retry" onclick={() => void app.retryCatalog()}>{t.home.retry}</button>
@@ -125,15 +111,5 @@
 		font-size: 0.9rem;
 		min-height: 40px;
 		cursor: pointer;
-	}
-	.memory-cta {
-		color: var(--gold-deep);
-		font-size: 0.9rem;
-		margin-top: var(--space-2);
-	}
-	.stats {
-		color: var(--ink-faint);
-		font-size: 0.8rem;
-		margin-top: var(--space-3);
 	}
 </style>
