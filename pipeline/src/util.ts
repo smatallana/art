@@ -125,6 +125,18 @@ export async function mapLimit<T, R>(
 	return results;
 }
 
+/**
+ * Museum records sometimes carry a culture/region string where a person's
+ * name belongs ("India", "China, Ming dynasty"). Detecting these keeps
+ * attribution honest: the app shows culture, not a fake artist.
+ */
+const CULTURE_WORDS =
+	/^(india|china|japan|korea|tibet|nepal|thailand|java|iran|persia|iraq|syria|egypt|turkey|islamic|byzantine|byzantium|greece|rome|mexico|peru|bolivia|ethiopia|congo|mali|(northern|southern|central|western|eastern)\s+(india|china|iran|europe))([,;].*)?$/i;
+
+export function isCultureNotArtist(name: string): boolean {
+	return CULTURE_WORDS.test(name.trim());
+}
+
 /** Parse the first plausible year from a free-text date ("c. 1660", "1503–1519"). */
 export function parseYear(text: string | null | undefined): number | null {
 	if (!text) return null;

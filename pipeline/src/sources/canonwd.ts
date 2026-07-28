@@ -37,6 +37,10 @@ const IMAGEINFO_BATCH = 40;
 export interface CanonArtist {
 	name: string;
 	target: number;
+	/** Optional Wikidata QID override for names label/alias matching misses.
+	 *  Verified against the item's label before use — a wrong QID is skipped
+	 *  and logged, never silently ingested. */
+	qid?: string;
 }
 
 export interface CanonFile {
@@ -82,8 +86,46 @@ export async function resolveArtists(
 		string,
 		{ qid: string; name: string; born: number | null; died: number | null; nationality: string | null }
 	>();
-	for (let i = 0; i < artists.length; i += ARTIST_BATCH) {
-		const chunk = artists.slice(i, i + ARTIST_BATCH);
+	// QID overrides first, each verified against the item's actual label.
+	const overridden = artists.filter((a) => a.qid);
+	if (overridden.length > 0) {
+		const values = overridden.map((a) => `wd:${a.qid}`).join(' ');
+		const rows = await sparql(`
+			SELECT ?item ?itemLabel ?born ?died ?natLabel WHERE {
+				VALUES ?item { ${values} }
+				OPTIONAL { ?item wdt:P569 ?born }
+				OPTIONAL { ?item wdt:P570 ?died }
+				OPTIONAL { ?item wdt:P27 ?nat . ?nat rdfs:label ?natLabel FILTER(LANG(?natLabel)="en") }
+				SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+			}`);
+		const byQid = new Map(rows.map((r) => [qidOf(v(r, 'item') as string), r]));
+		for (const a of overridden) {
+			const row = byQid.get(a.qid as string);
+			const label = row ? (v(row, 'itemLabel') ?? '') : '';
+			const surname = a.name.split(' ').pop() as string;
+			if (!row || !label.toLowerCase().includes(surname.toLowerCase())) {
+				log(`canon: QID override ${a.qid} REJECTED for "${a.name}" (label "${label}")`);
+				continue;
+			}
+			const year = (key: string): number | null => {
+				const raw = v(row, key);
+				const y = raw ? parseInt(raw.slice(0, raw.startsWith('-') ? 5 : 4), 10) : NaN;
+				return Number.isFinite(y) ? y : null;
+			};
+			resolved.set(a.name, {
+				qid: a.qid as string,
+				name: a.name,
+				born: year('born'),
+				died: year('died'),
+				nationality: v(row, 'natLabel')
+			});
+		}
+		await sleep(1000);
+	}
+
+	const toMatch = artists.filter((a) => !resolved.has(a.name));
+	for (let i = 0; i < toMatch.length; i += ARTIST_BATCH) {
+		const chunk = toMatch.slice(i, i + ARTIST_BATCH);
 		const values = chunk.map((a) => JSON.stringify(a.name) + '@en').join(' ');
 		// Labels AND aliases (canonical short names like "Tintoretto" or
 		// "Pieter Bruegel the Elder" are often altLabels), and any occupation

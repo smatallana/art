@@ -5,7 +5,7 @@
  * `did_you_know` / `fun_fact` provide ready-made micro-stories.
  */
 import type { SourceAdapter, Work } from '../types.js';
-import { fetchJson, parseYear, sleep, firstSentences, stripHtml } from '../util.js';
+import { fetchJson, parseYear, sleep, firstSentences, stripHtml, isCultureNotArtist } from '../util.js';
 
 const API = 'https://openaccess-api.clevelandart.org/api/artworks/';
 const PAGE_SIZE = 100;
@@ -66,7 +66,11 @@ export function parseCmaCreator(description: string | null): {
 	// without the parenthetical is an attribution culture/region ("India",
 	// "China, Ming dynasty"), not a person — keep it as culture, not artist.
 	if (!m) return { name: 'Unknown artist', nationality: null, born: null, died: null, culture: description.trim() };
-	const name = (m[1] as string).trim() || 'Unknown artist';
+	const rawName = (m[1] as string).trim() || 'Unknown artist';
+	if (isCultureNotArtist(rawName)) {
+		return { name: 'Unknown artist', nationality: null, born: null, died: null, culture: rawName };
+	}
+	const name = rawName;
 	const inner = m[2] as string;
 	const years = inner.match(/(\d{4})\s*[–-]\s*(?:c\.\s*)?(\d{4})/);
 	const nationality = (inner.split(',')[0] ?? '').trim();

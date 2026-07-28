@@ -5,7 +5,7 @@
  * ~1 rps). Anonymous rate limit: 60 req/min → we page politely with delays.
  */
 import type { SourceAdapter, Work } from '../types.js';
-import { fetchJson, parseYear, sleep, stripHtml, firstSentences } from '../util.js';
+import { fetchJson, parseYear, sleep, stripHtml, firstSentences, isCultureNotArtist } from '../util.js';
 
 const API = 'https://api.artic.edu/api/v1/artworks/search';
 const IIIF = 'https://www.artic.edu/iiif/2';
@@ -136,11 +136,11 @@ export function parseAicArtistDisplay(display: string | null): {
 	};
 }
 
-/** Unify unknown-artist variants so rollups don't split. */
+/** Unify unknown-artist variants; route culture strings out of the field. */
 function canonicalArtistName(name: string): string {
-	return /^(artist unknown|unknown|unidentified( artist)?)$/i.test(name.trim())
-		? 'Unknown artist'
-		: name;
+	if (/^(artist unknown|unknown|unidentified( artist)?)$/i.test(name.trim())) return 'Unknown artist';
+	if (isCultureNotArtist(name)) return 'Unknown artist';
+	return name;
 }
 
 export const aic: SourceAdapter = {
