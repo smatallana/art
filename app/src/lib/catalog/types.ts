@@ -27,7 +27,7 @@ export interface Work {
 	medium: string | null;
 	dimensions: string | null;
 	museum: { name: string; department: string | null; accession: string | null; url: string };
-	rights: { status: 'cc0' | 'public-domain'; attribution: string };
+	rights: { status: 'cc0' | 'public-domain' | 'in-copyright'; attribution: string };
 	images: {
 		aspect: number;
 		width: number;
@@ -35,7 +35,7 @@ export interface Work {
 		thumb: string;
 		display: string;
 		full: string | null;
-		host: 'museum' | 'r2' | 'dev';
+		host: 'museum' | 'r2' | 'wikimedia' | 'dev';
 	};
 	movement: string | null;
 	culture: string | null;

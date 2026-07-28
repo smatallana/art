@@ -136,6 +136,13 @@ export function parseAicArtistDisplay(display: string | null): {
 	};
 }
 
+/** Unify unknown-artist variants so rollups don't split. */
+function canonicalArtistName(name: string): string {
+	return /^(artist unknown|unknown|unidentified( artist)?)$/i.test(name.trim())
+		? 'Unknown artist'
+		: name;
+}
+
 export const aic: SourceAdapter = {
 	id: 'aic',
 
@@ -197,7 +204,7 @@ export const aic: SourceAdapter = {
 			sourceId: String(r.id),
 			title: r.title,
 			artist: {
-				name: r.artist_title ?? (r.artist_display?.split('\n')[0] || 'Unknown artist'),
+				name: canonicalArtistName(r.artist_title ?? (r.artist_display?.split('\n')[0] || 'Unknown artist')),
 				born: vitals.born,
 				died: vitals.died,
 				nationality: vitals.nationality

@@ -222,9 +222,16 @@ export async function runEmbedStage({ catalogDir, commonsMapFile, log }: EmbedOp
 	const direct: Work[] = [];
 	const viaCommons: Work[] = [];
 	const blocked: Work[] = [];
+	const isWikimedia = (url: string): boolean => {
+		try {
+			return /(^|\.)(wikimedia|wikipedia)\.org$/.test(new URL(url).hostname);
+		} catch {
+			return false;
+		}
+	};
 	for (const w of todo) {
 		const t = fetchTargetFor(w, commons);
-		if (t.origin === 'c') viaCommons.push(w);
+		if (t.origin === 'c' || isWikimedia(t.url)) viaCommons.push(w);
 		else if (isBlockedHost(t.url)) blocked.push(w);
 		else direct.push(w);
 	}

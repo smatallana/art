@@ -101,7 +101,7 @@ export const t = {
 		resetDone: 'Local data erased.',
 		about: 'About',
 		aboutBody:
-			'Beholder is an open, non-commercial project. All artworks are in the public domain; metadata and images come from the source museums under CC0.',
+			'Beholder is an open, personal, non-commercial project. Most artworks are public domain, with CC0 metadata from the source museums or Wikimedia Commons; a small number of in-copyright landmark works are linked from Wikipedia at fair-use size and never redistributed.',
 		attributions: 'Collections',
 		priorHint:
 			'Have starting hypotheses from earlier comparisons? Import them as a low-confidence prior - the sessions ahead will test them, not confirm them.',

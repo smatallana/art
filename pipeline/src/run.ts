@@ -105,7 +105,39 @@ async function cmdBuild(): Promise<void> {
 	const rejects: Record<string, number> = {};
 	const works: Work[] = [];
 
+	// --merge: start from the already-published catalog so a run can add a
+	// source without refetching the others. Existing records go first, so
+	// dedupe prefers museum records over Wikidata duplicates of the same work.
+	if (hasFlag('merge')) {
+		const { loadCatalog } = await import('./catalog.js');
+		try {
+			const existing = await loadCatalog(outDir);
+			const refetching = new Set(sources);
+			const kept = existing.filter((w) => !refetching.has(w.source));
+			works.push(...kept);
+			log(`merge: preloaded ${kept.length} existing works (sources being refetched excluded)`);
+		} catch {
+			log('merge: no existing catalog found — building fresh');
+		}
+	}
+
 	for (const id of sources) {
+		if (id === 'wd') {
+			const { fetchCanonWorks } = await import('./sources/canonwd.js');
+			const canonDir = path.join(here, '..', '..', 'data', 'canon');
+			try {
+				const canonWorks = await fetchCanonWorks(
+					path.join(canonDir, 'canon.json'),
+					path.join(canonDir, 'manual-works.json'),
+					log
+				);
+				works.push(...canonWorks);
+			} catch (e) {
+				log(`source wd FAILED: ${e}`);
+				rejects['wd:fetch-failed'] = 1;
+			}
+			continue;
+		}
 		const adapter = ADAPTERS[id];
 		if (!adapter) throw new Error(`unknown source: ${id}`);
 		log(`fetching up to ${limit} from ${id}…`);
@@ -163,12 +195,54 @@ async function cmdBuild(): Promise<void> {
 	}
 
 	const index = await publishCatalog(scored, outDir, ontologyVersion);
+	const coverage = coverageReport(scored, log);
 	await mkdir(workDir, { recursive: true });
 	await writeFile(
 		path.join(workDir, 'report.json'),
-		JSON.stringify({ index, rejects, dedupeRemoved: removed, dedupeFlagged: flagged, imageReport: report }, null, 2)
+		JSON.stringify(
+			{ index, rejects, dedupeRemoved: removed, dedupeFlagged: flagged, imageReport: report, coverage },
+			null,
+			2
+		)
 	);
 	log(`published ${index.count} works → ${outDir}`);
+}
+
+
+/**
+ * Coverage & concentration report: the catalog is part of the model, so its
+ * composition is measured on every build (external review, 2026-07-28).
+ */
+function coverageReport(
+	works: Work[],
+	log: (msg: string) => void
+): { bySource: Record<string, number>; byCentury: Record<string, number>; topArtists: [string, number][]; warnings: string[] } {
+	const share = (n: number): number => Math.round((1000 * n) / Math.max(1, works.length)) / 10;
+	const bySourceCount: Record<string, number> = {};
+	const byCenturyCount: Record<string, number> = {};
+	const byArtist: Record<string, number> = {};
+	for (const w of works) {
+		bySourceCount[w.source] = (bySourceCount[w.source] ?? 0) + 1;
+		const y = w.date.start;
+		const c = y == null ? 'unknown' : `${Math.floor((y - 1) / 100) + 1}c`;
+		byCenturyCount[c] = (byCenturyCount[c] ?? 0) + 1;
+		if (w.artist.name !== 'Unknown artist') byArtist[w.artist.name] = (byArtist[w.artist.name] ?? 0) + 1;
+	}
+	const bySource = Object.fromEntries(Object.entries(bySourceCount).map(([k, n]) => [k, share(n)]));
+	const byCentury = Object.fromEntries(
+		Object.entries(byCenturyCount).sort((a, b) => a[0].localeCompare(b[0])).map(([k, n]) => [k, share(n)])
+	);
+	const topArtists = Object.entries(byArtist)
+		.sort((a, b) => b[1] - a[1])
+		.slice(0, 15) as [string, number][];
+	const warnings: string[] = [];
+	for (const [src, pct] of Object.entries(bySource)) {
+		if (pct > 35) warnings.push(`source concentration: ${src} is ${pct}% of the catalog (>35%)`);
+	}
+	log(`coverage: sources ${JSON.stringify(bySource)}`);
+	log(`coverage: centuries ${JSON.stringify(byCentury)}`);
+	for (const wmsg of warnings) log(`coverage WARNING: ${wmsg}`);
+	return { bySource, byCentury, topArtists, warnings };
 }
 
 async function cmdEmbed(): Promise<void> {

@@ -14,9 +14,14 @@ on:
         required: false
         default: '1500'
       sources:
-        description: 'comma-separated sources (build mode)'
+        description: 'comma-separated sources (build mode; wd = canon via Wikidata)'
         required: false
         default: 'aic,cma'
+      merge:
+        description: 'merge: keep existing catalog, refetch only the listed sources'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -48,7 +53,7 @@ jobs:
 
       - name: Build mode — full catalog build with live image probing
         if: inputs.mode == 'build'
-        run: npm run -w pipeline run build -- --limit=${{ inputs.limit }} --sources=${{ inputs.sources }} --out=../app/static/catalog
+        run: npm run -w pipeline run build -- --limit=${{ inputs.limit }} --sources=${{ inputs.sources }} --out=../app/static/catalog ${{ inputs.merge && '--merge' || '' }}
 
       - name: Embed mode — CLIP embeddings for the committed catalog
         if: inputs.mode == 'embed'

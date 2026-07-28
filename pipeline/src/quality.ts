@@ -55,13 +55,28 @@ export function dedupe(works: Work[]): { works: Work[]; removed: number; flagged
 		byKey.set(k, [...(byKey.get(k) ?? []), w]);
 	}
 	let flagged = 0;
+	let wdRemoved = 0;
 	for (const group of byKey.values()) {
 		if (group.length > 1 && (group[0] as Work).artist.name !== 'Unknown artist') {
-			for (const w of group) {
-				w.quality.flags.push('possible-duplicate');
-				flagged++;
+			// A Wikidata record duplicating a museum record is the SAME painting
+			// seen through two sources — drop the wd one (museum data is richer).
+			const museum = group.filter((w) => w.source !== 'wd');
+			if (museum.length > 0) {
+				for (const w of group) {
+					if (w.source === 'wd') {
+						byId.delete(w.id);
+						wdRemoved++;
+					}
+				}
+			}
+			const remaining = group.filter((w) => byId.has(w.id));
+			if (remaining.length > 1) {
+				for (const w of remaining) {
+					w.quality.flags.push('possible-duplicate');
+					flagged++;
+				}
 			}
 		}
 	}
-	return { works: [...byId.values()], removed, flagged };
+	return { works: [...byId.values()], removed: removed + wdRemoved, flagged };
 }

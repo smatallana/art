@@ -13,7 +13,9 @@ import type { Work } from './types.js';
 import { mapLimit, probeUrl, sleep } from './util.js';
 
 const POLITE_HOSTS: { match: string; delayMs: number; sampleEvery: number }[] = [
-	{ match: 'artic.edu', delayMs: 1000, sampleEvery: 8 }
+	{ match: 'artic.edu', delayMs: 1000, sampleEvery: 8 },
+	{ match: 'wikimedia.org', delayMs: 1000, sampleEvery: 6 },
+	{ match: 'wikipedia.org', delayMs: 1000, sampleEvery: 6 }
 ];
 
 export interface ValidationReport {

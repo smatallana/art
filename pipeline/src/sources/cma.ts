@@ -58,10 +58,14 @@ export function parseCmaCreator(description: string | null): {
 	nationality: string | null;
 	born: number | null;
 	died: number | null;
+	culture?: string;
 } {
 	if (!description) return { name: 'Unknown artist', nationality: null, born: null, died: null };
 	const m = description.match(/^(.*?)\s*\((.*)\)\s*$/);
-	if (!m) return { name: description.trim(), nationality: null, born: null, died: null };
+	// Real CMA artists come as "Name (Nationality, yyyy-yyyy)". A description
+	// without the parenthetical is an attribution culture/region ("India",
+	// "China, Ming dynasty"), not a person — keep it as culture, not artist.
+	if (!m) return { name: 'Unknown artist', nationality: null, born: null, died: null, culture: description.trim() };
 	const name = (m[1] as string).trim() || 'Unknown artist';
 	const inner = m[2] as string;
 	const years = inner.match(/(\d{4})\s*[–-]\s*(?:c\.\s*)?(\d{4})/);
@@ -159,7 +163,7 @@ export const cma: SourceAdapter = {
 				host: 'museum'
 			},
 			movement: null,
-			culture: r.culture?.[0] ?? null,
+			culture: r.culture?.[0] ?? creator.culture ?? null,
 			place: null,
 			story: story ? firstSentences(story, 2, 300) : null,
 			tags: {},

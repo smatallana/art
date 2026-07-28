@@ -11,7 +11,7 @@ export type Tag = z.infer<typeof TagSchema>;
 /** Canonical work record — the single schema every source normalizes into. */
 export const WorkSchema = z.object({
 	id: z.string(), // e.g. "aic-27992"
-	source: z.enum(['aic', 'cma', 'met', 'rijks']),
+	source: z.enum(['aic', 'cma', 'met', 'rijks', 'wd']),
 	sourceId: z.string(),
 	title: z.string().min(1),
 	artist: z.object({
@@ -34,7 +34,7 @@ export const WorkSchema = z.object({
 		url: z.string().url() // official page for this work
 	}),
 	rights: z.object({
-		status: z.enum(['cc0', 'public-domain']),
+		status: z.enum(['cc0', 'public-domain', 'in-copyright']),
 		attribution: z.string() // always shown in the app
 	}),
 	images: z.object({
@@ -44,7 +44,7 @@ export const WorkSchema = z.object({
 		thumb: z.string().url(), // ~400px
 		display: z.string().url(), // ~840–1200px
 		full: z.string().url().nullable(), // largest available
-		host: z.enum(['museum', 'r2'])
+		host: z.enum(['museum', 'r2', 'wikimedia'])
 	}),
 	movement: z.string().nullable(),
 	culture: z.string().nullable(),

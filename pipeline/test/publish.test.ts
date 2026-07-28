@@ -61,8 +61,9 @@ describe('publishCatalog', () => {
 		);
 		expect(shard).toHaveLength(5);
 		expect(shard[0].id < shard[1].id).toBe(true);
-		const artists = JSON.parse(await readFile(path.join(out, 'artists.json'), 'utf8'));
-		expect(artists[0].workCount).toBe(5);
+		const bootstrap = JSON.parse(await readFile(path.join(out, 'bootstrap.json'), 'utf8'));
+		expect(bootstrap.length).toBeGreaterThan(0);
+		expect(bootstrap.length).toBeLessThanOrEqual(80);
 	});
 });
 
