@@ -37,10 +37,21 @@ export default defineConfig({
 				]
 			},
 			workbox: {
-				globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+				globPatterns: ['**/*.{js,css,html,svg,png,woff2}', 'catalog/bootstrap.json'],
 				// Never let the SW cache grow unbounded with artwork images:
 				// runtime caching below is capped and expires.
 				runtimeCaching: [
+					{
+						// The catalog index is the generation pointer — always try the
+						// network first so a new deploy is noticed immediately.
+						urlPattern: ({ url }) => url.pathname.endsWith('/catalog/index.json'),
+						handler: 'NetworkFirst',
+						options: {
+							cacheName: 'catalog-index',
+							networkTimeoutSeconds: 8,
+							expiration: { maxEntries: 2, maxAgeSeconds: 60 * 60 * 24 * 30 }
+						}
+					},
 					{
 						// Catalog shards: fast, revalidate in background.
 						urlPattern: ({ url }) => url.pathname.includes('/catalog/'),

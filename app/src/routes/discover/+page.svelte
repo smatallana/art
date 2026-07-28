@@ -25,7 +25,7 @@
 	onMount(() => void app.init());
 
 	const ontologyMap = new Map(ONTOLOGY_DIMS.map((d) => [d.id, d]));
-	const ready = $derived(app.catalog.status === 'ready' && app.model != null);
+	const ready = $derived(app.catalog.works.length > 0 && app.model != null);
 
 	const close = $derived.by((): Recommendation[] =>
 		ready

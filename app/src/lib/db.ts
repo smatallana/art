@@ -72,6 +72,11 @@ export async function cachedWorks(): Promise<Work[]> {
 	return (await db()).getAll('works') as Promise<Work[]>;
 }
 
+/** Drop the cached catalog (called when a new catalog generation arrives). */
+export async function clearWorksCache(): Promise<void> {
+	await (await db()).clear('works');
+}
+
 export async function clearAllLocalData(): Promise<void> {
 	const d = await db();
 	await Promise.all([d.clear('events'), d.clear('kv'), d.clear('works'), d.clear('photos')]);

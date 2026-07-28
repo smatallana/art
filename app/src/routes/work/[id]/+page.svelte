@@ -127,7 +127,7 @@
 			<img src={work.images.full ?? work.images.display} alt={work.title} />
 		</button>
 	{/if}
-{:else if app.catalog.status === 'ready'}
+{:else if app.catalog.works.length > 0 && app.catalog.status !== 'loading' && app.catalog.status !== 'partial'}
 	<main class="page"><p class="meta">{t.work.notFound}</p></main>
 {:else}
 	<main class="page"><p class="meta">{t.home.catalogLoading}</p></main>

@@ -13,7 +13,7 @@
 	});
 
 	const profile = $derived.by((): TasteProfile | null => {
-		if (!app.model || app.catalog.status !== 'ready') return null;
+		if (!app.model || app.catalog.works.length === 0) return null;
 		return buildProfile(app.model, app.events, (id) => app.work(id), ONTOLOGY_DIMS);
 	});
 

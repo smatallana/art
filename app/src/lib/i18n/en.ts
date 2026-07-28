@@ -15,7 +15,11 @@ export const t = {
 		settings: 'Settings',
 		catalogOffline: 'Offline — using your cached collection',
 		catalogError: 'The collection could not be loaded. Check your connection and try again.',
-		catalogLoading: 'Hanging the gallery…'
+		catalogLoading: 'Hanging the gallery…',
+		catalogProgress: (loaded: number, total: number) =>
+			total > 0 ? `Hanging the gallery — ${loaded} of ${total} walls` : 'Hanging the gallery…',
+		catalogDegraded: 'Part of the collection could not be loaded — you can still begin.',
+		retry: 'Try again'
 	},
 
 	session: {

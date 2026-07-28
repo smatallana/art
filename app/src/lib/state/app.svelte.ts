@@ -6,7 +6,7 @@
  */
 import { SvelteSet } from 'svelte/reactivity';
 import type { CatalogState } from '../catalog/store';
-import { loadCatalog } from '../catalog/store';
+import { loadCatalog, retryCatalog } from '../catalog/store';
 import type { Work } from '../catalog/types';
 import { allEvents, appendEvent, kvDelete, kvGet, kvSet, requestPersistence } from '../db';
 import type { AppEvent, AppEventPayload } from '../engine/events';
@@ -39,6 +39,9 @@ class AppState {
 		byId: new Map(),
 		index: null,
 		fromCache: false,
+		loadedShards: 0,
+		totalShards: 0,
+		failedShards: 0,
 		error: null
 	});
 	events = $state<AppEvent[]>([]);
@@ -79,7 +82,17 @@ class AppState {
 		this.recomputeCollections();
 		await loadCatalog((s) => {
 			this.catalog = s;
-			if (s.status === 'ready') this.rebuildModel();
+			// Rebuild whenever works are available: late-arriving shards let
+			// previously unresolvable event references contribute again.
+			if (s.works.length > 0) this.rebuildModel();
+		});
+	}
+
+	/** Re-attempt the catalog load after a failure (Retry affordance). */
+	async retryCatalog(): Promise<void> {
+		await retryCatalog((s) => {
+			this.catalog = s;
+			if (s.works.length > 0) this.rebuildModel();
 		});
 	}
 

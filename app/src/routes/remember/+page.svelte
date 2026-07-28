@@ -10,7 +10,7 @@
 
 	onMount(() => void app.init());
 
-	const ready = $derived(app.catalog.status === 'ready');
+	const ready = $derived(app.catalog.works.length > 0);
 	const due = $derived(ready ? dueItems(app.events) : []);
 	const current = $derived(due.length > 0 ? app.work(due[0]!.work) : undefined);
 	const known = $derived.by(() =>

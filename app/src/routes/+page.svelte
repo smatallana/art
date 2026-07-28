@@ -4,10 +4,12 @@
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
 	import { dueItems } from '$lib/engine/memory';
+	import { catalogUsable } from '$lib/catalog/store';
 
 	onMount(() => void app.init());
 
-	const memoryDue = $derived(app.catalog.status === 'ready' ? dueItems(app.events).length : 0);
+	const usable = $derived(catalogUsable(app.catalog));
+	const memoryDue = $derived(usable ? dueItems(app.events).length : 0);
 </script>
 
 <svelte:head>
@@ -30,17 +32,22 @@
 	<h1>{t.appName}</h1>
 	<p class="tagline">{t.tagline}</p>
 
-	{#if app.catalog.status === 'loading' || app.catalog.status === 'idle'}
-		<p class="status">{t.home.catalogLoading}</p>
-	{:else if app.catalog.status === 'error'}
-		<p class="status error">{t.home.catalogError}</p>
-	{:else}
+	{#if usable}
 		{#if app.catalog.fromCache && app.catalog.error}
 			<p class="status">{t.home.catalogOffline}</p>
+		{:else if app.catalog.status === 'degraded'}
+			<p class="status">{t.home.catalogDegraded}</p>
+		{:else if app.catalog.status === 'partial' || app.catalog.status === 'loading'}
+			<p class="status">
+				{t.home.catalogProgress(app.catalog.loadedShards, app.catalog.totalShards)}
+			</p>
 		{/if}
 		<a class="start" href={`${base}/session/`} data-sveltekit-preload-data="tap">
 			{app.engine && app.engine.state.phase !== 'done' ? t.home.continue : t.home.start}
 		</a>
+		{#if app.catalog.status === 'degraded'}
+			<button class="retry" onclick={() => void app.retryCatalog()}>{t.home.retry}</button>
+		{/if}
 		{#if memoryDue > 0}
 			<a class="memory-cta" href={`${base}/remember/`}>{t.memory.dueCount(memoryDue)} →</a>
 		{/if}
@@ -49,6 +56,13 @@
 				{t.home.sessionsDone(app.totalSessions)} · {t.home.answersLogged(app.totalChoices)}
 			</p>
 		{/if}
+	{:else if app.catalog.status === 'error' || app.catalog.status === 'degraded'}
+		<p class="status error">{t.home.catalogError}</p>
+		<button class="retry" onclick={() => void app.retryCatalog()}>{t.home.retry}</button>
+	{:else}
+		<p class="status" role="status">
+			{t.home.catalogProgress(app.catalog.loadedShards, app.catalog.totalShards)}
+		</p>
 	{/if}
 </main>
 
@@ -101,6 +115,16 @@
 	.start:hover {
 		text-decoration: none;
 		filter: brightness(1.06);
+	}
+	.retry {
+		background: none;
+		border: 1px solid var(--ink-faint);
+		color: var(--ink-muted);
+		border-radius: 999px;
+		padding: 8px 22px;
+		font-size: 0.9rem;
+		min-height: 40px;
+		cursor: pointer;
 	}
 	.memory-cta {
 		color: var(--gold-deep);
