@@ -1,5 +1,12 @@
 # Risks & limitations (current, honest)
 
+0. **In-copyright landmarks are linked, not licensed.** By owner decision
+   (personal/family use — DECISIONS 2026-07-28) a small set of copyrighted
+   landmark paintings is included via links to Wikipedia's fair-use-sized
+   images: nothing is redistributed, © attribution always shows, and they
+   are excluded from any mirror. Residual risk: link rot (weekly audit
+   will cover them) and the usual fair-use ambiguity of linking; removing
+   any single work is a one-line catalog change.
 1. **Hotlinked images (v1).** AIC (sanctioned) and Cleveland (open CDN) are
    the two most hotlink-tolerant sources, validated at build time and cached
    by the service worker with graceful skip-on-error — but they remain

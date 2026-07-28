@@ -122,6 +122,58 @@ tiers, GitHub limits) informed these choices — summarized in ARCHITECTURE.md:
   scripted GETs (incremental runs retry them behind the breaker), via a
   residential-connection run (DEPLOY.md), or an allowlist from
   engineering@artic.edu.
+
+## 2026-07-28 — Tramo 5: response to the external product review
+
+An external "ruthless assessment" was verified claim-by-claim against the
+code (three exploration reports + catalog analysis). What it got right was
+fixed; what it got wrong is recorded here too.
+
+**Confirmed and fixed:**
+- *Blocking startup*: the app waited on all 15 shards (~4.4 MiB) with no
+  timeout/retry, and silently fell back to a 60-work dev fixture on any
+  shard failure → bootstrap catalog (80 works, precached), progressive
+  loading, generation-safe caching, honest degraded/error states + Retry.
+- *Model contamination (most serious)*: image load failures auto-recorded
+  `skip` events that fed the model as negative preference — and no manual
+  skip existed, so every skip in every log was infrastructure noise →
+  `image_error` infrastructure events (ignored by all folds), real Skip
+  control, legacy skips excluded from the fold (profiles self-heal on
+  replay), per-pair side randomization, blind alt-text fixed, undo (via
+  sync-safe tombstones) and session exit added.
+- *Catalog institutionally narrow*: 100% two museums; Vermeer/Cézanne/
+  Klimt/Bruegel/Dürer/van Eyck/Giotto at zero; 23% "Unknown artist";
+  culture strings as artist names → canon source (see below), CMA
+  attribution cleanup, per-build coverage/concentration report.
+- *No production verification* → smoke-prod workflow: cold WebKit+Chromium
+  visitors against the live URL after every deploy.
+- UX: app opens straight into the session; 4-tab nav; undo/exit.
+
+**Where the review was wrong (kept as-is):** preference intensity IS
+captured (optional post-reveal strength, folded into ω); the profile DOES
+separate insufficient evidence from aversion (explicit tiers + "still
+open" list); the catalog already spanned 9 centuries incl. Chinese,
+Indian and Islamic painting. Its canon list also ignored copyright law —
+which forced the next decision.
+
+**Rights stance change (owner's decision, verbatim intent):** "si la
+imagen existe en línea y es de buena calidad la usamos. Sin
+complicaciones. Esto es para mí y mis hijas. La prioridad es que las
+obras sean las relevantes, no las disponibles." The CC0-only constraint
+is lifted for this personal/family product. Implementation keeps a
+defensible line: in-copyright landmark works are **linked** from
+Wikipedia's fair-use-sized file pages — never copied into the repo, the
+catalog stores URLs only, they are excluded from any future mirror, and
+the app always shows an explicit © attribution. PD works keep CC0/PD
+labeling.
+
+**Canon source:** `data/canon/canon.json` (~175 artists, all periods,
+Western and non-Western, with per-artist targets) resolved via Wikidata
+exact-label matching (painter occupation, sitelinks tiebreak), works
+ranked by their own sitelinks so anchors surface first; plus
+`manual-works.json` for in-copyright landmarks. Dedupe drops wd
+duplicates of museum records. Every build reports coverage by source/
+century/artist and warns above 35% single-source concentration.
 - Owner declined importing his personal starting profile — the app starts
   from zero evidence for him, like any new user (prior-import stays available
   as a feature).

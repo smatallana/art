@@ -1,10 +1,30 @@
 # Data sources, licensing & attribution
 
-Beholder is public and non-commercial; the catalog is restricted to
-**public-domain works with CC0/open metadata**, verified against each
-institution's official documentation (research date: 2026-07-27).
+Beholder is a personal, non-commercial project. The catalog's rights
+stance (owner's decision, 2026-07-28 — see DECISIONS): most works are
+**public domain with CC0/open metadata**; a small set of in-copyright
+landmark paintings is included because the product's purpose — mapping a
+person's taste across painting — requires them. Those works are **linked,
+never copied**: the catalog stores URLs to Wikipedia's fair-use-sized
+file pages, nothing is redistributed from this repo or any mirror, and
+the app always displays an explicit © attribution.
 
 ## Active sources (v1)
+
+### Wikidata / Wikimedia Commons (canon source, `wd`)
+- The curatorial spine (`data/canon/canon.json`, ~175 artists across all
+  periods and many traditions) resolved via the Wikidata SPARQL endpoint:
+  exact English label + painter occupation, most-sitelinked item on ties;
+  paintings (P31 Q3305213) with images (P18), ranked by each work's own
+  sitelink count so canonical anchors surface first.
+- Images: Wikimedia Commons pre-rendered thumbs (400/1024px) via the
+  imageinfo API; PD works labeled *"Public domain — image via Wikimedia
+  Commons"*.
+- `data/canon/manual-works.json`: in-copyright landmarks resolved on
+  English Wikipedia's file pages (fair-use size), rights labeled
+  `in-copyright`, © attribution always shown, excluded from any mirror.
+- Etiquette: batched SPARQL, ≤1 req/s to Wikimedia APIs, descriptive
+  User-Agent, thumbnail renders fetched serially honoring Retry-After.
 
 ### Art Institute of Chicago
 - API: `https://api.artic.edu/api/v1/artworks/search` (no key). Anonymous

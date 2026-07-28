@@ -25,6 +25,7 @@ seen.
 | M5 | Discovery (explainable recs, artists, explore, search) + Snap (photograph a real painting → CLIP match → confirm) | ✅ |
 | M6 | Memory: SM-2-lite spaced repetition, self-graded recognition | ✅ |
 | M7 | Docs, acceptance checklist, keyboard shortcuts, prior import | ✅ |
+| T5 | Review response: bootstrap + progressive loading, model-integrity fixes (image failures never touch taste), canon catalog via Wikidata/Commons, direct-to-session UX, production smoke tests | ✅ |
 
 Named caveats and next steps: `docs/ACCEPTANCE.md`, `docs/RISKS.md`, `docs/BACKLOG.md`.
 
@@ -71,5 +72,7 @@ User data never enters this public repository. See `docs/PRIVACY.md`.
 
 ## License
 
-Code: MIT. Catalog: public-domain works with CC0 metadata from source museums — see
-`docs/DATA-SOURCES.md` for licensing and attribution per source.
+Code: MIT. Catalog: predominantly public-domain works with CC0/open metadata
+(source museums + Wikimedia Commons); a small set of in-copyright landmark
+paintings is linked from Wikipedia at fair-use size and never redistributed —
+see `docs/DATA-SOURCES.md` for the full stance and per-source attribution.
