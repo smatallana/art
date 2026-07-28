@@ -1,0 +1,35 @@
+name: Production smoke
+
+# The deployed product, tested as a cold visitor after every Pages deploy:
+# real CDN, real service worker, real museum image GETs, empty IndexedDB,
+# on WebKit (iPhone) and Chromium. A red run here means the live app is
+# broken for a first-time user regardless of what local CI said.
+
+on:
+  workflow_run:
+    workflows: ['Deploy to GitHub Pages']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps webkit chromium
+        working-directory: app
+      - name: Wait for the Pages CDN to serve the new deploy
+        run: sleep 45
+      - name: Smoke test the live URL (clean profiles)
+        run: npx playwright test -c playwright.prod.config.ts
+        working-directory: app
