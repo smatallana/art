@@ -25,6 +25,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Generate .svelte-kit/tsconfig.json (app tsconfig extends it)
+        run: npx svelte-kit sync
+        working-directory: app
       - name: Install browsers
         run: npx playwright install --with-deps webkit chromium
         working-directory: app
