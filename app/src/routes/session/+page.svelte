@@ -6,6 +6,7 @@
 	import Reveal from '$lib/components/Reveal.svelte';
 	import { microInsight, sessionSummary } from '$lib/engine/insight';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
+	import { sessionMode } from '$lib/engine/session';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
 
@@ -27,6 +28,28 @@
 			? sessionSummary(sessionEvents, (id) => app.work(id), ONTOLOGY_DIMS)
 			: null
 	);
+	// Honesty gate: "Test this pattern" is only offered when the NEXT session
+	// runs the smart selector (daily mode) and there is something to test.
+	// During calibration the targeted machinery cannot honor the promise.
+	const canTarget = $derived.by(() => {
+		if (!summary) return false;
+		if (sessionMode(app.totalChoices) !== 'daily') return false;
+		return summary.openQuestion != null || summary.patterns.length > 0;
+	});
+
+	async function testPattern(): Promise<void> {
+		// Capture from the derived BEFORE endSession() nulls the engine —
+		// after that, `summary` collapses to null and the insight is gone.
+		const s = summary;
+		if (s && canTarget) {
+			const dims = s.openQuestion ? [s.openQuestion.id] : s.patterns.map((p) => p.dimId);
+			const label = s.openQuestion ? s.openQuestion.label : (s.patterns[0]?.label ?? '');
+			await app.setNextObjective(dims.slice(0, 2), label);
+		}
+		await app.endSession();
+		await app.startOrResumeSession();
+		shownAt = performance.now();
+	}
 	const workA = $derived(sess?.current ? app.work(sess.current.aId) : undefined);
 	const workB = $derived(sess?.current ? app.work(sess.current.bId) : undefined);
 	// Deterministic per-pair coin flip so display side never correlates with
@@ -106,6 +129,9 @@
 
 		{#if sess.phase === 'choosing' && firstWork && secondWork}
 			<h1 class="prompt">{t.session.whichOne}</h1>
+			{#if sess.objective}
+				<p class="objective">{t.session.objectiveActive(sess.objective.label)}</p>
+			{/if}
 			{#if micro}
 				<button class="micro" onclick={() => (microDismissed = sess.position)}>
 					<span class="micro-label">{t.session.microPrefix}</span>
@@ -198,18 +224,15 @@
 				{/if}
 				{#if summary.openQuestion}
 					<p class="insight-sub">{t.session.insightOpen(summary.openQuestion.label)}</p>
-					<p class="insight-sub next-hint">{t.session.insightNext(summary.openQuestion.label)}</p>
+					{#if canTarget}
+						<p class="insight-sub next-hint">
+							{t.session.insightNext(summary.openQuestion.label)}
+						</p>
+					{/if}
 				{/if}
 				<div class="summary-actions">
-					<button
-						class="primary"
-						onclick={async () => {
-							await app.endSession();
-							await app.startOrResumeSession();
-							shownAt = performance.now();
-						}}
-					>
-						{summary.patterns.length > 0 ? t.session.summaryAgain : t.session.summaryAgainNeutral}
+					<button class="primary" onclick={testPattern}>
+						{canTarget ? t.session.summaryAgain : t.session.summaryAgainNeutral}
 					</button>
 					<button class="secondary" onclick={finish}>{t.session.summaryHome}</button>
 					<p class="saved-note">{t.session.summarySaved}</p>
@@ -320,6 +343,18 @@
 		padding: 6px 14px;
 		margin-bottom: var(--space-2);
 		max-width: 90%;
+	}
+	.objective {
+		align-self: center;
+		color: var(--accent, var(--ink-muted));
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		margin: 0 0 var(--space-2);
+	}
+	.counter-example a {
+		color: inherit;
+		text-decoration: underline;
 	}
 	.micro-label {
 		color: var(--gold-deep);

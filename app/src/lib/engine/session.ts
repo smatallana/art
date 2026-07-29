@@ -30,6 +30,13 @@ export interface SessionPair {
 	slot: SlotKind | 'calibration';
 }
 
+/** A hypothesis the user explicitly asked this session to test. */
+export interface SessionObjective {
+	dims: string[];
+	label: string;
+	createdAt: string;
+}
+
 export interface SessionState {
 	id: string;
 	mode: 'calibration' | 'daily';
@@ -38,6 +45,8 @@ export interface SessionState {
 	current: SessionPair | null;
 	phase: 'choosing' | 'revealed' | 'done';
 	startedAt: string;
+	/** Active test objective — only ever set on daily-mode sessions. */
+	objective?: { dims: string[]; label: string };
 }
 
 export function sessionMode(totalPairAnswers: number): 'calibration' | 'daily' {
@@ -50,6 +59,8 @@ export interface SessionContext {
 	model: TasteModel | null;
 	workById: (id: string) => Work | undefined;
 	seed: number;
+	/** Consumed objective from a "Test this pattern" tap, if any. */
+	objective?: SessionObjective | null;
 }
 
 export interface SessionEngine {
@@ -71,6 +82,11 @@ export function createSession(ctx: SessionContext, length = DEFAULT_SESSION_LENG
 		phase: 'choosing',
 		startedAt: new Date().toISOString()
 	};
+	// The targeted machinery lives in the smart selector — a calibration
+	// session cannot honor the promise, so it never carries the objective.
+	if (ctx.objective && state.mode === 'daily' && ctx.objective.dims.length > 0) {
+		state.objective = { dims: ctx.objective.dims, label: ctx.objective.label };
+	}
 	const engine: SessionEngine = { state, history, sourceShown: new Map() };
 	nextPair(engine, ctx);
 	return engine;
@@ -127,7 +143,8 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 	const pickFrom = (works: Work[]) =>
 		useSmart
 			? selectPairSmart(works, engine.history, ctx.model as TasteModel, ctx.events, ctx.workById, {
-					seed: ctx.seed
+					seed: ctx.seed,
+					targetDims: engine.state.objective?.dims
 				})
 			: selectPair(works, engine.history, { seed: ctx.seed });
 	const pool = constrainedPool(engine, ctx);

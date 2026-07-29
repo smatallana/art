@@ -23,13 +23,21 @@ import {
 	type SelectorOptions
 } from './selector';
 
-export type SlotKind = 'information' | 'exploration' | 'challenge' | 'refutation' | 'consistency';
+export type SlotKind =
+	'information' | 'exploration' | 'challenge' | 'refutation' | 'consistency' | 'targeted';
 
 export interface SmartPair extends SelectedPair {
 	slot: SlotKind;
 }
 
-function infoGain(model: TasteModel, a: Work, b: Work): number {
+/** Options for the smart selector; the base constraints pass through to
+ *  candidate generation, targetDims activates the session objective. */
+export interface SmartOptions extends Partial<SelectorOptions> {
+	/** Dims the session was explicitly asked to test ("Test this pattern"). */
+	targetDims?: readonly string[];
+}
+
+function infoGain(model: TasteModel, a: Work, b: Work, target?: ReadonlySet<string>): number {
 	const fa = features(a);
 	const fb = features(b);
 	const p = preferProbability(model, fa, fb);
@@ -38,7 +46,9 @@ function infoGain(model: TasteModel, a: Work, b: Work): number {
 	for (const k of keys) {
 		const dx = (fa.get(k) ?? 0) - (fb.get(k) ?? 0);
 		const variance = model.dims.get(k)?.variance ?? 1;
-		weighted += variance * dx * dx;
+		// Objective dims count triple: even non-targeted turns lean toward
+		// the question the user asked the session to answer.
+		weighted += (target?.has(k) ? 3 : 1) * variance * dx * dx;
 	}
 	return p * (1 - p) * weighted;
 }
@@ -115,10 +125,11 @@ export function selectPairSmart(
 	model: TasteModel,
 	events: AppEvent[],
 	workById: (id: string) => Work | undefined,
-	options: Partial<SelectorOptions> = {}
+	options: SmartOptions = {}
 ): SmartPair | null {
 	const seed = options.seed ?? 1;
 	const rng = mulberry32(seed * 7 + h.interactionIndex * 131);
+	const objective = options.targetDims && options.targetDims.length > 0 ? options.targetDims : null;
 
 	// Scheduled consistency probe every ~15 interactions.
 	if (h.interactionIndex > 0 && h.interactionIndex % 15 === 14) {
@@ -126,18 +137,26 @@ export function selectPairSmart(
 		if (probe) return probe;
 	}
 
-	const candidates = candidatePairs(works, h, 48, options);
+	// Narrow objective dims need more draws to find honest contrast.
+	const candidates = candidatePairs(works, h, objective ? 72 : 48, options);
 	if (candidates.length === 0) {
 		const fallback = selectPair(works, h, options);
 		return fallback ? { ...fallback, slot: 'exploration' } : null;
 	}
 
+	// Slot windows. With an active objective the targeted slot takes ~44% of
+	// turns and absorbs most of the refutation window; imported-prior dims
+	// keep getting probed via the 20% share of the target draw below.
+	const wExplore = objective ? 0.1 : 0.15;
+	const wChallenge = objective ? 0.18 : 0.25;
+	const wTargetedOrRefute = objective ? 0.62 : 0.45;
+
 	const r = rng();
-	if (r < 0.15) {
+	if (r < wExplore) {
 		const pick = candidates[Math.floor(rng() * candidates.length)] as SelectedPair;
 		return { ...pick, slot: 'exploration' };
 	}
-	if (r < 0.25) {
+	if (r < wChallenge) {
 		let best: SelectedPair = candidates[0] as SelectedPair;
 		let bestScore = -Infinity;
 		for (const c of candidates) {
@@ -150,23 +169,31 @@ export function selectPairSmart(
 		return { ...best, slot: 'challenge' };
 	}
 	const provisional = provisionalDims(model);
-	if (provisional.length > 0 && r < 0.45) {
-		const target = provisional[Math.floor(rng() * provisional.length)] as string;
-		let best: SelectedPair | null = null;
-		let bestScore = 0;
-		for (const c of candidates) {
-			const s = refutationScore(target, c.a, c.b);
-			if (s > bestScore) {
-				bestScore = s;
-				best = c;
+	if (r < wTargetedOrRefute && (objective || provisional.length > 0)) {
+		// Draw the target: 80% from the session objective when present, the
+		// rest from provisional (imported) dims awaiting refutation.
+		const fromObjective = objective && (provisional.length === 0 || rng() < 0.8);
+		const source = fromObjective ? objective : provisional;
+		if (source.length > 0) {
+			const target = source[Math.floor(rng() * source.length)] as string;
+			let best: SelectedPair | null = null;
+			let bestScore = 0;
+			for (const c of candidates) {
+				const s = refutationScore(target, c.a, c.b);
+				if (s > bestScore) {
+					bestScore = s;
+					best = c;
+				}
 			}
+			// No pair honestly contrasts the target → fall through, never starve.
+			if (best) return { ...best, slot: fromObjective ? 'targeted' : 'refutation' };
 		}
-		if (best) return { ...best, slot: 'refutation' };
 	}
+	const targetSet = objective ? new Set(objective) : undefined;
 	let best: SelectedPair = candidates[0] as SelectedPair;
 	let bestScore = -Infinity;
 	for (const c of candidates) {
-		const s = infoGain(model, c.a, c.b);
+		const s = infoGain(model, c.a, c.b, targetSet);
 		if (s > bestScore) {
 			bestScore = s;
 			best = c;

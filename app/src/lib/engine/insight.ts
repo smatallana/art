@@ -19,7 +19,14 @@ import type { SessionPair } from './session';
 
 /** Strength is asked only when the answer is genuinely informative. */
 export function wantsStrength(slot: SessionPair['slot'], position: number): boolean {
-	if (slot === 'information' || slot === 'refutation' || slot === 'consistency') return true;
+	if (
+		slot === 'information' ||
+		slot === 'refutation' ||
+		slot === 'consistency' ||
+		slot === 'targeted'
+	) {
+		return true;
+	}
 	// Calibration: sample every third pair so early sessions stay light.
 	if (slot === 'calibration') return position % 3 === 0;
 	return false;

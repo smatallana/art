@@ -79,6 +79,22 @@ test('pairs do not repeat within a session', async ({ page }) => {
 	}
 });
 
+test('a finished first session is honest: no targeting promise during calibration', async ({
+	page
+}) => {
+	await page.goto('./');
+	// Walk a full 12-pair session on a fresh profile (calibration mode).
+	for (let i = 0; i < 12; i++) {
+		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
+		await page.getByRole('button', { name: 'Next', exact: true }).click();
+	}
+	// The NEXT session would still be calibration: the targeted selector
+	// cannot honor "Test this pattern", so the copy must not promise it.
+	await expect(page.getByRole('button', { name: 'Another session' })).toBeVisible();
+	await expect(page.getByText('Test this pattern')).toHaveCount(0);
+	await expect(page.getByText(/can test/)).toHaveCount(0);
+});
+
 test('export produces a JSON download without any typing', async ({ page }) => {
 	await page.goto('./');
 	await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });

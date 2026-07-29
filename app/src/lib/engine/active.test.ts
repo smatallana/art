@@ -22,7 +22,8 @@ describe('selectPairSmart', () => {
 			exploration: 0,
 			challenge: 0,
 			refutation: 0,
-			consistency: 0
+			consistency: 0,
+			targeted: 0
 		};
 		for (let i = 0; i < 60; i++) {
 			const pair = selectPairSmart(pool, h, model, [], ctxFor(pool), { seed: i * 13 + 1 });
@@ -68,6 +69,65 @@ describe('selectPairSmart', () => {
 			recordShown(h, pair!.a, pair!.b);
 		}
 		expect(refutations).toBeGreaterThan(3);
+	});
+
+	it('a session objective produces targeted pairs that contrast the dim', () => {
+		const pool = testPool(150);
+		const model = createModel();
+		const h = historyFromEvents([]);
+		let targeted = 0;
+		for (let i = 0; i < 60; i++) {
+			const pair = selectPairSmart(pool, h, model, [], ctxFor(pool), {
+				seed: i * 13 + 1,
+				targetDims: ['color.saturation']
+			});
+			expect(pair).not.toBeNull();
+			if (pair!.slot === 'targeted') {
+				targeted++;
+				const va = pair!.a.tags['color.saturation']?.v ?? 0.5;
+				const vb = pair!.b.tags['color.saturation']?.v ?? 0.5;
+				expect(Math.abs(va - vb)).toBeGreaterThan(0.2);
+			}
+			recordShown(h, pair!.a, pair!.b);
+		}
+		// ~44% of turns while the objective is active; wide tolerance for RNG.
+		expect(targeted).toBeGreaterThan(15);
+		expect(targeted).toBeLessThan(45);
+	});
+
+	it('an objective with no honest contrast degrades, never starves', () => {
+		const pool = testPool(150);
+		const model = createModel();
+		const h = historyFromEvents([]);
+		for (let i = 0; i < 30; i++) {
+			// 'mood.serenity' is absent from the fixture pool's tags: no pair can
+			// contrast it, so targeted must fall through to another slot.
+			const pair = selectPairSmart(pool, h, model, [], ctxFor(pool), {
+				seed: i * 17 + 5,
+				targetDims: ['mood.serenity']
+			});
+			expect(pair).not.toBeNull();
+			expect(pair!.slot).not.toBe('targeted');
+			recordShown(h, pair!.a, pair!.b);
+		}
+	});
+
+	it('without an objective the slot mix is unchanged (regression pin)', () => {
+		const pool = testPool(150);
+		const model = createModel();
+		const h1 = historyFromEvents([]);
+		const h2 = historyFromEvents([]);
+		for (let i = 0; i < 20; i++) {
+			const bare = selectPairSmart(pool, h1, model, [], ctxFor(pool), { seed: i * 13 + 1 });
+			const empty = selectPairSmart(pool, h2, model, [], ctxFor(pool), {
+				seed: i * 13 + 1,
+				targetDims: []
+			});
+			expect(empty!.slot).toBe(bare!.slot);
+			expect(empty!.a.id).toBe(bare!.a.id);
+			recordShown(h1, bare!.a, bare!.b);
+			recordShown(h2, empty!.a, empty!.b);
+		}
 	});
 
 	it('emits a consistency probe around every 15th interaction', () => {

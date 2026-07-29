@@ -20,11 +20,16 @@ import {
 	skipCurrent,
 	type SessionContext,
 	type SessionEngine,
+	type SessionObjective,
 	type SessionState
 } from '../engine/session';
 
 const SESSION_SNAPSHOT_KEY = 'session-snapshot';
 const TIMELINE_KEY = 'profile-timeline';
+/** A "Test this pattern" tap stores the hypothesis here for the NEXT session.
+ *  Device-local by design: the promise is same-device; cleared on consume. */
+const NEXT_OBJECTIVE_KEY = 'next-objective';
+const OBJECTIVE_TTL_MS = 7 * 24 * 3600 * 1000;
 
 export interface TimelineSnapshot {
 	at: string;
@@ -143,6 +148,13 @@ class AppState {
 		return event;
 	}
 
+	/** Store the hypothesis the next session should test ("Test this pattern"). */
+	async setNextObjective(dims: string[], label: string): Promise<void> {
+		if (dims.length === 0) return;
+		const objective: SessionObjective = { dims, label, createdAt: new Date().toISOString() };
+		await kvSet(NEXT_OBJECTIVE_KEY, objective);
+	}
+
 	/** Start a new session or resume an unfinished one (<24h old). */
 	async startOrResumeSession(): Promise<void> {
 		if (this.catalog.works.length === 0) return;
@@ -153,10 +165,19 @@ class AppState {
 			snapshot.phase !== 'done' &&
 			Date.now() - new Date(snapshot.startedAt).getTime() < 24 * 3600 * 1000
 		) {
+			// A resumed session keeps its own objective via the snapshot; the
+			// stored next-objective (if any) waits for the next fresh session.
 			this.engine = resumeSession(snapshot, this.events, (id) => this.catalog.byId.get(id));
 			return;
 		}
-		this.engine = createSession(this.sessionCtx());
+		// Consume the stored objective exactly once, expired ones silently.
+		const stored = (await kvGet<SessionObjective>(NEXT_OBJECTIVE_KEY)) ?? null;
+		if (stored) await kvDelete(NEXT_OBJECTIVE_KEY);
+		const fresh =
+			stored && Date.now() - new Date(stored.createdAt).getTime() < OBJECTIVE_TTL_MS
+				? stored
+				: null;
+		this.engine = createSession({ ...this.sessionCtx(), objective: fresh });
 		await this.record({ t: 'session_start', mode: this.engine.state.mode });
 		await this.persistSnapshot();
 	}

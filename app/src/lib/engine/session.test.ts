@@ -5,6 +5,7 @@ import {
 	advance,
 	createSession,
 	markAnswered,
+	resumeSession,
 	sessionMode,
 	skipCurrent,
 	type SessionContext
@@ -80,6 +81,54 @@ describe('session engine', () => {
 		const engine = createSession(ctx, 5);
 		expect(engine.state.mode).toBe('daily');
 		expect(engine.state.current?.slot).not.toBe('calibration');
+	});
+
+	it('stamps a test objective only on daily-mode sessions', () => {
+		const pool = testPool(120);
+		const objective = {
+			dims: ['color.saturation'],
+			label: 'vivid color',
+			createdAt: new Date().toISOString()
+		};
+		// Calibration (no prior answers): the promise cannot be honored → dropped.
+		const calCtx = { ...ctxFor(pool), objective };
+		const cal = createSession(calCtx, 5);
+		expect(cal.state.mode).toBe('calibration');
+		expect(cal.state.objective).toBeUndefined();
+
+		// Daily (40 prior answers): stamped, and targeted slots appear.
+		const events: AppEvent[] = Array.from({ length: 40 }, (_, i) => ({
+			id: `e${i}`,
+			at: new Date(1700000000000 + i * 1000).toISOString(),
+			device: 'd',
+			hour: 12,
+			t: 'pair_choice' as const,
+			a: pool[(i * 2) % pool.length]!.id,
+			b: pool[(i * 2 + 1) % pool.length]!.id,
+			pick: 'a' as const,
+			ms: null
+		}));
+		const dailyCtx = { ...ctxFor(pool, events), objective };
+		const engine = createSession(dailyCtx, 12);
+		expect(engine.state.mode).toBe('daily');
+		expect(engine.state.objective).toEqual({ dims: ['color.saturation'], label: 'vivid color' });
+		const slots = new Set<string>();
+		while (engine.state.phase !== 'done' && engine.state.current) {
+			slots.add(engine.state.current.slot);
+			markAnswered(engine);
+			advance(engine, dailyCtx);
+		}
+		expect(slots.has('targeted')).toBe(true);
+	});
+
+	it('the objective survives a snapshot round-trip (resume)', () => {
+		const pool = testPool(80);
+		const ctx = ctxFor(pool);
+		const engine = createSession(ctx, 5);
+		engine.state.objective = { dims: ['color.saturation'], label: 'vivid color' };
+		const snapshot = JSON.parse(JSON.stringify(engine.state));
+		const resumed = resumeSession(snapshot, [], (id) => pool.find((w) => w.id === id));
+		expect(resumed.state.objective).toEqual({ dims: ['color.saturation'], label: 'vivid color' });
 	});
 
 	it('never shows the same pair twice within a run', () => {
