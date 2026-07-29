@@ -143,7 +143,11 @@ export function selectPair(
 		(x, y) => (shownPerStratum.get(x) ?? 0) - (shownPerStratum.get(y) ?? 0)
 	);
 
-	const wantCross = h.interactionIndex % 3 !== 2; // 2 of 3 pairs cross strata
+	// Onboarding arc (the user's first-ever session): open with legible era
+	// contrasts, then subject contrasts, before the coverage-driven default
+	// takes over. Keyed to lifetime interactions, so it runs exactly once.
+	const arc = h.interactionIndex < 4 ? 'era' : h.interactionIndex < 8 ? 'subject' : null;
+	const wantCross = arc != null || h.interactionIndex % 3 !== 2; // 2 of 3 pairs cross strata
 
 	const tryBuild = (s1: string, s2: string): SelectedPair | null => {
 		const listA = shuffle(rng, byStratum.get(s1) ?? []);
@@ -171,11 +175,25 @@ export function selectPair(
 	};
 
 	if (wantCross && sorted.length >= 2) {
+		const crossCombos: [string, string][] = [];
 		for (let i = 0; i < sorted.length - 1; i++) {
 			for (let j = i + 1; j < sorted.length; j++) {
-				const pair = tryBuild(sorted[i] as string, sorted[j] as string);
-				if (pair) return pair;
+				crossCombos.push([sorted[i] as string, sorted[j] as string]);
 			}
+		}
+		if (arc) {
+			// Stable sort: preferred contrast shapes first, coverage order within.
+			const rank = ([s1, s2]: [string, string]): number => {
+				const [e1, sub1] = s1.split('|');
+				const [e2, sub2] = s2.split('|');
+				if (arc === 'era') return e1 !== e2 ? (sub1 === sub2 ? 0 : 1) : 2;
+				return e1 === e2 && sub1 !== sub2 ? 0 : 1;
+			};
+			crossCombos.sort((x, y) => rank(x) - rank(y));
+		}
+		for (const [s1, s2] of crossCombos) {
+			const pair = tryBuild(s1, s2);
+			if (pair) return pair;
 		}
 	}
 	for (const s of sorted) {

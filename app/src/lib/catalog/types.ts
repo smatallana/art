@@ -14,7 +14,7 @@ export interface Tag {
 
 export interface Work {
 	id: string;
-	source: 'aic' | 'cma' | 'met' | 'rijks' | 'dev';
+	source: 'aic' | 'cma' | 'met' | 'rijks' | 'wd' | 'dev';
 	sourceId: string;
 	title: string;
 	artist: {

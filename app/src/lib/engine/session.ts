@@ -9,11 +9,19 @@
 import type { Work } from '../catalog/types';
 import type { AppEvent } from './events';
 import { selectPairSmart, type SlotKind } from './active';
+import { curatePool } from './curation';
 import type { TasteModel } from './model';
 import { historyFromEvents, recordShown, selectPair, type SelectionHistory } from './selector';
 
 export const DEFAULT_SESSION_LENGTH = 12;
 export const CALIBRATION_TARGET = 40; // pair answers before calibration ends
+
+/** No source may supply more than this share of works shown in one session. */
+export const SOURCE_SESSION_CAP = 0.4;
+/** The cap only engages once enough works have been shown to measure a share. */
+const SOURCE_CAP_MIN_SHOWN = 8;
+/** Never filter the pool below this size — the selector would starve. */
+const SOURCE_CAP_MIN_POOL = 24;
 
 export interface SessionPair {
 	aId: string;
@@ -47,6 +55,8 @@ export interface SessionContext {
 export interface SessionEngine {
 	state: SessionState;
 	history: SelectionHistory;
+	/** Works shown THIS session, per catalog source — feeds the source cap. */
+	sourceShown: Map<string, number>;
 }
 
 export function createSession(ctx: SessionContext, length = DEFAULT_SESSION_LENGTH): SessionEngine {
@@ -61,14 +71,50 @@ export function createSession(ctx: SessionContext, length = DEFAULT_SESSION_LENG
 		phase: 'choosing',
 		startedAt: new Date().toISOString()
 	};
-	const engine: SessionEngine = { state, history };
+	const engine: SessionEngine = { state, history, sourceShown: new Map() };
 	nextPair(engine, ctx);
 	return engine;
 }
 
 /** Restore a session from a snapshot + the event log. */
-export function resumeSession(snapshot: SessionState, events: AppEvent[]): SessionEngine {
-	return { state: snapshot, history: historyFromEvents(events) };
+export function resumeSession(
+	snapshot: SessionState,
+	events: AppEvent[],
+	workById?: (id: string) => Work | undefined
+): SessionEngine {
+	// Rebuild the per-session source counts from this session's answers
+	// (skipped-but-shown pairs are lost to a resume; an acceptable undercount).
+	const sourceShown = new Map<string, number>();
+	if (workById) {
+		for (const e of events) {
+			if (e.t !== 'pair_choice' || e.at < snapshot.startedAt) continue;
+			for (const id of [e.a, e.b]) {
+				const src = workById(id)?.source;
+				if (src) sourceShown.set(src, (sourceShown.get(src) ?? 0) + 1);
+			}
+		}
+	}
+	return { state: snapshot, history: historyFromEvents(events), sourceShown };
+}
+
+/**
+ * The pool the selector may draw from right now: onboarding curation during
+ * calibration, then the session source cap. Both are advisory — nextPair
+ * falls back to the full pool rather than end a session early.
+ */
+function constrainedPool(engine: SessionEngine, ctx: SessionContext): Work[] {
+	let pool = engine.state.mode === 'calibration' ? curatePool(ctx.works) : ctx.works;
+	const total = [...engine.sourceShown.values()].reduce((a, n) => a + n, 0);
+	if (total < SOURCE_CAP_MIN_SHOWN) return pool;
+	const capped = new Set<string>();
+	for (const [src, n] of engine.sourceShown) {
+		if (n / total > SOURCE_SESSION_CAP) capped.add(src);
+	}
+	if (capped.size > 0) {
+		const filtered = pool.filter((w) => !capped.has(w.source));
+		if (filtered.length >= SOURCE_CAP_MIN_POOL) pool = filtered;
+	}
+	return pool;
 }
 
 function nextPair(engine: SessionEngine, ctx: SessionContext): void {
@@ -78,24 +124,25 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 		return;
 	}
 	const useSmart = engine.state.mode === 'daily' && ctx.model != null;
-	const pair = useSmart
-		? selectPairSmart(
-				ctx.works,
-				engine.history,
-				ctx.model as TasteModel,
-				ctx.events,
-				ctx.workById,
-				{
+	const pickFrom = (works: Work[]) =>
+		useSmart
+			? selectPairSmart(works, engine.history, ctx.model as TasteModel, ctx.events, ctx.workById, {
 					seed: ctx.seed
-				}
-			)
-		: selectPair(ctx.works, engine.history, { seed: ctx.seed });
+				})
+			: selectPair(works, engine.history, { seed: ctx.seed });
+	const pool = constrainedPool(engine, ctx);
+	let pair = pickFrom(pool);
+	// Constraints are advisory: never end a session because of them.
+	if (!pair && pool !== ctx.works) pair = pickFrom(ctx.works);
 	if (!pair) {
 		engine.state.phase = 'done';
 		engine.state.current = null;
 		return;
 	}
 	recordShown(engine.history, pair.a, pair.b);
+	for (const w of [pair.a, pair.b]) {
+		engine.sourceShown.set(w.source, (engine.sourceShown.get(w.source) ?? 0) + 1);
+	}
 	engine.state.current = {
 		aId: pair.a.id,
 		bId: pair.b.id,

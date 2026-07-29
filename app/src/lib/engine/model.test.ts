@@ -72,7 +72,7 @@ describe('taste model convergence (synthetic users)', () => {
 		const pool = testPool(120);
 		// User loves landscapes, dislikes still lifes.
 		const truth = { 'subject.landscape': 2.5, 'subject.stilllife': -2.5 };
-		const events = simulate(truth, pool, 60, 7);
+		const events = simulate(truth, pool, 80, 7);
 		const model = modelFromEvents(events, ctxFor(pool));
 
 		const landscape = model.dims.get('subject.landscape');

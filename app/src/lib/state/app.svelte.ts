@@ -146,7 +146,7 @@ class AppState {
 			snapshot.phase !== 'done' &&
 			Date.now() - new Date(snapshot.startedAt).getTime() < 24 * 3600 * 1000
 		) {
-			this.engine = resumeSession(snapshot, this.events);
+			this.engine = resumeSession(snapshot, this.events, (id) => this.catalog.byId.get(id));
 			return;
 		}
 		this.engine = createSession(this.sessionCtx());
