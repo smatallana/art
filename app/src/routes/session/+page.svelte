@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import Reveal from '$lib/components/Reveal.svelte';
+	import { microInsight, sessionSummary } from '$lib/engine/insight';
+	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
 
@@ -11,6 +13,22 @@
 	let lastPick = $state<'a' | 'b' | 'both' | 'neither' | 'unsure'>('unsure');
 
 	const sess = $derived(app.engine?.state ?? null);
+	// Events belonging to THIS session (ISO strings compare chronologically).
+	const sessionEvents = $derived(
+		sess ? app.events.filter((e) => e.at >= sess.startedAt) : []
+	);
+	let microDismissed = $state(-1);
+	const micro = $derived.by(() => {
+		if (!sess || sess.phase !== 'choosing') return null;
+		if (sess.position !== 4 && sess.position !== 8) return null;
+		if (microDismissed >= sess.position) return null;
+		return microInsight(sessionEvents, (id) => app.work(id), ONTOLOGY_DIMS);
+	});
+	const summary = $derived.by(() =>
+		sess?.phase === 'done'
+			? sessionSummary(sessionEvents, (id) => app.work(id), ONTOLOGY_DIMS)
+			: null
+	);
 	const workA = $derived(sess?.current ? app.work(sess.current.aId) : undefined);
 	const workB = $derived(sess?.current ? app.work(sess.current.bId) : undefined);
 	// Deterministic per-pair coin flip so display side never correlates with
@@ -25,8 +43,6 @@
 	});
 	const firstWork = $derived(flipped ? workB : workA);
 	const secondWork = $derived(flipped ? workA : workB);
-	const chosen = $derived(lastPick === 'a' ? workA : lastPick === 'b' ? workB : undefined);
-	const other = $derived(lastPick === 'a' ? workB : lastPick === 'b' ? workA : undefined);
 
 	onMount(async () => {
 		await app.init();
@@ -90,6 +106,12 @@
 
 		{#if sess.phase === 'choosing' && firstWork && secondWork}
 			<h1 class="prompt">{t.session.whichOne}</h1>
+			{#if micro}
+				<button class="micro" onclick={() => (microDismissed = sess.position)}>
+					<span class="micro-label">{t.session.microPrefix}</span>
+					{t.session.micro(micro)} ×
+				</button>
+			{/if}
 			<div class="pair" role="group" aria-label={t.a11y.artworkPair}>
 				<button class="art" aria-label={t.a11y.choiceA} onclick={() => choose(flipped ? 'b' : 'a')}>
 					<ArtworkImage work={firstWork} blind onError={(id) => app.reportImageFailure(id)} />
@@ -106,17 +128,54 @@
 			</div>
 		{:else if sess.phase === 'revealed' && workA && workB}
 			<Reveal
-				chosen={chosen ?? null}
-				other={other ?? (chosen ? null : workA)}
-				probe={sess.current?.probe ?? 'coverage'}
+				{workA}
+				{workB}
+				pick={lastPick}
+				slot={sess.current?.slot ?? 'calibration'}
+				position={sess.position}
 				onNext={next}
 			/>
-		{:else if sess.phase === 'done'}
+		{:else if sess.phase === 'done' && summary}
 			<section class="summary">
-				<h1>{t.session.summaryTitle}</h1>
-				<p>{t.session.summaryBody(sess.position)}</p>
-				{#if sess.position === 0}
+				<h1>
+					{summary.patterns.length > 0
+						? summary.patterns[0].n >= 3
+							? t.session.insightHeadline
+							: t.session.insightHeadlineEarly
+						: t.session.insightHeadlineNone}
+				</h1>
+				{#if summary.patterns.length > 0}
+					<p class="insight">
+						{(summary.patterns[0].n >= 3 ? t.session.insightPattern : t.session.insightPatternEarly)(
+							summary.patterns.map((p) => p.label.toLowerCase()).join(' and ')
+						)}
+					</p>
+					{#if summary.counter}
+						<p class="insight-sub">{t.session.insightCounter(summary.counter.label.toLowerCase())}</p>
+					{/if}
+				{:else if summary.answered > 0}
+					<p class="insight">{t.session.insightNone}</p>
+				{:else}
 					<p class="empty">{t.session.emptyPool}</p>
+				{/if}
+				{#if summary.evidenceWorkIds.length > 0}
+					<div class="evidence">
+						<p class="evidence-label">{t.session.insightEvidence}</p>
+						<div class="evidence-row">
+							{#each summary.evidenceWorkIds as id (id)}
+								{@const w = app.work(id)}
+								{#if w}
+									<a class="evidence-item" href={`${base}/work/${id}/`}>
+										<ArtworkImage work={w} size="thumb" />
+									</a>
+								{/if}
+							{/each}
+						</div>
+					</div>
+				{/if}
+				{#if summary.openQuestion}
+					<p class="insight-sub">{t.session.insightOpen(summary.openQuestion)}</p>
+					<p class="insight-sub next-hint">{t.session.insightNext(summary.openQuestion)}</p>
 				{/if}
 				<div class="summary-actions">
 					<button
@@ -127,9 +186,10 @@
 							shownAt = performance.now();
 						}}
 					>
-						{t.session.summaryAgain}
+						{summary.patterns.length > 0 ? t.session.summaryAgain : t.session.summaryAgainNeutral}
 					</button>
 					<button class="secondary" onclick={finish}>{t.session.summaryHome}</button>
+					<p class="saved-note">{t.session.summarySaved}</p>
 				</div>
 			</section>
 		{/if}
@@ -227,6 +287,60 @@
 		border: 1px solid var(--hairline);
 		border-radius: 999px;
 		min-height: 42px;
+	}
+	.micro {
+		align-self: center;
+		color: var(--ink-muted);
+		font-size: 0.82rem;
+		border: 1px solid var(--hairline);
+		border-radius: 999px;
+		padding: 6px 14px;
+		margin-bottom: var(--space-2);
+		max-width: 90%;
+	}
+	.micro-label {
+		color: var(--gold-deep);
+		letter-spacing: 0.04em;
+	}
+	.insight {
+		color: var(--ink);
+		font-family: var(--font-display);
+		font-size: 1.05rem;
+		line-height: 1.5;
+		max-width: 44ch;
+	}
+	.insight-sub {
+		color: var(--ink-muted);
+		font-size: 0.9rem;
+		max-width: 44ch;
+	}
+	.next-hint {
+		color: var(--gold-deep);
+	}
+	.evidence {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		align-items: center;
+	}
+	.evidence-label {
+		color: var(--ink-faint);
+		font-size: 0.72rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+	.evidence-row {
+		display: flex;
+		gap: var(--space-2);
+		justify-content: center;
+	}
+	.evidence-item {
+		width: 84px;
+	}
+	.saved-note {
+		color: var(--ink-faint);
+		font-size: 0.78rem;
+		text-align: center;
 	}
 	.summary {
 		flex: 1;

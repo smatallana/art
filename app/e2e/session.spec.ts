@@ -15,11 +15,15 @@ test('full session flow: choose, reveal, react, save, advance', async ({ page })
 	await expect(choiceA).toBeVisible({ timeout: 15000 });
 	await choiceA.click();
 
-	// Reveal: title, artist line, attribution, next button.
+	// Reveal: title heading; CC0 attribution sits one tap away under the
+	// "About this work" fold (in-copyright attribution stays inline).
 	await expect(page.getByRole('heading', { level: 2 })).toBeVisible();
+	await page.getByText('About this work').click();
 	await expect(page.getByText(/CC0/i).first()).toBeVisible();
 
-	// React + save (no typing anywhere).
+	// React + save (no typing anywhere). Reaction chips live inside the
+	// collapsed "Add context to this choice" fold — open it first.
+	await page.getByText('Add context to this choice').click();
 	await page.getByRole('button', { name: 'Intrigued' }).click();
 	await page.getByRole('button', { name: 'Save', exact: true }).click();
 	await expect(page.getByRole('button', { name: 'Saved', exact: true })).toBeVisible();

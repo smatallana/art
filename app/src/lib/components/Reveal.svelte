@@ -1,31 +1,73 @@
 <script lang="ts">
 	import type { Work } from '../catalog/types';
-	import type { ElementId, EmotionId } from '../engine/events';
+	import type { ElementId, EmotionId, PairAspect } from '../engine/events';
+	import { explainPair, wantsStrength } from '../engine/insight';
+	import { ONTOLOGY_DIMS } from '../engine/ontology';
+	import type { SessionPair } from '../engine/session';
 	import { t } from '../i18n/en';
 	import { app } from '../state/app.svelte';
 	import ArtworkImage from './ArtworkImage.svelte';
 
 	let {
-		chosen,
-		other,
-		probe,
+		workA,
+		workB,
+		pick,
+		slot,
+		position,
 		onNext
 	}: {
-		chosen: Work | null; // null when the pick was both/neither/unsure
-		other: Work | null;
-		probe: 'cross-era' | 'cross-subject' | 'within-stratum' | 'coverage';
+		workA: Work;
+		workB: Work;
+		pick: 'a' | 'b' | 'both' | 'neither' | 'unsure';
+		slot: SessionPair['slot'];
+		position: number;
 		onNext: () => void;
 	} = $props();
 
-	const focus = $derived(chosen ?? other);
-	const secondary = $derived(chosen ? other : null);
+	// The reveal must respect the answer given: only a definite pick features
+	// a work. Both/neither/unsure show the pair as equals (external review).
+	const chosen = $derived(pick === 'a' ? workA : pick === 'b' ? workB : null);
+	const other = $derived(pick === 'a' ? workB : pick === 'b' ? workA : null);
+	const askStrength = $derived(chosen != null && wantsStrength(slot, position));
+	const explain = $derived(explainPair(workA, workB, ONTOLOGY_DIMS));
 
 	let strengthSent = $state(false);
 	let emotions = $state<EmotionId[]>([]);
 	let elements = $state<ElementId[]>([]);
+	let aspects = $state<PairAspect[]>([]);
 
 	const EMOTIONS = Object.entries(t.emotions) as [EmotionId, string][];
 	const ELEMENTS = Object.entries(t.elements) as [ElementId, string][];
+
+	const BRANCH: Record<string, { title: string; prompt: string; options: PairAspect[] }> = {
+		both: {
+			title: t.session.bothTitle,
+			prompt: t.session.bothPrompt,
+			options: ['atmosphere', 'subject', 'color', 'emotion', 'composition', 'technique', 'not-sure']
+		},
+		neither: {
+			title: t.session.neitherTitle,
+			prompt: t.session.neitherPrompt,
+			options: [
+				'subject',
+				'color',
+				'style',
+				'too-decorative',
+				'too-abstract',
+				'too-busy',
+				'flat',
+				'no-pull',
+				'image-quality',
+				'hard-to-judge'
+			]
+		},
+		unsure: {
+			title: t.session.unsureTitle,
+			prompt: t.session.unsurePrompt,
+			options: ['too-similar', 'hard-to-judge', 'image-quality', 'not-sure']
+		}
+	};
+	const branch = $derived(chosen ? null : BRANCH[pick]);
 
 	async function sendStrength(level: 'slight' | 'clear' | 'strong'): Promise<void> {
 		if (strengthSent || !chosen || !other) return;
@@ -34,19 +76,25 @@
 	}
 
 	async function toggleEmotion(id: EmotionId): Promise<void> {
-		if (!focus) return;
+		if (!chosen) return;
 		emotions = emotions.includes(id)
 			? emotions.filter((e) => e !== id)
-			: [...emotions, id].slice(-2); // at most two
-		await app.record({ t: 'reaction', work: focus.id, emotions, elements });
+			: [...emotions, id].slice(-2);
+		await app.record({ t: 'reaction', work: chosen.id, emotions, elements });
 	}
 
 	async function toggleElement(id: ElementId): Promise<void> {
-		if (!focus) return;
+		if (!chosen) return;
 		elements = elements.includes(id)
 			? elements.filter((e) => e !== id)
 			: [...elements, id].slice(-2);
-		await app.record({ t: 'reaction', work: focus.id, emotions, elements });
+		await app.record({ t: 'reaction', work: chosen.id, emotions, elements });
+	}
+
+	async function toggleAspect(id: PairAspect): Promise<void> {
+		aspects = aspects.includes(id) ? aspects.filter((a) => a !== id) : [...aspects, id].slice(-2);
+		const kind = pick === 'both' ? 'shared' : pick === 'neither' ? 'pushed-away' : 'unsure-why';
+		await app.record({ t: 'pair_feedback', a: workA.id, b: workB.id, kind, aspects });
 	}
 
 	async function save(work: Work): Promise<void> {
@@ -59,91 +107,121 @@
 	}
 
 	function infoLine(w: Work): string {
-		return `${w.artist.name} · ${w.date.display} · ${w.museum.name}`;
+		return `${w.artist.name} · ${w.date.display}`;
+	}
+
+	function whyLine(): string | null {
+		if (!explain) return null;
+		let line = t.session.whyPairSpecific(explain.dimLabels[0], explain.dimLabels[1]);
+		if (explain.eraGap != null && explain.dimLabels.length > 0 && explain.dimLabels[0]) {
+			line += t.session.whyPairEra(Math.round(explain.eraGap / 100));
+		}
+		return line;
 	}
 </script>
 
 <section class="reveal">
-	{#if focus}
+	{#if chosen && other}
+		<!-- Definite pick: feature the chosen work, compact by default. -->
 		<div class="focus-art">
-			<ArtworkImage work={focus} />
+			<ArtworkImage work={chosen} />
 		</div>
 		<div class="card">
-			<h2>{focus.title}</h2>
-			<p class="meta">{infoLine(focus)}</p>
-			{#if focus.story}
-				<p class="story">{focus.story}</p>
+			<h2>{chosen.title}</h2>
+			<p class="meta">{infoLine(chosen)} · {chosen.museum.name}</p>
+			{#if chosen.story}
+				<p class="story">{chosen.story}</p>
 			{/if}
-			<p class="attribution">{focus.rights.attribution}</p>
-
+			{#if chosen.rights.status === 'in-copyright'}
+				<p class="rights">{chosen.rights.attribution}</p>
+			{/if}
 			<div class="actions">
-				<button class="chip solid" onclick={() => save(focus)}>
-					{app.savedIds.has(focus.id) ? t.session.saved : t.session.save}
+				<button class="chip" onclick={() => save(chosen)}>
+					{app.savedIds.has(chosen.id) ? t.session.saved : t.session.save}
 				</button>
-				<button class="chip solid" onclick={() => remember(focus)}>
-					{app.rememberedIds.has(focus.id) ? t.session.remembered : t.session.remember}
+				<button class="chip" onclick={() => remember(chosen)}>
+					{app.rememberedIds.has(chosen.id) ? t.session.remembered : t.session.remember}
 				</button>
-				<a class="chip link" href={focus.museum.url} target="_blank" rel="noopener">
-					{t.reveal.viewAtMuseum}
-				</a>
-			</div>
-
-			{#if chosen && other && !strengthSent}
-				<div class="group">
-					<span class="label">{t.session.strengthPrompt}</span>
-					<div class="chips">
-						<button class="chip" onclick={() => sendStrength('slight')}
-							>{t.session.strengthSlight}</button
-						>
-						<button class="chip" onclick={() => sendStrength('clear')}
-							>{t.session.strengthClear}</button
-						>
-						<button class="chip" onclick={() => sendStrength('strong')}
-							>{t.session.strengthStrong}</button
-						>
-					</div>
-				</div>
-			{/if}
-
-			<div class="group">
-				<span class="label">{t.session.reactionPrompt}</span>
-				<div class="chips">
-					{#each EMOTIONS as [id, label] (id)}
-						<button class="chip" class:on={emotions.includes(id)} onclick={() => toggleEmotion(id)}>
-							{label}
-						</button>
-					{/each}
-				</div>
-			</div>
-
-			<div class="group">
-				<span class="label">{t.session.elementPrompt}</span>
-				<div class="chips">
-					{#each ELEMENTS as [id, label] (id)}
-						<button class="chip" class:on={elements.includes(id)} onclick={() => toggleElement(id)}>
-							{label}
-						</button>
-					{/each}
-				</div>
 			</div>
 		</div>
 
-		{#if secondary}
-			<div class="other">
-				<div class="other-thumb">
-					<ArtworkImage work={secondary} size="thumb" />
-				</div>
-				<div class="other-info">
-					<h3>{secondary.title}</h3>
-					<p class="meta">{infoLine(secondary)}</p>
+		{#if askStrength && !strengthSent}
+			<div class="block strength">
+				<p class="prompt-line">{t.session.strengthPrompt}</p>
+				<div class="chips">
+					<button class="chip" onclick={() => sendStrength('slight')}>{t.session.strengthSlight}</button>
+					<button class="chip" onclick={() => sendStrength('clear')}>{t.session.strengthClear}</button>
+					<button class="chip" onclick={() => sendStrength('strong')}>{t.session.strengthStrong}</button>
 				</div>
 			</div>
 		{/if}
 
-		<p class="why">
-			<span class="label">{t.reveal.whyThisPair}</span>
-			{t.session.probeExplain[probe]}
-		</p>
+		<details class="fold">
+			<summary>{t.session.addContext}</summary>
+			<p class="prompt-line">{t.session.reactionPrompt}</p>
+			<div class="chips">
+				{#each EMOTIONS as [id, label] (id)}
+					<button class="chip" class:on={emotions.includes(id)} onclick={() => toggleEmotion(id)}>
+						{label}
+					</button>
+				{/each}
+			</div>
+			<p class="prompt-line">{t.session.elementPrompt}</p>
+			<div class="chips">
+				{#each ELEMENTS as [id, label] (id)}
+					<button class="chip" class:on={elements.includes(id)} onclick={() => toggleElement(id)}>
+						{label}
+					</button>
+				{/each}
+			</div>
+		</details>
+
+		<details class="fold">
+			<summary>{t.session.learnMore}</summary>
+			<p class="meta">{chosen.rights.attribution}</p>
+			<a href={chosen.museum.url} target="_blank" rel="noreferrer">{t.reveal.viewAtMuseum}</a>
+			{#if whyLine()}
+				<p class="why"><span class="label">{t.reveal.whyThisPair}</span> {whyLine()}</p>
+			{/if}
+		</details>
+
+		<div class="ref">
+			<div class="ref-thumb"><ArtworkImage work={other} size="thumb" /></div>
+			<div class="ref-text">
+				<p class="ref-title">{other.title}</p>
+				<p class="meta">{infoLine(other)}</p>
+			</div>
+		</div>
+	{:else if branch}
+		<!-- Both / neither / unsure: the pair stays equal; no work is elevated. -->
+		<h2 class="branch-title">{branch.title}</h2>
+		<div class="pair-grid" class:muted={pick === 'neither'}>
+			{#each [workA, workB] as w (w.id)}
+				<div class="pair-cell">
+					<ArtworkImage work={w} size="thumb" />
+					<p class="ref-title">{w.title}</p>
+					<p class="meta">{infoLine(w)}</p>
+					{#if pick === 'both'}
+						<button class="chip" onclick={() => save(w)}>
+							{app.savedIds.has(w.id) ? t.session.saved : t.session.save}
+						</button>
+					{/if}
+				</div>
+			{/each}
+		</div>
+		<div class="block">
+			<p class="prompt-line">{branch.prompt}</p>
+			<div class="chips">
+				{#each branch.options as id (id)}
+					<button class="chip" class:on={aspects.includes(id)} onclick={() => toggleAspect(id)}>
+						{t.aspects[id]}
+					</button>
+				{/each}
+			</div>
+			{#if pick === 'neither' && aspects.length > 0}
+				<p class="meta">{t.session.neitherLearning}</p>
+			{/if}
+		</div>
 	{/if}
 
 	<div class="next-bar">
@@ -159,94 +237,139 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-3);
-		padding-bottom: calc(72px + var(--safe-bottom));
+		padding-bottom: calc(96px + var(--safe-bottom));
 	}
 	.focus-art {
-		max-height: 44dvh;
+		max-height: 40dvh;
 		display: flex;
 		justify-content: center;
 	}
 	.card h2 {
-		font-size: 1.45rem;
+		font-size: 1.35rem;
 		line-height: 1.2;
+		overflow-wrap: anywhere;
 	}
 	.meta {
 		color: var(--ink-muted);
 		font-size: 0.85rem;
 		margin: var(--space-1) 0 0;
+		overflow-wrap: anywhere;
 	}
 	.story {
 		font-family: var(--font-display);
-		font-size: 1rem;
+		font-size: 0.98rem;
 		line-height: 1.5;
-		margin: var(--space-3) 0 0;
-	}
-	.attribution {
-		color: var(--ink-faint);
-		font-size: 0.7rem;
 		margin: var(--space-2) 0 0;
+	}
+	.rights {
+		color: var(--ink-faint);
+		font-size: 0.75rem;
+		margin: var(--space-1) 0 0;
 	}
 	.actions {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2);
-		margin-top: var(--space-3);
+		margin-top: var(--space-2);
 	}
-	.group {
-		margin-top: var(--space-3);
+	.block {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
 	}
-	.label {
-		display: block;
+	.prompt-line {
 		color: var(--ink-faint);
-		font-size: 0.72rem;
-		letter-spacing: 0.08em;
+		font-size: 0.78rem;
+		letter-spacing: 0.05em;
 		text-transform: uppercase;
-		margin-bottom: var(--space-2);
+		margin: var(--space-2) 0 var(--space-1);
 	}
 	.chips {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-2);
+		gap: 8px;
 	}
 	.chip {
+		color: var(--ink-muted);
+		font-size: 0.85rem;
+		padding: 8px 14px;
 		border: 1px solid var(--hairline);
 		border-radius: 999px;
-		padding: 8px 14px;
-		font-size: 0.85rem;
-		color: var(--ink-muted);
-		min-height: 40px;
-	}
-	.chip.on,
-	.chip.solid {
-		color: var(--ink);
-		border-color: var(--gold-deep);
+		min-height: 38px;
 	}
 	.chip.on {
-		background: color-mix(in srgb, var(--gold) 18%, transparent);
+		border-color: var(--gold);
+		color: var(--gold);
 	}
-	.chip.link {
-		display: inline-flex;
-		align-items: center;
-	}
-	.other {
-		display: flex;
-		gap: var(--space-3);
-		align-items: center;
+	.fold {
 		border-top: 1px solid var(--hairline);
-		padding-top: var(--space-3);
+		padding-top: var(--space-2);
 	}
-	.other-thumb {
-		width: 84px;
-		flex-shrink: 0;
+	.fold summary {
+		color: var(--ink-muted);
+		font-size: 0.9rem;
+		cursor: pointer;
+		min-height: 40px;
+		display: flex;
+		align-items: center;
 	}
-	.other-info h3 {
-		font-size: 1rem;
+	.fold a {
+		color: var(--gold-deep);
+		font-size: 0.9rem;
 	}
 	.why {
 		color: var(--ink-muted);
-		font-size: 0.85rem;
+		font-size: 0.88rem;
+		line-height: 1.5;
+		margin-top: var(--space-2);
+	}
+	.why .label {
+		color: var(--ink-faint);
+		font-size: 0.75rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		display: block;
+	}
+	/* Reference card: thumb and text in separate grid tracks — no absolute
+	   positioning, long titles wrap, nothing can collide (external review). */
+	.ref {
+		display: grid;
+		grid-template-columns: 72px minmax(0, 1fr);
+		gap: var(--space-2);
+		align-items: center;
 		border-top: 1px solid var(--hairline);
 		padding-top: var(--space-3);
+	}
+	.ref-thumb {
+		width: 72px;
+	}
+	.ref-text {
+		min-width: 0;
+	}
+	.ref-title {
+		font-size: 0.92rem;
+		line-height: 1.3;
+		overflow-wrap: anywhere;
+		margin: 0;
+	}
+	.branch-title {
+		font-size: 1.25rem;
+		text-align: center;
+		margin-top: var(--space-2);
+	}
+	.pair-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-3);
+	}
+	.pair-grid.muted {
+		opacity: 0.75;
+	}
+	.pair-cell {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		min-width: 0;
 	}
 	.next-bar {
 		position: fixed;
@@ -256,6 +379,7 @@
 		padding: var(--space-3) var(--space-4) max(var(--safe-bottom), var(--space-3));
 		background: linear-gradient(transparent, var(--bg) 35%);
 		display: flex;
+		flex-wrap: nowrap;
 		justify-content: center;
 		gap: var(--space-3);
 	}
@@ -263,18 +387,18 @@
 		color: var(--ink-muted);
 		border: 1px solid var(--hairline);
 		border-radius: 999px;
-		padding: 14px 22px;
+		padding: 14px 20px;
 		font-size: 0.9rem;
 		min-height: 48px;
+		white-space: nowrap;
 	}
 	.next {
 		background: var(--gold);
 		color: #1a1408;
 		font-weight: 600;
 		border-radius: 999px;
-		padding: 14px 48px;
+		padding: 14px 44px;
 		font-size: 1rem;
 		min-height: 48px;
-		width: min(100%, 420px);
 	}
 </style>

@@ -49,10 +49,60 @@ export const t = {
 			coverage: 'This pairing broadens the map of what you have seen.'
 		},
 		summaryTitle: 'Session complete',
-		summaryBody: (n: number) => `${n} choices recorded. Your profile learns from every one.`,
-		summaryAgain: 'One more session',
-		summaryHome: 'Done for now',
-		emptyPool: 'You have seen everything we can pair right now — the collection grows continuously.'
+		summaryAgain: 'Test this pattern',
+		summaryAgainNeutral: 'Another session',
+		summaryHome: 'End session',
+		summarySaved: 'Your choices are saved.',
+		emptyPool: 'You have seen everything we can pair right now — the collection grows continuously.',
+		// Session-close insight (always evidence-backed, never invented)
+		insightHeadline: 'A pattern is emerging',
+		insightHeadlineEarly: 'An early signal',
+		insightHeadlineNone: 'Still mapping your eye',
+		insightPattern: (labels: string) => `You kept choosing works with ${labels}.`,
+		insightPatternEarly: (labels: string) =>
+			`An early signal: you may respond to ${labels}. Too soon to be sure.`,
+		insightCounter: (label: string) => `You also pushed back on ${label} — noted.`,
+		insightNone:
+			'No single thread dominated this session — useful in itself: your eye is not one-note.',
+		insightOpen: (dim: string) => `Still open: how much ${dim} matters to you.`,
+		insightNext: (dim: string) => `The next session can test ${dim} directly.`,
+		insightEvidence: 'From this session',
+		microPrefix: 'So far:',
+		micro: (label: string) => `you are leaning toward ${label.toLowerCase()}.`,
+		// Reveal branches
+		bothTitle: 'Both drew you in',
+		bothPrompt: 'What did they share? (optional)',
+		neitherTitle: 'Neither connected — that is useful',
+		neitherPrompt: 'What pushed you away? (optional)',
+		unsureTitle: 'No clear preference',
+		unsurePrompt: 'Why was it hard? (optional)',
+		neitherLearning: 'We will lean away from pairings like this while we check why.',
+		addContext: 'Add context to this choice',
+		learnMore: 'About this work',
+		whyPairSpecific: (a: string, b?: string) =>
+			b
+				? `This pairing contrasts ${a.toLowerCase()} against ${b.toLowerCase()}.`
+				: `This pairing contrasts ${a.toLowerCase()}.`,
+		whyPairEra: (centuries: number) => ` They also sit ${centuries} centuries apart.`
+	},
+
+	aspects: {
+		subject: 'The subject',
+		color: 'The color',
+		style: 'The style',
+		atmosphere: 'The atmosphere',
+		emotion: 'The emotion',
+		composition: 'The composition',
+		technique: 'The technique',
+		'too-decorative': 'Too decorative',
+		'too-abstract': 'Too abstract',
+		'too-busy': 'Too busy',
+		flat: 'Left me flat',
+		'no-pull': 'No emotional pull',
+		'too-similar': 'Too similar',
+		'image-quality': 'Poor image',
+		'hard-to-judge': 'Hard to judge',
+		'not-sure': 'Not sure'
 	},
 
 	reveal: {

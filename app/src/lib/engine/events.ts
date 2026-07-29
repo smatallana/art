@@ -59,6 +59,17 @@ export type AppEvent = Base &
 				reason: 'pass' | 'not-now' | 'seen-too-often' | null;
 		  }
 		| {
+				/** Optional context on a both/neither/unsure answer. Stored as
+				 *  evidence for insights; 'image-quality' / 'hard-to-judge' mark
+				 *  content problems, never taste. The model fold gives
+				 *  pair_feedback no weight — the pair_choice carried the signal. */
+				t: 'pair_feedback';
+				a: string;
+				b: string;
+				kind: 'shared' | 'pushed-away' | 'unsure-why';
+				aspects: PairAspect[];
+		  }
+		| {
 				/** Infrastructure: an artwork image failed to load. Never treated
 				 *  as preference — kept for diagnostics only. */
 				t: 'image_error';
@@ -97,6 +108,24 @@ export interface PriorSpec {
 	/** dims the import is explicitly unsure about (kept wide) */
 	uncertain: string[];
 }
+
+export type PairAspect =
+	| 'subject'
+	| 'color'
+	| 'style'
+	| 'atmosphere'
+	| 'emotion'
+	| 'composition'
+	| 'technique'
+	| 'too-decorative'
+	| 'too-abstract'
+	| 'too-busy'
+	| 'flat'
+	| 'no-pull'
+	| 'too-similar'
+	| 'image-quality'
+	| 'hard-to-judge'
+	| 'not-sure';
 
 export type AppEventType = AppEvent['t'];
 
