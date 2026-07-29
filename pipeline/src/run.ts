@@ -126,6 +126,23 @@ async function cmdBuild(): Promise<void> {
 	}
 
 	for (const id of sources) {
+		if (id === 'rijks' || id === 'met') {
+			const { fetchCollectionWorks, RIJKS_CONFIG, MET_CONFIG } =
+				await import('./sources/collectionwd.js');
+			// Never double-list a painting the canon (wd-Q…) or another
+			// collection source already carries — same Wikidata item, one record.
+			const excludeQids = new Set(
+				works.filter((w) => /^Q\d+$/.test(w.sourceId)).map((w) => w.sourceId)
+			);
+			const cfg = { ...(id === 'rijks' ? RIJKS_CONFIG : MET_CONFIG), limit };
+			try {
+				works.push(...(await fetchCollectionWorks(cfg, excludeQids, log)));
+			} catch (e) {
+				log(`source ${id} FAILED: ${e}`);
+				rejects[`${id}:fetch-failed`] = 1;
+			}
+			continue;
+		}
 		if (id === 'wd') {
 			const { fetchCanonWorks } = await import('./sources/canonwd.js');
 			const canonDir = path.join(here, '..', '..', 'data', 'canon');
