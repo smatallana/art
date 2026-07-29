@@ -18,7 +18,7 @@ seen.
 | Milestone | Scope | Status |
 |---|---|---|
 | M0 | Foundation: monorepo, CI, installable PWA shell on GitHub Pages | ✅ |
-| M1 | Catalog v1: reproducible pipeline — **6,377 paintings** (Cleveland Museum of Art, Wikidata/Commons canon, Art Institute of Chicago), live image validation | ✅ |
+| M1 | Catalog v1: reproducible pipeline — **10,767 paintings across five sources** (Cleveland, Rijksmuseum, The Met, Wikidata/Commons canon, Art Institute of Chicago — none above 26%), live image validation | ✅ |
 | M2 | Core session loop, reveal with micro-stories, local-first persistence, session resume | ✅ |
 | M3 | Bayesian taste model + active learning (info-gain / exploration / challenge / refutation / consistency slots), explainable profile with evidence tiers | ✅ |
 | M4 | Accounts (Google sign-in, cookie-free across origins), idempotent multi-device sync, export & delete (Cloudflare Workers + D1) | ✅ |
