@@ -15,11 +15,14 @@ test('full session flow: choose, reveal, react, save, advance', async ({ page })
 	await expect(choiceA).toBeVisible({ timeout: 15000 });
 	await choiceA.click();
 
-	// Reveal: title heading; CC0 attribution sits one tap away under the
+	// Reveal: title heading; attribution sits one tap away under the
 	// "About this work" fold (in-copyright attribution stays inline).
+	// The three-source catalog phrases rights three ways — CC0 (museum
+	// APIs), "Public domain" (Wikimedia canon), © (linked landmarks).
 	await expect(page.getByRole('heading', { level: 2 })).toBeVisible();
 	await page.getByText('About this work').click();
-	await expect(page.getByText(/CC0/i).first()).toBeVisible();
+	await expect(page.getByText(/CC0|public domain|©/i).first()).toBeVisible();
+	await expect(page.getByRole('link', { name: 'View at museum' })).toBeVisible();
 
 	// React + save (no typing anywhere). Reaction chips live inside the
 	// collapsed "Add context to this choice" fold — open it first.

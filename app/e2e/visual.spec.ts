@@ -9,6 +9,9 @@ import { expect, test, type Page } from '@playwright/test';
  *   would be pure noise. Selection is deterministic for a fresh context
  *   (seed = event count, side flip hashes the pair ids), and artwork
  *   images are masked, so local baselines are stable.
+ * Baselines depend on the committed catalog (it decides which works the
+ * deterministic session shows) — regenerate them after catalog rebuilds:
+ *   npx playwright test e2e/visual.spec.ts --update-snapshots
  */
 
 const VIEWPORTS = [
