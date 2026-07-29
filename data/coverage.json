@@ -1,145 +1,147 @@
 {
-	"generatedAt": "2026-07-29T05:59:00.419Z",
-	"totalWorks": 6377,
+	"generatedAt": null,
+	"totalWorks": 10767,
 	"bySource": {
-		"cma": 43.9,
-		"wd": 32.1,
-		"aic": 24
+		"cma": 26,
+		"rijks": 20.4,
+		"met": 20.4,
+		"wd": 18.9,
+		"aic": 14.2
 	},
 	"byCentury": {
 		"-10c": 0,
 		"-12c": 0,
 		"-2c": 0,
 		"-3c": 0,
-		"10c": 0.1,
-		"11c": 0.2,
-		"12c": 1.5,
-		"13c": 1.7,
-		"14c": 2.3,
-		"15c": 8.1,
-		"16c": 15.1,
-		"17c": 17.3,
-		"18c": 14.9,
-		"19c": 30.9,
+		"10c": 0,
+		"11c": 0.1,
+		"12c": 1,
+		"13c": 1.2,
+		"14c": 2.1,
+		"15c": 7.2,
+		"16c": 12.9,
+		"17c": 26.1,
+		"18c": 14.6,
+		"19c": 28.1,
 		"1c": 0,
-		"20c": 7.1,
+		"20c": 5.4,
 		"2c": 0,
 		"5c": 0,
 		"6c": 0,
 		"7c": 0,
 		"8c": 0,
 		"9c": 0,
-		"unknown": 0.7
+		"unknown": 1.1
 	},
 	"byMovement": {
-		"Impressionism": 2.7,
-		"17th Century": 2.5,
-		"18th Century": 2.2,
-		"nineteenth century": 2.1,
-		"Chinese (culture or style)": 1.8,
-		"19th century": 1.3,
-		"South Asian": 1.2,
-		"Japanese (culture or style)": 1.1,
-		"16th Century": 1,
-		"15th century": 1,
-		"Baroque": 0.9,
-		"Pre-Raphaelite Brotherhood": 0.9,
-		"Early Netherlandish painting": 0.9,
-		"Romanticism": 0.8,
-		"Himalayan": 0.8,
-		"Dutch Golden Age painting": 0.7,
-		"High Renaissance": 0.7,
-		"sixteenth century": 0.7,
-		"Mannerism": 0.6,
-		"Neoclassicism": 0.6
+		"Impressionism": 1.7,
+		"17th Century": 1.5,
+		"18th Century": 1.3,
+		"nineteenth century": 1.2,
+		"academic art": 1.1,
+		"Chinese (culture or style)": 1.1,
+		"Early Netherlandish painting": 1,
+		"19th century": 0.8,
+		"Dutch Golden Age painting": 0.8,
+		"South Asian": 0.7,
+		"Baroque": 0.7,
+		"Japanese (culture or style)": 0.6,
+		"16th Century": 0.6,
+		"15th century": 0.6,
+		"Pre-Raphaelite Brotherhood": 0.5,
+		"Rococo": 0.5,
+		"Romanticism": 0.5,
+		"Himalayan": 0.4,
+		"High Renaissance": 0.4,
+		"Mannerism": 0.4
 	},
 	"byCulture": {
-		"Mughal India, court of Akbar (reigned 1556–1605)": 4.7,
-		"Japan, Edo period (1615–1868)": 3.7,
-		"France, 19th century": 3,
-		"America": 2.8,
-		"China, Qing dynasty (1644-1911)": 2.2,
-		"China, Ming dynasty (1368–1644)": 1.5,
-		"Northern India, Pahari kingdoms": 1.4,
-		"Japan, Muromachi period (1392–1573)": 1.3,
-		"China, Southern Song dynasty (1127-1279)": 1.3,
-		"India": 1.2,
-		"Eastern India, Bengal, Kolkata, Kalighat": 1.1,
-		"Netherlands": 1,
-		"France, 18th century": 0.9,
-		"Korea, Joseon dynasty (1392–1910)": 0.8,
-		"America, Ohio, Cleveland": 0.6,
-		"China, Yuan dynasty (1271-1368)": 0.6,
-		"Western India, Gujarat": 0.6,
-		"Italy, 18th century": 0.5,
-		"Western India, Gujarat, last quarter of the 15th century": 0.4,
-		"China": 0.4
+		"Mughal India, court of Akbar (reigned 1556–1605)": 2.8,
+		"Japan, Edo period (1615–1868)": 2.2,
+		"France, 19th century": 1.8,
+		"America": 1.7,
+		"China, Qing dynasty (1644-1911)": 1.3,
+		"China, Ming dynasty (1368–1644)": 0.9,
+		"Northern India, Pahari kingdoms": 0.8,
+		"Japan, Muromachi period (1392–1573)": 0.8,
+		"China, Southern Song dynasty (1127-1279)": 0.8,
+		"India": 0.7,
+		"Eastern India, Bengal, Kolkata, Kalighat": 0.7,
+		"Netherlands": 0.6,
+		"France, 18th century": 0.5,
+		"Korea, Joseon dynasty (1392–1910)": 0.4,
+		"America, Ohio, Cleveland": 0.4,
+		"China, Yuan dynasty (1271-1368)": 0.3,
+		"Western India, Gujarat": 0.3,
+		"Italy, 18th century": 0.3,
+		"Western India, Gujarat, last quarter of the 15th century": 0.3,
+		"China": 0.2
 	},
 	"topArtists": [
 		[
 			"Claude Monet",
-			50
+			82
+		],
+		[
+			"Rembrandt",
+			79
 		],
 		[
 			"Pierre-Auguste Renoir",
-			42
-		],
-		[
-			"Édouard Manet",
-			36
-		],
-		[
-			"Peter Paul Rubens",
-			35
+			68
 		],
 		[
 			"Vincent van Gogh",
-			35
+			67
 		],
 		[
-			"Paul Gauguin",
-			30
+			"Jean Baptiste Vanmour",
+			56
 		],
 		[
-			"Camille Pissarro",
-			28
+			"Peter Paul Rubens",
+			52
 		],
 		[
-			"Eugène Delacroix",
-			28
+			"Édouard Manet",
+			52
 		],
 		[
 			"Gustave Courbet",
-			27
-		],
-		[
-			"Diego Velázquez",
-			27
+			52
 		],
 		[
 			"Edgar Degas",
-			27
+			48
 		],
 		[
-			"Chen Hongshou",
-			27
+			"Camille Pissarro",
+			45
 		],
 		[
-			"Shen Zhou",
-			26
+			"Paul Cézanne",
+			45
 		],
 		[
-			"James McNeill Whistler",
-			25
+			"Anthony van Dyck",
+			41
 		],
 		[
-			"Titian",
-			25
+			"Eugène Delacroix",
+			40
+		],
+		[
+			"Paul Gauguin",
+			36
+		],
+		[
+			"Giovanni Battista Tiepolo",
+			36
 		]
 	],
 	"canon": {
 		"targetTotal": 2314,
-		"actualTotal": 2384,
+		"actualTotal": 3013,
 		"absent": [
 			"Paul Klee",
 			"Qi Baishi",
@@ -287,7 +289,6 @@
 		"George Tooker — The Subway"
 	],
 	"warnings": [
-		"source concentration: cma is 43.9% of the catalog (>35%)",
 		"canon: 12 spine artists have ZERO works"
 	]
 }

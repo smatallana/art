@@ -1,8 +1,8 @@
 {
  "schemaVersion": 1,
  "ontologyVersion": 1,
- "generatedAt": "2026-07-29T05:59:00.419Z",
- "count": 6377,
+ "generatedAt": "2026-07-29T13:48:36.623Z",
+ "count": 10767,
  "shards": [
   {
    "file": "works-000.json",
@@ -106,7 +106,79 @@
   },
   {
    "file": "works-025.json",
-   "count": 127
+   "count": 250
+  },
+  {
+   "file": "works-026.json",
+   "count": 250
+  },
+  {
+   "file": "works-027.json",
+   "count": 250
+  },
+  {
+   "file": "works-028.json",
+   "count": 250
+  },
+  {
+   "file": "works-029.json",
+   "count": 250
+  },
+  {
+   "file": "works-030.json",
+   "count": 250
+  },
+  {
+   "file": "works-031.json",
+   "count": 250
+  },
+  {
+   "file": "works-032.json",
+   "count": 250
+  },
+  {
+   "file": "works-033.json",
+   "count": 250
+  },
+  {
+   "file": "works-034.json",
+   "count": 250
+  },
+  {
+   "file": "works-035.json",
+   "count": 250
+  },
+  {
+   "file": "works-036.json",
+   "count": 250
+  },
+  {
+   "file": "works-037.json",
+   "count": 250
+  },
+  {
+   "file": "works-038.json",
+   "count": 250
+  },
+  {
+   "file": "works-039.json",
+   "count": 250
+  },
+  {
+   "file": "works-040.json",
+   "count": 250
+  },
+  {
+   "file": "works-041.json",
+   "count": 250
+  },
+  {
+   "file": "works-042.json",
+   "count": 250
+  },
+  {
+   "file": "works-043.json",
+   "count": 17
   }
  ],
  "sources": {
@@ -118,8 +190,16 @@
    "count": 2799,
    "attribution": "The Cleveland Museum of Art — CC0"
   },
+  "met": {
+   "count": 2200,
+   "attribution": "The Metropolitan Museum of Art — public domain, image via Wikimedia Commons"
+  },
+  "rijks": {
+   "count": 2200,
+   "attribution": "Rijksmuseum — public domain, image via Wikimedia Commons"
+  },
   "wd": {
-   "count": 2046,
+   "count": 2036,
    "attribution": "© Andrew Wyeth (or estate) — image linked from Wikipedia, not redistributed"
   }
  }
