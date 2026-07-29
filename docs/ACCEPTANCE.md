@@ -17,7 +17,7 @@ reworked; production is now smoke-tested after every deploy.
 | 7 | Close and return without losing progress | ✅ | Session snapshot + resume; E2E-covered |
 | 8 | Next selection adapts to answers | ✅ | Calibration → info-gain active learning (synthetic-user tests) |
 | 9 | Not always the same comparisons | ✅ | Pair-novelty + cooldowns + exploration slots; E2E non-repetition test |
-| 10 | Large, extensible catalog | ✅ | Reproducible pipeline; curated canon source (Wikidata/Commons, ~175 artists all periods) beyond the two founding museums; per-build coverage & concentration report with thresholds |
+| 10 | Large, extensible catalog | ✅ | Reproducible pipeline; 6,377 works across three sources after the tramo-6 rebalance (cma 43.9%, wd 32.1%, aic 24.0% — down from 51.8% single-source); curated canon source (Wikidata/Commons, ~175 artists all periods); per-build coverage & concentration report with thresholds |
 | 11 | Save works | ✅ | Save/unsave + Saved page |
 | 12 | Discover artists | ✅ | Unmet-artist suggestions + artist records in profile |
 | 13 | Understand why a work is recommended | ✅ | Per-rec contributions + related liked works; work page "why" |
