@@ -23,8 +23,12 @@ Ordered by leverage.
 3. **Embedding features in the taste model** — PCA→64d block appended to
    φ(x): lets the model learn taste that escapes the ontology, while the
    interpretable dims keep explaining what can be explained.
-4. **Catalog expansion** — Rijksmuseum (IIIF, keyless) and The Met (via R2);
-   Wikidata Q-id cross-source dedupe; target ~6–8k works, then SMK/Yale.
+4. **Catalog expansion** — *tramo 7 shipped rijks + met via the Wikidata
+   collection join (P195 + Commons imageinfo).* Remaining upgrades: native
+   Rijksmuseum Linked Art/IIIF adapter and native Met API adapter with
+   their own image hosts (probed viable 2026-07-29; the Met API lacks
+   pixel dims, so a native adapter needs a dimension probe step); then
+   SMK/Yale.
 5. **Museum mode** — pick a museum → affinity-ranked works + essentials + a
    prioritized route with time estimate (museum field already on every work).
 6. **Spanish localization** — strings are already centralized in
