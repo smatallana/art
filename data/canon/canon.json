@@ -2,182 +2,715 @@
 	"version": 1,
 	"comment": "Curatorial spine: artists the catalog must represent regardless of which museum APIs are convenient. Resolved against Wikidata by exact English label (occupation: painter; highest-sitelinks item wins ties); works ranked by sitelinks so canonical anchors surface first. `target` = desired work count. In-copyright artists are covered separately by manual-works.json.",
 	"artists": [
-		{ "name": "Giotto", "target": 6 },
-		{ "name": "Duccio di Buoninsegna", "target": 4 },
-		{ "name": "Simone Martini", "target": 4 },
-		{ "name": "Masaccio", "target": 5 },
-		{ "name": "Fra Angelico", "target": 6 },
-		{ "name": "Piero della Francesca", "target": 6 },
-		{ "name": "Andrea Mantegna", "target": 6 },
-		{ "name": "Giovanni Bellini", "target": 8 },
-		{ "name": "Sandro Botticelli", "target": 10 },
-		{ "name": "Leonardo da Vinci", "target": 10 },
-		{ "name": "Michelangelo", "target": 8 },
-		{ "name": "Raphael", "target": 10 },
-		{ "name": "Titian", "target": 12 },
-		{ "name": "Tintoretto", "target": 8 },
-		{ "name": "Paolo Veronese", "target": 8 },
-		{ "name": "Correggio", "target": 5 },
-		{ "name": "Jan van Eyck", "target": 8 },
-		{ "name": "Rogier van der Weyden", "target": 6 },
-		{ "name": "Hans Memling", "target": 6 },
-		{ "name": "Hieronymus Bosch", "target": 8 },
-		{ "name": "Pieter Bruegel the Elder", "qid": "Q43270", "target": 10 },
-		{ "name": "Albrecht Dürer", "target": 10 },
-		{ "name": "Hans Holbein the Younger", "target": 8 },
-		{ "name": "Lucas Cranach the Elder", "target": 6 },
-		{ "name": "Matthias Grünewald", "target": 4 },
-		{ "name": "El Greco", "target": 10 },
-		{ "name": "Caravaggio", "target": 10 },
-		{ "name": "Artemisia Gentileschi", "target": 8 },
-		{ "name": "Annibale Carracci", "target": 5 },
-		{ "name": "Guido Reni", "target": 5 },
-		{ "name": "Peter Paul Rubens", "target": 12 },
-		{ "name": "Anthony van Dyck", "target": 8 },
-		{ "name": "Rembrandt", "target": 18 },
-		{ "name": "Johannes Vermeer", "target": 15 },
-		{ "name": "Frans Hals", "target": 8 },
-		{ "name": "Jan Steen", "target": 6 },
-		{ "name": "Jacob van Ruisdael", "target": 6 },
-		{ "name": "Pieter de Hooch", "target": 5 },
-		{ "name": "Diego Velázquez", "target": 12 },
-		{ "name": "Francisco de Zurbarán", "target": 8 },
-		{ "name": "Jusepe de Ribera", "target": 6 },
-		{ "name": "Bartolomé Esteban Murillo", "target": 8 },
-		{ "name": "Nicolas Poussin", "target": 8 },
-		{ "name": "Claude Lorrain", "target": 6 },
-		{ "name": "Georges de La Tour", "target": 6 },
-		{ "name": "Antoine Watteau", "target": 6 },
-		{ "name": "Jean-Honoré Fragonard", "target": 6 },
-		{ "name": "François Boucher", "target": 6 },
-		{ "name": "Jean-Baptiste-Siméon Chardin", "target": 6 },
-		{ "name": "Canaletto", "target": 6 },
-		{ "name": "Giovanni Battista Tiepolo", "target": 6 },
-		{ "name": "Thomas Gainsborough", "target": 6 },
-		{ "name": "Joshua Reynolds", "target": 5 },
-		{ "name": "Jacques-Louis David", "target": 8 },
-		{ "name": "Jean-Auguste-Dominique Ingres", "target": 8 },
-		{ "name": "Francisco Goya", "target": 12 },
-		{ "name": "William Blake", "target": 6 },
-		{ "name": "Henry Fuseli", "target": 4 },
-		{ "name": "Caspar David Friedrich", "target": 10 },
-		{ "name": "J. M. W. Turner", "target": 12 },
-		{ "name": "John Constable", "target": 8 },
-		{ "name": "Théodore Géricault", "target": 6 },
-		{ "name": "Eugène Delacroix", "target": 10 },
-		{ "name": "Gustave Courbet", "target": 8 },
-		{ "name": "Jean-François Millet", "target": 6 },
-		{ "name": "Honoré Daumier", "target": 5 },
-		{ "name": "Camille Corot", "target": 6 },
-		{ "name": "Édouard Manet", "target": 12 },
-		{ "name": "James McNeill Whistler", "target": 8 },
-		{ "name": "Winslow Homer", "target": 8 },
-		{ "name": "Thomas Eakins", "target": 6 },
-		{ "name": "John Singer Sargent", "target": 10 },
-		{ "name": "Arnold Böcklin", "target": 6 },
-		{ "name": "Gustave Moreau", "target": 6 },
-		{ "name": "Odilon Redon", "target": 8 },
-		{ "name": "Pierre Puvis de Chavannes", "target": 4 },
-		{ "name": "Félix Vallotton", "target": 6 },
-		{ "name": "Claude Monet", "target": 18 },
-		{ "name": "Pierre-Auguste Renoir", "target": 12 },
-		{ "name": "Edgar Degas", "target": 12 },
-		{ "name": "Berthe Morisot", "target": 8 },
-		{ "name": "Mary Cassatt", "target": 8 },
-		{ "name": "Camille Pissarro", "target": 8 },
-		{ "name": "Alfred Sisley", "target": 6 },
-		{ "name": "Gustave Caillebotte", "target": 6 },
-		{ "name": "Paul Cézanne", "target": 14 },
-		{ "name": "Vincent van Gogh", "target": 18 },
-		{ "name": "Paul Gauguin", "target": 10 },
-		{ "name": "Georges Seurat", "target": 8 },
-		{ "name": "Henri de Toulouse-Lautrec", "target": 8 },
-		{ "name": "Henri Rousseau", "target": 8 },
-		{ "name": "John Everett Millais", "target": 6 },
-		{ "name": "Dante Gabriel Rossetti", "target": 6 },
-		{ "name": "William Holman Hunt", "target": 4 },
-		{ "name": "Edward Burne-Jones", "target": 6 },
-		{ "name": "John William Waterhouse", "target": 6 },
-		{ "name": "Frederic Leighton", "target": 5 },
-		{ "name": "Lawrence Alma-Tadema", "target": 5 },
-		{ "name": "Gustav Klimt", "target": 10 },
-		{ "name": "Egon Schiele", "target": 8 },
-		{ "name": "Edvard Munch", "target": 10 },
-		{ "name": "Wassily Kandinsky", "target": 10 },
-		{ "name": "Piet Mondrian", "target": 8 },
-		{ "name": "Kazimir Malevich", "target": 8 },
-		{ "name": "Paul Klee", "qid": "Q44007", "target": 8 },
-		{ "name": "Franz Marc", "target": 6 },
-		{ "name": "August Macke", "target": 5 },
-		{ "name": "Ernst Ludwig Kirchner", "target": 6 },
-		{ "name": "Amedeo Modigliani", "target": 8 },
-		{ "name": "Vilhelm Hammershøi", "target": 8 },
-		{ "name": "Ilya Repin", "target": 6 },
-		{ "name": "Ivan Aivazovsky", "target": 6 },
-		{ "name": "Isaac Levitan", "target": 5 },
-		{ "name": "Mikhail Vrubel", "target": 5 },
-		{ "name": "Joaquín Sorolla", "target": 8 },
-		{ "name": "Katsushika Hokusai", "target": 8 },
-		{ "name": "Utagawa Hiroshige", "target": 8 },
-		{ "name": "Kitagawa Utamaro", "target": 5 },
-		{ "name": "Sesshū Tōyō", "target": 4 },
-		{ "name": "Shen Zhou", "target": 5 },
-		{ "name": "Qi Baishi", "target": 5 },
-		{ "name": "Raja Ravi Varma", "target": 6 },
-		{ "name": "Abanindranath Tagore", "target": 4 },
-		{ "name": "Amrita Sher-Gil", "target": 5 },
-		{ "name": "Kamal-ol-Molk", "target": 4 },
-		{ "name": "Osman Hamdi Bey", "target": 4 },
-		{ "name": "José María Velasco", "target": 4 },
-		{ "name": "Martín Tovar y Tovar", "target": 3 },
-		{ "name": "Juan Luna", "target": 4 },
-		{ "name": "Raden Saleh", "target": 4 },
-		{ "name": "Henry Ossawa Tanner", "target": 5 },
-		{ "name": "Edmonia Lewis", "target": 2 },
-		{ "name": "Grant Wood", "target": 4 },
-		{ "name": "Tarsila do Amaral", "target": 4 },
-		{ "name": "Anders Zorn", "target": 5 },
-		{ "name": "Akseli Gallen-Kallela", "target": 5 },
-		{ "name": "Peder Severin Krøyer", "target": 5 },
-		{ "name": "Jean-Léon Gérôme", "target": 6 },
-		{ "name": "William-Adolphe Bouguereau", "target": 6 },
-		{ "name": "Rosa Bonheur", "target": 4 },
-		{ "name": "Élisabeth Vigée Le Brun", "target": 6 },
-		{ "name": "Angelica Kauffman", "target": 4 },
-		{ "name": "Judith Leyster", "target": 4 },
-		{ "name": "Rachel Ruysch", "target": 4 },
-		{ "name": "Clara Peeters", "target": 4 },
-		{ "name": "Sofonisba Anguissola", "target": 5 },
-		{ "name": "Lavinia Fontana", "target": 4 },
-		{ "name": "Pablo Picasso", "target": 10 },
-		{ "name": "Henri Matisse", "target": 10 },
-		{ "name": "Georges Braque", "target": 6 },
-		{ "name": "Marc Chagall", "target": 6 },
-		{ "name": "Joan Miró", "target": 6 },
-		{ "name": "Giorgio de Chirico", "target": 8 },
-		{ "name": "Salvador Dalí", "target": 5 },
-		{ "name": "René Magritte", "target": 5 },
-		{ "name": "Max Ernst", "target": 5 },
-		{ "name": "Fernand Léger", "target": 5 },
-		{ "name": "Frida Kahlo", "target": 5 },
-		{ "name": "Diego Rivera", "target": 6 },
-		{ "name": "Edward Hopper", "target": 8 },
-		{ "name": "Georgia O'Keeffe", "target": 5 },
-		{ "name": "Mark Rothko", "target": 4 },
-		{ "name": "Jackson Pollock", "target": 4 },
-		{ "name": "Willem de Kooning", "target": 4 },
-		{ "name": "Barnett Newman", "target": 3 },
-		{ "name": "Helen Frankenthaler", "target": 3 },
-		{ "name": "Agnes Martin", "target": 3 },
-		{ "name": "Joan Mitchell", "target": 3 },
-		{ "name": "Cy Twombly", "target": 3 },
-		{ "name": "Gerhard Richter", "target": 3 },
-		{ "name": "Andrew Wyeth", "target": 3 },
-		{ "name": "George Tooker", "target": 3 },
-		{ "name": "Balthus", "target": 3 },
-		{ "name": "Lucian Freud", "target": 3 },
-		{ "name": "Francis Bacon", "target": 3 },
-		{ "name": "Alice Neel", "target": 3 },
-		{ "name": "Antonio López García", "target": 3 }
+		{
+			"name": "Giotto",
+			"target": 12
+		},
+		{
+			"name": "Duccio di Buoninsegna",
+			"target": 8
+		},
+		{
+			"name": "Simone Martini",
+			"target": 8
+		},
+		{
+			"name": "Masaccio",
+			"target": 10
+		},
+		{
+			"name": "Fra Angelico",
+			"target": 12
+		},
+		{
+			"name": "Piero della Francesca",
+			"target": 12
+		},
+		{
+			"name": "Andrea Mantegna",
+			"target": 12
+		},
+		{
+			"name": "Giovanni Bellini",
+			"target": 16
+		},
+		{
+			"name": "Sandro Botticelli",
+			"target": 20
+		},
+		{
+			"name": "Leonardo da Vinci",
+			"target": 20
+		},
+		{
+			"name": "Michelangelo",
+			"target": 16
+		},
+		{
+			"name": "Raphael",
+			"target": 20
+		},
+		{
+			"name": "Titian",
+			"target": 24
+		},
+		{
+			"name": "Tintoretto",
+			"target": 16
+		},
+		{
+			"name": "Paolo Veronese",
+			"target": 16
+		},
+		{
+			"name": "Correggio",
+			"target": 10
+		},
+		{
+			"name": "Jan van Eyck",
+			"target": 16
+		},
+		{
+			"name": "Rogier van der Weyden",
+			"target": 12
+		},
+		{
+			"name": "Hans Memling",
+			"target": 12
+		},
+		{
+			"name": "Hieronymus Bosch",
+			"target": 16
+		},
+		{
+			"name": "Pieter Bruegel the Elder",
+			"qid": "Q43270",
+			"target": 20
+		},
+		{
+			"name": "Albrecht Dürer",
+			"target": 20
+		},
+		{
+			"name": "Hans Holbein the Younger",
+			"target": 16
+		},
+		{
+			"name": "Lucas Cranach the Elder",
+			"target": 12
+		},
+		{
+			"name": "Matthias Grünewald",
+			"target": 8
+		},
+		{
+			"name": "El Greco",
+			"target": 20
+		},
+		{
+			"name": "Caravaggio",
+			"target": 20
+		},
+		{
+			"name": "Artemisia Gentileschi",
+			"target": 16
+		},
+		{
+			"name": "Annibale Carracci",
+			"target": 10
+		},
+		{
+			"name": "Guido Reni",
+			"target": 10
+		},
+		{
+			"name": "Peter Paul Rubens",
+			"target": 24
+		},
+		{
+			"name": "Anthony van Dyck",
+			"target": 16
+		},
+		{
+			"name": "Rembrandt",
+			"target": 24
+		},
+		{
+			"name": "Johannes Vermeer",
+			"target": 24
+		},
+		{
+			"name": "Frans Hals",
+			"target": 16
+		},
+		{
+			"name": "Jan Steen",
+			"target": 12
+		},
+		{
+			"name": "Jacob van Ruisdael",
+			"target": 12
+		},
+		{
+			"name": "Pieter de Hooch",
+			"target": 10
+		},
+		{
+			"name": "Diego Velázquez",
+			"target": 24
+		},
+		{
+			"name": "Francisco de Zurbarán",
+			"target": 16
+		},
+		{
+			"name": "Jusepe de Ribera",
+			"target": 12
+		},
+		{
+			"name": "Bartolomé Esteban Murillo",
+			"target": 16
+		},
+		{
+			"name": "Nicolas Poussin",
+			"target": 16
+		},
+		{
+			"name": "Claude Lorrain",
+			"target": 12
+		},
+		{
+			"name": "Georges de La Tour",
+			"target": 12
+		},
+		{
+			"name": "Antoine Watteau",
+			"target": 12
+		},
+		{
+			"name": "Jean-Honoré Fragonard",
+			"target": 12
+		},
+		{
+			"name": "François Boucher",
+			"target": 12
+		},
+		{
+			"name": "Jean-Baptiste-Siméon Chardin",
+			"target": 12
+		},
+		{
+			"name": "Canaletto",
+			"target": 12
+		},
+		{
+			"name": "Giovanni Battista Tiepolo",
+			"target": 12
+		},
+		{
+			"name": "Thomas Gainsborough",
+			"target": 12
+		},
+		{
+			"name": "Joshua Reynolds",
+			"target": 10
+		},
+		{
+			"name": "Jacques-Louis David",
+			"target": 16
+		},
+		{
+			"name": "Jean-Auguste-Dominique Ingres",
+			"target": 16
+		},
+		{
+			"name": "Francisco Goya",
+			"target": 24
+		},
+		{
+			"name": "William Blake",
+			"target": 12
+		},
+		{
+			"name": "Henry Fuseli",
+			"target": 8
+		},
+		{
+			"name": "Caspar David Friedrich",
+			"target": 20
+		},
+		{
+			"name": "J. M. W. Turner",
+			"target": 24
+		},
+		{
+			"name": "John Constable",
+			"target": 16
+		},
+		{
+			"name": "Théodore Géricault",
+			"target": 12
+		},
+		{
+			"name": "Eugène Delacroix",
+			"target": 20
+		},
+		{
+			"name": "Gustave Courbet",
+			"target": 16
+		},
+		{
+			"name": "Jean-François Millet",
+			"target": 12
+		},
+		{
+			"name": "Honoré Daumier",
+			"target": 10
+		},
+		{
+			"name": "Camille Corot",
+			"target": 12
+		},
+		{
+			"name": "Édouard Manet",
+			"target": 24
+		},
+		{
+			"name": "James McNeill Whistler",
+			"target": 16
+		},
+		{
+			"name": "Winslow Homer",
+			"target": 16
+		},
+		{
+			"name": "Thomas Eakins",
+			"target": 12
+		},
+		{
+			"name": "John Singer Sargent",
+			"target": 20
+		},
+		{
+			"name": "Arnold Böcklin",
+			"target": 12
+		},
+		{
+			"name": "Gustave Moreau",
+			"target": 12
+		},
+		{
+			"name": "Odilon Redon",
+			"target": 16
+		},
+		{
+			"name": "Pierre Puvis de Chavannes",
+			"target": 8
+		},
+		{
+			"name": "Félix Vallotton",
+			"target": 12
+		},
+		{
+			"name": "Claude Monet",
+			"target": 24
+		},
+		{
+			"name": "Pierre-Auguste Renoir",
+			"target": 24
+		},
+		{
+			"name": "Edgar Degas",
+			"target": 24
+		},
+		{
+			"name": "Berthe Morisot",
+			"target": 16
+		},
+		{
+			"name": "Mary Cassatt",
+			"target": 16
+		},
+		{
+			"name": "Camille Pissarro",
+			"target": 16
+		},
+		{
+			"name": "Alfred Sisley",
+			"target": 12
+		},
+		{
+			"name": "Gustave Caillebotte",
+			"target": 12
+		},
+		{
+			"name": "Paul Cézanne",
+			"target": 24
+		},
+		{
+			"name": "Vincent van Gogh",
+			"target": 24
+		},
+		{
+			"name": "Paul Gauguin",
+			"target": 20
+		},
+		{
+			"name": "Georges Seurat",
+			"target": 16
+		},
+		{
+			"name": "Henri de Toulouse-Lautrec",
+			"target": 16
+		},
+		{
+			"name": "Henri Rousseau",
+			"target": 16
+		},
+		{
+			"name": "John Everett Millais",
+			"target": 12
+		},
+		{
+			"name": "Dante Gabriel Rossetti",
+			"target": 12
+		},
+		{
+			"name": "William Holman Hunt",
+			"target": 8
+		},
+		{
+			"name": "Edward Burne-Jones",
+			"target": 12
+		},
+		{
+			"name": "John William Waterhouse",
+			"target": 12
+		},
+		{
+			"name": "Frederic Leighton",
+			"target": 10
+		},
+		{
+			"name": "Lawrence Alma-Tadema",
+			"target": 10
+		},
+		{
+			"name": "Gustav Klimt",
+			"target": 20
+		},
+		{
+			"name": "Egon Schiele",
+			"target": 16
+		},
+		{
+			"name": "Edvard Munch",
+			"target": 20
+		},
+		{
+			"name": "Wassily Kandinsky",
+			"target": 20
+		},
+		{
+			"name": "Piet Mondrian",
+			"target": 16
+		},
+		{
+			"name": "Kazimir Malevich",
+			"target": 16
+		},
+		{
+			"name": "Paul Klee",
+			"qid": "Q44007",
+			"target": 16
+		},
+		{
+			"name": "Franz Marc",
+			"target": 12
+		},
+		{
+			"name": "August Macke",
+			"target": 10
+		},
+		{
+			"name": "Ernst Ludwig Kirchner",
+			"target": 12
+		},
+		{
+			"name": "Amedeo Modigliani",
+			"target": 16
+		},
+		{
+			"name": "Vilhelm Hammershøi",
+			"target": 16
+		},
+		{
+			"name": "Ilya Repin",
+			"target": 12
+		},
+		{
+			"name": "Ivan Aivazovsky",
+			"target": 12
+		},
+		{
+			"name": "Isaac Levitan",
+			"target": 10
+		},
+		{
+			"name": "Mikhail Vrubel",
+			"target": 10
+		},
+		{
+			"name": "Joaquín Sorolla",
+			"target": 16
+		},
+		{
+			"name": "Katsushika Hokusai",
+			"target": 16
+		},
+		{
+			"name": "Utagawa Hiroshige",
+			"target": 16
+		},
+		{
+			"name": "Kitagawa Utamaro",
+			"target": 10
+		},
+		{
+			"name": "Sesshū Tōyō",
+			"target": 8
+		},
+		{
+			"name": "Shen Zhou",
+			"target": 10
+		},
+		{
+			"name": "Qi Baishi",
+			"target": 10
+		},
+		{
+			"name": "Raja Ravi Varma",
+			"target": 12
+		},
+		{
+			"name": "Abanindranath Tagore",
+			"target": 8
+		},
+		{
+			"name": "Amrita Sher-Gil",
+			"target": 10
+		},
+		{
+			"name": "Kamal-ol-Molk",
+			"target": 8
+		},
+		{
+			"name": "Osman Hamdi Bey",
+			"target": 8
+		},
+		{
+			"name": "José María Velasco",
+			"target": 8
+		},
+		{
+			"name": "Martín Tovar y Tovar",
+			"target": 6
+		},
+		{
+			"name": "Juan Luna",
+			"target": 8
+		},
+		{
+			"name": "Raden Saleh",
+			"target": 8
+		},
+		{
+			"name": "Henry Ossawa Tanner",
+			"target": 10
+		},
+		{
+			"name": "Edmonia Lewis",
+			"target": 4
+		},
+		{
+			"name": "Grant Wood",
+			"target": 8
+		},
+		{
+			"name": "Tarsila do Amaral",
+			"target": 8
+		},
+		{
+			"name": "Anders Zorn",
+			"target": 10
+		},
+		{
+			"name": "Akseli Gallen-Kallela",
+			"target": 10
+		},
+		{
+			"name": "Peder Severin Krøyer",
+			"target": 10
+		},
+		{
+			"name": "Jean-Léon Gérôme",
+			"target": 12
+		},
+		{
+			"name": "William-Adolphe Bouguereau",
+			"target": 12
+		},
+		{
+			"name": "Rosa Bonheur",
+			"target": 8
+		},
+		{
+			"name": "Élisabeth Vigée Le Brun",
+			"target": 12
+		},
+		{
+			"name": "Angelica Kauffman",
+			"target": 8
+		},
+		{
+			"name": "Judith Leyster",
+			"target": 8
+		},
+		{
+			"name": "Rachel Ruysch",
+			"target": 8
+		},
+		{
+			"name": "Clara Peeters",
+			"target": 8
+		},
+		{
+			"name": "Sofonisba Anguissola",
+			"target": 10
+		},
+		{
+			"name": "Lavinia Fontana",
+			"target": 8
+		},
+		{
+			"name": "Pablo Picasso",
+			"target": 20
+		},
+		{
+			"name": "Henri Matisse",
+			"target": 20
+		},
+		{
+			"name": "Georges Braque",
+			"target": 12
+		},
+		{
+			"name": "Marc Chagall",
+			"target": 12
+		},
+		{
+			"name": "Joan Miró",
+			"target": 12
+		},
+		{
+			"name": "Giorgio de Chirico",
+			"target": 16
+		},
+		{
+			"name": "Salvador Dalí",
+			"target": 10
+		},
+		{
+			"name": "René Magritte",
+			"target": 10
+		},
+		{
+			"name": "Max Ernst",
+			"target": 10
+		},
+		{
+			"name": "Fernand Léger",
+			"target": 10
+		},
+		{
+			"name": "Frida Kahlo",
+			"target": 10
+		},
+		{
+			"name": "Diego Rivera",
+			"target": 12
+		},
+		{
+			"name": "Edward Hopper",
+			"target": 16
+		},
+		{
+			"name": "Georgia O'Keeffe",
+			"target": 10
+		},
+		{
+			"name": "Mark Rothko",
+			"target": 8
+		},
+		{
+			"name": "Jackson Pollock",
+			"target": 8
+		},
+		{
+			"name": "Willem de Kooning",
+			"target": 8
+		},
+		{
+			"name": "Barnett Newman",
+			"target": 6
+		},
+		{
+			"name": "Helen Frankenthaler",
+			"target": 6
+		},
+		{
+			"name": "Agnes Martin",
+			"target": 6
+		},
+		{
+			"name": "Joan Mitchell",
+			"target": 6
+		},
+		{
+			"name": "Cy Twombly",
+			"target": 6
+		},
+		{
+			"name": "Gerhard Richter",
+			"target": 6
+		},
+		{
+			"name": "Andrew Wyeth",
+			"target": 6
+		},
+		{
+			"name": "George Tooker",
+			"target": 6
+		},
+		{
+			"name": "Balthus",
+			"target": 6
+		},
+		{
+			"name": "Lucian Freud",
+			"target": 6
+		},
+		{
+			"name": "Francis Bacon",
+			"target": 6
+		},
+		{
+			"name": "Alice Neel",
+			"target": 6
+		},
+		{
+			"name": "Antonio López García",
+			"target": 6
+		}
 	]
 }
