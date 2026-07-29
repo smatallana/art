@@ -39,7 +39,9 @@ interface FakeOptions {
 	hanging?: Set<string>;
 }
 
-function fakeDeps(opts: FakeOptions): CatalogDeps & { store: Map<string, Work>; kv: Map<string, unknown>; fetches: string[] } {
+function fakeDeps(
+	opts: FakeOptions
+): CatalogDeps & { store: Map<string, Work>; kv: Map<string, unknown>; fetches: string[] } {
 	const store = new Map<string, Work>((opts.cached ?? []).map((w) => [w.id, w]));
 	const kv = new Map<string, unknown>();
 	if (opts.cachedIndex) kv.set('catalog-index', opts.cachedIndex);

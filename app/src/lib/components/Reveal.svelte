@@ -149,9 +149,15 @@
 			<div class="block strength">
 				<p class="prompt-line">{t.session.strengthPrompt}</p>
 				<div class="chips">
-					<button class="chip" onclick={() => sendStrength('slight')}>{t.session.strengthSlight}</button>
-					<button class="chip" onclick={() => sendStrength('clear')}>{t.session.strengthClear}</button>
-					<button class="chip" onclick={() => sendStrength('strong')}>{t.session.strengthStrong}</button>
+					<button class="chip" onclick={() => sendStrength('slight')}
+						>{t.session.strengthSlight}</button
+					>
+					<button class="chip" onclick={() => sendStrength('clear')}
+						>{t.session.strengthClear}</button
+					>
+					<button class="chip" onclick={() => sendStrength('strong')}
+						>{t.session.strengthStrong}</button
+					>
 				</div>
 			</div>
 		{/if}

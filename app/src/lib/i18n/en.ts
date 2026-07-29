@@ -53,7 +53,8 @@ export const t = {
 		summaryAgainNeutral: 'Another session',
 		summaryHome: 'End session',
 		summarySaved: 'Your choices are saved.',
-		emptyPool: 'You have seen everything we can pair right now — the collection grows continuously.',
+		emptyPool:
+			'You have seen everything we can pair right now — the collection grows continuously.',
 		// Session-close insight (always evidence-backed, never invented)
 		insightHeadline: 'A pattern is emerging',
 		insightHeadlineEarly: 'An early signal',

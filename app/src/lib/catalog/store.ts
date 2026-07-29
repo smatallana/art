@@ -201,8 +201,7 @@ async function doLoad(
 
 	// 4. Same generation already cached → nothing to download.
 	const prev = (await deps.kvGet('catalog-index').catch(() => undefined)) as
-		| CatalogIndex
-		| undefined;
+		CatalogIndex | undefined;
 	if (
 		state.fromCache &&
 		prev &&

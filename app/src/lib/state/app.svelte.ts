@@ -177,7 +177,12 @@ class AppState {
 		if (!cur || this.engine?.state.phase !== 'revealed') return false;
 		const ids = new Set([cur.aId, cur.bId]);
 		if (event.t === 'strength') return ids.has(event.a) && ids.has(event.b);
-		if (event.t === 'reaction' || event.t === 'save' || event.t === 'unsave' || event.t === 'remember') {
+		if (
+			event.t === 'reaction' ||
+			event.t === 'save' ||
+			event.t === 'unsave' ||
+			event.t === 'remember'
+		) {
 			return ids.has(event.work);
 		}
 		return false;

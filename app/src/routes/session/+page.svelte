@@ -14,9 +14,7 @@
 
 	const sess = $derived(app.engine?.state ?? null);
 	// Events belonging to THIS session (ISO strings compare chronologically).
-	const sessionEvents = $derived(
-		sess ? app.events.filter((e) => e.at >= sess.startedAt) : []
-	);
+	const sessionEvents = $derived(sess ? app.events.filter((e) => e.at >= sess.startedAt) : []);
 	let microDismissed = $state(-1);
 	const micro = $derived.by(() => {
 		if (!sess || sess.phase !== 'choosing') return null;
@@ -72,8 +70,10 @@
 	function onKey(e: KeyboardEvent): void {
 		if (!sess) return;
 		if (sess.phase === 'choosing') {
-			if (e.key === '1' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') void choose(flipped ? 'b' : 'a');
-			else if (e.key === '2' || e.key === 'ArrowDown' || e.key === 'ArrowRight') void choose(flipped ? 'a' : 'b');
+			if (e.key === '1' || e.key === 'ArrowUp' || e.key === 'ArrowLeft')
+				void choose(flipped ? 'b' : 'a');
+			else if (e.key === '2' || e.key === 'ArrowDown' || e.key === 'ArrowRight')
+				void choose(flipped ? 'a' : 'b');
 		} else if (sess.phase === 'revealed' && e.key === 'Enter') {
 			void next();
 		}
@@ -146,12 +146,16 @@
 				</h1>
 				{#if summary.patterns.length > 0}
 					<p class="insight">
-						{(summary.patterns[0].n >= 3 ? t.session.insightPattern : t.session.insightPatternEarly)(
+						{(summary.patterns[0].n >= 3
+							? t.session.insightPattern
+							: t.session.insightPatternEarly)(
 							summary.patterns.map((p) => p.label.toLowerCase()).join(' and ')
 						)}
 					</p>
 					{#if summary.counter}
-						<p class="insight-sub">{t.session.insightCounter(summary.counter.label.toLowerCase())}</p>
+						<p class="insight-sub">
+							{t.session.insightCounter(summary.counter.label.toLowerCase())}
+						</p>
 					{/if}
 				{:else if summary.answered > 0}
 					<p class="insight">{t.session.insightNone}</p>

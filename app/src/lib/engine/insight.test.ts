@@ -8,7 +8,13 @@ const pool = testPool();
 const byId = (id: string) => pool.find((w) => w.id === id);
 
 const DIMS: OntologyDim[] = [
-	{ id: 'color.saturation', group: 'formal', kind: 'scale', label: 'Saturation', poles: ['muted palettes', 'vivid color'] },
+	{
+		id: 'color.saturation',
+		group: 'formal',
+		kind: 'scale',
+		label: 'Saturation',
+		poles: ['muted palettes', 'vivid color']
+	},
 	{ id: 'mood.serenity', group: 'mood', kind: 'intensity', label: 'Serenity' }
 ];
 
@@ -74,7 +80,11 @@ describe('sessionSummary', () => {
 	it('claims nothing from both/neither-only sessions', () => {
 		const a = pool[0]!;
 		const b = pool[1]!;
-		const s = sessionSummary([choice(a.id, b.id, 'both'), choice(a.id, b.id, 'neither')], byId, DIMS);
+		const s = sessionSummary(
+			[choice(a.id, b.id, 'both'), choice(a.id, b.id, 'neither')],
+			byId,
+			DIMS
+		);
 		expect(s.patterns).toHaveLength(0);
 		expect(s.answered).toBe(2);
 		expect(microInsight([], byId, DIMS)).toBeNull();
