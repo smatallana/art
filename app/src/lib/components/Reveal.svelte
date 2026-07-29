@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Work } from '../catalog/types';
 	import type { ElementId, EmotionId, PairAspect } from '../engine/events';
+	import { CONTENT_PROBLEM_ASPECTS } from '../engine/events';
 	import { explainPair, wantsStrength } from '../engine/insight';
 	import { ONTOLOGY_DIMS } from '../engine/ontology';
 	import type { SessionPair } from '../engine/session';
@@ -225,7 +226,13 @@
 				{/each}
 			</div>
 			{#if pick === 'neither' && aspects.length > 0}
-				<p class="meta">{t.session.neitherLearning}</p>
+				<!-- Honest about what the model does: a content flag means the pair
+				     is NOT counted, so the "lean away" promise would be false. -->
+				<p class="meta">
+					{aspects.some((a) => CONTENT_PROBLEM_ASPECTS.has(a))
+						? t.session.neitherLearningFlagged
+						: t.session.neitherLearning}
+				</p>
 			{/if}
 		</div>
 	{/if}

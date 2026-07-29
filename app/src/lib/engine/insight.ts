@@ -9,9 +9,10 @@
  * provisional.
  */
 import type { Work } from '../catalog/types';
-import type { AppEvent } from './events';
-import { effectiveEvents } from './events';
-import { features } from './model';
+import type { AppEvent, PairAspect } from './events';
+import { CONTENT_PROBLEM_ASPECTS, effectiveEvents } from './events';
+import { collectPairAnnotations, features, STRENGTH_OMEGA } from './model';
+import { pairKey } from './selector';
 import type { OntologyDim } from './profile';
 import { directionLabel } from './profile';
 import type { SessionPair } from './session';
@@ -63,52 +64,126 @@ export function explainPair(
 
 export interface SessionInsight {
 	/** Dims with the most consistent session-local evidence, with direction. */
-	patterns: { label: string; n: number }[];
+	patterns: { dimId: string; label: string; n: number }[];
 	/** A pattern the session contradicted (chosen against), if any. */
-	counter: { label: string } | null;
-	/** Work ids that anchor the patterns (chosen works), most recent first. */
+	counter: { dimId: string; label: string } | null;
+	/** Chosen works of the pairs that contributed MOST to the top pattern
+	 *  (contribution-ranked, saves/remembers as tiebreak — never mere recency). */
 	evidenceWorkIds: string[];
+	/** The chosen work of the strongest AGAINST-pattern pair, if any. */
+	counterExampleWorkId: string | null;
 	/** A dimension the session touched but left genuinely unresolved. */
-	openQuestion: string | null;
+	openQuestion: { id: string; label: string } | null;
+	/** ≥2 neither answers sharing a taste aspect — rejection is evidence too. */
+	rejection: { aspect: PairAspect; n: number } | null;
+	/** ≥2 both answers sharing an aspect — what the pairs had in common. */
+	shared: { aspect: PairAspect; n: number } | null;
 	answered: number;
 }
 
+/** Aspects that describe taste (not content problems, not "don't know"). */
+const TASTE_ASPECTS: ReadonlySet<PairAspect> = new Set([
+	'subject',
+	'color',
+	'style',
+	'atmosphere',
+	'emotion',
+	'composition',
+	'technique',
+	'too-decorative',
+	'too-abstract',
+	'too-busy',
+	'flat',
+	'no-pull',
+	'too-similar'
+]);
+
 /**
  * What THIS session taught: net per-dimension pull from its pair choices
- * (chosen minus rejected features). Thresholded — fewer than 2 consistent
- * signals on a dim is not a pattern.
+ * (chosen minus rejected features), weighted by the strength the user gave
+ * (same multipliers as the model), with content-flagged pairs excluded.
+ * Thresholded — fewer than 2 consistent signals on a dim is not a pattern.
  */
 export function sessionSummary(
 	sessionEvents: AppEvent[],
 	workById: (id: string) => Work | undefined,
 	dims: OntologyDim[]
 ): SessionInsight {
+	const live = effectiveEvents(sessionEvents);
+	const ann = collectPairAnnotations(live);
 	const byId = new Map(dims.map((d) => [d.id, d]));
 	const pull = new Map<string, { net: number; n: number }>();
-	const evidence: string[] = [];
+	/** Per answered a/b pair: what it pulled, for contribution ranking later. */
+	const pairRecords: { chosenId: string; d: Map<string, number> }[] = [];
+	const savedIds = new Set<string>();
+	const aspectCounts = {
+		neither: new Map<PairAspect, number>(),
+		both: new Map<PairAspect, number>()
+	};
+	let neitherCount = 0;
+	let bothCount = 0;
 	let answered = 0;
 
-	for (const e of effectiveEvents(sessionEvents)) {
+	for (const e of live) {
+		if (e.t === 'save' || e.t === 'remember') savedIds.add(e.work);
+		if (e.t === 'pair_feedback') {
+			// Last feedback per pair wins; simplest faithful count: recount below.
+			continue;
+		}
 		if (e.t !== 'pair_choice') continue;
 		answered++;
+		if (e.pick === 'neither') neitherCount++;
+		if (e.pick === 'both') bothCount++;
 		if (e.pick !== 'a' && e.pick !== 'b') continue;
+		// A pair the user flagged as broken content teaches nothing here either.
+		if (ann.contentFlagged.has(pairKey(e.a, e.b))) continue;
 		const chosen = workById(e.pick === 'a' ? e.a : e.b);
 		const other = workById(e.pick === 'a' ? e.b : e.a);
 		if (!chosen || !other) continue;
-		evidence.unshift(chosen.id);
+		const level = ann.strength.get(pairKey(e.a, e.b));
+		const w = level ? (STRENGTH_OMEGA[level] ?? 1) : 1;
 		const fc = features(chosen);
 		const fo = features(other);
 		const ids = new Set([...fc.keys(), ...fo.keys()]);
+		const record = { chosenId: chosen.id, d: new Map<string, number>() };
 		for (const id of ids) {
 			if (id.startsWith('era.')) continue;
 			const d = (fc.get(id) ?? 0) - (fo.get(id) ?? 0);
 			if (Math.abs(d) < 0.2) continue;
 			const cur = pull.get(id) ?? { net: 0, n: 0 };
-			cur.net += d;
+			cur.net += d * w;
 			cur.n++;
 			pull.set(id, cur);
+			record.d.set(id, d * w);
+		}
+		pairRecords.push(record);
+	}
+
+	// Aspect evidence from the LAST feedback per pair (toggles re-emit full arrays).
+	const lastFeedback = new Map<string, { kind: string; aspects: PairAspect[] }>();
+	for (const e of live) {
+		if (e.t === 'pair_feedback') {
+			lastFeedback.set(pairKey(e.a, e.b), { kind: e.kind, aspects: e.aspects });
 		}
 	}
+	for (const fb of lastFeedback.values()) {
+		const bucket =
+			fb.kind === 'pushed-away'
+				? aspectCounts.neither
+				: fb.kind === 'shared'
+					? aspectCounts.both
+					: null;
+		if (!bucket) continue;
+		for (const a of fb.aspects) {
+			if (!TASTE_ASPECTS.has(a) || CONTENT_PROBLEM_ASPECTS.has(a)) continue;
+			bucket.set(a, (bucket.get(a) ?? 0) + 1);
+		}
+	}
+	const topAspect = (m: Map<PairAspect, number>, minAnswers: number, have: number) => {
+		if (have < minAnswers) return null;
+		const top = [...m.entries()].sort((x, y) => y[1] - x[1])[0];
+		return top && top[1] >= 2 ? { aspect: top[0], n: top[1] } : null;
+	};
 
 	const scored = [...pull.entries()]
 		.filter(([id, p]) => byId.has(id) && p.n >= 2 && Math.abs(p.net) >= 0.8)
@@ -118,18 +193,53 @@ export function sessionSummary(
 	const patterns = scored
 		.filter((s) => s.net > 0)
 		.slice(0, 2)
-		.map((s) => ({ label: directionLabel(s.dim, s.net), n: s.n }));
+		.map((s) => ({ dimId: s.dim.id, label: directionLabel(s.dim, s.net), n: s.n }));
 	const negative = scored.find((s) => s.net < 0);
 	// A dim with many observations but near-zero net pull is genuinely open.
 	const open = [...pull.entries()]
 		.filter(([id, p]) => byId.has(id) && p.n >= 3 && Math.abs(p.net) < 0.4)
 		.sort((x, y) => y[1].n - x[1].n)[0];
 
+	// Evidence = chosen works of the pairs that actually produced the top
+	// pattern, strongest contribution first; saves break ties. A recent pick
+	// that contributed nothing to the headline does not appear.
+	let evidenceWorkIds: string[] = [];
+	let counterExampleWorkId: string | null = null;
+	const topDim = patterns[0]?.dimId;
+	if (topDim) {
+		const sign = Math.sign(pull.get(topDim)?.net ?? 1) || 1;
+		const contributions = pairRecords
+			.map((r) => ({ id: r.chosenId, c: (r.d.get(topDim) ?? 0) * sign }))
+			.filter((r) => r.c !== 0);
+		contributions.sort(
+			(x, y) => y.c - x.c || Number(savedIds.has(y.id)) - Number(savedIds.has(x.id))
+		);
+		evidenceWorkIds = [...new Set(contributions.filter((r) => r.c > 0).map((r) => r.id))].slice(
+			0,
+			3
+		);
+		const worst = contributions[contributions.length - 1];
+		if (worst && worst.c < -0.2) counterExampleWorkId = worst.id;
+	} else {
+		// No pattern: fall back to chosen works, saves first, then recency.
+		const chosenIds = pairRecords.map((r) => r.chosenId).reverse();
+		evidenceWorkIds = [
+			...new Set([...chosenIds.filter((id) => savedIds.has(id)), ...chosenIds])
+		].slice(0, 3);
+	}
+
 	return {
 		patterns,
-		counter: negative ? { label: directionLabel(negative.dim, -negative.net) } : null,
-		evidenceWorkIds: evidence.slice(0, 3),
-		openQuestion: open ? (byId.get(open[0]) as OntologyDim).label.toLowerCase() : null,
+		counter: negative
+			? { dimId: negative.dim.id, label: directionLabel(negative.dim, -negative.net) }
+			: null,
+		evidenceWorkIds,
+		counterExampleWorkId,
+		openQuestion: open
+			? { id: open[0], label: (byId.get(open[0]) as OntologyDim).label.toLowerCase() }
+			: null,
+		rejection: topAspect(aspectCounts.neither, 2, neitherCount),
+		shared: topAspect(aspectCounts.both, 2, bothCount),
 		answered
 	};
 }

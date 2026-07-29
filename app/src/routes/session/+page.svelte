@@ -162,6 +162,16 @@
 				{:else}
 					<p class="empty">{t.session.emptyPool}</p>
 				{/if}
+				{#if summary.rejection}
+					<p class="insight-sub">
+						{t.session.insightRejection(t.aspects[summary.rejection.aspect], summary.rejection.n)}
+					</p>
+				{/if}
+				{#if summary.shared}
+					<p class="insight-sub">
+						{t.session.insightShared(t.aspects[summary.shared.aspect])}
+					</p>
+				{/if}
 				{#if summary.evidenceWorkIds.length > 0}
 					<div class="evidence">
 						<p class="evidence-label">{t.session.insightEvidence}</p>
@@ -177,9 +187,18 @@
 						</div>
 					</div>
 				{/if}
+				{#if summary.counterExampleWorkId}
+					{@const cw = app.work(summary.counterExampleWorkId)}
+					{#if cw}
+						<p class="insight-sub counter-example">
+							{t.session.insightCounterExample}
+							<a href={`${base}/work/${cw.id}/`}>{cw.title}</a>
+						</p>
+					{/if}
+				{/if}
 				{#if summary.openQuestion}
-					<p class="insight-sub">{t.session.insightOpen(summary.openQuestion)}</p>
-					<p class="insight-sub next-hint">{t.session.insightNext(summary.openQuestion)}</p>
+					<p class="insight-sub">{t.session.insightOpen(summary.openQuestion.label)}</p>
+					<p class="insight-sub next-hint">{t.session.insightNext(summary.openQuestion.label)}</p>
 				{/if}
 				<div class="summary-actions">
 					<button

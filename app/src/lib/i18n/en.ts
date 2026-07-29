@@ -68,6 +68,11 @@ export const t = {
 		insightOpen: (dim: string) => `Still open: how much ${dim} matters to you.`,
 		insightNext: (dim: string) => `The next session can test ${dim} directly.`,
 		insightEvidence: 'From this session',
+		insightRejection: (phrase: string, n: number) =>
+			`You pushed pairs away ${n} times over the same thing: ${phrase.toLowerCase()}.`,
+		insightShared: (phrase: string) =>
+			`When both works drew you in, what they shared was ${phrase.toLowerCase()}.`,
+		insightCounterExample: 'You also once chose the opposite:',
 		microPrefix: 'So far:',
 		micro: (label: string) => `you are leaning toward ${label.toLowerCase()}.`,
 		// Reveal branches
@@ -78,6 +83,7 @@ export const t = {
 		unsureTitle: 'No clear preference',
 		unsurePrompt: 'Why was it hard? (optional)',
 		neitherLearning: 'We will lean away from pairings like this while we check why.',
+		neitherLearningFlagged: 'We will not count this pair — thanks for flagging it.',
 		addContext: 'Add context to this choice',
 		learnMore: 'About this work',
 		whyPairSpecific: (a: string, b?: string) =>

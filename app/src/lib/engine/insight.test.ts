@@ -60,10 +60,43 @@ describe('explainPair', () => {
 	});
 });
 
+function feedback(
+	a: string,
+	b: string,
+	kind: 'shared' | 'pushed-away' | 'unsure-why',
+	aspects: string[]
+): AppEvent {
+	return {
+		id: `f-${seq++}`,
+		at: new Date(1700000000000 + seq * 1000).toISOString(),
+		device: 't',
+		hour: 12,
+		t: 'pair_feedback',
+		a,
+		b,
+		kind,
+		aspects
+	} as AppEvent;
+}
+
+function strength(a: string, b: string, level: 'slight' | 'clear' | 'strong'): AppEvent {
+	return {
+		id: `st-${seq++}`,
+		at: new Date(1700000000000 + seq * 1000).toISOString(),
+		device: 't',
+		hour: 12,
+		t: 'strength',
+		a,
+		b,
+		level
+	} as AppEvent;
+}
+
 describe('sessionSummary', () => {
-	it('finds a planted pattern from consistent choices', () => {
-		const saturated = pool.filter((w) => (w.tags['color.saturation']?.v ?? 0) > 0.7);
-		const muted = pool.filter((w) => (w.tags['color.saturation']?.v ?? 1) < 0.3);
+	const saturated = pool.filter((w) => (w.tags['color.saturation']?.v ?? 0) > 0.7);
+	const muted = pool.filter((w) => (w.tags['color.saturation']?.v ?? 1) < 0.3);
+
+	it('finds a planted pattern from consistent choices, with dim ids', () => {
 		const events: AppEvent[] = [];
 		for (let i = 0; i < 4 && i < saturated.length && i < muted.length; i++) {
 			events.push(choice(saturated[i]!.id, muted[i]!.id, 'a'));
@@ -72,6 +105,7 @@ describe('sessionSummary', () => {
 		expect(s.answered).toBe(4);
 		expect(s.patterns.length).toBeGreaterThan(0);
 		expect(s.patterns[0]?.label.toLowerCase()).toContain('vivid');
+		expect(s.patterns[0]?.dimId).toBe('color.saturation');
 		expect(s.evidenceWorkIds.length).toBeGreaterThan(0);
 		const m = microInsight(events, byId, DIMS);
 		expect(m?.toLowerCase()).toContain('vivid');
@@ -88,5 +122,97 @@ describe('sessionSummary', () => {
 		expect(s.patterns).toHaveLength(0);
 		expect(s.answered).toBe(2);
 		expect(microInsight([], byId, DIMS)).toBeNull();
+	});
+
+	it('strength weighting amplifies the pull without inflating the count', () => {
+		const base = [
+			choice(saturated[0]!.id, muted[0]!.id, 'a'),
+			choice(saturated[1]!.id, muted[1]!.id, 'a')
+		];
+		const withStrong = [
+			...base,
+			strength(saturated[0]!.id, muted[0]!.id, 'strong'),
+			strength(saturated[1]!.id, muted[1]!.id, 'strong')
+		];
+		const plain = sessionSummary(base, byId, DIMS).patterns.find(
+			(p) => p.dimId === 'color.saturation'
+		);
+		const strong = sessionSummary(withStrong, byId, DIMS).patterns.find(
+			(p) => p.dimId === 'color.saturation'
+		);
+		expect(strong).toBeDefined();
+		if (plain && strong) expect(strong.n).toBe(plain.n);
+	});
+
+	it('content-flagged pairs are excluded from the pull', () => {
+		const events: AppEvent[] = [];
+		for (let i = 0; i < 4 && i < saturated.length && i < muted.length; i++) {
+			events.push(choice(saturated[i]!.id, muted[i]!.id, 'a'));
+			events.push(feedback(saturated[i]!.id, muted[i]!.id, 'unsure-why', ['image-quality']));
+		}
+		const s = sessionSummary(events, byId, DIMS);
+		expect(s.patterns).toHaveLength(0);
+		expect(s.answered).toBe(4);
+	});
+
+	it('evidence is ranked by contribution, not recency', () => {
+		// Three strong-contrast pairs, then one weak-contrast pair LAST: the
+		// most recent chosen work must not displace stronger contributors.
+		const weakVivid = testWork('weak-vivid', { tags: { 'color.saturation': 0.55 } });
+		const weakMuted = testWork('weak-muted', { tags: { 'color.saturation': 0.3 } });
+		const poolPlus = [...pool, weakVivid, weakMuted];
+		const lookup = (id: string) => poolPlus.find((w) => w.id === id);
+		const events: AppEvent[] = [];
+		for (let i = 0; i < 3; i++) {
+			events.push(choice(saturated[i]!.id, muted[i]!.id, 'a'));
+		}
+		events.push(choice(weakVivid.id, weakMuted.id, 'a'));
+		const s = sessionSummary(events, lookup, DIMS);
+		expect(s.patterns[0]?.dimId).toBe('color.saturation');
+		expect(s.evidenceWorkIds).not.toContain(weakVivid.id);
+		expect(s.evidenceWorkIds.length).toBe(3);
+	});
+
+	it('surfaces a counterexample when one choice went against the pattern', () => {
+		const events: AppEvent[] = [];
+		for (let i = 0; i < 4 && i < saturated.length && i < muted.length; i++) {
+			events.push(choice(saturated[i]!.id, muted[i]!.id, 'a'));
+		}
+		// One opposite choice: picked the muted work.
+		events.push(choice(saturated[4]!.id, muted[4]!.id, 'b'));
+		const s = sessionSummary(events, byId, DIMS);
+		expect(s.patterns[0]?.dimId).toBe('color.saturation');
+		expect(s.counterExampleWorkId).toBe(muted[4]!.id);
+	});
+
+	it('repeated rejection over the same taste aspect becomes evidence; content flags never do', () => {
+		const pairs = [
+			[pool[0]!, pool[1]!],
+			[pool[2]!, pool[3]!],
+			[pool[4]!, pool[5]!]
+		] as const;
+		const events: AppEvent[] = [];
+		for (const [a, b] of pairs) {
+			events.push(choice(a.id, b.id, 'neither'));
+			events.push(feedback(a.id, b.id, 'pushed-away', ['too-busy']));
+		}
+		const s = sessionSummary(events, byId, DIMS);
+		expect(s.rejection).toEqual({ aspect: 'too-busy', n: 3 });
+		const flagged = pairs.flatMap(([a, b]) => [
+			choice(a.id, b.id, 'neither'),
+			feedback(a.id, b.id, 'pushed-away', ['image-quality'])
+		]);
+		expect(sessionSummary(flagged, byId, DIMS).rejection).toBeNull();
+	});
+
+	it('repeated both answers sharing an aspect become shared evidence', () => {
+		const events: AppEvent[] = [
+			choice(pool[0]!.id, pool[1]!.id, 'both'),
+			feedback(pool[0]!.id, pool[1]!.id, 'shared', ['atmosphere']),
+			choice(pool[2]!.id, pool[3]!.id, 'both'),
+			feedback(pool[2]!.id, pool[3]!.id, 'shared', ['atmosphere'])
+		];
+		const s = sessionSummary(events, byId, DIMS);
+		expect(s.shared).toEqual({ aspect: 'atmosphere', n: 2 });
 	});
 });
