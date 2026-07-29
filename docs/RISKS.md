@@ -16,11 +16,13 @@
    fine; server-side fetching from datacenter IPs is not — see DECISIONS
    2026-07-27), and our build-time validation uses HEAD requests, which that
    challenge exempts — so validation attests existence, not scriptability.
-   Consequence today: Snap embeddings cover **3,339/3,665 works (91%)** —
-   Cleveland directly plus 1,231 AIC works fetched via their Wikimedia
-   Commons replicas (exact Wikidata P4610 join). The remaining 326 AIC
-   works have no locatable Commons replica and pend a non-datacenter fetch
-   (DEPLOY.md) or AIC unblocking scripted GETs.
+   Consequence today: Snap embeddings cover **4,942/5,403 works (91.5%)** —
+   Cleveland and the Wikidata canon at 100%, plus 1,071 AIC works fetched
+   via their Wikimedia Commons replicas (exact Wikidata P4610 join). The
+   remaining 461 AIC works have no locatable Commons replica and pend a
+   non-datacenter fetch (DEPLOY.md) or AIC unblocking scripted GETs. The
+   AIC slice itself is frozen from git history: `api.artic.edu` now also
+   challenges datacenter clients, so rebuilds must run with `--merge`.
 2. **Metadata-only tags for ~half the catalog.** Cleveland exposes no
    subject taxonomy, so many of its works carry few ontology tags until the
    CLIP zero-shot tagging stage lands (BACKLOG #2). The model degrades
@@ -45,3 +47,13 @@
 9. **Model scope.** The linear model over interpretable dims cannot express
    taste that lives only in visual texture; the embedding feature block
    (BACKLOG #3) addresses this while keeping explanations interpretable.
+10. **Catalog source concentration.** Cleveland supplied 51.8% of the
+   5,403-work catalog before the tramo-6 rebalance. Mitigations: a
+   per-session source cap (no source above 40% of works shown in one
+   session, advisory — never starves a session), doubled canon targets,
+   and the per-build coverage report that warns above 35% single-source
+   share. Residual: institutional taxonomies still shape tags.
+11. **Visual baselines are build-pinned.** Pixel screenshots compare only
+   outside CI against the locally pinned Chromium; CI runs the layout
+   invariants (overflow, reachable next bar) on every project instead.
+   A rendering regression that keeps layout metrics intact could pass CI.

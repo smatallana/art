@@ -187,3 +187,55 @@ century/artist and warns above 35% single-source concentration.
 - Owner declined importing his personal starting profile — the app starts
   from zero evidence for him, like any new user (prior-import stays available
   as a feature).
+
+## 2026-07-29 — Tramo 6: core loop + rebalance (second external review)
+
+A second review of the tramo-5 build was triaged the same way: verified
+against the code, split into confirmed vs. already-fixed-or-wrong.
+
+**Confirmed and fixed:**
+- *Reveal elevated a work the user did not choose*: after both/neither/
+  unsure the old screen still featured work A → the reveal now branches on
+  the actual answer. A definite pick features the chosen work; the other
+  three keep the pair visually equal and ask a branch-specific follow-up,
+  recorded as a new `pair_feedback` event (evidence only — the model fold
+  gives it no weight, and image-quality/hard-to-judge aspects mark content
+  problems, never taste).
+- *The app recorded answers but returned no value*: the session-end screen
+  now states what THIS session taught — per-dimension patterns with
+  evidence thumbnails (thresholded: <2 consistent signals is not a
+  pattern), a counter-signal, an open question, and a "Test this pattern"
+  continuation. A dismissible micro-insight can appear after answers 4/8,
+  only when ≥3 consistent same-direction signals exist (`insight.ts`,
+  pure + unit-tested). Strength is asked only when informative
+  (information/refutation/consistency slots, every 3rd calibration pair).
+  "Why this pairing" is computed from the pair's real tag contrasts / era
+  gap and omitted when there is nothing honest to say.
+- *Onboarding showed unjudgeable works*: during calibration the selector
+  draws from a curated pool (≥800px wide, sane aspect, no album leaves/
+  handscrolls/screens, quality floor) — sequencing, not censorship; the
+  full catalog returns after calibration. The first-ever session follows a
+  legibility arc: 4 era contrasts, then 4 subject contrasts, then the
+  coverage default.
+- *Single-source dominance in sessions*: a per-session source cap (40% of
+  works shown). Advisory — the engine falls back to the full pool rather
+  than end a session early.
+- *Mobile layout risks*: reveal rebuilt with a fixed next-bar (safe-area
+  padding), overflow-safe reference card; guarded by layout invariants in
+  CI (no sideways scroll, reachable next bar at 320px/iPhone/desktop) and
+  local pixel baselines (CI compares none: its browser build differs and
+  pixel diffs there are noise).
+- *Catalog concentration (cma 51.8%)*: canon per-artist targets doubled
+  (sum 1,180 → 2,314, capped at 24 works/artist) and a wd-only `--merge`
+  rebuild dispatched; the coverage report gates the claim — real numbers
+  in the build log, not projections.
+
+**Already fixed or wrong in the review:** startup/loading complaints
+(tramo 5 bootstrap + progressive load), image-failure contamination
+(tramo 5 `image_error`), missing production smoke tests (smoke-prod),
+alt-text leaks and side bias (tramo 5), "no strength capture" (exists;
+now selective).
+
+**Operational note:** CI's lint gate (`prettier --check` before eslint)
+had been red since tramo 5 on formatting only — fixed with a format-only
+commit; local verification now runs prettier too.
