@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { aic, aicTagFields } from './sources/aic.js';
 import { cma, cmaTagFields } from './sources/cma.js';
 import { tagFromMetadata } from './tagger.js';
+import { coverageReport, type CanonFile, type ManualWorksFile } from './coverage.js';
 import { dedupe, scoreQuality } from './quality.js';
 import { publishCatalog } from './publish.js';
 import { validateImages } from './validate.js';
@@ -204,7 +205,8 @@ async function cmdBuild(): Promise<void> {
 	}
 
 	const index = await publishCatalog(scored, outDir, ontologyVersion);
-	const coverage = coverageReport(scored, log);
+	const coverage = coverageReport(scored, await loadCanon(), await loadManualWorks(), log);
+	await writeCoverage(coverage);
 	await mkdir(workDir, { recursive: true });
 	await writeFile(
 		path.join(workDir, 'report.json'),
@@ -225,47 +227,52 @@ async function cmdBuild(): Promise<void> {
 }
 
 /**
- * Coverage & concentration report: the catalog is part of the model, so its
- * composition is measured on every build (external review, 2026-07-28).
+ * Coverage & concentration governance lives in coverage.ts (tramo 7): shares
+ * PLUS the canon target-vs-actual diff, so absences are visible in-repo.
  */
-function coverageReport(
-	works: Work[],
-	log: (msg: string) => void
-): {
-	bySource: Record<string, number>;
-	byCentury: Record<string, number>;
-	topArtists: [string, number][];
-	warnings: string[];
-} {
-	const share = (n: number): number => Math.round((1000 * n) / Math.max(1, works.length)) / 10;
-	const bySourceCount: Record<string, number> = {};
-	const byCenturyCount: Record<string, number> = {};
-	const byArtist: Record<string, number> = {};
-	for (const w of works) {
-		bySourceCount[w.source] = (bySourceCount[w.source] ?? 0) + 1;
-		const y = w.date.start;
-		const c = y == null ? 'unknown' : `${Math.floor((y - 1) / 100) + 1}c`;
-		byCenturyCount[c] = (byCenturyCount[c] ?? 0) + 1;
-		if (w.artist.name !== 'Unknown artist')
-			byArtist[w.artist.name] = (byArtist[w.artist.name] ?? 0) + 1;
+async function loadCanon(): Promise<CanonFile | null> {
+	try {
+		const p = path.join(here, '..', '..', 'data', 'canon', 'canon.json');
+		return JSON.parse(await readFile(p, 'utf8')) as CanonFile;
+	} catch {
+		return null;
 	}
-	const bySource = Object.fromEntries(Object.entries(bySourceCount).map(([k, n]) => [k, share(n)]));
-	const byCentury = Object.fromEntries(
-		Object.entries(byCenturyCount)
-			.sort((a, b) => a[0].localeCompare(b[0]))
-			.map(([k, n]) => [k, share(n)])
+}
+
+async function loadManualWorks(): Promise<ManualWorksFile | null> {
+	try {
+		const p = path.join(here, '..', '..', 'data', 'canon', 'manual-works.json');
+		return JSON.parse(await readFile(p, 'utf8')) as ManualWorksFile;
+	} catch {
+		return null;
+	}
+}
+
+/** The committed governance artifact — reviewable and diffable in PRs. */
+async function writeCoverage(coverage: unknown): Promise<void> {
+	const p = path.join(here, '..', '..', 'data', 'coverage.json');
+	await writeFile(p, JSON.stringify(coverage, null, '\t') + '\n');
+	log(`coverage: wrote ${p}`);
+}
+
+/** Offline governance run over the COMMITTED catalog — no network needed. */
+async function cmdCoverage(): Promise<void> {
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
 	);
-	const topArtists = Object.entries(byArtist)
-		.sort((a, b) => b[1] - a[1])
-		.slice(0, 15) as [string, number][];
-	const warnings: string[] = [];
-	for (const [src, pct] of Object.entries(bySource)) {
-		if (pct > 35) warnings.push(`source concentration: ${src} is ${pct}% of the catalog (>35%)`);
-	}
-	log(`coverage: sources ${JSON.stringify(bySource)}`);
-	log(`coverage: centuries ${JSON.stringify(byCentury)}`);
-	for (const wmsg of warnings) log(`coverage WARNING: ${wmsg}`);
-	return { bySource, byCentury, topArtists, warnings };
+	const { loadCatalog } = await import('./catalog.js');
+	const works = await loadCatalog(catalogDir);
+	const index = JSON.parse(await readFile(path.join(catalogDir, 'index.json'), 'utf8')) as {
+		generatedAt?: string;
+	};
+	const coverage = coverageReport(
+		works,
+		await loadCanon(),
+		await loadManualWorks(),
+		log,
+		index.generatedAt ?? null
+	);
+	await writeCoverage(coverage);
 }
 
 async function cmdEmbed(): Promise<void> {
@@ -306,9 +313,10 @@ else if (cmd === 'build') await cmdBuild();
 else if (cmd === 'embed') await cmdEmbed();
 else if (cmd === 'commons-map') await cmdCommonsMap();
 else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
+else if (cmd === 'coverage') await cmdCoverage();
 else {
 	console.error(
-		'usage: tsx src/run.ts <sample|build|embed|commons-map|curate-onboarding> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe] [--force]'
+		'usage: tsx src/run.ts <sample|build|embed|commons-map|curate-onboarding|coverage> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe] [--force]'
 	);
 	process.exit(1);
 }
