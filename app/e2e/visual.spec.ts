@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
 
 /**
@@ -7,11 +10,12 @@ import { expect, test, type Page } from '@playwright/test';
  * - Pixel baselines are compared only outside CI: CI installs its own
  *   browser build whose font rasterization differs, so pixel-diffing there
  *   would be pure noise. Selection is deterministic for a fresh context
- *   (seed = event count, side flip hashes the pair ids), and artwork
- *   images are masked, so local baselines are stable.
- * Baselines depend on the committed catalog (it decides which works the
- * deterministic session shows) — regenerate them after catalog rebuilds:
- *   npx playwright test e2e/visual.spec.ts --update-snapshots
+ *   (seed = event count, side flip hashes the pair ids), artwork images
+ *   are masked, and the catalog is pinned to the precached bootstrap (an
+ *   empty shard list below) — at full-catalog scale the shard-arrival race
+ *   otherwise changes which works the session pool holds run to run.
+ * Baselines depend on the committed bootstrap.json — regenerate after
+ * catalog rebuilds: npx playwright test e2e/visual.spec.ts --update-snapshots
  */
 
 const VIEWPORTS = [
@@ -29,10 +33,22 @@ const PIXEL = Buffer.from(
 	'base64'
 );
 
+// Pin the catalog to the deterministic bootstrap: an index with no shards
+// makes the session pool exactly the committed bootstrap works, every run.
+const catalogDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../static/catalog');
+const realIndex = JSON.parse(readFileSync(path.join(catalogDir, 'index.json'), 'utf8'));
+const bootstrapCount = (
+	JSON.parse(readFileSync(path.join(catalogDir, 'bootstrap.json'), 'utf8')) as unknown[]
+).length;
+const PINNED_INDEX = JSON.stringify({ ...realIndex, count: bootstrapCount, shards: [] });
+
 test.beforeEach(async ({ page }) => {
 	await page.route('**/*', (route) => {
 		if (route.request().resourceType() === 'image') {
 			return route.fulfill({ contentType: 'image/png', body: PIXEL });
+		}
+		if (route.request().url().endsWith('/catalog/index.json')) {
+			return route.fulfill({ contentType: 'application/json', body: PINNED_INDEX });
 		}
 		return route.continue();
 	});
