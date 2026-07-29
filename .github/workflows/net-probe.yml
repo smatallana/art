@@ -1,9 +1,11 @@
 name: Net probe
 
 # Ad-hoc network diagnostics from an Actions runner (the sandbox that
-# develops this repo cannot reach museum hosts directly). Currently probes
-# the AIC IIIF CDN with a matrix of header combinations to pinpoint why
-# image GETs 403 while validation HEADs pass.
+# develops this repo cannot reach museum hosts directly). Tramo 7: probe the
+# candidate NEW sources before writing adapters — Rijksmuseum's keyless
+# APIs/IIIF and the Met's API/CSV, plus SPARQL counts for the
+# Commons-image-join ceilings. (The tramo-4 AIC matrix concluded: Cloudflare
+# challenges all datacenter clients; findings recorded in DECISIONS.)
 
 on:
   workflow_dispatch:
@@ -12,42 +14,31 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: AIC IIIF curl matrix
+      - name: Rijksmuseum endpoints
         run: |
-          U1="https://www.artic.edu/iiif/2/7403cc73-8d41-1464-18df-4b6e89affff0/full/400,/0/default.jpg"
-          U2="https://www.artic.edu/iiif/2/6f00201c-5257-3e7f-a399-e70da5cdadab/full/843,/0/default.jpg"
           BOT="BeholderPipeline/0.1 (+https://github.com/smatallana/art)"
-          BROWSER="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15"
-          t() { desc="$1"; shift; code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$@" || echo ERR); echo "$code  $desc"; sleep 1; }
-          t "HEAD bot-UA 400w"             -I -A "$BOT" "$U1"
-          t "GET  bot-UA 400w"             -A "$BOT" "$U1"
-          t "GET  bot-UA ranged 400w"      -A "$BOT" -r 0-256 "$U1"
-          t "GET  curl-default-UA 400w"    "$U1"
-          t "GET  empty-UA 400w"           -A "" "$U1"
-          t "GET  browser-UA 400w"         -A "$BROWSER" "$U1"
-          t "GET  browser-UA+referer 400w" -A "$BROWSER" -e "https://smatallana.github.io/art/" "$U1"
-          t "GET  browser-UA+accept 400w"  -A "$BROWSER" -H "accept: image/avif,image/webp,image/png,image/*;q=0.8" "$U1"
-          t "GET  bot-UA+accept 400w"      -A "$BOT" -H "accept: image/avif,image/webp,image/png,image/*;q=0.8" "$U1"
-          t "GET  bot-UA 843w"             -A "$BOT" "$U2"
-          t "GET  browser-UA 843w"         -A "$BROWSER" "$U2"
-          t "GET  -L bot-UA 400w"          -L -A "$BOT" "$U1"
+          t() { desc="$1"; shift; out=$(curl -s -o /tmp/body -w "%{http_code} %{content_type}" --max-time 25 -A "$BOT" "$@" || echo ERR); echo "$out  $desc"; head -c 220 /tmp/body | tr '\n' ' '; echo; echo "---"; sleep 1; }
+          t "OAI Identify"            "https://data.rijksmuseum.nl/oai?verb=Identify"
+          t "Search collection JSON"  "https://data.rijksmuseum.nl/search/collection?type=schilderij&imageAvailable=true"
+          t "Search alt shape"        "https://data.rijksmuseum.nl/search/collection?type=painting"
+          t "Linked data object"      -H "Accept: application/ld+json" "https://id.rijksmuseum.nl/200107928"
+          t "Old API no key"          "https://www.rijksmuseum.nl/api/en/collection?type=painting&ps=1"
 
-      - name: Node fetch reproduction (same client as the embed stage)
+      - name: Met API + CSV
         run: |
-          node -e '
-            const u = "https://www.artic.edu/iiif/2/7403cc73-8d41-1464-18df-4b6e89affff0/full/400,/0/default.jpg";
-            const cases = [
-              ["node bot-UA+accept", {"user-agent":"BeholderPipeline/0.1 (+https://github.com/smatallana/art)","accept":"image/*"}],
-              ["node browser-UA", {"user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15"}],
-              ["node no-headers", {}]
-            ];
-            (async () => {
-              for (const [name, headers] of cases) {
-                try {
-                  const r = await fetch(u, { headers, redirect: "follow" });
-                  console.log(r.status, " ", name, " server:", r.headers.get("server") || "?", " cf-ray:", r.headers.get("cf-ray") || "-");
-                } catch (e) { console.log("ERR ", name, String(e).slice(0, 120)); }
-                await new Promise(r => setTimeout(r, 1000));
-              }
-            })();
-          '
+          BOT="BeholderPipeline/0.1 (+https://github.com/smatallana/art)"
+          t() { desc="$1"; shift; out=$(curl -s -o /tmp/body -w "%{http_code} %{content_type}" --max-time 25 -A "$BOT" "$@" || echo ERR); echo "$out  $desc"; head -c 220 /tmp/body | tr '\n' ' '; echo; echo "---"; sleep 1; }
+          t "objects endpoint"   "https://collectionapi.metmuseum.org/public/collection/v1/objects/436535"
+          t "search paintings"   "https://collectionapi.metmuseum.org/public/collection/v1/search?medium=Paintings&hasImages=true&q=painting"
+          t "CSV head (LFS)"     -r 0-400 "https://media.githubusercontent.com/media/metmuseum/openaccess/master/MetObjects.csv"
+          # Image host check with a real primaryImage URL from the API:
+          IMG=$(curl -s -A "$BOT" "https://collectionapi.metmuseum.org/public/collection/v1/objects/436535" | python3 -c "import json,sys; print(json.load(sys.stdin).get('primaryImageSmall',''))" || true)
+          echo "primaryImageSmall: $IMG"
+          if [ -n "$IMG" ]; then t "image GET (bot UA)" "$IMG"; fi
+
+      - name: SPARQL join ceilings (Commons-image route)
+        run: |
+          BOT="BeholderPipeline/0.1 (+https://github.com/smatallana/art)"
+          q() { desc="$1"; query="$2"; n=$(curl -s --max-time 60 -A "$BOT" -H "Accept: application/sparql-results+json" --data-urlencode "query=$query" "https://query.wikidata.org/sparql" | python3 -c "import json,sys; print(json.load(sys.stdin)['results']['bindings'][0]['n']['value'])" || echo ERR); echo "$n  $desc"; sleep 2; }
+          q "Met paintings with P3634 + P18" 'SELECT (COUNT(?w) AS ?n) WHERE { ?w wdt:P31/wdt:P279* wd:Q3305213; wdt:P3634 ?met; wdt:P18 ?img }'
+          q "Rijksmuseum-collection paintings with P18" 'SELECT (COUNT(?w) AS ?n) WHERE { ?w wdt:P31/wdt:P279* wd:Q3305213; wdt:P195 wd:Q190804; wdt:P18 ?img }'
