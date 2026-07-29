@@ -57,3 +57,14 @@
    outside CI against the locally pinned Chromium; CI runs the layout
    invariants (overflow, reachable next bar) on every project instead.
    A rendering regression that keeps layout metrics intact could pass CI.
+12. **The session objective is device-local.** A "Test this pattern" tap on
+   device A does not follow the account to device B — the kv store does not
+   sync (deliberate: the promise is same-device and the event log stays a
+   pure record of taste). Accepted; a synced-objective event is in BACKLOG.
+13. **onboarding.json is pinned to catalog ids.** A rebuild that drops ids
+   fails the validation test BY DESIGN — the rebuild must update the
+   collection. `wd-m-*` ids derive from artist+title text and break on
+   renames (validation caps them at 10).
+14. **Retroactive rebuilds run on every strength/aspect toggle.** O(events)
+   each, milliseconds at personal scale; `isRetroactiveFoldEvent` is the
+   single place to debounce if logs ever reach ~10^5 events.

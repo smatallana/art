@@ -205,7 +205,10 @@ against the code, split into confirmed vs. already-fixed-or-wrong.
   now states what THIS session taught — per-dimension patterns with
   evidence thumbnails (thresholded: <2 consistent signals is not a
   pattern), a counter-signal, an open question, and a "Test this pattern"
-  continuation. A dismissible micro-insight can appear after answers 4/8,
+  continuation. *(Tramo 7 made the continuation real: the button now stores
+  a targeting objective the next session's selector actually consumes —
+  see the tramo-7 entry. As shipped in tramo 6 it started a plain session.)*
+  A dismissible micro-insight can appear after answers 4/8,
   only when ≥3 consistent same-direction signals exist (`insight.ts`,
   pure + unit-tested). Strength is asked only when informative
   (information/refutation/consistency slots, every 3rd calibration pair).
@@ -239,3 +242,63 @@ now selective).
 **Operational note:** CI's lint gate (`prettier --check` before eslint)
 had been red since tramo 5 on formatting only — fixed with a format-only
 commit; local verification now runs prettier too.
+
+## 2026-07-29 — Tramo 7: making the intelligence real (third external review)
+
+The third review scored the build "a credible 6.5/10 beta" and shifted the
+bar from *working* to *truthful*: insights must be causally grounded,
+continuation promises fulfilled, content problems never taste. Triage
+against the code confirmed its core claims and found two defects it missed.
+
+**Model truthfulness (P0):**
+- A pair whose last `pair_feedback` includes image-quality/hard-to-judge is
+  masked from the fold entirely — both's positive and neither's negative
+  observations alike (the confirmed leak was neither+flag → two −0.3
+  observations on works the user called broken). Un-toggling un-masks.
+- *Defect found during verification, absent from the review*: `strength`
+  and `pair_feedback` never reached the incrementally-updated model — no
+  `applyEvent` case, look-ahead only on full replay — so intensity
+  materialized only after a restart. Recording a retroactive event now
+  rebuilds the model in place (undo's pattern; milliseconds at this scale).
+- No version constant: the model is never persisted; replay self-heals
+  (tramo-5 precedent).
+
+**Summary evidence:** the session insight now weighs the strength the user
+gave (the model's own multipliers), excludes content-flagged pairs,
+ranks evidence thumbnails by CONTRIBUTION to the displayed pattern (not
+recency), surfaces a counterexample, and treats repeated rejection/shared
+aspects as evidence lines. Dim ids ride along with labels so the insight
+can feed selection.
+
+**The continuation promise:** "Test this pattern" stores
+`{dims, label, createdAt}` in device-local kv (7-day expiry, consumed
+once); the next daily session stamps it into state and a new `targeted`
+slot (~44% of turns, refutationScore reused, info-gain ×3 on objective
+dims, 72 candidates) tests it; the header shows "Testing: …". Honesty
+rule: during calibration the button says "Another session" and no promise
+is rendered — the machinery only exists in daily mode. Device-local by
+design: the promise is same-device; the synced event log stays a pure
+record of taste. The objective does NOT accelerate refutation of imported
+priors during calibration — a limit, stated.
+
+**Curated onboarding:** `data/curated/onboarding.json` (294 works,
+99/97/98 staged, 152 artists, anchors in every stage) — drafted by
+`curate-onboarding`, hand-pruned (recto/verso panels and paper studies
+out; Seurat's canonical oil studies kept deliberately), validated in CI
+against the committed catalog (ids, eligibility, spread, source caps,
+fragile-id caps). Sessions gate by lifetime answers (stage 1 → ≤2 → all →
+heuristic → full) with a widening cascade that can never starve. A cold
+streak (3 neither/unsure, or 2 content flags) pivots the next pair to
+curated anchors: "Let's change direction."
+
+**Catalog governance:** `data/coverage.json` is now a committed artifact
+(build workflow + offline `coverage` command): canon target-vs-actual,
+absent artists, unresolved landmarks, movement/culture shares. First run:
+canon 2,384/2,314 aggregate but **12 spine artists at zero** (Klee's QID
+unresolved; 20th-century artists without free images under
+link-don't-copy), 21 under target, cma 43.9%.
+
+**New sources (owner opted in):** Rijksmuseum + Met adapters, probe-first
+(net-probe retargeted; adapter design waits for endpoint evidence — the
+tramo-4 AIC lesson). Met images route via the Wikidata P3634 → Commons
+join, never hotlinked (their anti-bot stance, DECISIONS 2026-07-27).

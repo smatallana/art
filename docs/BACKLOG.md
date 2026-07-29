@@ -44,3 +44,24 @@ Ordered by leverage.
     < 200 KB gz, CLS < 0.1) — measured once images are first-party (R2).
 13. **Curated micro-stories** — grow `data/curated/overrides.json` for the
     most-shown works lacking `did_you_know`-grade stories.
+13. **Session-insight history in events** — persist each session's
+    SessionInsight (or a digest) on `session_end` so insights become
+    reviewable over time and sync across devices.
+14. **Synced session objective** — carry "Test this pattern" across devices
+    via an event instead of device-local kv (see RISKS #12).
+15. **Exposure-corrected artist affinity** (review §17) — rank artist
+    affinities by evidence AND exposure: high-affinity-well-tested vs
+    high-potential-lightly-tested vs insufficient-exposure.
+16. **Profile shows catalog limits** (review §18) — exposure caveats next to
+    conclusions ("not enough East Asian landscape seen for a reliable
+    read"), sourced from data/coverage.json.
+17. **My Eye as a portrait, not a dashboard** (review §19) — eye signature
+    sentence, representative works, per-hypothesis test buttons.
+18. **Specialist formats in context** (review §11) — scrolls/albums/screens
+    return via a dedicated discovery mode with viewing controls and
+    like-with-like comparisons, not fast pairwise calibration.
+19. **Calibrated wording tiers across sessions** (review §15) — an
+    "established preference" tier requires repeated evidence across
+    sessions/contexts/artists; session-level copy stays early/emerging.
+20. **COVERAGE.md rendering** — a human-readable digest generated from
+    data/coverage.json.

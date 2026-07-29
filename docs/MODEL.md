@@ -11,14 +11,24 @@ step) from every event:
 | Signal | Likelihood / treatment | Weight |
 |---|---|---|
 | Pair choice A vs B | Bradley–Terry: `σ(w·(φA−φB))` | 1.0 (×0.6/1.0/1.5 by stated strength) |
-| Both / Neither | weak absolute obs. on each work | 0.3 |
+| Both / Neither | weak absolute obs. on each work — **masked entirely** when the pair's last feedback flags image-quality/hard-to-judge (content problems are not taste, in either direction) | 0.3 |
 | Save / Remember | weak positive absolute obs. | 0.55 / 0.4 |
-| Skip | very weak negative | 0.12 |
+| Skip ('pass' only) | very weak negative | 0.12 |
 | Reaction (emotions) | weak positive (negative if only "Unmoved") | 0.3 |
 | Rating (Snap uses 5) | absolute obs. | 0.8 |
+| Pair feedback | evidence for insights only — **never weighted**; content flags retroactively mask their pair (above) | — |
 | Decision time | recorded, not currently weighted (documented weak signal, can be disabled) | — |
 
 Implementation: `app/src/lib/engine/model.ts`.
+
+**Retroactive events and the live path** (tramo 7): `strength` and
+`pair_feedback` change how an already-folded pair counts, and the
+incremental update cannot look ahead — so recording one triggers an
+in-place rebuild from the log (the undo pattern; milliseconds at
+personal-log scale). The same-session selector therefore sees the
+intensity the user just gave. The model is never persisted: every startup
+replays the log, so semantic changes to the fold self-heal without
+version machinery.
 
 ## Honesty layer
 
