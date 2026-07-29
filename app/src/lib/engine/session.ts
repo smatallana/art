@@ -9,7 +9,8 @@
 import type { Work } from '../catalog/types';
 import type { AppEvent } from './events';
 import { selectPairSmart, type SlotKind } from './active';
-import { curatePool } from './curation';
+import { anchorPool, onboardingPool, type CuratedOnboarding } from './curation';
+import { CONTENT_PROBLEM_ASPECTS } from './events';
 import type { TasteModel } from './model';
 import { historyFromEvents, recordShown, selectPair, type SelectionHistory } from './selector';
 
@@ -28,6 +29,9 @@ export interface SessionPair {
 	bId: string;
 	probe: 'cross-era' | 'cross-subject' | 'within-stratum' | 'coverage';
 	slot: SlotKind | 'calibration';
+	/** Set when this pair is a deliberate change of direction after a cold
+	 *  streak (consecutive neither/unsure or repeated content flags). */
+	recovery?: boolean;
 }
 
 /** A hypothesis the user explicitly asked this session to test. */
@@ -61,6 +65,8 @@ export interface SessionContext {
 	seed: number;
 	/** Consumed objective from a "Test this pattern" tap, if any. */
 	objective?: SessionObjective | null;
+	/** The editorial onboarding collection (injected; null in tests without one). */
+	curated?: CuratedOnboarding | null;
 }
 
 export interface SessionEngine {
@@ -118,8 +124,32 @@ export function resumeSession(
  * calibration, then the session source cap. Both are advisory — nextPair
  * falls back to the full pool rather than end a session early.
  */
+/**
+ * A cold streak the session should actively repair: the last 3 answers were
+ * all neither/unsure, or the user flagged broken content twice. The next
+ * pair pivots to curated anchors instead of continuing the same strategy.
+ */
+export function needsRecovery(sessionEvents: AppEvent[]): boolean {
+	const picks = sessionEvents
+		.filter((e): e is Extract<AppEvent, { t: 'pair_choice' }> => e.t === 'pair_choice')
+		.map((e) => e.pick);
+	const last3 = picks.slice(-3);
+	if (last3.length === 3 && last3.every((p) => p === 'neither' || p === 'unsure')) return true;
+	const flags = sessionEvents.filter(
+		(e) => e.t === 'pair_feedback' && e.aspects.some((a) => CONTENT_PROBLEM_ASPECTS.has(a))
+	).length;
+	return flags >= 2;
+}
+
+/** Anchor pivot needs at least this many works to leave the selector room. */
+const RECOVERY_MIN_POOL = 16;
+
 function constrainedPool(engine: SessionEngine, ctx: SessionContext): Work[] {
-	let pool = engine.state.mode === 'calibration' ? curatePool(ctx.works) : ctx.works;
+	const totalAnswers = ctx.events.filter((e) => e.t === 'pair_choice').length;
+	let pool =
+		engine.state.mode === 'calibration'
+			? onboardingPool(ctx.works, totalAnswers, ctx.curated)
+			: ctx.works;
 	const total = [...engine.sourceShown.values()].reduce((a, n) => a + n, 0);
 	if (total < SOURCE_CAP_MIN_SHOWN) return pool;
 	const capped = new Set<string>();
@@ -147,7 +177,18 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 					targetDims: engine.state.objective?.dims
 				})
 			: selectPair(works, engine.history, { seed: ctx.seed });
-	const pool = constrainedPool(engine, ctx);
+	let pool = constrainedPool(engine, ctx);
+	// Cold-streak repair: pivot the next pair to curated anchors when the
+	// session is losing the user (three non-answers or repeated bad content).
+	let recovery = false;
+	const sessionEvents = ctx.events.filter((e) => e.at >= engine.state.startedAt);
+	if (needsRecovery(sessionEvents)) {
+		const anchors = anchorPool(pool, ctx.curated);
+		if (anchors.length >= RECOVERY_MIN_POOL) {
+			pool = anchors;
+			recovery = true;
+		}
+	}
 	let pair = pickFrom(pool);
 	// Constraints are advisory: never end a session because of them.
 	if (!pair && pool !== ctx.works) pair = pickFrom(ctx.works);
@@ -161,6 +202,7 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 		engine.sourceShown.set(w.source, (engine.sourceShown.get(w.source) ?? 0) + 1);
 	}
 	engine.state.current = {
+		...(recovery ? { recovery: true } : {}),
 		aId: pair.a.id,
 		bId: pair.b.id,
 		probe: pair.probe,

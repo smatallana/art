@@ -74,6 +74,7 @@ export const t = {
 			`When both works drew you in, what they shared was ${phrase.toLowerCase()}.`,
 		insightCounterExample: 'You also once chose the opposite:',
 		objectiveActive: (label: string) => `Testing: ${label.toLowerCase()}`,
+		changeDirection: "Let's change direction.",
 		microPrefix: 'So far:',
 		micro: (label: string) => `you are leaning toward ${label.toLowerCase()}.`,
 		// Reveal branches

@@ -1,0 +1,1770 @@
+{
+	"version": 1,
+	"note": "First editorial edition, drafted programmatically from the committed catalog (tsx src/run.ts curate-onboarding) and hand-maintained afterwards. Edit freely: stages gate the first sessions (1 = first answers, 3 = late calibration), roles are editorial metadata, and the validation test pins ids/eligibility/spread in CI.",
+	"works": [
+		{
+			"id": "aic-100191",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Claude Monet — Stack of Wheat (Thaw, Sunset) (1890–91)"
+		},
+		{
+			"id": "aic-100342",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Peter Paul Rubens — Saint Francis (c. 1615)"
+		},
+		{
+			"id": "aic-105600",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Thomas Gainsborough — Sarah Dupont (c. 1777–79)"
+		},
+		{
+			"id": "aic-105945",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Frans Hals — Portrait of a Lady (1627)"
+		},
+		{
+			"id": "aic-109314",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Vincent van Gogh — Fishing in Spring, the Pont de Clichy (Asnières) (1887)"
+		},
+		{
+			"id": "aic-110541",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Camille Pissarro — The Crystal Palace (1871)"
+		},
+		{
+			"id": "aic-110663",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Eugène Delacroix — The Combat of the Giaour and Hassan (1826)"
+		},
+		{
+			"id": "aic-111062",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Paul Gauguin — Te raau rahi (The Big Tree) (1891)"
+		},
+		{
+			"id": "aic-111318",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Claude Monet — Stack of Wheat (1890–91)"
+		},
+		{
+			"id": "aic-111442",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Mary Cassatt — The Child's Bath (1893)"
+		},
+		{
+			"id": "aic-111478",
+			"stage": 1,
+			"role": "anchor",
+			"note": "James McNeill Whistler — Portrait of Dr. William McNeill Whistler (1871–73)"
+		},
+		{
+			"id": "aic-11392",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Bartolomé Esteban Murillo — Ecce Agnus Dei (c. 1655)"
+		},
+		{
+			"id": "aic-11434",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Guido Reni — Salome with the Head of Saint John the Baptist (c. 1639–42)"
+		},
+		{
+			"id": "aic-11723",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Berthe Morisot — Woman at Her Toilette (1875–80)"
+		},
+		{
+			"id": "aic-14309",
+			"stage": 1,
+			"role": "anchor",
+			"note": "James McNeill Whistler — Coast Scene, Bathers (1884–85)"
+		},
+		{
+			"id": "aic-14591",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Édouard Manet — Woman Reading (1880–82)"
+		},
+		{
+			"id": "aic-14594",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Édouard Manet — Portrait of a Woman with a Black Fichu (c. 1878)"
+		},
+		{
+			"id": "aic-14598",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Claude Monet — The Beach at Sainte-Adresse (1867)"
+		},
+		{
+			"id": "aic-14647",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Pierre-Auguste Renoir — Young Woman Sewing (1879)"
+		},
+		{
+			"id": "aic-14655",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Pierre-Auguste Renoir — Two Sisters (On the Terrace) (1881)"
+		},
+		{
+			"id": "aic-14664",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Henri de Toulouse-Lautrec — Moulin de la Galette (1889)"
+		},
+		{
+			"id": "aic-153798",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Berthe Morisot — Woman in a Garden (1882–83)"
+		},
+		{
+			"id": "aic-153799",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Camille Pissarro — Woman Bathing Her Feet in a Brook (1895)"
+		},
+		{
+			"id": "aic-154121",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Gustave Caillebotte — Calf's Head and Ox Tongue (c. 1882)"
+		},
+		{
+			"id": "aic-154235",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Edvard Munch — The Girl by the Window (1893)"
+		},
+		{
+			"id": "aic-16146",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Henri de Toulouse-Lautrec — Equestrienne (At the Cirque Fernando) (1887–88)"
+		},
+		{
+			"id": "aic-16295",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Hans Memling — Virgin and Child (c. 1485)"
+		},
+		{
+			"id": "aic-16434",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Giovanni Battista Tiepolo — Virgin and Child with Saints Dominic and Hyacinth (1730–35)"
+		},
+		{
+			"id": "aic-16485",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Giovanni Battista Tiepolo — Rinaldo and Armida in Her Garden (c. 1742–45)"
+		},
+		{
+			"id": "aic-16488",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Giovanni Battista Tiepolo — Armida Encounters the Sleeping Rinaldo (c. 1742–45)"
+		},
+		{
+			"id": "aic-16496",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Paul Gauguin — No te aha oe riri (Why Are You Angry?) (1896)"
+		},
+		{
+			"id": "aic-16499",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Édouard Manet — Jesus Mocked by the Soldiers (1865)"
+		},
+		{
+			"id": "aic-16551",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Dante Gabriel Rossetti — Beata Beatrix (1871–72)"
+		},
+		{
+			"id": "aic-16600",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Pierre-Auguste Renoir — Lucie Berard (Child in White) (1883)"
+		},
+		{
+			"id": "aic-16633",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Alfred Sisley — The Seine at Port-Marly, Piles of Sand (1875)"
+		},
+		{
+			"id": "aic-16648",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Paul Gauguin — Woman in Front of a Still Life by Cezanne (1890)"
+		},
+		{
+			"id": "aic-191183",
+			"stage": 1,
+			"role": "anchor",
+			"note": "John Singer Sargent — Madame Paul Escudier (Louise Lefevre) (1882)"
+		},
+		{
+			"id": "cma-106088",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Winslow Homer — Early Morning After a Storm at Sea (1900–1903)"
+		},
+		{
+			"id": "cma-108541",
+			"stage": 1,
+			"role": "anchor",
+			"note": "El Greco — The Holy Family with Mary Magdalen (c. 1590–95)"
+		},
+		{
+			"id": "cma-109507",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Paolo Veronese — Portrait of Agostino Barbarigo (after c. 1571)"
+		},
+		{
+			"id": "cma-122349",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Joshua Reynolds — Portrait of the Ladies Amabel and Mary Jemima Yorke (c. 1761)"
+		},
+		{
+			"id": "cma-124080",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Thomas Gainsborough — Portrait of Mary Wise (c. 1774)"
+		},
+		{
+			"id": "cma-125247",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Peter Paul Rubens — Portrait of Isabella Brant (c. 1620–25)"
+		},
+		{
+			"id": "cma-125895",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Frans Hals — Portrait of a Woman, probably Aeltje Dircksdr. Pater (1638)"
+		},
+		{
+			"id": "cma-128391",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Pieter de Hooch — Portrait of a Family Playing Music (1663)"
+		},
+		{
+			"id": "cma-128394",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Amedeo Modigliani — Portrait of a Woman (c. 1917–18)"
+		},
+		{
+			"id": "cma-130392",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Nicolas Poussin — The Return of the Holy Family to Nazareth (c. 1627)"
+		},
+		{
+			"id": "cma-131819",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Anthony van Dyck — A Genoese Lady with Her Child (c. 1623–25)"
+		},
+		{
+			"id": "cma-141549",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Diego Velázquez — Portrait of the Jester Calabazas (c. 1631–32)"
+		},
+		{
+			"id": "cma-143234",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Jacob van Ruisdael — Landscape with a Windmill\r\n (1646)"
+		},
+		{
+			"id": "cma-143602",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Jacob van Ruisdael — Low Waterfall in a Wooded Landscape with a Dead Beech Tree (c. 1660–70)"
+		},
+		{
+			"id": "cma-144966",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Sandro Botticelli — Virgin and Child with the Young Saint John the Baptist (c. 1490)"
+		},
+		{
+			"id": "cma-145999",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Thomas Gainsborough — Portrait of George Pitt, First Baron Rivers (1769)"
+		},
+		{
+			"id": "cma-150051",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Jean-Léon Gérôme — Alpine Landscape:  The Handegg, Switzerland (1850s)"
+		},
+		{
+			"id": "cma-150389",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Nicolas Poussin — The Holy Family on the Steps (1648)"
+		},
+		{
+			"id": "cma-160885",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Frans Hals — Portrait of Tieleman Roosterman (1634)"
+		},
+		{
+			"id": "cma-167142",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Gustave Caillebotte — Portrait of a Man (1880)"
+		},
+		{
+			"id": "cma-149665",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Arnold Böcklin — Ruin by the Sea (1881)"
+		},
+		{
+			"id": "wd-Q1123378",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Titian — Equestrian Portrait of Charles V (1548)"
+		},
+		{
+			"id": "wd-Q1240092",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Diego Velázquez — Portrait of Innocent X (1700)"
+		},
+		{
+			"id": "wd-Q12841555",
+			"stage": 1,
+			"role": "anchor",
+			"note": "François Boucher — Portrait of Madame de Pompadour (1756)"
+		},
+		{
+			"id": "wd-Q136488593",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Tintoretto — Portrait of Marco Pasqualigo (1588)"
+		},
+		{
+			"id": "wd-Q1423223",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Caspar David Friedrich — Moonrise over the Sea (1822)"
+		},
+		{
+			"id": "wd-Q1523789",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Arnold Böcklin — Self-Portrait with Death Playing the Fiddle (1872)"
+		},
+		{
+			"id": "wd-Q1555137",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Egon Schiele — Portrait of Wally (1912)"
+		},
+		{
+			"id": "wd-Q1585399",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Francisco Goya — Portrait of Doña Isabel de Porcel (1800)"
+		},
+		{
+			"id": "wd-Q16038731",
+			"stage": 1,
+			"role": "anchor",
+			"note": "J. M. W. Turner — Snow Storm: Steam-Boat off a Harbour's Mouth (1842)"
+		},
+		{
+			"id": "wd-Q1652361",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Caspar David Friedrich — Cairn in Snow (1807)"
+		},
+		{
+			"id": "wd-Q17343012",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Rembrandt — Portrait of Jacob de Gheyn III (1632)"
+		},
+		{
+			"id": "wd-Q1751408",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Giovanni Bellini — Madonna and Child enthroned with Saints and Angels (1487)"
+		},
+		{
+			"id": "wd-Q1759759",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Giovanni Bellini — Portrait of Doge Leonardo Loredan (1500)"
+		},
+		{
+			"id": "wd-Q194137",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Caspar David Friedrich — The Sea of Ice (1823)"
+		},
+		{
+			"id": "wd-Q19798137",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Titian — Portrait of Charles V with a Dog (1533)"
+		},
+		{
+			"id": "wd-Q2072801",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Leonardo da Vinci — Portrait of a Young Fiancée (1495)"
+		},
+		{
+			"id": "wd-Q20816594",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Fernand Léger — The City (1919)"
+		},
+		{
+			"id": "wd-Q211293",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Salvador Dalí — Portrait of Luis Buñuel (1924)"
+		},
+		{
+			"id": "wd-Q21204021",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Sofonisba Anguissola — Portrait Group with the Artist’s Father, Brother and Sister (1559)"
+		},
+		{
+			"id": "wd-Q2130035",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Albrecht Dürer — portrait of Johann Kleeberger (1526)"
+		},
+		{
+			"id": "wd-Q220859",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Jan van Eyck — Arnolfini Portrait (1434)"
+		},
+		{
+			"id": "wd-Q2246489",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Rembrandt — The Storm on the Sea of Galilee (1633)"
+		},
+		{
+			"id": "wd-Q2268013",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Sandro Botticelli — Madonna and Child and Two Angels (1460)"
+		},
+		{
+			"id": "wd-Q2272723",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Sandro Botticelli — Portrait of Giuliano de' Medici (1478)"
+		},
+		{
+			"id": "wd-Q2293936",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Caravaggio — Self-Portrait as Bacchus (1595)"
+		},
+		{
+			"id": "wd-Q23008305",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Sofonisba Anguissola — Portrait of the Artist's Sisters Playing Chess (1555)"
+		},
+		{
+			"id": "wd-Q2338404",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Leonardo da Vinci — Portrait of a Musician (1485)"
+		},
+		{
+			"id": "wd-Q2344396",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Raphael — Portrait of a Lady with a Unicorn (1505)"
+		},
+		{
+			"id": "wd-Q2388965",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Albrecht Dürer — Self-Portrait (1498)"
+		},
+		{
+			"id": "wd-Q2392901",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Jan van Eyck — Portrait of a Man (Self      Portrait?) (1433)"
+		},
+		{
+			"id": "wd-Q2428778",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Albrecht Dürer — Portrait of the Artist Holding a Thistle (1493)"
+		},
+		{
+			"id": "wd-Q2439462",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Rogier van der Weyden — Portrait of a Lady (1460)"
+		},
+		{
+			"id": "wd-Q2445555",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Egon Schiele — Dead City III (1911)"
+		},
+		{
+			"id": "wd-Q24953623",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Ernst Ludwig Kirchner — Self-portrait as a Soldier (1915)"
+		},
+		{
+			"id": "wd-Q2610729",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Raphael — Portrait of Leo X (1518)"
+		},
+		{
+			"id": "wd-Q2619037",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Jacques-Louis David — Portrait of Madame Récamier (1800)"
+		},
+		{
+			"id": "wd-Q2755121",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Piero della Francesca — Portrait of Sigismondo Pandolfo Malatesta (1450)"
+		},
+		{
+			"id": "wd-Q3132791",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Nicolas Poussin — Landscape with Polyphemus (1649)"
+		},
+		{
+			"id": "cma-101852",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Joshua Reynolds — Portrait of Mrs. George Collier (18th century)"
+		},
+		{
+			"id": "cma-114684",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Hans Memling — Virgin and Child (c. 1470–80)"
+		},
+		{
+			"id": "cma-125093",
+			"stage": 1,
+			"role": "anchor",
+			"note": "Claude Lorrain — Italian Landscape (c. 1630)"
+		},
+		{
+			"id": "aic-20199",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Georges Seurat — Final Study for \"Bathers at Asnières\" (1883)"
+		},
+		{
+			"id": "aic-20530",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Camille Pissarro — Rabbit Warren at Pontoise, Snow (1879)"
+		},
+		{
+			"id": "aic-20579",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustave Moreau — Hercules and the Lernaean Hydra (1875–76)"
+		},
+		{
+			"id": "aic-20684",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustave Caillebotte — Paris Street; Rainy Day (1877)"
+		},
+		{
+			"id": "aic-21934",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Diego Velázquez — Kitchen Scene (1618–20)"
+		},
+		{
+			"id": "aic-25865",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Winslow Homer — The Herring Net (1885)"
+		},
+		{
+			"id": "aic-26650",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Mary Cassatt — On a Balcony (1878–79)"
+		},
+		{
+			"id": "aic-27310",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Peter Paul Rubens — The Holy Family with Saints Elizabeth and John the Baptist (c. 1615)"
+		},
+		{
+			"id": "aic-27949",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Vincent van Gogh — Madame Roulin Rocking the Cradle (La berceuse) (1889)"
+		},
+		{
+			"id": "aic-27954",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Vincent van Gogh — Terrace and Observation Deck at the Moulin de Blute-Fin, Montmartre (Early 1887)"
+		},
+		{
+			"id": "aic-27992",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Georges Seurat — A Sunday on La Grande Jatte — 1884 (1884–86, border added 1888–89)"
+		},
+		{
+			"id": "aic-31285",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Thomas Eakins — Portrait of Mary Adeline Williams (1899)"
+		},
+		{
+			"id": "aic-31816",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Mary Cassatt — After the Bullfight (1873)"
+		},
+		{
+			"id": "aic-42949",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Henri de Toulouse-Lautrec — Portrait of Jeanne Wenz (1886)"
+		},
+		{
+			"id": "aic-43145",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Claude Lorrain — View of Delphi with a Procession (1673)"
+		},
+		{
+			"id": "aic-44018",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Winslow Homer — Croquet Scene (1866)"
+		},
+		{
+			"id": "aic-4428",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustave Courbet — Mère Grégoire (1855, reworked 1857–59)"
+		},
+		{
+			"id": "aic-44742",
+			"stage": 2,
+			"role": "anchor",
+			"note": "François Boucher — Are They Thinking about the Grape? (Pensent-ils au raisin?) (1747)"
+		},
+		{
+			"id": "aic-4749",
+			"stage": 2,
+			"role": "anchor",
+			"note": "John Singer Sargent — Mrs. George Swinton (Elizabeth Ebsworth) (1897)"
+		},
+		{
+			"id": "aic-4758",
+			"stage": 2,
+			"role": "anchor",
+			"note": "John Constable — Stoke-by-Nayland (1836)"
+		},
+		{
+			"id": "aic-561",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Jan Steen — The Family Concert (1666)"
+		},
+		{
+			"id": "aic-60755",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Jacob van Ruisdael — Landscape with the Ruins of the Castle of Egmond (1650–55)"
+		},
+		{
+			"id": "aic-61616",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Georges Seurat — Oil Sketch for \"A Sunday on La Grande Jatte — 1884\" (1884)"
+		},
+		{
+			"id": "aic-61665",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Francisco de Zurbarán — Saint Romanus of Antioch and Saint Barulas (1638)"
+		},
+		{
+			"id": "aic-64920",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Tintoretto — Tarquin and Lucretia (1578–80)"
+		},
+		{
+			"id": "aic-81503",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Eugène Delacroix — Arab Horseman Attacked by a Lion (1849–50)"
+		},
+		{
+			"id": "aic-81505",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Eugène Delacroix — Lion Hunt (1860–61)"
+		},
+		{
+			"id": "aic-81576",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Anders Zorn — Mrs. Potter Palmer (1893)"
+		},
+		{
+			"id": "aic-87760",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Lucas Cranach the Elder — Portrait of Magdalena of Saxony, Wife of Elector Joachim II of Brandenburg (c. 1529)"
+		},
+		{
+			"id": "aic-110507",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Arnold Böcklin — In the Sea (1883)"
+		},
+		{
+			"id": "aic-44739",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Henry Fuseli — Milton Dictating to His Daughter (1794)"
+		},
+		{
+			"id": "aic-10287",
+			"stage": 2,
+			"role": "anchor",
+			"note": "François Boucher — Bathing Nymph (c. 1745–50)"
+		},
+		{
+			"id": "aic-153993",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustave Courbet — Cliffs on the Sea Coast: Small Beach, Sunrise (Falaise au bord de la mer, vu Petite Plage, soleil levant) (1865)"
+		},
+		{
+			"id": "aic-16490",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustave Courbet — The Brook of Les Puits-Noir (c. 1855)"
+		},
+		{
+			"id": "aic-49651",
+			"stage": 2,
+			"role": "anchor",
+			"note": "John Constable — Landscape with Cottages (1809–10)"
+		},
+		{
+			"id": "cma-115067",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Odilon Redon — Vase of Flowers (c. 1905)"
+		},
+		{
+			"id": "wd-Q32381",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Masaccio — Virgin and Child with Saint Anne (1424)"
+		},
+		{
+			"id": "wd-Q3276180",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Giotto — Madonna with the laughing Child (1291)"
+		},
+		{
+			"id": "wd-Q3319184",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Henri Rousseau — Myself: Portrait – Landscape (1890)"
+		},
+		{
+			"id": "wd-Q3399452",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Jan van Eyck — Portrait of Margareta van Eyck (1439)"
+		},
+		{
+			"id": "wd-Q3492138",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Alfred Sisley — Under the Bridge of Hampton Court (1874)"
+		},
+		{
+			"id": "wd-Q354396",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustav Klimt — Portrait of Adele Bloch-Bauer I (1907)"
+		},
+		{
+			"id": "wd-Q3630751",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Rembrandt — Self-Portrait at the Age of 34 (1640)"
+		},
+		{
+			"id": "wd-Q369582",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Masaccio — Madonna and Child (1426)"
+		},
+		{
+			"id": "wd-Q3873324",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Paul Cézanne — Still Life with Onions (1898)"
+		},
+		{
+			"id": "wd-Q3918296",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Bartolomé Esteban Murillo — Virgin and Child with a Rosary (1650)"
+		},
+		{
+			"id": "wd-Q3937481",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Anthony van Dyck — Equestrian Portrait of Charles I (1630)"
+		},
+		{
+			"id": "wd-Q3937561",
+			"stage": 2,
+			"role": "anchor",
+			"note": "El Greco — Portrait of Giulio Clovio (1571)"
+		},
+		{
+			"id": "wd-Q3937768",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Paolo Veronese — Portrait of a gentleman in a fur (1558)"
+		},
+		{
+			"id": "wd-Q5296650",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Hans Holbein the Younger — Portrait of Sir Thomas More (1527)"
+		},
+		{
+			"id": "wd-Q555821",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Raphael — Self-portrait (1505)"
+		},
+		{
+			"id": "wd-Q563727",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Leonardo da Vinci — The Virgin and Child with Saint Anne (1511)"
+		},
+		{
+			"id": "wd-Q5650332",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Tintoretto — Portrait of a Bare-Breasted Woman (1580)"
+		},
+		{
+			"id": "wd-Q5712837",
+			"stage": 2,
+			"role": "anchor",
+			"note": "El Greco — Self-Portrait (?) (1595)"
+		},
+		{
+			"id": "wd-Q5966403",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Berthe Morisot — The Cradle (1872)"
+		},
+		{
+			"id": "wd-Q6038776",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Jean-Baptiste-Siméon Chardin — Still Life with Attributes of the Arts (1766)"
+		},
+		{
+			"id": "wd-Q6057328",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Claude Lorrain — Landscape with the Burial of Saint Serapia (1639)"
+		},
+		{
+			"id": "wd-Q613928",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Jacques-Louis David — Portrait of Antoine-Laurent Lavoisier and his wife (1788)"
+		},
+		{
+			"id": "wd-Q6382435",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Alfred Sisley — The Bridge at Villeneuve-la-Garenne (1872)"
+		},
+		{
+			"id": "wd-Q6583495",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Hans Holbein the Younger — Portrait of Henry VIII (1537)"
+		},
+		{
+			"id": "wd-Q7733345",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Paolo Veronese — The Family of Darius Before Alexander (1565)"
+		},
+		{
+			"id": "wd-Q920030",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Francisco Goya — Charles IV of Spain and His Family (1800)"
+		},
+		{
+			"id": "cma-95266",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Anthony van Dyck — Portrait of Charles I (1600–1649) (1600s or later)"
+		},
+		{
+			"id": "wd-Q102832336",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Sesshū Tōyō — Winter Landscape (1470)"
+		},
+		{
+			"id": "wd-Q104152302",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Raden Saleh — Portrait of the Baud family in their country house in Voorburg (1831)"
+		},
+		{
+			"id": "wd-Q104930614",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Honoré Daumier — Family on the Barricades (1848)"
+		},
+		{
+			"id": "wd-Q111659725",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Lavinia Fontana — Portrait of Bianca degli Utili Maselli and Her Children (1604)"
+		},
+		{
+			"id": "wd-Q114801075",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Egon Schiele — Composition by Portrait of Three Men (Self-Portrait) (1911)"
+		},
+		{
+			"id": "wd-Q119011999",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Joshua Reynolds — Self-Portrait (1780)"
+		},
+		{
+			"id": "wd-Q1214931",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Pieter de Hooch — Mother Lacing Her Bodice beside a Cradle (1661)"
+		},
+		{
+			"id": "wd-Q123677128",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Amrita Sher-Gil — Self-portrait (1931)"
+		},
+		{
+			"id": "wd-Q136433749",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Gustav Klimt — Portrait of Elisabeth Lederer (1914)"
+		},
+		{
+			"id": "wd-Q1661697",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Hans Holbein the Younger — Madonna enthroned with child and two figures (1522)"
+		},
+		{
+			"id": "wd-Q17319893",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Pieter de Hooch — Woman with a Child in a Pantry (1656)"
+		},
+		{
+			"id": "wd-Q17322404",
+			"stage": 2,
+			"role": "anchor",
+			"note": "Jan Steen — Children Teaching a Cat to Dance, Known as ‘The Dancing Lesson’ (1669)"
+		},
+		{
+			"id": "cma-101461",
+			"stage": 2,
+			"role": "discovery",
+			"note": "William Merritt Chase — Portrait of My Daughter Alice (c. 1895)"
+		},
+		{
+			"id": "cma-102578",
+			"stage": 2,
+			"role": "discovery",
+			"note": "William Merritt Chase — Portrait of Dora Wheeler (1882–83)"
+		},
+		{
+			"id": "cma-113202",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Filippino Lippi — The Holy Family with Saint John the Baptist and Saint Margaret (c. 1488–93)"
+		},
+		{
+			"id": "cma-121946",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Peter Lely — Portrait of Mrs. Leneve (c. 1657)"
+		},
+		{
+			"id": "cma-122158",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Corneille de Lyon — Portrait of a Woman (c. 1540)"
+		},
+		{
+			"id": "cma-122339",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Giovanni Battista Cima da Conegliano — Virgin and Child with Saints and Donors (c. 1515)"
+		},
+		{
+			"id": "cma-122344",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Gainsborough Dupont — Portrait of Mary Anne Jolliffe (after 1788)"
+		},
+		{
+			"id": "cma-122346",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Thomas Lawrence — Portrait of Charlotte and Sarah Carteret-Hardy (1801)"
+		},
+		{
+			"id": "cma-122347",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Jean-Marc Nattier — Portrait of a Woman as Diana (1752)"
+		},
+		{
+			"id": "cma-124089",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Rembrandt van Rijn — Portrait of a Woman (1635 or earlier)"
+		},
+		{
+			"id": "cma-124092",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Gerard ter Borch — Portrait of a Woman (c. 1665)"
+		},
+		{
+			"id": "cma-124758",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Neri di Bicci — Virgin and Child (c. 1460)"
+		},
+		{
+			"id": "cma-124990",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Agustín Esteve y Marques — Portrait of Juan Maria Osorio (c. 1786)"
+		},
+		{
+			"id": "cma-125951",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Jean-Marc Nattier — Portrait of a Woman (c. 1748)"
+		},
+		{
+			"id": "cma-127571",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Lorenzo Lotto — Portrait of a Man, Possibly Girolamo Rosati (1533–34)"
+		},
+		{
+			"id": "cma-127953",
+			"stage": 2,
+			"role": "discovery",
+			"note": "James Ensor — The Garden of the Rousseau Family (1885)"
+		},
+		{
+			"id": "cma-134237",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Carolino da Viterbo — Virgin and Child with Saint Jerome and Saint Catherine of Alexandria (c. 1450)"
+		},
+		{
+			"id": "cma-135875",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Philippe de Champaigne — Portrait of King Charles II of England (1653)"
+		},
+		{
+			"id": "cma-136682",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Thomas Lawrence — Portrait of Catherine Grey, Lady Manners (1794)"
+		},
+		{
+			"id": "cma-137824",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Dasavanta — The parrot mother cautions her young on the danger of playing with foxes, from a Tuti-nama (Tales of a Parrot): Fifth Night (c. 1560)"
+		},
+		{
+			"id": "cma-137875",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Basavana — The hunter offers the mother parrot to the king of Kamarupa, from a Tuti-nama (Tales of a Parrot): Fifth Night (c. 1560)"
+		},
+		{
+			"id": "cma-137924",
+			"stage": 2,
+			"role": "discovery",
+			"note": "Gujarati — Landscape with a lotus pool, from a Tuti-nama (Tales of a Parrot), Eighth Night (c. 1560)"
+		},
+		{
+			"id": "aic-120172",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jusepe de Ribera — Penitent Saint Peter (c. 1630)"
+		},
+		{
+			"id": "aic-80084",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Francisco de Zurbarán — The Crucifixion (1627)"
+		},
+		{
+			"id": "aic-260424",
+			"stage": 3,
+			"role": "contrast",
+			"note": "William Holman Hunt — The Shadow of Death (1873-74)"
+		},
+		{
+			"id": "aic-59856",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Lucas Cranach the Elder — The Crucifixion (1538)"
+		},
+		{
+			"id": "aic-879",
+			"stage": 3,
+			"role": "anchor",
+			"note": "John Constable — Landscape (The Lock) (c. 1820–25)"
+		},
+		{
+			"id": "aic-94240",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Odilon Redon — Flowers: Poppies and Daisies (c. 1867)"
+		},
+		{
+			"id": "cma-111470",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Henri Rousseau — Outskirts of Paris (c. 1897–1905)"
+		},
+		{
+			"id": "cma-112856",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Rogier van der Weyden — The Crucifixion with a Carthusian Monk (1460)"
+		},
+		{
+			"id": "cma-124076",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Fra Angelico — Coronation of the Virgin (1420s)"
+		},
+		{
+			"id": "cma-126769",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Henri Rousseau — Fight Between a Tiger and a Buffalo (1908)"
+		},
+		{
+			"id": "cma-128842",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Georges de La Tour — Saint Peter Repentant (1645)"
+		},
+		{
+			"id": "cma-130163",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jacques-Louis David — Young Woman with a Turban (c. 1780)"
+		},
+		{
+			"id": "cma-134620",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Titian — Adoration of the Magi (1500s)"
+		},
+		{
+			"id": "cma-135214",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Honoré Daumier — The Troubadour (1868–73)"
+		},
+		{
+			"id": "cma-135238",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Edgar Degas — Paul Lafond and Alphonse Cherfils Examining a Painting (c. 1878–80)"
+		},
+		{
+			"id": "cma-135265",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Edgar Degas — Stefanina Primicile Carafa, Marchioness of Cicerale and Duchess of Montejasi (c. 1875)"
+		},
+		{
+			"id": "cma-135420",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Georgia O'Keeffe — Morning Glory with Black (1926)"
+		},
+		{
+			"id": "cma-136217",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Francisco de Zurbarán — Christ and the Virgin in the House at Nazareth (c. 1640)"
+		},
+		{
+			"id": "cma-136680",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jusepe de Ribera — Saint Jerome (c. 1638–40)"
+		},
+		{
+			"id": "cma-140152",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jan Steen — Esther, Ahasuerus, and Haman (c. 1668)"
+		},
+		{
+			"id": "cma-142792",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Ernst Ludwig Kirchner — Wrestlers in a Circus (1909)"
+		},
+		{
+			"id": "cma-143278",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Piet Mondrian — Composition with Red, Yellow, and Blue (1927)"
+		},
+		{
+			"id": "cma-146023",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Piet Mondrian — Field with Young Trees in the Foreground (c. 1907)"
+		},
+		{
+			"id": "cma-148758",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Caravaggio — The Crucifixion of Saint Andrew (1606–7)"
+		},
+		{
+			"id": "cma-148971",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Lawrence Alma-Tadema — Glaucus and Nydia (1867)"
+		},
+		{
+			"id": "cma-149421",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Rosa Bonheur — The Farm at the Entrance of the Wood (1860–80)"
+		},
+		{
+			"id": "cma-151904",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Thomas Eakins — The Biglin Brothers Turning the Stake (1873)"
+		},
+		{
+			"id": "cma-151969",
+			"stage": 3,
+			"role": "contrast",
+			"note": "William Holman Hunt — Mary Walker Waugh (1868)"
+		},
+		{
+			"id": "cma-153606",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Georgia O'Keeffe — White Pansy (1927)"
+		},
+		{
+			"id": "cma-154283",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Odilon Redon — Symbolic Head (c. 1890)"
+		},
+		{
+			"id": "cma-157501",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Annibale Carracci — Boy Drinking (1582–83)"
+		},
+		{
+			"id": "cma-172784",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Georgia O'Keeffe — White Flower (1929)"
+		},
+		{
+			"id": "cma-294155",
+			"stage": 3,
+			"role": "contrast",
+			"note": "William Blake — St. Matthew (1799)"
+		},
+		{
+			"id": "cma-83462",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Félix Vallotton — Corn Fields (1900)"
+		},
+		{
+			"id": "cma-84370",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Félix Vallotton — The Bistro (c. 1895)"
+		},
+		{
+			"id": "cma-87891",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Vilhelm Hammershøi — Strandgade, Sunshine (c. 1906)"
+		},
+		{
+			"id": "cma-95287",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Pierre Puvis de Chavannes — Summer (1891)"
+		},
+		{
+			"id": "wd-m-pablo-picasso-les-demoiselles-d-avignon",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Pablo Picasso — Les Demoiselles d'Avignon (1907)"
+		},
+		{
+			"id": "wd-Q1215604",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jean-Auguste-Dominique Ingres — The Source (1856)"
+		},
+		{
+			"id": "wd-Q1239950",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Edgar Degas — L'Absinthe (1875)"
+		},
+		{
+			"id": "wd-Q1282840",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jean-Auguste-Dominique Ingres — Napoleon I on his Imperial Throne (1806)"
+		},
+		{
+			"id": "wd-Q14856959",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Ernst Ludwig Kirchner — Half-Length Nude with Hat (1911)"
+		},
+		{
+			"id": "wd-Q1683743",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Edvard Munch — Vampire (1893)"
+		},
+		{
+			"id": "wd-Q1713754",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Antoine Watteau — Nymph and Satyr (1716)"
+		},
+		{
+			"id": "wd-Q17189258",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jean-Auguste-Dominique Ingres — Comtesse d'Haussonville (1845)"
+		},
+		{
+			"id": "wd-Q18208623",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Edvard Munch — Anxiety (1894)"
+		},
+		{
+			"id": "wd-Q19883621",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Kazimir Malevich — Woman with Pails: Dynamic Arrangement (1912)"
+		},
+		{
+			"id": "wd-Q2088930",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Francisco Goya — The Milkmaid of Bordeaux (1827)"
+		},
+		{
+			"id": "wd-Q21086420",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Kazimir Malevich — The Woodcutter (1912)"
+		},
+		{
+			"id": "wd-Q2270805",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Paul Cézanne — The Boy in the Red Vest (1889)"
+		},
+		{
+			"id": "wd-Q2337873",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Caravaggio — The Inspiration of Saint Matthew (1602)"
+		},
+		{
+			"id": "wd-Q2339059",
+			"stage": 3,
+			"role": "contrast",
+			"note": "J. M. W. Turner — Rain, Steam and Speed – The Great Western Railway (1843)"
+		},
+		{
+			"id": "wd-Q2663568",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Salvador Dalí — The Face of War (1940)"
+		},
+		{
+			"id": "wd-Q2990634",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Wassily Kandinsky — Composition VII (1913)"
+		},
+		{
+			"id": "wd-Q3211034",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Jean-Honoré Fragonard — The Birth of Venus (1753)"
+		},
+		{
+			"id": "wd-Q3609042",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Wassily Kandinsky — Several Circles (1926)"
+		},
+		{
+			"id": "wd-Q3795192",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Paul Cézanne — Pont de Maincy (1879)"
+		},
+		{
+			"id": "wd-Q4016290",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Franz Marc — Fox (1911)"
+		},
+		{
+			"id": "wd-Q4429116",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Pablo Picasso — The Magpie (1868)"
+		},
+		{
+			"id": "wd-Q5792618",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Bartolomé Esteban Murillo — The Birth of the Virgin (1660)"
+		},
+		{
+			"id": "wd-Q6043567",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Joaquín Sorolla — Chicos en la playa (1909)"
+		},
+		{
+			"id": "wd-Q17629102",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Annibale Carracci — Two children teasing a cat (1590)"
+		},
+		{
+			"id": "wd-Q18888002",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Judith Leyster — Self-portrait by Judith Leyster (1630)"
+		},
+		{
+			"id": "wd-Q19931300",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Lavinia Fontana — Self-portrait at the Virginal with a Servant (1577)"
+		},
+		{
+			"id": "wd-Q19973933",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Peder Severin Krøyer — The Hirschsprung family portrait (1881)"
+		},
+		{
+			"id": "wd-Q19985096",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Angelica Kauffman — Ferdinand I and His Family (1782)"
+		},
+		{
+			"id": "wd-Q20183716",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Simone Martini — Madonna and Child (1326)"
+		},
+		{
+			"id": "wd-Q22329812",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Anders Zorn — A Portrait of the Daughters of Ramón Subercaseaux (1892)"
+		},
+		{
+			"id": "wd-Q23009844",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Sofonisba Anguissola — Self-portrait at an Easel (1556)"
+		},
+		{
+			"id": "wd-Q23010133",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Artemisia Gentileschi — Self-Portrait as a Lute Player (1616)"
+		},
+		{
+			"id": "wd-Q2459266",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Théodore Géricault — Portrait of a Kleptomaniac (1820)"
+		},
+		{
+			"id": "wd-Q24930037",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Lucas Cranach the Elder — Portrait of an Aristocratic Saxon Lady (1534)"
+		},
+		{
+			"id": "wd-Q28442857",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Gustav Klimt — Portrait of a Lady (1916)"
+		},
+		{
+			"id": "wd-Q3541051",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Akseli Gallen-Kallela — Lemminkäinen's Mother (1897)"
+		},
+		{
+			"id": "wd-Q3630745",
+			"stage": 3,
+			"role": "anchor",
+			"note": "Artemisia Gentileschi — Self-Portrait as the Allegory of Painting (1630)"
+		},
+		{
+			"id": "aic-100345",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Jacob Cornelisz. van Oostsanen — The Adoration of the Christ Child (c. 1515)"
+		},
+		{
+			"id": "aic-100350",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Jean Léon Gérôme — Chariot Race (1876)"
+		},
+		{
+			"id": "aic-100476",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Henri Edmond Cross — Beach at Cabasson (Baigne-Cul) (1891–92)"
+		},
+		{
+			"id": "aic-105466",
+			"stage": 3,
+			"role": "contrast",
+			"note": "Joachim Antonisz. Wtewael — The Battle between the Gods and the Giants (c. 1608)"
+		},
+		{
+			"id": "aic-105887",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Aert de Gelder — Portrait of a Young Woman (c. 1690)"
+		},
+		{
+			"id": "aic-107938",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Jean Antoine Watteau — Fête champêtre (Pastoral Gathering) (1718–21)"
+		},
+		{
+			"id": "aic-109323",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Jacopo Bassano — Virgin and Child with the Young Saint John the Baptist (1560–65)"
+		},
+		{
+			"id": "aic-109487",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Joachim Beuckelaer — Portrait of a Young Woman (1562)"
+		},
+		{
+			"id": "aic-110242",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Giorgio Vasari — The Temptation of Saint Jerome (1541–48)"
+		},
+		{
+			"id": "aic-110759",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Pontormo, (Jacopo Carrucci) — Alessandro de' Medici (1534–35)"
+		},
+		{
+			"id": "aic-110776",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Charles Emile Champmartin — Théodore Géricault on His Deathbed (1824)"
+		},
+		{
+			"id": "aic-111059",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Juan de Zurbarán — Flowers and Fruit in a Porcelain Bowl (c. 1645)"
+		},
+		{
+			"id": "aic-111074",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Francesco Guardi — The Grand Canal, Venice (c. 1760)"
+		},
+		{
+			"id": "aic-111078",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Flemish — Portrait of a Man (c. 1575)"
+		},
+		{
+			"id": "aic-111250",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Antonio Rimpatta — The Holy Family with Four Saints and a Female Donor (c. 1510)"
+		},
+		{
+			"id": "aic-111317",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Jean Auguste Dominique Ingres — Amédée-David, the Comte de Pastoret (1823–26)"
+		},
+		{
+			"id": "aic-111418",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Laurent de La Hyre — Panthea, Cyrus, and Araspas (1631-34)"
+		},
+		{
+			"id": "aic-111436",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Paul Cezanne — The Basket of Apples (c. 1893)"
+		},
+		{
+			"id": "aic-111441",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Workshop of Cornelis Engebrechtsz. — The Adoration of the Magi (1515-25)"
+		},
+		{
+			"id": "aic-111453",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Belgian — Landscape with the Penitent Saint Jerome (1530–40)"
+		},
+		{
+			"id": "aic-111456",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Jan Gossart — Virgin and Child (c. 1520)"
+		},
+		{
+			"id": "aic-111559",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Francisco José de Goya y Lucientes — Boy on a Ram (1786–87)"
+		},
+		{
+			"id": "aic-111608",
+			"stage": 3,
+			"role": "discovery",
+			"note": "Netherlandish — Emperor Heraclius Slays the King of Persia (c. 1470)"
+		}
+	]
+}

@@ -23,7 +23,10 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const workDir = path.join(here, '..', 'work');
 
 const ADAPTERS: Record<string, SourceAdapter> = { aic, cma };
-const TAG_FIELDS: Record<string, (raw: unknown) => { subjects: string[]; styles: string[]; terms: string[] }> = {
+const TAG_FIELDS: Record<
+	string,
+	(raw: unknown) => { subjects: string[]; styles: string[]; terms: string[] }
+> = {
 	aic: aicTagFields,
 	cma: cmaTagFields
 };
@@ -157,7 +160,13 @@ async function cmdBuild(): Promise<void> {
 				continue;
 			}
 			const work = result.work;
-			const fields = (TAG_FIELDS[id] as (r: unknown) => { subjects: string[]; styles: string[]; terms: string[] })(raw);
+			const fields = (
+				TAG_FIELDS[id] as (r: unknown) => {
+					subjects: string[];
+					styles: string[];
+					terms: string[];
+				}
+			)(raw);
 			work.tags = tagFromMetadata({
 				title: work.title,
 				movement: work.movement,
@@ -200,14 +209,20 @@ async function cmdBuild(): Promise<void> {
 	await writeFile(
 		path.join(workDir, 'report.json'),
 		JSON.stringify(
-			{ index, rejects, dedupeRemoved: removed, dedupeFlagged: flagged, imageReport: report, coverage },
+			{
+				index,
+				rejects,
+				dedupeRemoved: removed,
+				dedupeFlagged: flagged,
+				imageReport: report,
+				coverage
+			},
 			null,
 			2
 		)
 	);
 	log(`published ${index.count} works → ${outDir}`);
 }
-
 
 /**
  * Coverage & concentration report: the catalog is part of the model, so its
@@ -216,7 +231,12 @@ async function cmdBuild(): Promise<void> {
 function coverageReport(
 	works: Work[],
 	log: (msg: string) => void
-): { bySource: Record<string, number>; byCentury: Record<string, number>; topArtists: [string, number][]; warnings: string[] } {
+): {
+	bySource: Record<string, number>;
+	byCentury: Record<string, number>;
+	topArtists: [string, number][];
+	warnings: string[];
+} {
 	const share = (n: number): number => Math.round((1000 * n) / Math.max(1, works.length)) / 10;
 	const bySourceCount: Record<string, number> = {};
 	const byCenturyCount: Record<string, number> = {};
@@ -226,11 +246,14 @@ function coverageReport(
 		const y = w.date.start;
 		const c = y == null ? 'unknown' : `${Math.floor((y - 1) / 100) + 1}c`;
 		byCenturyCount[c] = (byCenturyCount[c] ?? 0) + 1;
-		if (w.artist.name !== 'Unknown artist') byArtist[w.artist.name] = (byArtist[w.artist.name] ?? 0) + 1;
+		if (w.artist.name !== 'Unknown artist')
+			byArtist[w.artist.name] = (byArtist[w.artist.name] ?? 0) + 1;
 	}
 	const bySource = Object.fromEntries(Object.entries(bySourceCount).map(([k, n]) => [k, share(n)]));
 	const byCentury = Object.fromEntries(
-		Object.entries(byCenturyCount).sort((a, b) => a[0].localeCompare(b[0])).map(([k, n]) => [k, share(n)])
+		Object.entries(byCenturyCount)
+			.sort((a, b) => a[0].localeCompare(b[0]))
+			.map(([k, n]) => [k, share(n)])
 	);
 	const topArtists = Object.entries(byArtist)
 		.sort((a, b) => b[1] - a[1])
@@ -247,16 +270,34 @@ function coverageReport(
 
 async function cmdEmbed(): Promise<void> {
 	const { runEmbedStage } = await import('./embed.js');
-	const catalogDir = path.resolve(arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog')));
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
 	const commonsMapFile = path.join(here, '..', '..', 'data', 'commons-map.json');
 	await runEmbedStage({ catalogDir, commonsMapFile, log });
 }
 
 async function cmdCommonsMap(): Promise<void> {
 	const { runCommonsMapStage } = await import('./commons.js');
-	const catalogDir = path.resolve(arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog')));
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
 	const outFile = path.join(here, '..', '..', 'data', 'commons-map.json');
 	await runCommonsMapStage({ catalogDir, outFile, log });
+}
+
+async function cmdCurateOnboarding(): Promise<void> {
+	const { runCurateOnboarding } = await import('./curate.js');
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
+	await runCurateOnboarding({
+		catalogDir,
+		canonFile: path.join(here, '..', '..', 'data', 'canon', 'canon.json'),
+		outFile: path.join(here, '..', '..', 'data', 'curated', 'onboarding.json'),
+		force: hasFlag('force'),
+		log
+	});
 }
 
 const cmd = process.argv[2];
@@ -264,9 +305,10 @@ if (cmd === 'sample') await cmdSample();
 else if (cmd === 'build') await cmdBuild();
 else if (cmd === 'embed') await cmdEmbed();
 else if (cmd === 'commons-map') await cmdCommonsMap();
+else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
 else {
 	console.error(
-		'usage: tsx src/run.ts <sample|build|embed|commons-map> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe]'
+		'usage: tsx src/run.ts <sample|build|embed|commons-map|curate-onboarding> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe] [--force]'
 	);
 	process.exit(1);
 }

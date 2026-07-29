@@ -12,6 +12,7 @@ import { allEvents, appendEvent, kvDelete, kvGet, kvSet, requestPersistence } fr
 import type { AppEvent, AppEventPayload } from '../engine/events';
 import { effectiveEvents, isRetroactiveFoldEvent, makeEvent } from '../engine/events';
 import { applyEvent, modelFromEvents, type TasteModel } from '../engine/model';
+import { CURATED_ONBOARDING } from '../engine/onboarding';
 import {
 	advance as engineAdvance,
 	createSession,
@@ -77,7 +78,8 @@ class AppState {
 			events: this.events,
 			model: this.model,
 			workById: (id) => this.catalog.byId.get(id),
-			seed: this.events.length + 1
+			seed: this.events.length + 1,
+			curated: CURATED_ONBOARDING
 		};
 	}
 

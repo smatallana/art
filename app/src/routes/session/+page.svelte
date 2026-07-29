@@ -132,6 +132,9 @@
 			{#if sess.objective}
 				<p class="objective">{t.session.objectiveActive(sess.objective.label)}</p>
 			{/if}
+			{#if sess.current?.recovery}
+				<p class="objective">{t.session.changeDirection}</p>
+			{/if}
 			{#if micro}
 				<button class="micro" onclick={() => (microDismissed = sess.position)}>
 					<span class="micro-label">{t.session.microPrefix}</span>
