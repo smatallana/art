@@ -15,7 +15,8 @@
  * replayable, exportable, upgradeable.
  */
 import type { Work } from '../catalog/types';
-import { effectiveEvents, type AppEvent } from './events';
+import { CONTENT_PROBLEM_ASPECTS, effectiveEvents, type AppEvent } from './events';
+import { pairKey } from './selector';
 import { eraBucket, type EraBucket } from './strata';
 
 export const ERA_FEATURES: EraBucket[] = ['pre1500', 'e1500', 'e1700', 'e1850', 'e1900'];
@@ -163,10 +164,39 @@ function observe(
 	model.observations++;
 }
 
-const STRENGTH_OMEGA: Record<string, number> = { slight: 0.6, clear: 1.0, strong: 1.5 };
+/** Strength → weight multiplier. Shared with the session-insight engine so
+ *  the model and the summary weigh intensity identically. */
+export const STRENGTH_OMEGA: Record<string, number> = { slight: 0.6, clear: 1.0, strong: 1.5 };
 
 export interface ReplayContext {
 	workById: (id: string) => Work | undefined;
+}
+
+/**
+ * Retroactive per-pair annotations, collected by looking ahead in the log:
+ * strength (recorded after its pair_choice) and content-problem flags
+ * (pair_feedback whose LAST occurrence for the pair includes image-quality /
+ * hard-to-judge — so un-toggling a flag un-masks). Keys are canonical.
+ */
+export interface PairAnnotations {
+	strength: Map<string, 'slight' | 'clear' | 'strong'>;
+	contentFlagged: Set<string>;
+}
+
+export function collectPairAnnotations(events: AppEvent[]): PairAnnotations {
+	const strength = new Map<string, 'slight' | 'clear' | 'strong'>();
+	const contentFlagged = new Set<string>();
+	for (const e of events) {
+		if (e.t === 'strength') {
+			strength.set(pairKey(e.a, e.b), e.level);
+		} else if (e.t === 'pair_feedback') {
+			// Last feedback wins: each toggle re-emits the full aspects array.
+			const key = pairKey(e.a, e.b);
+			if (e.aspects.some((a) => CONTENT_PROBLEM_ASPECTS.has(a))) contentFlagged.add(key);
+			else contentFlagged.delete(key);
+		}
+	}
+	return { strength, contentFlagged };
 }
 
 /** Replay the full event log into a fresh model (order matters). */
@@ -178,15 +208,11 @@ export function modelFromEvents(
 ): TasteModel {
 	const model = base ?? createModel(cfg);
 	const live = effectiveEvents(events);
-	// strength events arrive after their pair_choice; look ahead by pair key.
-	const strengthByPair = new Map<string, string>();
-	for (const e of live) {
-		if (e.t === 'strength') strengthByPair.set(`${e.a}::${e.b}`, e.level);
-	}
+	const annotations = collectPairAnnotations(live);
 	const seenPairOutcome = new Map<string, 'a' | 'b'>();
 
 	for (const e of live) {
-		applyEvent(model, e, ctx, cfg, strengthByPair, seenPairOutcome);
+		applyEvent(model, e, ctx, cfg, annotations, seenPairOutcome);
 	}
 	return model;
 }
@@ -196,7 +222,7 @@ export function applyEvent(
 	e: AppEvent,
 	ctx: ReplayContext,
 	cfg: ModelConfig = DEFAULT_MODEL_CONFIG,
-	strengthByPair?: Map<string, string>,
+	annotations?: PairAnnotations,
 	seenPairOutcome?: Map<string, 'a' | 'b'>
 ): void {
 	switch (e.t) {
@@ -207,12 +233,11 @@ export function applyEvent(
 			const fa = features(a);
 			const fb = features(b);
 			if (e.pick === 'a' || e.pick === 'b') {
-				const level =
-					strengthByPair?.get(`${e.a}::${e.b}`) ?? strengthByPair?.get(`${e.b}::${e.a}`);
+				const level = annotations?.strength.get(pairKey(e.a, e.b));
 				const omega = cfg.pairWeight * (level ? (STRENGTH_OMEGA[level] ?? 1) : 1);
 				observe(model, diff(fa, fb), e.pick === 'a' ? 1 : 0, omega, cfg);
 				// consistency probes: same unordered pair answered before
-				const key = e.a < e.b ? `${e.a}::${e.b}` : `${e.b}::${e.a}`;
+				const key = pairKey(e.a, e.b);
 				const winner = e.pick === 'a' ? e.a : e.b;
 				const prev = seenPairOutcome?.get(key);
 				if (prev != null) {
@@ -224,12 +249,13 @@ export function applyEvent(
 					model.temperature = Math.min(2.5, Math.max(1, 2 - 2 * (agreement - 0.5)));
 				}
 				seenPairOutcome?.set(key, winner as 'a' | 'b');
-			} else if (e.pick === 'both') {
-				observe(model, fa, 1, cfg.bothNeitherWeight, cfg);
-				observe(model, fb, 1, cfg.bothNeitherWeight, cfg);
-			} else if (e.pick === 'neither') {
-				observe(model, fa, 0, cfg.bothNeitherWeight, cfg);
-				observe(model, fb, 0, cfg.bothNeitherWeight, cfg);
+			} else if (e.pick === 'both' || e.pick === 'neither') {
+				// A pair the user flagged as broken content (bad image, impossible
+				// comparison) carries no taste signal in EITHER direction.
+				if (annotations?.contentFlagged.has(pairKey(e.a, e.b))) return;
+				const y = e.pick === 'both' ? 1 : 0;
+				observe(model, fa, y, cfg.bothNeitherWeight, cfg);
+				observe(model, fb, y, cfg.bothNeitherWeight, cfg);
 			}
 			// 'unsure' contributes exposure but no direction.
 			return;

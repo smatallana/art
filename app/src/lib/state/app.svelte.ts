@@ -10,7 +10,7 @@ import { loadCatalog, retryCatalog } from '../catalog/store';
 import type { Work } from '../catalog/types';
 import { allEvents, appendEvent, kvDelete, kvGet, kvSet, requestPersistence } from '../db';
 import type { AppEvent, AppEventPayload } from '../engine/events';
-import { effectiveEvents, makeEvent } from '../engine/events';
+import { effectiveEvents, isRetroactiveFoldEvent, makeEvent } from '../engine/events';
 import { applyEvent, modelFromEvents, type TasteModel } from '../engine/model';
 import {
 	advance as engineAdvance,
@@ -128,9 +128,16 @@ class AppState {
 		this.recomputeCollections();
 		if (this.isRevealAnnotation(event)) this.undoableIds.push(event.id);
 		if (this.model) {
-			applyEvent(this.model, event, { workById: (id) => this.catalog.byId.get(id) });
-			// shallow-clone to notify runes subscribers of the deep mutation
-			this.model = { ...this.model };
+			if (isRetroactiveFoldEvent(event)) {
+				// strength / pair_feedback change how the ALREADY-applied pair
+				// counts; the incremental path cannot look ahead, so rebuild
+				// (same pattern as undo; milliseconds at personal-log scale).
+				this.rebuildModel();
+			} else {
+				applyEvent(this.model, event, { workById: (id) => this.catalog.byId.get(id) });
+				// shallow-clone to notify runes subscribers of the deep mutation
+				this.model = { ...this.model };
+			}
 		}
 		this.onEventRecorded?.();
 		return event;

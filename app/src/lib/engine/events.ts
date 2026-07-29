@@ -130,6 +130,27 @@ export type PairAspect =
 export type AppEventType = AppEvent['t'];
 
 /**
+ * Aspects that mark the PAIR as broken content (bad reproduction, impossible
+ * comparison) rather than expressing taste. A pair whose last feedback carries
+ * one of these must contribute NOTHING to the model — in either direction.
+ */
+export const CONTENT_PROBLEM_ASPECTS: ReadonlySet<PairAspect> = new Set([
+	'image-quality',
+	'hard-to-judge'
+]);
+
+/**
+ * Events that retroactively change how an already-folded pair_choice counts.
+ * The incremental model path cannot look ahead, so recording one of these
+ * requires a full rebuild from the log (cheap at personal-log scale).
+ */
+export function isRetroactiveFoldEvent(
+	e: AppEvent
+): e is Extract<AppEvent, { t: 'strength' | 'pair_feedback' }> {
+	return e.t === 'strength' || e.t === 'pair_feedback';
+}
+
+/**
  * The events every fold should consume: undo tombstones are applied (masked
  * events and the tombstones themselves are removed). Raw events still sync
  * and export unchanged — masking is a read-time concern.
