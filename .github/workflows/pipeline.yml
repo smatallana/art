@@ -8,7 +8,7 @@ on:
         required: true
         default: sample
         type: choice
-        options: [sample, build, embed, commons-map]
+        options: [sample, build, embed, tag-clip, commons-map]
       limit:
         description: 'max works per source (build mode)'
         required: false
@@ -61,6 +61,12 @@ jobs:
         env:
           HF_HUB_DISABLE_TELEMETRY: '1'
 
+      - name: Tag-clip mode — zero-shot CLIP tags from the committed embeddings
+        if: inputs.mode == 'tag-clip'
+        run: npm run -w pipeline run tag-clip
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+
       - name: Commons-map mode — map AIC works to Wikimedia Commons files
         if: inputs.mode == 'commons-map'
         run: npm run -w pipeline run commons-map
@@ -72,8 +78,15 @@ jobs:
           path: pipeline/work/report.json
           retention-days: 30
 
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'tag-clip'
+        with:
+          name: tagclip-report
+          path: pipeline/work/tagclip-report.json
+          retention-days: 30
+
       - name: Commit catalog to the branch
-        if: inputs.mode == 'build' || inputs.mode == 'embed' || inputs.mode == 'commons-map'
+        if: inputs.mode == 'build' || inputs.mode == 'embed' || inputs.mode == 'tag-clip' || inputs.mode == 'commons-map'
         run: |
           git config user.name "beholder-pipeline[bot]"
           git config user.email "noreply@github.com"

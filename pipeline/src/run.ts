@@ -310,6 +310,21 @@ async function cmdCommonsMap(): Promise<void> {
 	await runCommonsMapStage({ catalogDir, outFile, log });
 }
 
+async function cmdTagClip(): Promise<void> {
+	const { runTagClipStage } = await import('./tagclip.js');
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
+	await runTagClipStage({
+		catalogDir,
+		ontologyFile: path.join(here, '..', '..', 'data', 'ontology.json'),
+		reportFile: path.join(workDir, 'tagclip-report.json'),
+		log
+	});
+	// The republished index carries a new generatedAt — refresh coverage too.
+	await cmdCoverage();
+}
+
 async function cmdCurateOnboarding(): Promise<void> {
 	const { runCurateOnboarding } = await import('./curate.js');
 	const catalogDir = path.resolve(
@@ -329,11 +344,12 @@ if (cmd === 'sample') await cmdSample();
 else if (cmd === 'build') await cmdBuild();
 else if (cmd === 'embed') await cmdEmbed();
 else if (cmd === 'commons-map') await cmdCommonsMap();
+else if (cmd === 'tag-clip') await cmdTagClip();
 else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
 else if (cmd === 'coverage') await cmdCoverage();
 else {
 	console.error(
-		'usage: tsx src/run.ts <sample|build|embed|commons-map|curate-onboarding|coverage> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe] [--force]'
+		'usage: tsx src/run.ts <sample|build|embed|tag-clip|commons-map|curate-onboarding|coverage> [--limit=N] [--sources=aic,cma] [--out=DIR] [--skip-probe] [--force]'
 	);
 	process.exit(1);
 }
