@@ -1,10 +1,10 @@
 {
-	"generatedAt": null,
+	"generatedAt": "2026-07-30T09:07:17.695Z",
 	"totalWorks": 10767,
 	"bySource": {
 		"cma": 26,
-		"rijks": 20.4,
 		"met": 20.4,
+		"rijks": 20.4,
 		"wd": 18.9,
 		"aic": 14.2
 	},
