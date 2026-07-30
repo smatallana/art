@@ -81,10 +81,27 @@ async function sparql(query: string): Promise<SparqlBinding[]> {
 export async function resolveArtists(
 	artists: CanonArtist[],
 	log: (msg: string) => void
-): Promise<Map<string, { qid: string; name: string; born: number | null; died: number | null; nationality: string | null }>> {
+): Promise<
+	Map<
+		string,
+		{
+			qid: string;
+			name: string;
+			born: number | null;
+			died: number | null;
+			nationality: string | null;
+		}
+	>
+> {
 	const resolved = new Map<
 		string,
-		{ qid: string; name: string; born: number | null; died: number | null; nationality: string | null }
+		{
+			qid: string;
+			name: string;
+			born: number | null;
+			died: number | null;
+			nationality: string | null;
+		}
 	>();
 	// QID overrides first, each verified against the item's actual label.
 	const overridden = artists.filter((a) => a.qid);
@@ -219,7 +236,9 @@ export async function fetchWorkRows(
 				collection: v(row, 'collectionLabel')
 			});
 		}
-		log(`canon: work rows ${out.length} after ${Math.min(i + ARTIST_BATCH, creatorQids.length)}/${creatorQids.length} artists`);
+		log(
+			`canon: work rows ${out.length} after ${Math.min(i + ARTIST_BATCH, creatorQids.length)}/${creatorQids.length} artists`
+		);
 		await sleep(1000);
 	}
 	return out;
@@ -237,10 +256,7 @@ export function commonsFileFromP18(url: string): string | null {
 }
 
 /** Top-N per creator by sitelinks (fame proxy), dedup by item qid. */
-export function pickTopWorks(
-	rows: CanonWorkRow[],
-	targets: Map<string, number>
-): CanonWorkRow[] {
+export function pickTopWorks(rows: CanonWorkRow[], targets: Map<string, number>): CanonWorkRow[] {
 	const byCreator = new Map<string, CanonWorkRow[]>();
 	const seen = new Set<string>();
 	for (const r of rows) {
@@ -280,7 +296,10 @@ async function imageInfoFor(
 				query?: {
 					pages?: Record<
 						string,
-						{ title: string; imageinfo?: { url: string; width: number; height: number; thumburl?: string }[] }
+						{
+							title: string;
+							imageinfo?: { url: string; width: number; height: number; thumburl?: string }[];
+						}
 					>;
 				};
 			}>(
@@ -295,13 +314,13 @@ async function imageInfoFor(
 				// MediaWiki returned (it does not always honor iiurlwidth
 				// exactly — rijks/met came back as /1280px-, silently missing
 				// a literal '/1024px-' match and shipping display-weight thumbs).
-				const thumb = /\/\d+px-/.test(display)
-					? display.replace(/\/\d+px-/, '/400px-')
-					: display;
+				const thumb = /\/\d+px-/.test(display) ? display.replace(/\/\d+px-/, '/400px-') : display;
 				out.set(file, { width: info.width, height: info.height, thumb, display, full: info.url });
 			}
 		} catch (e) {
-			log(`canon: imageinfo batch failed (${String(e).slice(0, 80)}) — ${chunk.length} works skipped`);
+			log(
+				`canon: imageinfo batch failed (${String(e).slice(0, 80)}) — ${chunk.length} works skipped`
+			);
 		}
 		await sleep(1000);
 	}
@@ -413,7 +432,7 @@ export async function fetchCanonWorks(
 
 	const artists = await resolveArtists(canon.artists, log);
 	const targets = new Map<string, number>();
-	const artistByQid = new Map<string, (typeof artists extends Map<string, infer V> ? V : never)>();
+	const artistByQid = new Map<string, typeof artists extends Map<string, infer V> ? V : never>();
 	for (const a of canon.artists) {
 		const r = artists.get(a.name);
 		if (!r) continue;
@@ -467,7 +486,10 @@ export async function fetchCanonWorks(
 		const infoMap = await imageInfoFor([resolvedFile.file], resolvedFile.api, log);
 		const i = infoMap.get(resolvedFile.file);
 		if (!i) continue;
-		const slug = `${m.artist} ${m.title}`.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+		const slug = `${m.artist} ${m.title}`
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, '-')
+			.replace(/^-|-$/g, '');
 		const w = buildWork({
 			id: `wd-m-${slug}`,
 			title: m.title,
