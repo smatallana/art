@@ -291,9 +291,12 @@ async function imageInfoFor(
 				if (!info || !info.width || !info.height) continue;
 				const file = page.title.replace(/^File:/, '');
 				const display = info.thumburl ?? info.url;
-				// A second rendered size for thumbs: swap the /1024px- segment.
-				const thumb = display.includes('/1024px-')
-					? display.replace('/1024px-', '/400px-')
+				// A second rendered size for thumbs: swap whatever px bucket
+				// MediaWiki returned (it does not always honor iiurlwidth
+				// exactly — rijks/met came back as /1280px-, silently missing
+				// a literal '/1024px-' match and shipping display-weight thumbs).
+				const thumb = /\/\d+px-/.test(display)
+					? display.replace(/\/\d+px-/, '/400px-')
 					: display;
 				out.set(file, { width: info.width, height: info.height, thumb, display, full: info.url });
 			}

@@ -85,6 +85,10 @@
 <style>
 	.frame {
 		position: relative;
+		/* Browsers give <figure> a default 1em 40px margin; in narrow grid
+		   cells (the reveal's 72px reference thumb) that pushed the image
+		   40px sideways OVER the neighboring text. */
+		margin: 0;
 		width: 100%;
 		max-height: 100%;
 		background: var(--surface);
