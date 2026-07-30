@@ -68,3 +68,16 @@
 14. **Retroactive rebuilds run on every strength/aspect toggle.** O(events)
    each, milliseconds at personal scale; `isRetroactiveFoldEvent` is the
    single place to debounce if logs ever reach ~10^5 events.
+15. **CLIP tag precision is measured on the labeled slice only.** The
+   tag-clip calibration reports precision proxies against works that carry
+   meta tags (mostly the AIC slice); out-of-slice precision is unknown, and
+   base rates differ (light.nocturne wrote 4,081 tags — implausibly many
+   real night scenes; dark varnished paintings likely read as "night").
+   Bounded by design: clip confidence caps at 0.55, meta always wins, and
+   the summary's contribution filter keeps low-confidence tags out of
+   session claims. Mitigation queued in BACKLOG: precision spot-check pass
+   and per-dim floor raises on the next tag-clip run.
+16. **The welcome flag lives in localStorage.** Private browsing or a
+   cleared site-data pass re-shows the welcome (harmless), and a signed-in
+   device skips it via the auth token. No welcome state ever syncs — it is
+   presentation, not taste.

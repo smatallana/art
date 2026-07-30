@@ -16,10 +16,13 @@ Ordered by leverage.
    map to the R2 mirror stage (above), and re-run `commons-map`
    periodically — Commons coverage grows over time, shrinking the 326
    unmapped works.
-2. **CLIP zero-shot ontology tagging** — prompt ensembles per dimension over
-   the existing embeddings; confidence-thresholded `src:'clip'` tags for
-   moods/light/composition (metadata can't see these). Curatorial overrides
-   already win by design.
+2. **CLIP zero-shot ontology tagging** — *shipped in tramo 8* (`tag-clip`
+   stage: calibrated thresholds, precision proxies in the report artifact,
+   zero-tag works 55% → 2.1%). Remaining upgrades: a human spot-check pass
+   over generous dims (nocturne, family, nature) feeding per-dim floor
+   raises; recalibrate percentile-fallback dims as meta coverage grows;
+   composition dims (comp.*) still unprompted — they need visual probes
+   CLIP text can't phrase reliably.
 3. **Embedding features in the taste model** — PCA→64d block appended to
    φ(x): lets the model learn taste that escapes the ontology, while the
    interpretable dims keep explaining what can be explained.

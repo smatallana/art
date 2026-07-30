@@ -302,3 +302,73 @@ link-don't-copy), 21 under target, cma 43.9%.
 (net-probe retargeted; adapter design waits for endpoint evidence — the
 tramo-4 AIC lesson). Met images route via the Wikidata P3634 → Commons
 join, never hotlinked (their anti-bot stance, DECISIONS 2026-07-27).
+
+## 2026-07-30 — Tramo 8: the first real users (wife & daughter)
+
+The §20 protocol met reality before it was formally run. Two findings and
+one methodological criticism, all valid, all from the owner's family:
+
+1. **Wife, three pairs in:** *"¿y esta app para qué sirve, qué hace… no
+   entiendo"*. The app opened straight into an unexplained pair — no
+   identity, no purpose, sign-in buried in Settings.
+2. **Daughter, five full sessions:** the ending was always the same —
+   *"algo así como no hay suficiente información todavía sobre tus
+   gustos"*. Verified as structural, not copy-deep: 55% of the catalog had
+   ZERO ontology tags (median 0; cma 68%, met 62%, wd 59%, rijks 47%
+   tagless) and the summary excluded `era.*` — the one dimension every
+   dated work has. Her experience was mathematically inevitable.
+3. **Method:** *"Creo que no has probado la app poniéndote en los zapatos
+   de múltiples 'personas'"* — accepted. The engine had only ever been
+   validated on dense synthetic pools, never as a person playing over the
+   real sparse catalog.
+
+**Welcome (first run only, owner's decisions):** the home hall holds as a
+one-time welcome on fresh devices — eye mark, wordmark, tagline, one line
+of purpose, the Monet *Stack of Wheat* anchor (pinned to the precached
+bootstrap, guarded in CI) as a dimmed backdrop. Begin-as-guest is primary;
+"Sign in with Google" is secondary behind the same double gate Settings
+uses; sign-in now lands in the session, not Settings. The signal is a
+synchronous localStorage flag — acknowledged welcomes write NO events, so
+fresh-profile selection stays deterministic. "Erase local data" clears the
+flag: a reset brings the welcome back. The first two lifetime answers
+carry an in-flow hint under the choosing prompt. The production smoke now
+clicks Begin as a real cold visitor.
+
+**The summary always says something true:** era buckets are first-class
+pattern candidates (`ERA_DIMS`, labels phrased for every template they
+reach); the mechanical mirror of an era preference is not reported as a
+contradiction, while genuine era rejection still surfaces. When no pattern
+clears the unchanged thresholds (n≥2, |net|≥0.8), the ending is composed
+from computed session facts — pairs answered, eras spanned, most-picked
+era, saves — never a fixed line. Five differently-shaped sessions produce
+five distinct endings by test.
+
+**tag-clip (BACKLOG #2 promoted, the root fix):** a pipeline stage encodes
+prompt ensembles with the text side of the SAME CLIP checkpoint the image
+embeddings used, scores every embedded work by cosine margin, and writes
+`{v, c, src:'clip'}` only where the dim is absent — meta always wins, clip
+confidence caps at 0.55. Thresholds calibrate against the meta-labeled
+slice; the run's own report: 17 dims calibrated (portrait 0.93, religion
+0.91, still life 0.89, abstraction 1.00 precision proxies), **subject.genre
+and subject.myth refused to ship** (precision floor unreachable — the
+honest outcome), 11 low-support dims on conservative percentile fallback
+at c=0.35. Result: works with ≥1 tag 4,843 → 10,536 of 10,767 (zero-tag
+55% → 2.1%), median tags/work 0 → 7. Known limit (RISKS #15): precision is
+measured on the labeled slice only; out-of-slice rates are unknown, and
+generous dims (nocturne wrote 4,081 tags) deserve a spot-check pass.
+
+**Persona harness (the method change, permanent):** a vitest suite plays
+three tasteful personas and one noisy contrarian through seven real-engine
+sessions each over the committed shards, asserting that tasteful personas
+end most sessions with a claimable pattern, that no persona ever sees one
+fixed ending, and that every session closes sayable. Measured before
+tag-clip: 93% of 28 sessions ended with a pattern, 36% with a non-era
+pattern. After: 82% / 39% — the non-era share barely moved, but the
+CONTENT aligned with the personas (the portrait persona now reads
+"Portrait / Human figure / Family & intimacy" in five of seven sessions;
+the abstract persona reads "Stylized"). The honest interpretation: era
+still dominates because clip tags are deliberately low-confidence; the
+summary's contribution filter keeps most scale/mood clip tags out of
+session claims while the Bayesian model uses them all. That equilibrium is
+chosen, not accidental — raising clip impact would trade honesty for
+narrative.

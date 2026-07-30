@@ -1,5 +1,15 @@
 # Protocolo de prueba con usuarias reales
 
+> **Estado (2026-07-30): ejecutado parcialmente.** Las dos primeras
+> sesiones reales (esposa: 3 parejas; hija: 5 sesiones completas)
+> produjeron los dos hallazgos del tramo 8 — falta de propósito visible al
+> abrir y cierre de sesión siempre idéntico — más una crítica de método
+> (probar con múltiples "personas"). Los tres están registrados en
+> DECISIONS (tramo 8) y corregidos: bienvenida de primera vez, resumen con
+> épocas y hechos calculados, etiquetado CLIP del catálogo, y un harness
+> permanente de personas sintéticas sobre el catálogo real. El protocolo
+> completo de abajo sigue pendiente de correrse con 6–10 personas más.
+
 La evaluación externa (§20, ronda 3) tiene razón en algo que ningún test
 automático puede cubrir: si las primeras obras atrapan, si el resumen se
 siente VERDADERO, si la app parece adaptarse. Eso solo se ve observando a
