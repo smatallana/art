@@ -15,15 +15,13 @@ test('the app opens straight into a session with two paintings', async ({ page }
 
 test('PWA manifest is linked and resolvable', async ({ page, request }) => {
 	await page.goto('./');
-	// Read the DOM property, not the attribute: the property is the absolute
-	// URL the browser resolved at parse time. Resolving the relative
-	// attribute against page.url() raced the home → /session/ client
-	// redirect and intermittently produced /session/manifest.webmanifest.
-	const href = await page
-		.locator('link[rel="manifest"]')
-		.evaluate((el) => (el as HTMLLinkElement).href);
+	// Resolve the raw attribute against the request fixture's configured
+	// baseURL — never against the live document URL: the home → /session/
+	// SPA redirect moves the document base (DOM href properties re-resolve
+	// lazily), which intermittently produced /session/manifest.webmanifest.
+	const href = await page.locator('link[rel="manifest"]').getAttribute('href');
 	expect(href).toBeTruthy();
-	const res = await request.get(href);
+	const res = await request.get(href!);
 	expect(res.ok()).toBeTruthy();
 	const manifest = await res.json();
 	expect(manifest.name).toBe('Beholder');
