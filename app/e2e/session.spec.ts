@@ -4,8 +4,14 @@ import { expect, test } from '@playwright/test';
  * Core game-loop E2E against the committed catalog.
  * Covers acceptance criteria: interact without typing, responses persist,
  * close-and-return resumes, next selection adapts (no repeated pair).
- * The home route forwards straight into an auto-started session.
+ * The first-run welcome is pre-acknowledged below so the home route forwards
+ * straight into an auto-started session (the welcome itself has its own
+ * spec, welcome.spec.ts).
  */
+
+test.beforeEach(async ({ page }) => {
+	await page.addInitScript(() => localStorage.setItem('beholder-welcomed', '1'));
+});
 
 test('full session flow: choose, reveal, react, save, advance', async ({ page }) => {
 	await page.goto('./');

@@ -60,17 +60,43 @@ async function horizontalOverflow(page: Page): Promise<number> {
 	);
 }
 
-async function checkpoint(page: Page, name: string): Promise<void> {
+async function checkpoint(page: Page, name: string, maskImages = true): Promise<void> {
 	if (process.env.CI) return;
 	await expect(page).toHaveScreenshot(name, {
-		mask: [page.locator('img')],
+		// The welcome's hero backdrop sits UNDER the foreground text — masking
+		// it would paint over the whole screen, so that baseline relies on the
+		// deterministic fixed-pixel image instead.
+		mask: maskImages ? [page.locator('img')] : [],
 		animations: 'disabled',
 		maxDiffPixelRatio: 0.02
 	});
 }
 
 for (const vp of VIEWPORTS) {
+	test(`welcome first-run layout at ${vp.label}`, async ({ page }) => {
+		// No welcomed flag: this is the one surface a fresh device holds on.
+		await page.setViewportSize({ width: vp.width, height: vp.height });
+		await page.goto('./');
+
+		const begin = page.getByRole('button', { name: 'Begin', exact: true });
+		await expect(begin).toBeVisible();
+		// The hero backdrop must settle (fixed pixel) before the screenshot.
+		await expect(page.locator('.hero img')).toBeVisible({ timeout: 15000 });
+		expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
+		const box = await begin.boundingBox();
+		if (!box) throw new Error('begin button reported no bounding box');
+		expect(box.x).toBeGreaterThanOrEqual(0);
+		expect(box.x + box.width).toBeLessThanOrEqual(vp.width + 0.5);
+		expect(box.y + box.height).toBeLessThanOrEqual(vp.height + 0.5);
+		await checkpoint(page, `welcome-${vp.label}.png`, false);
+	});
+}
+
+for (const vp of VIEWPORTS) {
 	test(`layout holds at ${vp.label}: no sideways scroll, reachable next bar`, async ({ page }) => {
+		// Session layout cases pre-acknowledge the welcome; the flag is pure
+		// localStorage (no events), so pair selection stays seed-stable.
+		await page.addInitScript(() => localStorage.setItem('beholder-welcomed', '1'));
 		await page.setViewportSize({ width: vp.width, height: vp.height });
 		await page.goto('./');
 

@@ -2,9 +2,10 @@ import { expect, test, type Page } from '@playwright/test';
 
 /**
  * The one test that matters after every deploy: a completely cold visitor
- * on the real production URL must reach two actually-rendered paintings,
- * make a choice, see the reveal, and survive a reload — on WebKit and
- * Chromium. Fails red if the live product regresses.
+ * on the real production URL must land on the first-run welcome, Begin as
+ * a guest, reach two actually-rendered paintings, make a choice, see the
+ * reveal, and survive a reload — on WebKit and Chromium. Fails red if the
+ * live product regresses.
  */
 
 async function expectPairRendered(page: Page): Promise<void> {
@@ -28,6 +29,10 @@ test('cold start reaches a working session with real images', async ({ page }) =
 	page.on('pageerror', (e) => errors.push(String(e)));
 
 	await page.goto('./');
+	// First-run welcome: purpose before paintings, then guest entry.
+	const begin = page.getByRole('button', { name: 'Begin', exact: true });
+	await expect(begin).toBeVisible({ timeout: 20000 });
+	await begin.click();
 	await expectPairRendered(page);
 
 	await page.getByRole('button', { name: 'Choose the first painting' }).click();

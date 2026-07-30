@@ -129,6 +129,11 @@
 
 		{#if sess.phase === 'choosing' && firstWork && secondWork}
 			<h1 class="prompt">{t.session.whichOne}</h1>
+			{#if app.totalChoices < 2}
+				<!-- Purpose in the flow, first two lifetime answers only (real-user
+				     finding: "what is this app for?" three pairs in). -->
+				<p class="first-hint">{t.session.firstHint}</p>
+			{/if}
 			{#if sess.objective}
 				<p class="objective">{t.session.objectiveActive(sess.objective.label)}</p>
 			{/if}
@@ -297,6 +302,12 @@
 		color: var(--ink-muted);
 		font-weight: 400;
 		margin: var(--space-3) 0;
+	}
+	.first-hint {
+		text-align: center;
+		color: var(--ink-faint);
+		font-size: 0.82rem;
+		margin: calc(-1 * var(--space-2)) 0 var(--space-2);
 	}
 	.pair {
 		flex: 1;

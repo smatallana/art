@@ -6,6 +6,13 @@ export const t = {
 	appName: 'Beholder',
 	tagline: 'Learn your own eye.',
 
+	welcome: {
+		how: 'Choose between pairs of paintings. Beholder learns what your eye loves — and shows you why.',
+		begin: 'Begin',
+		heroCredit: (artist: string, title: string, museum: string) =>
+			`${artist} — ${title} · ${museum}`
+	},
+
 	home: {
 		start: 'Begin a session',
 		continue: 'Continue your session',
@@ -24,6 +31,7 @@ export const t = {
 
 	session: {
 		whichOne: 'Which draws you in?',
+		firstHint: 'Pick the one that pulls you — every answer teaches Beholder your eye.',
 		both: 'Both',
 		neither: 'Neither',
 		unsure: 'Not sure',

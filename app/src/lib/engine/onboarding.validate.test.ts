@@ -9,6 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import type { Work } from '../catalog/types';
+import { WELCOME_HERO_ID } from '../welcome';
 import { onboardingEligible } from './curation';
 import { eraBucket } from './strata';
 
@@ -77,5 +78,17 @@ describe('onboarding.json vs committed catalog', () => {
 			const anchors = curated.works.filter((e) => e.stage === stage && e.role === 'anchor');
 			expect(anchors.length, `stage ${stage}`).toBeGreaterThanOrEqual(10);
 		}
+	});
+
+	it('the welcome hero is a precached bootstrap work and a stage-1 anchor', () => {
+		// The welcome renders before any shard arrives — the hero must live in
+		// bootstrap.json or a fresh device gets a blank backdrop.
+		const bootstrap = JSON.parse(
+			readFileSync(path.join(catalogDir, 'bootstrap.json'), 'utf8')
+		) as Work[];
+		expect(bootstrap.some((w) => w.id === WELCOME_HERO_ID)).toBe(true);
+		const entry = curated.works.find((e) => e.id === WELCOME_HERO_ID);
+		expect(entry?.stage).toBe(1);
+		expect(entry?.role).toBe('anchor');
 	});
 });

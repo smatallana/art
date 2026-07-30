@@ -6,6 +6,7 @@
 	import { signInUrl } from '$lib/api';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { clearAllLocalData } from '$lib/db';
+	import { clearWelcomed } from '$lib/welcome';
 	import { APP_VERSION } from '$lib/version';
 
 	let authUrl = $state<string | null>(null);
@@ -74,6 +75,7 @@
 	async function resetLocal(): Promise<void> {
 		if (!confirm(t.settings.resetConfirm)) return;
 		await clearAllLocalData();
+		clearWelcomed(); // a truly fresh device sees the welcome again
 		app.events = [];
 		app.engine = null;
 		app.savedIds = new SvelteSet();

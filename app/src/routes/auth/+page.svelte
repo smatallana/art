@@ -5,6 +5,7 @@
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
 	import { sync } from '$lib/state/sync.svelte';
+	import { markWelcomed } from '$lib/welcome';
 
 	let failed = $state(false);
 
@@ -16,7 +17,9 @@
 			history.replaceState(null, '', location.pathname); // never keep the code around
 			const ok = await sync.completeSignIn(match[1] as string);
 			if (ok) {
-				goto(`${base}/settings/`);
+				// Signing in fulfills the first run; land in the art, not settings.
+				markWelcomed();
+				goto(`${base}/session/`);
 				return;
 			}
 		}
