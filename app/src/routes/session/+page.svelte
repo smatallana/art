@@ -28,6 +28,19 @@
 			? sessionSummary(sessionEvents, (id) => app.work(id), ONTOLOGY_DIMS)
 			: null
 	);
+	const patternPhrases = $derived(
+		summary?.patterns.map((p) => t.session.patternPhrase(p.dimId, p.label)).join(' and ') ?? ''
+	);
+	// No-pattern ending: concrete facts of THIS session, joined into one line.
+	const factsLine = $derived.by(() => {
+		if (!summary || summary.patterns.length > 0 || summary.answered === 0) return null;
+		const parts = [t.session.factsAnswered(summary.answered, summary.facts.erasSeen)];
+		if (summary.facts.topEra) {
+			parts.push(t.session.factsTopEra(summary.facts.topEra.label, summary.facts.topEra.n));
+		}
+		if (summary.facts.savedCount > 0) parts.push(t.session.factsSaved(summary.facts.savedCount));
+		return parts.join(' ');
+	});
 	// Honesty gate: "Test this pattern" is only offered when the NEXT session
 	// runs the smart selector (daily mode) and there is something to test.
 	// During calibration the targeted machinery cannot honor the promise.
@@ -182,17 +195,16 @@
 					<p class="insight">
 						{(summary.patterns[0].n >= 3
 							? t.session.insightPattern
-							: t.session.insightPatternEarly)(
-							summary.patterns.map((p) => p.label.toLowerCase()).join(' and ')
-						)}
+							: t.session.insightPatternEarly)(patternPhrases)}
 					</p>
 					{#if summary.counter}
 						<p class="insight-sub">
 							{t.session.insightCounter(summary.counter.label.toLowerCase())}
 						</p>
 					{/if}
-				{:else if summary.answered > 0}
-					<p class="insight">{t.session.insightNone}</p>
+				{:else if factsLine}
+					<p class="insight">{factsLine}</p>
+					<p class="insight-sub">{t.session.factsNoThread}</p>
 				{:else}
 					<p class="empty">{t.session.emptyPool}</p>
 				{/if}

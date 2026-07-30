@@ -16,6 +16,25 @@ import { pairKey } from './selector';
 import type { OntologyDim } from './profile';
 import { directionLabel } from './profile';
 import type { SessionPair } from './session';
+import { eraBucket } from './strata';
+
+/**
+ * Era buckets as first-class pattern candidates. Every dated work carries an
+ * era one-hot (model.ts features), and era is the ONE dimension the whole
+ * catalog has — 55% of works carry zero ontology tags, so a summary that
+ * ignores era starves on real sessions (first real-user testing: five
+ * sessions, five identical "not enough information" endings). Labels are
+ * phrased to read in every template they reach ("works from …", "leaning
+ * toward …", "where you stand on …", "Testing: …").
+ */
+export const ERA_DIMS: OntologyDim[] = [
+	{ id: 'era.pre1500', group: 'context', kind: 'binary', label: 'the era before 1500' },
+	{ id: 'era.e1500', group: 'context', kind: 'binary', label: 'the 1500s and 1600s' },
+	{ id: 'era.e1700', group: 'context', kind: 'binary', label: 'the 1700s and early 1800s' },
+	{ id: 'era.e1850', group: 'context', kind: 'binary', label: 'the late 1800s' },
+	{ id: 'era.e1900', group: 'context', kind: 'binary', label: 'the modern era' }
+];
+const ERA_BY_ID = new Map(ERA_DIMS.map((d) => [d.id, d]));
 
 /** Strength is asked only when the answer is genuinely informative. */
 export function wantsStrength(slot: SessionPair['slot'], position: number): boolean {
@@ -86,6 +105,15 @@ export interface SessionInsight {
 	/** ≥2 both answers sharing an aspect — what the pairs had in common. */
 	shared: { aspect: PairAspect; n: number } | null;
 	answered: number;
+	/** Concrete session facts for the no-pattern ending — computed from the
+	 *  session, never a fixed line (five sessions must not end identically). */
+	facts: {
+		/** Distinct era buckets among the works shown (unknown excluded). */
+		erasSeen: number;
+		/** Most-picked era among a/b choices, when it has ≥2 picks. */
+		topEra: { label: string; n: number } | null;
+		savedCount: number;
+	};
 }
 
 /** Aspects that describe taste (not content problems, not "don't know"). */
@@ -118,7 +146,9 @@ export function sessionSummary(
 ): SessionInsight {
 	const live = effectiveEvents(sessionEvents);
 	const ann = collectPairAnnotations(live);
-	const byId = new Map(dims.map((d) => [d.id, d]));
+	// Era buckets sit alongside the ontology as pattern candidates — the one
+	// dimension every dated work carries (see ERA_DIMS above).
+	const byId = new Map([...ERA_DIMS, ...dims].map((d) => [d.id, d]));
 	const pull = new Map<string, { net: number; n: number }>();
 	/** Per answered a/b pair: what it pulled, for contribution ranking later. */
 	const pairRecords: { chosenId: string; d: Map<string, number> }[] = [];
@@ -127,6 +157,8 @@ export function sessionSummary(
 		neither: new Map<PairAspect, number>(),
 		both: new Map<PairAspect, number>()
 	};
+	const erasSeen = new Set<string>();
+	const chosenEras = new Map<string, number>();
 	let neitherCount = 0;
 	let bothCount = 0;
 	let answered = 0;
@@ -141,12 +173,23 @@ export function sessionSummary(
 		answered++;
 		if (e.pick === 'neither') neitherCount++;
 		if (e.pick === 'both') bothCount++;
+		const wa = workById(e.a);
+		const wb = workById(e.b);
+		for (const w of [wa, wb]) {
+			if (!w) continue;
+			const era = eraBucket(w);
+			if (era !== 'unknown') erasSeen.add(era);
+		}
 		if (e.pick !== 'a' && e.pick !== 'b') continue;
 		// A pair the user flagged as broken content teaches nothing here either.
 		if (ann.contentFlagged.has(pairKey(e.a, e.b))) continue;
-		const chosen = workById(e.pick === 'a' ? e.a : e.b);
-		const other = workById(e.pick === 'a' ? e.b : e.a);
+		const chosen = e.pick === 'a' ? wa : wb;
+		const other = e.pick === 'a' ? wb : wa;
 		if (!chosen || !other) continue;
+		const chosenEra = eraBucket(chosen);
+		if (chosenEra !== 'unknown') {
+			chosenEras.set(chosenEra, (chosenEras.get(chosenEra) ?? 0) + 1);
+		}
 		const level = ann.strength.get(pairKey(e.a, e.b));
 		const w = level ? (STRENGTH_OMEGA[level] ?? 1) : 1;
 		const fc = features(chosen);
@@ -154,7 +197,6 @@ export function sessionSummary(
 		const ids = new Set([...fc.keys(), ...fo.keys()]);
 		const record = { chosenId: chosen.id, d: new Map<string, number>() };
 		for (const id of ids) {
-			if (id.startsWith('era.')) continue;
 			const d = (fc.get(id) ?? 0) - (fo.get(id) ?? 0);
 			if (Math.abs(d) < 0.2) continue;
 			const cur = pull.get(id) ?? { net: 0, n: 0 };
@@ -201,7 +243,11 @@ export function sessionSummary(
 		.filter((s) => s.net > 0)
 		.slice(0, 2)
 		.map((s) => ({ dimId: s.dim.id, label: directionLabel(s.dim, s.net), n: s.n }));
-	const negative = scored.find((s) => s.net < 0);
+	// Era one-hots mirror each other: choosing era X over era Y mechanically
+	// pushes Y negative. When an era pattern is already claimed, its mirror is
+	// not a contradiction — only genuine counter-signals surface.
+	const eraPatterned = patterns.some((p) => p.dimId.startsWith('era.'));
+	const negative = scored.find((s) => s.net < 0 && !(eraPatterned && s.dim.id.startsWith('era.')));
 	// A dim with many observations but near-zero net pull is genuinely open.
 	const open = [...pull.entries()]
 		.filter(([id, p]) => byId.has(id) && p.n >= 3 && Math.abs(p.net) < 0.4)
@@ -247,7 +293,17 @@ export function sessionSummary(
 			: null,
 		rejection: topAspect(aspectCounts.neither, 2, neitherCount),
 		shared: topAspect(aspectCounts.both, 2, bothCount),
-		answered
+		answered,
+		facts: {
+			erasSeen: erasSeen.size,
+			topEra: (() => {
+				const top = [...chosenEras.entries()].sort((x, y) => y[1] - x[1])[0];
+				if (!top || top[1] < 2) return null;
+				const label = ERA_BY_ID.get(`era.${top[0]}`)?.label;
+				return label ? { label, n: top[1] } : null;
+			})(),
+			savedCount: savedIds.size
+		}
 	};
 }
 

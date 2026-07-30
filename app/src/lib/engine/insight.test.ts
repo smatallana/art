@@ -19,7 +19,7 @@ const DIMS: OntologyDim[] = [
 ];
 
 let seq = 0;
-function choice(a: string, b: string, pick: 'a' | 'b' | 'both' | 'neither'): AppEvent {
+function choice(a: string, b: string, pick: 'a' | 'b' | 'both' | 'neither' | 'unsure'): AppEvent {
 	return {
 		id: `s-${seq++}`,
 		at: new Date(1700000000000 + seq * 1000).toISOString(),
@@ -214,5 +214,89 @@ describe('sessionSummary', () => {
 		];
 		const s = sessionSummary(events, byId, DIMS);
 		expect(s.shared).toEqual({ aspect: 'atmosphere', n: 2 });
+	});
+});
+
+describe('sessionSummary on a sparse catalog (tramo 8 — era + facts)', () => {
+	// The real catalog's median tag count is ZERO: works whose only feature is
+	// their era one-hot. The summary must still find something true to say.
+	const modern = [1905, 1920, 1935].map((y, i) => testWork(`mod${i}`, { year: y, tags: {} }));
+	const old = [1510, 1600, 1650].map((y, i) => testWork(`old${i}`, { year: y, tags: {} }));
+	const lookup = (id: string) => [...modern, ...old].find((w) => w.id === id);
+
+	it('era is a first-class pattern when nothing else is tagged', () => {
+		const events = modern.map((m, i) => choice(m.id, old[i]!.id, 'a'));
+		const s = sessionSummary(events, lookup, DIMS);
+		expect(s.patterns[0]?.dimId).toBe('era.e1900');
+		expect(s.patterns[0]?.label).toBe('the modern era');
+		expect(s.patterns[0]?.n).toBe(3);
+		expect(s.evidenceWorkIds.length).toBeGreaterThan(0);
+	});
+
+	it('an era pattern does not drag its mechanical mirror in as a counter', () => {
+		const events = modern.map((m, i) => choice(m.id, old[i]!.id, 'a'));
+		const s = sessionSummary(events, lookup, DIMS);
+		// Choosing modern over the 1500s–1600s pushes the latter negative by
+		// construction; that mirror is not a contradiction worth reporting.
+		expect(s.counter).toBeNull();
+	});
+
+	it('consistent era rejection without an era preference still surfaces', () => {
+		// Three different-era works each chosen OVER a 1500s–1600s work: no
+		// single era wins, but one era consistently loses — that is real.
+		const varied = [1450, 1780, 1870].map((y, i) => testWork(`var${i}`, { year: y, tags: {} }));
+		const vlookup = (id: string) => [...varied, ...old].find((w) => w.id === id);
+		const events = varied.map((v, i) => choice(v.id, old[i]!.id, 'a'));
+		const s = sessionSummary(events, vlookup, DIMS);
+		expect(s.patterns).toHaveLength(0);
+		expect(s.counter?.dimId).toBe('era.e1500');
+	});
+
+	it('no-pattern endings carry distinct computed facts, never one fixed line', () => {
+		const w = (id: string, year: number) => testWork(id, { year, tags: {} });
+		const poolAll = [
+			w('a', 1450),
+			w('b', 1600),
+			w('c', 1780),
+			w('d', 1870),
+			w('e', 1930),
+			w('f', 1460),
+			w('g', 1610)
+		];
+		const flookup = (id: string) => poolAll.find((x) => x.id === id);
+		const save = (work: string): AppEvent =>
+			({
+				id: `sv-${work}`,
+				at: new Date(1700000005000).toISOString(),
+				device: 't',
+				hour: 12,
+				t: 'save',
+				work
+			}) as AppEvent;
+		// Five differently-shaped sessions, none with a pattern. Distinct in
+		// (answered, eras seen, saves) — the tuple the ending is built from.
+		const sessions: AppEvent[][] = [
+			[choice('a', 'b', 'both')],
+			[choice('a', 'b', 'neither'), choice('c', 'd', 'neither')],
+			[choice('e', 'a', 'a'), choice('c', 'd', 'neither'), choice('f', 'g', 'unsure')],
+			[choice('a', 'b', 'both'), save('a')],
+			[choice('a', 'b', 'unsure'), choice('f', 'g', 'unsure'), choice('a', 'g', 'unsure')]
+		];
+		const endings = sessions.map((events) => {
+			const s = sessionSummary(events, flookup, DIMS);
+			expect(s.patterns).toHaveLength(0);
+			return JSON.stringify({ answered: s.answered, facts: s.facts });
+		});
+		expect(new Set(endings).size).toBe(sessions.length);
+	});
+
+	it('picks concentrated in one era become a stated fact even without era contrast', () => {
+		// Both works of each pair share the era: no era pull exists, but the
+		// concentration of picks is still a true, sayable fact.
+		const events = [choice('mod0', 'mod1', 'a'), choice('mod1', 'mod2', 'a')];
+		const s = sessionSummary(events, lookup, DIMS);
+		expect(s.patterns).toHaveLength(0);
+		expect(s.facts.topEra).toEqual({ label: 'the modern era', n: 2 });
+		expect(s.facts.erasSeen).toBe(1);
 	});
 });

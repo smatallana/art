@@ -67,13 +67,27 @@ export const t = {
 		insightHeadline: 'A pattern is emerging',
 		insightHeadlineEarly: 'An early signal',
 		insightHeadlineNone: 'Still mapping your eye',
-		insightPattern: (labels: string) => `You kept choosing works with ${labels}.`,
-		insightPatternEarly: (labels: string) =>
-			`An early signal: you may respond to ${labels}. Too soon to be sure.`,
+		// Pattern lines take pre-built phrases ("works with vivid color",
+		// "works from the late 1800s") so era and tag patterns both read well.
+		patternPhrase: (dimId: string, label: string) =>
+			dimId.startsWith('era.')
+				? `works from ${label.toLowerCase()}`
+				: `works with ${label.toLowerCase()}`,
+		insightPattern: (phrases: string) => `You kept choosing ${phrases}.`,
+		insightPatternEarly: (phrases: string) =>
+			`An early signal: you may respond to ${phrases}. Too soon to be sure.`,
 		insightCounter: (label: string) => `You also pushed back on ${label} — noted.`,
-		insightNone:
-			'No single thread dominated this session — useful in itself: your eye is not one-note.',
-		insightOpen: (dim: string) => `Still open: how much ${dim} matters to you.`,
+		// No-pattern ending: concrete session facts, composed per session —
+		// never the same fixed line twice (first real-user testing).
+		factsAnswered: (n: number, eras: number) =>
+			eras >= 2
+				? `You answered ${n} ${n === 1 ? 'pair' : 'pairs'} spanning ${eras} eras of painting.`
+				: `You answered ${n} ${n === 1 ? 'pair' : 'pairs'}.`,
+		factsTopEra: (label: string, n: number) => `${n} of your picks came from ${label}.`,
+		factsSaved: (n: number) =>
+			n === 1 ? 'One work is saved to revisit.' : `${n} works are saved to revisit.`,
+		factsNoThread: 'No single thread dominated — your eye is not one-note. The map keeps growing.',
+		insightOpen: (dim: string) => `Still open: where you stand on ${dim}.`,
 		insightNext: (dim: string) => `The next session can test ${dim} directly.`,
 		insightEvidence: 'From this session',
 		insightRejection: (phrase: string, n: number) =>
