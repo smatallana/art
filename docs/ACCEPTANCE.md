@@ -17,7 +17,7 @@ reworked; production is now smoke-tested after every deploy.
 | 7 | Close and return without losing progress | ✅ | Session snapshot + resume; E2E-covered |
 | 8 | Next selection adapts to answers | ✅ | Calibration → info-gain active learning (synthetic-user tests) |
 | 9 | Not always the same comparisons | ✅ | Pair-novelty + cooldowns + exploration slots; E2E non-repetition test |
-| 10 | Large, extensible catalog | ✅ | Reproducible pipeline; 10,767 works across five sources after tramo 7 (cma 26.0%, rijks 20.4%, met 20.4%, wd 18.9%, aic 14.2% — down from 51.8% single-source two tramos ago); curated canon + collection-join sources; committed coverage governance (data/coverage.json) with canon target-vs-actual |
+| 10 | Large, extensible catalog | ✅ | Reproducible pipeline; 10,767 works across five sources after tramo 7 (cma 26.0%, rijks 20.4%, met 20.4%, wd 18.9%, aic 14.2% — down from 51.8% single-source two tramos ago); curated canon + collection-join sources; committed coverage governance (data/coverage.json) with canon target-vs-actual; tramo 8 tag-clip stage lifted ontology coverage from 45% to 98% of works (calibrated zero-shot CLIP tags, meta always wins) |
 | 11 | Save works | ✅ | Save/unsave + Saved page |
 | 12 | Discover artists | ✅ | Unmet-artist suggestions + artist records in profile |
 | 13 | Understand why a work is recommended | ✅ | Per-rec contributions + related liked works; work page "why" |
