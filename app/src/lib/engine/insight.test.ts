@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import type { AppEvent } from './events';
-import { explainPair, microInsight, sessionSummary, wantsStrength } from './insight';
-import type { OntologyDim } from './profile';
+import {
+	explainPair,
+	microInsight,
+	sessionSummary,
+	toSessionEndInsights,
+	wantsStrength
+} from './insight';
+import { createModel, modelFromEvents } from './model';
+import { patternStatusNow, type OntologyDim } from './profile';
 import { testPool, testWork } from './testutil';
 
 const pool = testPool();
@@ -298,5 +305,71 @@ describe('sessionSummary on a sparse catalog (tramo 8 — era + facts)', () => {
 		expect(s.patterns).toHaveLength(0);
 		expect(s.facts.topEra).toEqual({ label: 'the modern era', n: 2 });
 		expect(s.facts.erasSeen).toBe(1);
+	});
+});
+
+describe('session insight persistence (tramo 9)', () => {
+	const saturated = pool.filter((w) => (w.tags['color.saturation']?.v ?? 0) > 0.7);
+	const muted = pool.filter((w) => (w.tags['color.saturation']?.v ?? 1) < 0.3);
+	const events: AppEvent[] = [];
+	for (let i = 0; i < 4 && i < saturated.length && i < muted.length; i++) {
+		events.push(choice(saturated[i]!.id, muted[i]!.id, 'a'));
+	}
+
+	it('toSessionEndInsights freezes patterns with the model z of the moment', () => {
+		const model = modelFromEvents(events, { workById: byId });
+		const s = sessionSummary(events, byId, DIMS);
+		const frozen = toSessionEndInsights(s, model);
+		expect(frozen.v).toBe(1);
+		expect(frozen.patterns[0]?.dim).toBe('color.saturation');
+		expect(frozen.patterns[0]?.s).toBe(1);
+		expect(frozen.patterns[0]?.z).toBeGreaterThan(0);
+		expect(frozen.answered).toBe(4);
+		// Compact: well under the sync layer's 16 KiB event cap.
+		expect(JSON.stringify(frozen).length).toBeLessThan(1024);
+		// Without a model the snapshot still forms, with z 0.
+		expect(toSessionEndInsights(s, null).patterns[0]?.z).toBe(0);
+	});
+
+	it('session_end with insights is fold-neutral: conclusions are never evidence', () => {
+		const s = sessionSummary(events, byId, DIMS);
+		const withEnd: AppEvent[] = [
+			...events,
+			{
+				id: 'end-1',
+				at: new Date(1700000009000).toISOString(),
+				device: 't',
+				hour: 12,
+				t: 'session_end',
+				shown: 4,
+				answered: 4,
+				insights: toSessionEndInsights(s, null)
+			} as AppEvent
+		];
+		const bare = modelFromEvents(events, { workById: byId });
+		const withInsights = modelFromEvents(withEnd, { workById: byId });
+		expect(withInsights.observations).toBe(bare.observations);
+		expect([...withInsights.dims.entries()]).toEqual([...bare.dims.entries()]);
+	});
+
+	it('patternStatusNow reports all five outcomes honestly', () => {
+		const model = createModel();
+		const dim = (mu: number, variance: number, n = 10) => ({
+			mu,
+			variance,
+			n,
+			signAgreement: 1,
+			provisional: false
+		});
+		model.dims.set('up', dim(0.8, 0.1)); // z ≈ 2.53
+		model.dims.set('down', dim(-0.5, 0.1)); // sign flipped vs s: 1
+		model.dims.set('same', dim(0.45, 0.1)); // z ≈ 1.42
+		model.dims.set('faded', dim(0.1, 0.4, 2)); // n below evidence floor
+		expect(patternStatusNow({ dim: 'up', s: 1, z: 1.5 }, model)).toBe('strengthened');
+		expect(patternStatusNow({ dim: 'up', s: 1, z: 2.9 }, model)).toBe('weakened');
+		expect(patternStatusNow({ dim: 'down', s: 1, z: 1.0 }, model)).toBe('changed');
+		expect(patternStatusNow({ dim: 'same', s: 1, z: 1.45 }, model)).toBe('holds');
+		expect(patternStatusNow({ dim: 'faded', s: 1, z: 1.0 }, model)).toBe('unresolved');
+		expect(patternStatusNow({ dim: 'never-seen', s: 1, z: 1.0 }, model)).toBe('unresolved');
 	});
 });

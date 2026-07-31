@@ -35,7 +35,7 @@ interface Base {
 export type AppEvent = Base &
 	(
 		| { t: 'session_start'; mode: 'calibration' | 'daily' }
-		| { t: 'session_end'; shown: number; answered: number }
+		| { t: 'session_end'; shown: number; answered: number; insights?: SessionEndInsights }
 		| {
 				t: 'pair_choice';
 				a: string; // work id
@@ -148,6 +148,25 @@ export const CONTENT_PROBLEM_ASPECTS: ReadonlySet<PairAspect> = new Set([
 	'image-quality',
 	'hard-to-judge'
 ]);
+
+/**
+ * The conclusions a finished session froze into its session_end event —
+ * compact (a few hundred bytes; the sync layer caps events at 16 KiB) and
+ * display-ready. `z` is each pattern dim's model z-score AT RECORD TIME so
+ * the profile can later say strengthened/weakened/changed honestly; labels
+ * are snapshots in the language active when recorded. The model fold
+ * ignores this event entirely: conclusions are records, never evidence.
+ */
+export interface SessionEndInsights {
+	v: 1;
+	patterns: { dim: string; label: string; n: number; s: 1 | -1; z: number }[];
+	counter?: { dim: string; label: string };
+	open?: { dim: string; label: string };
+	rejection?: { aspect: string; n: number };
+	shared?: { aspect: string; n: number };
+	facts: { erasSeen: number; topEra: string | null; saved: number };
+	answered: number;
+}
 
 /**
  * Skip reasons from "Report a problem" (pre-choice): the pair advances

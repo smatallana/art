@@ -11,8 +11,10 @@ import type { Work } from '../catalog/types';
 import { allEvents, appendEvent, kvDelete, kvGet, kvSet, requestPersistence } from '../db';
 import type { AppEvent, AppEventPayload } from '../engine/events';
 import { effectiveEvents, isRetroactiveFoldEvent, makeEvent } from '../engine/events';
+import { sessionSummary, toSessionEndInsights } from '../engine/insight';
 import { applyEvent, modelFromEvents, type TasteModel } from '../engine/model';
 import { CURATED_ONBOARDING } from '../engine/onboarding';
+import { ONTOLOGY_DIMS } from '../engine/ontology';
 import {
 	advance as engineAdvance,
 	createSession,
@@ -219,6 +221,15 @@ class AppState {
 		return false;
 	}
 
+	/** The finished session's conclusions, frozen into its session_end. */
+	private sessionEndInsights() {
+		if (!this.engine) return undefined;
+		const startedAt = this.engine.state.startedAt;
+		const sessionEvents = this.events.filter((e) => e.at >= startedAt);
+		const summary = sessionSummary(sessionEvents, (id) => this.catalog.byId.get(id), ONTOLOGY_DIMS);
+		return toSessionEndInsights(summary, this.model);
+	}
+
 	async nextPair(): Promise<void> {
 		if (!this.engine) return;
 		this.undoableIds = [];
@@ -229,7 +240,8 @@ class AppState {
 			await this.record({
 				t: 'session_end',
 				shown: this.engine.state.position,
-				answered: this.engine.state.position
+				answered: this.engine.state.position,
+				insights: this.sessionEndInsights()
 			});
 			await kvDelete(SESSION_SNAPSHOT_KEY);
 			await this.snapshotTimeline();
@@ -248,7 +260,8 @@ class AppState {
 		await this.record({
 			t: 'session_end',
 			shown: this.engine.state.position,
-			answered: this.engine.state.position
+			answered: this.engine.state.position,
+			insights: this.sessionEndInsights()
 		});
 		await kvDelete(SESSION_SNAPSHOT_KEY);
 		await this.snapshotTimeline();

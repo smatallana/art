@@ -9,9 +9,9 @@
  * provisional.
  */
 import type { Work } from '../catalog/types';
-import type { AppEvent, PairAspect } from './events';
+import type { AppEvent, PairAspect, SessionEndInsights } from './events';
 import { CONTENT_PROBLEM_ASPECTS, effectiveEvents } from './events';
-import { collectPairAnnotations, features, STRENGTH_OMEGA } from './model';
+import { collectPairAnnotations, features, STRENGTH_OMEGA, type TasteModel } from './model';
 import { pairKey } from './selector';
 import type { OntologyDim } from './profile';
 import { directionLabel } from './profile';
@@ -304,6 +304,44 @@ export function sessionSummary(
 			})(),
 			savedCount: savedIds.size
 		}
+	};
+}
+
+/**
+ * Freeze a session's conclusions into the compact session_end payload.
+ * `z` snapshots each pattern dim's model evidence at record time (0 when
+ * the dim is absent or no model exists) so later profile views can say
+ * strengthened/weakened/changed against it. Patterns are positive-net by
+ * construction, hence s: 1 today — the field future-proofs direction.
+ */
+export function toSessionEndInsights(
+	s: SessionInsight,
+	model: TasteModel | null
+): SessionEndInsights {
+	const zOf = (dim: string): number => {
+		const d = model?.dims.get(dim);
+		if (!d) return 0;
+		return Math.round((Math.abs(d.mu) / Math.sqrt(d.variance)) * 100) / 100;
+	};
+	return {
+		v: 1,
+		patterns: s.patterns.map((p) => ({
+			dim: p.dimId,
+			label: p.label,
+			n: p.n,
+			s: 1,
+			z: zOf(p.dimId)
+		})),
+		...(s.counter ? { counter: { dim: s.counter.dimId, label: s.counter.label } } : {}),
+		...(s.openQuestion ? { open: { dim: s.openQuestion.id, label: s.openQuestion.label } } : {}),
+		...(s.rejection ? { rejection: { aspect: s.rejection.aspect, n: s.rejection.n } } : {}),
+		...(s.shared ? { shared: { aspect: s.shared.aspect, n: s.shared.n } } : {}),
+		facts: {
+			erasSeen: s.facts.erasSeen,
+			topEra: s.facts.topEra?.label ?? null,
+			saved: s.facts.savedCount
+		},
+		answered: s.answered
 	};
 }
 

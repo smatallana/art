@@ -55,6 +55,27 @@ export function directionLabel(dim: OntologyDim, mu: number): string {
 	return dim.label;
 }
 
+/**
+ * What happened to a recorded session pattern since it was frozen.
+ * 'holds' is a deliberate fifth state — "still reads the same" is an honest
+ * answer the strengthened/weakened/changed/unresolved four cannot give.
+ */
+export type PatternStatus = 'strengthened' | 'weakened' | 'changed' | 'holds' | 'unresolved';
+
+/** Compare a session_end pattern snapshot against the CURRENT model. */
+export function patternStatusNow(
+	p: { dim: string; s: 1 | -1; z: number },
+	model: TasteModel
+): PatternStatus {
+	const d = model.dims.get(p.dim);
+	if (!d || evidenceTier(d) === 'insufficient') return 'unresolved';
+	if (Math.sign(d.mu) !== p.s) return 'changed';
+	const zNow = Math.abs(d.mu) / Math.sqrt(d.variance);
+	if (zNow >= p.z + 0.25) return 'strengthened';
+	if (zNow <= p.z - 0.25) return 'weakened';
+	return 'holds';
+}
+
 function capitalize(s: string): string {
 	return s.charAt(0).toUpperCase() + s.slice(1);
 }
