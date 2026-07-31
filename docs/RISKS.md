@@ -81,3 +81,18 @@
    cleared site-data pass re-shows the welcome (harmless), and a signed-in
    device skips it via the auth token. No welcome state ever syncs — it is
    presentation, not taste.
+17. **Six-pair sittings carry less per-session evidence.** The persona
+   harness measures the claimable-pattern rate on every CI run (89% at
+   tramo 9). If tasteful-persona rates fall under its 0.5 assertion after
+   a catalog change, that is a product finding to surface to the owner —
+   never a threshold to lower quietly.
+18. **Blind alt descriptions ride on clip tags (c ≤ 0.55).** A description
+   can be wrong the way a tag can be wrong; blast radius is low because it
+   is identity-neutral by construction and tested for leakage.
+19. **session_end.insights labels are frozen snapshots** in the language
+   active at record time; switching languages later shows old conclusions
+   in their original language. Accepted (they are records).
+20. **Strength annotation volume will drop** now that the ask lives inside
+   the fold (owner decision, tramo 9): the model falls back to weight 1.0
+   more often. Watch whether intensity-driven distinctions in the profile
+   thin out.

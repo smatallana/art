@@ -372,3 +372,88 @@ summary's contribution filter keeps most scale/mood clip tags out of
 session claims while the Bayesian model uses them all. That equilibrium is
 chosen, not accidental — raising clip impact would trade honesty for
 narrative.
+
+## 2026-07-31 — Tramo 9: core-loop compression (fourth external review)
+
+The fourth review's verdict shifted again: the product no longer lacks
+function — it "asks for too much patience before the user experiences its
+intelligence". Triage against the code confirmed the core-loop claims
+(12-pair sessions, no early-finish reward, zero personalization before 40
+answers, no scripted opening, pre-choice priming, unpersisted session
+conclusions, 'Painting'-only blind alt text) and found several demands
+already satisfied since earlier tramos (content-problem masking, folded
+reveal, deliberate-skip semantics, cold-streak recovery). Owner chose FULL
+scope (P0 + all P1) plus two additions of his own: Snap visibility with a
+field notebook, and a complete Spanish translation with first-run language
+choice.
+
+**Sittings:** first session is 6 answered pairs, later sittings 8, twelve
+survives only as a voluntary tertiary option in the summary. Length lives
+in the engine (`sessionLengthFor`), keyed to lifetime answers. The first
+summary ends on 'Sharpen this read — 4 more choices' / 'See my eye';
+Finish pressed with ≥3 answers closes the session in place and renders the
+low-confidence summary ('Ended early — your N choices still count.', no
+upsell). Persona-harness check on the shortening risk: 89% of 36 sessions
+still end with a claimable pattern (82% at 12 pairs) — shorter sittings
+did NOT starve the summary.
+
+**Progressive personalization:** calibration hands 0% → ~30% (answers
+7-20) → ~50% (21-39) of pairs to the smart selector via a deterministic
+seeded per-pair draw over the same curated pool; smart pairs keep their
+real slot so the record stays truthful. Targeted objectives remain
+daily-only (considered and rejected for calibration: at 30-50% share the
+targeted slot could not honor 'Testing: X').
+
+**Scripted opening:** the first six lifetime pairs follow editorial slots
+(pull, human-vs-atmosphere, calm-vs-tension, finish-vs-brushwork,
+real-vs-dreamlike, legible challenge from the curated contrast/discovery
+roles — consumed for the first time). Filters were tuned by measurement:
+strict serenity+no-drama matched ONE stage-1 work, so calm became
+serene-subject-without-claimed-drama; explicit-low tags required where
+absence means the tag-clip deadband. Slot fillability is pinned against
+the committed catalog (≥8 per side, ≥12 valid pairs). Recovery outranks
+the script; slots key off lifetime interactions, so an early-finished
+first sitting completes its slots opening session two (intentional).
+
+**Priming and answers:** the micro-insight moved from above the next pair
+to the reveal of answers 4/8; 'Testing:' stays as a labeled experiment.
+The alt row is Both / Neither / Can't decide plus a ⋯ menu (Skip, Report a
+problem with four reasons recorded as problem-reason skips — masked from
+the model by the existing only-'pass'-folds rule, counted toward
+recovery). **Strength moved inside the 'Add context' fold — an explicit
+owner reversal of the tramo-7 'selective visible' decision; the expected
+drop in strength annotations is accepted for loop speed.** Remember folded
+with it.
+
+**Persistence and surfaces:** session_end now freezes the session's
+conclusions (patterns with their z at record time); the profile leads as a
+portrait (synthesis line, three representative works drawn only from
+engaged works, one contradiction, testable open questions wired to the
+objective machinery) with 'Past sessions' showing stronger-since /
+weaker-since / has-reversed / still-holds / still-open per frozen pattern
+('holds' added deliberately — the review's four words cannot say "still
+reads the same"). Artist rows carry exposure labels and low exposure never
+reads as low affinity. Discover: challenge cards finally render their
+computed why; 'For your eye' only once a non-era, non-provisional dim
+reaches moderate evidence — 'Early possibilities' before.
+
+**A11y:** blind alt text is an identity-neutral description composed from
+tags (10,750 of 10,767 works covered; whole-word leakage test against
+artist surnames and movements). All undersized controls now meet 44px.
+
+**Snap (owner request):** it already existed (M5); what was missing was
+visibility. Saved gains a 'Field notebook' of unmatched photos (device
+only), the profile portrait links to Snap. Honest limit kept explicit:
+unmatched photos still carry no taste signal (BACKLOG).
+
+**Spanish (owner request; BACKLOG #6 shipped):** es.ts mirrors en.ts
+under a typed contract plus a key-tree parity test; engine labels
+translate through an explicit map inside the Spanish templates; the
+profile reading's templates became injectable (InterpretPhrases). The
+reactive facade makes every component language-switchable without edits;
+the welcome asks EN/ES on first run, Settings can change it later,
+browser language is the default. Honest limit: catalog micro-stories
+remain English until the pipeline translates content.
+
+**Validation thresholds (review round 4):** recorded in USER-TESTING.md
+as REFERENCE ONLY — the owner chose not to freeze development on them.

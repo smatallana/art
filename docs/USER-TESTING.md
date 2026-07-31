@@ -78,3 +78,17 @@ Copia esta tabla por persona en una nota:
   validación de CI protege el resto).
 - Regla de la evaluación: **no ampliar funcionalidades hasta iterar sobre
   lo observado.**
+
+## Umbrales numéricos de la 4ª evaluación — solo referencia
+
+El desarrollo NO se congela sobre estos números (decisión del dueño,
+tramo 9); quedan como vara de medir al correr el protocolo con ~10
+personas en sus propios teléfonos y sin explicar los controles:
+
+- ≥ 8/10 entienden el propósito sin ayuda.
+- ≥ 8/10 terminan las 6 elecciones de la primera sesión.
+- ≥ 7/10 dicen que el resumen es mayormente o claramente verdad.
+- ≥ 5/10 continúan o exploran voluntariamente.
+- ≤ 1/10 confunde las acciones secundarias (Ambos / Ninguno / No sé decidir).
+- ≥ 6/10 perciben la segunda sesión como más relevante.
+- Ninguna obra de apertura señalada como inadecuada por ≥ 2 personas.

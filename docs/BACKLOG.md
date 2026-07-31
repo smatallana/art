@@ -34,7 +34,10 @@ Ordered by leverage.
    SMK/Yale.
 5. **Museum mode** — pick a museum → affinity-ranked works + essentials + a
    prioritized route with time estimate (museum field already on every work).
-6. **Spanish localization** — strings are already centralized in
+6. **Spanish localization** — *shipped in tramo 9* (es.ts + reactive
+   facade + EN/ES first-run choice). Remaining: translate catalog
+   micro-stories in the pipeline; localize frozen session_end labels.
+   Original note: strings are already centralized in
    `lib/i18n/en.ts`; add `es.ts` + a language toggle.
 7. **Contextual taste** — hour-of-day is already recorded on every event;
    surface "evening eye vs. morning eye" once per-bucket evidence suffices.
@@ -51,19 +54,20 @@ Ordered by leverage.
     < 200 KB gz, CLS < 0.1) — measured once images are first-party (R2).
 13. **Curated micro-stories** — grow `data/curated/overrides.json` for the
     most-shown works lacking `did_you_know`-grade stories.
-13. **Session-insight history in events** — persist each session's
-    SessionInsight (or a digest) on `session_end` so insights become
-    reviewable over time and sync across devices.
+13. **Session-insight history in events** — ✅ *shipped in tramo 9*
+    (session_end.insights + the profile's Past sessions view with
+    strengthened/weakened/changed/holds/unresolved).
 14. **Synced session objective** — carry "Test this pattern" across devices
     via an event instead of device-local kv (see RISKS #12).
-15. **Exposure-corrected artist affinity** (review §17) — rank artist
-    affinities by evidence AND exposure: high-affinity-well-tested vs
-    high-potential-lightly-tested vs insufficient-exposure.
+15. **Exposure-corrected artist affinity** (review §17) — *partially
+    shipped in tramo 9* (exposure labels; low exposure never reads as low
+    affinity). Remaining: exposure-corrected RANKING.
 16. **Profile shows catalog limits** (review §18) — exposure caveats next to
     conclusions ("not enough East Asian landscape seen for a reliable
     read"), sourced from data/coverage.json.
-17. **My Eye as a portrait, not a dashboard** (review §19) — eye signature
-    sentence, representative works, per-hypothesis test buttons.
+17. **My Eye as a portrait, not a dashboard** (review §19) — ✅ *shipped
+    in tramo 9* (portrait lead: synthesis line, representative works,
+    contradiction, per-hypothesis test buttons; dashboard below).
 18. **Specialist formats in context** (review §11) — scrolls/albums/screens
     return via a dedicated discovery mode with viewing controls and
     like-with-like comparisons, not fast pairwise calibration.
