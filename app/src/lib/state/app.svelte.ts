@@ -266,6 +266,21 @@ class AppState {
 	}
 
 	/**
+	 * "Report a problem" on the current pair: advance unanswered and record
+	 * the reason. The model ignores non-'pass' skips, so a reported pair
+	 * never becomes taste evidence; repeated reports trigger recovery.
+	 */
+	async reportPairProblem(reason: 'image-quality' | 'format' | 'repeat' | 'other'): Promise<void> {
+		if (!this.engine?.state.current) return;
+		const { aId, bId } = this.engine.state.current;
+		await this.record({ t: 'skip', work: aId, reason });
+		await this.record({ t: 'skip', work: bId, reason });
+		skipCurrent(this.engine, this.sessionCtx());
+		this.engine = { ...this.engine };
+		await this.persistSnapshot();
+	}
+
+	/**
 	 * An artwork image failed to load: pure infrastructure. Log it for
 	 * diagnostics, advance to a fresh pair — the taste model never sees it.
 	 */

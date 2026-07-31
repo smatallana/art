@@ -42,6 +42,19 @@ describe('fold integrity', () => {
 		expect(legacy.observations).toBe(0);
 	});
 
+	it('P0: reported problem pairs (skip with a problem reason) change NOTHING', () => {
+		const clean = modelFromEvents([], ctx);
+		const reported = modelFromEvents(
+			(['image-quality', 'format', 'repeat', 'other'] as const).flatMap((reason, i) => [
+				ev({ t: 'skip', work: pool[i * 2]!.id, reason }),
+				ev({ t: 'skip', work: pool[i * 2 + 1]!.id, reason })
+			]),
+			ctx
+		);
+		expect(reported.observations).toBe(clean.observations);
+		expect(reported.dims.size).toBe(clean.dims.size);
+	});
+
 	it('deliberate user passes DO carry weak signal', () => {
 		const passed = modelFromEvents(
 			pool.slice(0, 5).map((w) => ev({ t: 'skip', work: w.id, reason: 'pass' })),

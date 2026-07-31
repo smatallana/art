@@ -127,6 +127,31 @@ test('the sharpen continuation starts a 4-pair sitting', async ({ page }) => {
 	await expect(page.getByText(/1 of 4/)).toBeVisible({ timeout: 15000 });
 });
 
+test('the overflow menu skips and reports a problem without consuming progress', async ({
+	page
+}) => {
+	await page.goto('./');
+	await expect(page.getByRole('button', { name: 'Choose the first painting' })).toBeVisible({
+		timeout: 15000
+	});
+	// Skip via the menu: progress stays, a fresh pair appears.
+	await page.getByRole('button', { name: 'More options' }).click();
+	await page.getByRole('menuitem', { name: 'Skip this pair' }).click();
+	await expect(page.getByText(/1 of \d+/)).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Choose the first painting' })).toBeVisible();
+	// Report a problem: reason step, then advance — still unanswered.
+	await page.getByRole('button', { name: 'More options' }).click();
+	await page.getByRole('menuitem', { name: 'Report a problem' }).click();
+	await page.getByRole('menuitem', { name: 'Hard to see the image' }).click();
+	await expect(page.getByText(/1 of \d+/)).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Choose the first painting' })).toBeVisible();
+	// Escape closes the menu.
+	await page.getByRole('button', { name: 'More options' }).click();
+	await expect(page.getByRole('menu')).toBeVisible();
+	await page.keyboard.press('Escape');
+	await expect(page.getByRole('menu')).toHaveCount(0);
+});
+
 test('export produces a JSON download without any typing', async ({ page }) => {
 	await page.goto('./');
 	await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });

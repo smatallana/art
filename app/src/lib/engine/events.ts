@@ -53,10 +53,20 @@ export type AppEvent = Base &
 		| {
 				/** User-initiated pass on a pair. Historic 'not-now' events were
 				 *  emitted automatically on image load failures and are ignored by
-				 *  every fold; only 'pass' carries preference signal. */
+				 *  every fold; only 'pass' carries preference signal. The problem
+				 *  reasons (image-quality/format/repeat/other) come from "Report a
+				 *  problem" and are masked from the model by the same rule. */
 				t: 'skip';
 				work: string;
-				reason: 'pass' | 'not-now' | 'seen-too-often' | null;
+				reason:
+					| 'pass'
+					| 'not-now'
+					| 'seen-too-often'
+					| 'image-quality'
+					| 'format'
+					| 'repeat'
+					| 'other'
+					| null;
 		  }
 		| {
 				/** Optional context on a both/neither/unsure answer. Stored as
@@ -137,6 +147,18 @@ export type AppEventType = AppEvent['t'];
 export const CONTENT_PROBLEM_ASPECTS: ReadonlySet<PairAspect> = new Set([
 	'image-quality',
 	'hard-to-judge'
+]);
+
+/**
+ * Skip reasons from "Report a problem" (pre-choice): the pair advances
+ * unanswered and the model ignores these by the only-'pass'-folds rule.
+ * Repeated reports also feed the session's recovery trigger.
+ */
+export const PROBLEM_SKIP_REASONS: ReadonlySet<string> = new Set([
+	'image-quality',
+	'format',
+	'repeat',
+	'other'
 ]);
 
 /**

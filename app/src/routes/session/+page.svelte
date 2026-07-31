@@ -18,6 +18,13 @@
 
 	let shownAt = $state(0);
 	let lastPick = $state<'a' | 'b' | 'both' | 'neither' | 'unsure'>('unsure');
+	// Overflow menu (Skip / Report a problem) — lightweight popover, not modal.
+	let menu = $state<'closed' | 'main' | 'report'>('closed');
+	let moreBtn = $state<HTMLButtonElement | null>(null);
+	let menuEl = $state<HTMLDivElement | null>(null);
+	$effect(() => {
+		if (menu !== 'closed') menuEl?.querySelector('button')?.focus();
+	});
 
 	const sess = $derived(app.engine?.state ?? null);
 	// Events belonging to THIS session (ISO strings compare chronologically).
@@ -98,6 +105,28 @@
 		await app.answerPair(pick, ms);
 	}
 
+	async function doSkip(): Promise<void> {
+		menu = 'closed';
+		await app.skipPair();
+		shownAt = performance.now();
+	}
+
+	async function report(reason: 'image-quality' | 'format' | 'repeat' | 'other'): Promise<void> {
+		menu = 'closed';
+		await app.reportPairProblem(reason);
+		shownAt = performance.now();
+	}
+
+	function onWindowClick(e: MouseEvent): void {
+		if (menu === 'closed') return;
+		const target = e.target as Node;
+		// A click on a menu item may re-render the menu before this bubbles up
+		// (main → report step); a detached target is an inside click, not out.
+		if (!document.contains(target)) return;
+		if (moreBtn?.contains(target) || menuEl?.contains(target)) return;
+		menu = 'closed';
+	}
+
 	async function next(): Promise<void> {
 		await app.nextPair();
 		shownAt = performance.now();
@@ -124,6 +153,11 @@
 
 	function onKey(e: KeyboardEvent): void {
 		if (!sess) return;
+		if (menu !== 'closed' && e.key === 'Escape') {
+			menu = 'closed';
+			moreBtn?.focus();
+			return;
+		}
 		if (sess.phase === 'choosing') {
 			if (e.key === '1' || e.key === 'ArrowUp' || e.key === 'ArrowLeft')
 				void choose(flipped ? 'b' : 'a');
@@ -135,7 +169,7 @@
 	}
 </script>
 
-<svelte:window onkeydown={onKey} />
+<svelte:window onkeydown={onKey} onclick={onWindowClick} />
 
 <svelte:head>
 	<title>Session — Beholder</title>
@@ -190,7 +224,44 @@
 				<button class="alt" onclick={() => choose('both')}>{t.session.both}</button>
 				<button class="alt" onclick={() => choose('neither')}>{t.session.neither}</button>
 				<button class="alt" onclick={() => choose('unsure')}>{t.session.unsure}</button>
-				<button class="alt" onclick={() => app.skipPair()}>{t.session.skip}</button>
+				<div class="more-wrap">
+					<button
+						class="alt more"
+						aria-label={t.session.more}
+						aria-haspopup="menu"
+						aria-expanded={menu !== 'closed'}
+						bind:this={moreBtn}
+						onclick={() => (menu = menu === 'closed' ? 'main' : 'closed')}
+					>
+						⋯
+					</button>
+					{#if menu !== 'closed'}
+						<div class="menu" role="menu" bind:this={menuEl}>
+							{#if menu === 'main'}
+								<button role="menuitem" onclick={() => void doSkip()}>
+									{t.session.skipPair}
+								</button>
+								<button role="menuitem" onclick={() => (menu = 'report')}>
+									{t.session.reportProblem}
+								</button>
+							{:else}
+								<p class="menu-label">{t.session.reportPrompt}</p>
+								<button role="menuitem" onclick={() => void report('image-quality')}>
+									{t.session.reportImage}
+								</button>
+								<button role="menuitem" onclick={() => void report('format')}>
+									{t.session.reportFormat}
+								</button>
+								<button role="menuitem" onclick={() => void report('repeat')}>
+									{t.session.reportRepeat}
+								</button>
+								<button role="menuitem" onclick={() => void report('other')}>
+									{t.session.reportOther}
+								</button>
+							{/if}
+						</div>
+					{/if}
+				</div>
 			</div>
 		{:else if sess.phase === 'revealed' && workA && workB}
 			<Reveal
@@ -396,6 +467,48 @@
 		border: 1px solid var(--hairline);
 		border-radius: 999px;
 		min-height: 42px;
+	}
+	.more {
+		min-width: 44px;
+		padding: 10px 12px;
+		font-size: 1rem;
+		line-height: 1;
+	}
+	.more-wrap {
+		position: relative;
+		display: inline-flex;
+	}
+	.menu {
+		position: absolute;
+		bottom: calc(100% + 8px);
+		right: 0;
+		min-width: 230px;
+		background: var(--surface);
+		border: 1px solid var(--hairline);
+		border-radius: 12px;
+		box-shadow: var(--shadow-work);
+		padding: 6px;
+		display: flex;
+		flex-direction: column;
+		z-index: 6;
+	}
+	.menu button {
+		text-align: left;
+		color: var(--ink);
+		font-size: 0.9rem;
+		padding: 10px 14px;
+		min-height: 44px;
+		border-radius: 8px;
+	}
+	.menu button:hover,
+	.menu button:focus-visible {
+		background: color-mix(in srgb, var(--gold) 12%, transparent);
+	}
+	.menu-label {
+		color: var(--ink-faint);
+		font-size: 0.78rem;
+		padding: 6px 14px 2px;
+		margin: 0;
 	}
 	.micro {
 		align-self: center;

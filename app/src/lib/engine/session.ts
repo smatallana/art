@@ -10,7 +10,7 @@ import type { Work } from '../catalog/types';
 import type { AppEvent } from './events';
 import { selectPairSmart, type SlotKind } from './active';
 import { anchorPool, onboardingPool, type CuratedOnboarding } from './curation';
-import { CONTENT_PROBLEM_ASPECTS } from './events';
+import { CONTENT_PROBLEM_ASPECTS, PROBLEM_SKIP_REASONS } from './events';
 import type { TasteModel } from './model';
 import { OPENING_SLOTS, selectOpeningPair } from './opening';
 import { mulberry32 } from './random';
@@ -175,7 +175,11 @@ export function needsRecovery(sessionEvents: AppEvent[]): boolean {
 	const flags = sessionEvents.filter(
 		(e) => e.t === 'pair_feedback' && e.aspects.some((a) => CONTENT_PROBLEM_ASPECTS.has(a))
 	).length;
-	return flags >= 2;
+	// Reported problem pairs count too (two skip events per reported pair).
+	const problemSkips = sessionEvents.filter(
+		(e) => e.t === 'skip' && PROBLEM_SKIP_REASONS.has(e.reason ?? '')
+	).length;
+	return flags + Math.floor(problemSkips / 2) >= 2;
 }
 
 /** Anchor pivot needs at least this many works to leave the selector room. */

@@ -215,6 +215,40 @@ describe('finishEarly', () => {
 	});
 });
 
+describe('needsRecovery counts reported problem pairs', () => {
+	function skipEv(work: string, reason: string, i: number): AppEvent {
+		return {
+			id: `sk${i}`,
+			at: new Date(1700000000000 + i * 1000).toISOString(),
+			device: 'd',
+			hour: 12,
+			t: 'skip',
+			work,
+			reason
+		} as AppEvent;
+	}
+
+	it('two reported pairs trigger the anchor pivot; plain skips never do', async () => {
+		const { needsRecovery } = await import('./session');
+		const reported = [
+			skipEv('w1', 'image-quality', 1),
+			skipEv('w2', 'image-quality', 2),
+			skipEv('w3', 'format', 3),
+			skipEv('w4', 'format', 4)
+		];
+		expect(needsRecovery(reported)).toBe(true);
+		const plain = [
+			skipEv('w1', 'pass', 1),
+			skipEv('w2', 'pass', 2),
+			skipEv('w3', 'pass', 3),
+			skipEv('w4', 'pass', 4)
+		];
+		expect(needsRecovery(plain)).toBe(false);
+		// One reported pair alone is not yet a cold streak.
+		expect(needsRecovery(reported.slice(0, 2))).toBe(false);
+	});
+});
+
 describe('progressive personalization during calibration', () => {
 	it('bands: none while the opening runs, then a third, then half', () => {
 		expect(smartShare(0)).toBe(0);
