@@ -6,7 +6,13 @@
 	import Reveal from '$lib/components/Reveal.svelte';
 	import { microInsight, sessionSummary } from '$lib/engine/insight';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
-	import { sessionMode } from '$lib/engine/session';
+	import {
+		FIRST_SESSION_LENGTH,
+		LONG_SESSION_LENGTH,
+		MIN_EARLY_FINISH,
+		SHARPEN_SESSION_LENGTH,
+		sessionMode
+	} from '$lib/engine/session';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
 
@@ -98,9 +104,22 @@
 	}
 
 	async function finish(): Promise<void> {
+		// Finish mid-session with enough answers earns the summary, not an
+		// exit: close the session in place and let the done branch render.
+		if (sess && sess.phase !== 'done' && sess.position >= MIN_EARLY_FINISH) {
+			await app.finishSessionEarly();
+			return;
+		}
 		await app.endSession();
 		// Home forwards into a session, so the resting place is the profile.
 		goto(`${base}/profile/`);
+	}
+
+	/** Start a fresh sitting straight from the summary (no objective). */
+	async function startAnother(length?: number): Promise<void> {
+		await app.endSession();
+		await app.startOrResumeSession(length != null ? { length } : undefined);
+		shownAt = performance.now();
 	}
 
 	function onKey(e: KeyboardEvent): void {
@@ -251,10 +270,28 @@
 					{/if}
 				{/if}
 				<div class="summary-actions">
-					<button class="primary" onclick={testPattern}>
-						{canTarget ? t.session.summaryAgain : t.session.summaryAgainNeutral}
-					</button>
-					<button class="secondary" onclick={finish}>{t.session.summaryHome}</button>
+					{#if sess.endedEarly}
+						<!-- An early finisher asked to stop: reward, no upsell. -->
+						<p class="ended-early">{t.session.endedEarly(summary.answered)}</p>
+						<button class="primary" onclick={finish}>{t.session.seeMyEye}</button>
+						<button class="secondary" onclick={() => startAnother()}>
+							{t.session.summaryAgainNeutral}
+						</button>
+					{:else if app.totalChoices <= FIRST_SESSION_LENGTH}
+						<!-- First complete sitting: sharpen or see the read so far. -->
+						<button class="primary" onclick={() => startAnother(SHARPEN_SESSION_LENGTH)}>
+							{t.session.sharpen}
+						</button>
+						<button class="secondary" onclick={finish}>{t.session.seeMyEye}</button>
+					{:else}
+						<button class="primary" onclick={testPattern}>
+							{canTarget ? t.session.summaryAgain : t.session.summaryAgainNeutral}
+						</button>
+						<button class="secondary" onclick={finish}>{t.session.summaryHome}</button>
+						<button class="tertiary" onclick={() => startAnother(LONG_SESSION_LENGTH)}>
+							{t.session.longerSession}
+						</button>
+					{/if}
 					<p class="saved-note">{t.session.summarySaved}</p>
 				</div>
 			</section>
@@ -460,5 +497,16 @@
 		color: var(--ink-muted);
 		padding: 12px;
 		min-height: 44px;
+	}
+	.tertiary {
+		color: var(--ink-faint);
+		font-size: 0.82rem;
+		padding: 10px;
+		min-height: 44px;
+	}
+	.ended-early {
+		color: var(--ink-muted);
+		font-size: 0.88rem;
+		margin: 0 0 var(--space-2);
 	}
 </style>

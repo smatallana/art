@@ -60,6 +60,11 @@ export const t = {
 		summaryAgain: 'Test this pattern',
 		summaryAgainNeutral: 'Another session',
 		summaryHome: 'End session',
+		sharpen: 'Sharpen this read — 4 more choices',
+		seeMyEye: 'See my eye',
+		longerSession: 'Prefer a longer sitting? Start 12 pairs',
+		endedEarly: (n: number) =>
+			`Ended early — your ${n} ${n === 1 ? 'choice' : 'choices'} still count.`,
 		summarySaved: 'Your choices are saved.',
 		emptyPool:
 			'You have seen everything we can pair right now — the collection grows continuously.',

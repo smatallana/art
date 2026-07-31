@@ -94,11 +94,37 @@ test('a finished first session is honest: no targeting promise during calibratio
 		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
 		await page.getByRole('button', { name: 'Next', exact: true }).click();
 	}
-	// The NEXT session would still be calibration: the targeted selector
-	// cannot honor "Test this pattern", so the copy must not promise it.
-	await expect(page.getByRole('button', { name: 'Another session' })).toBeVisible();
+	// The first summary offers the sharpen continuation; the NEXT session
+	// would still be calibration, so "Test this pattern" must not appear.
+	await expect(page.getByRole('button', { name: /Sharpen this read/ })).toBeVisible();
+	await expect(page.getByRole('button', { name: 'See my eye' })).toBeVisible();
 	await expect(page.getByText('Test this pattern')).toHaveCount(0);
 	await expect(page.getByText(/can test/)).toHaveCount(0);
+});
+
+test('finishing early after three answers earns a summary, not an exit', async ({ page }) => {
+	await page.goto('./');
+	for (let i = 0; i < 3; i++) {
+		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
+		await page.getByRole('button', { name: 'Next', exact: true }).click();
+	}
+	await page.getByRole('button', { name: 'Finish session' }).click();
+	// Still on the session page: the low-confidence summary renders.
+	await expect(page.getByText(/Ended early — your 3 choices still count/)).toBeVisible();
+	await expect(page.getByRole('button', { name: 'See my eye' })).toBeVisible();
+	// Leaving from here lands on the profile.
+	await page.getByRole('button', { name: 'See my eye' }).click();
+	await expect(page).toHaveURL(/\/profile\/$/);
+});
+
+test('the sharpen continuation starts a 4-pair sitting', async ({ page }) => {
+	await page.goto('./');
+	for (let i = 0; i < 6; i++) {
+		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
+		await page.getByRole('button', { name: 'Next', exact: true }).click();
+	}
+	await page.getByRole('button', { name: /Sharpen this read/ }).click();
+	await expect(page.getByText(/1 of 4/)).toBeVisible({ timeout: 15000 });
 });
 
 test('export produces a JSON download without any typing', async ({ page }) => {
