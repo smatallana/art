@@ -11,12 +11,22 @@ import { describe, expect, it } from 'vitest';
 import type { Work } from '../catalog/types';
 import { WELCOME_HERO_ID } from '../welcome';
 import { onboardingEligible } from './curation';
+import { OPENING_SLOTS, sideCandidates } from './opening';
+import { aspectCompatible } from './selector';
 import { eraBucket } from './strata';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const curated = JSON.parse(
 	readFileSync(path.join(root, 'data', 'curated', 'onboarding.json'), 'utf8')
-) as { version: number; works: { id: string; stage: 1 | 2 | 3; role: string; note?: string }[] };
+) as {
+	version: number;
+	works: {
+		id: string;
+		stage: 1 | 2 | 3;
+		role: 'anchor' | 'discovery' | 'contrast';
+		note?: string;
+	}[];
+};
 
 const catalogDir = path.join(root, 'app', 'static', 'catalog');
 const index = JSON.parse(readFileSync(path.join(catalogDir, 'index.json'), 'utf8')) as {
@@ -77,6 +87,31 @@ describe('onboarding.json vs committed catalog', () => {
 		for (const stage of [1, 2, 3] as const) {
 			const anchors = curated.works.filter((e) => e.stage === stage && e.role === 'anchor');
 			expect(anchors.length, `stage ${stage}`).toBeGreaterThanOrEqual(10);
+		}
+	});
+
+	it('every opening slot is fillable against the committed catalog', () => {
+		// The scripted opening (tramo 9) must have real room: enough candidates
+		// per side and enough valid pairings that cooldowns and aspect rules
+		// cannot starve a slot. If a slot goes thin after a catalog rebuild,
+		// the fix is editing data/curated/onboarding.json — not loosening this.
+		const works = [...byId.values()];
+		for (const slot of OPENING_SLOTS) {
+			const a = sideCandidates(works, curated, slot.a);
+			const b = sideCandidates(works, curated, slot.b);
+			console.log(`[opening] ${slot.name}: sideA=${a.length} sideB=${b.length}`);
+			expect(a.length, `${slot.name} side a`).toBeGreaterThanOrEqual(8);
+			expect(b.length, `${slot.name} side b`).toBeGreaterThanOrEqual(8);
+			let pairs = 0;
+			outer: for (const wa of a) {
+				for (const wb of b) {
+					if (wa.id === wb.id || wa.artist.name === wb.artist.name) continue;
+					if (!aspectCompatible(wa, wb)) continue;
+					pairs++;
+					if (pairs >= 12) break outer;
+				}
+			}
+			expect(pairs, `${slot.name} valid pairs`).toBeGreaterThanOrEqual(12);
 		}
 	});
 

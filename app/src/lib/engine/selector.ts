@@ -104,8 +104,31 @@ function eligibleByStratum(
 	return map;
 }
 
+/** Cooldown/exposure-eligible works from a pool (for external selectors). */
+export function eligibleWorks(
+	works: Work[],
+	h: SelectionHistory,
+	options: Partial<SelectorOptions> = {}
+): Work[] {
+	const o = { ...DEFAULT_SELECTOR_OPTIONS, ...options };
+	const cd = effectiveCooldowns(works, o);
+	return works.filter((w) => eligible(w, h, o, cd));
+}
+
+/** Which axis a pair probes, from its works' strata (single source of truth). */
+export function probeOf(a: Work, b: Work): SelectedPair['probe'] {
+	const s1 = stratumOf(a);
+	const s2 = stratumOf(b);
+	if (s1 === s2) return 'within-stratum';
+	const [e1, sub1] = s1.split('|');
+	const [e2, sub2] = s2.split('|');
+	if (e1 !== e2 && sub1 === sub2) return 'cross-era';
+	if (e1 === e2) return 'cross-subject';
+	return 'coverage';
+}
+
 /** Displayability: both works should fit side-by-side / stacked nicely. */
-function aspectCompatible(a: Work, b: Work): boolean {
+export function aspectCompatible(a: Work, b: Work): boolean {
 	const ra = a.images.aspect;
 	const rb = b.images.aspect;
 	return Math.max(ra, rb) / Math.min(ra, rb) < 2.6;
@@ -158,17 +181,7 @@ export function selectPair(
 				if (a.artist.name === b.artist.name && a.artist.name !== 'Unknown artist') continue;
 				if (h.seenPairs.has(pairKey(a.id, b.id))) continue;
 				if (!aspectCompatible(a, b)) continue;
-				const [e1, sub1] = s1.split('|');
-				const [e2, sub2] = s2.split('|');
-				const probe: SelectedPair['probe'] =
-					s1 === s2
-						? 'within-stratum'
-						: e1 !== e2 && sub1 === sub2
-							? 'cross-era'
-							: e1 === e2
-								? 'cross-subject'
-								: 'coverage';
-				return { a, b, probe };
+				return { a, b, probe: probeOf(a, b) };
 			}
 		}
 		return null;
@@ -240,22 +253,7 @@ export function candidatePairs(
 		if (used.has(key) || h.seenPairs.has(key)) continue;
 		if (!aspectCompatible(a, b)) continue;
 		used.add(key);
-		const s1 = stratumOf(a);
-		const s2 = stratumOf(b);
-		const [e1, sub1] = s1.split('|');
-		const [e2, sub2] = s2.split('|');
-		out.push({
-			a,
-			b,
-			probe:
-				s1 === s2
-					? 'within-stratum'
-					: e1 !== e2 && sub1 === sub2
-						? 'cross-era'
-						: e1 === e2
-							? 'cross-subject'
-							: 'coverage'
-		});
+		out.push({ a, b, probe: probeOf(a, b) });
 	}
 	return out;
 }

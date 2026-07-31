@@ -12,8 +12,15 @@ import { selectPairSmart, type SlotKind } from './active';
 import { anchorPool, onboardingPool, type CuratedOnboarding } from './curation';
 import { CONTENT_PROBLEM_ASPECTS } from './events';
 import type { TasteModel } from './model';
+import { OPENING_SLOTS, selectOpeningPair } from './opening';
 import { mulberry32 } from './random';
-import { historyFromEvents, recordShown, selectPair, type SelectionHistory } from './selector';
+import {
+	historyFromEvents,
+	recordShown,
+	selectPair,
+	type SelectedPair,
+	type SelectionHistory
+} from './selector';
 
 // The first complete unit of value ends after six choices (fourth external
 // review): a fresh eye gets a short, scripted sitting; regulars get eight;
@@ -225,7 +232,27 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 			recovery = true;
 		}
 	}
-	let pair = pickFrom(pool);
+	// The scripted opening covers the first six lifetime interactions (it
+	// survives resume and an early-finished first sitting — the remaining
+	// slots open session two). Recovery outranks the script; an unfillable
+	// slot falls through to the ordinary calibration path.
+	let pair: ReturnType<typeof pickFrom> | SelectedPair = null;
+	if (
+		!recovery &&
+		engine.state.mode === 'calibration' &&
+		!useSmart &&
+		engine.history.interactionIndex < OPENING_SLOTS.length &&
+		ctx.curated
+	) {
+		pair = selectOpeningPair(
+			engine.history.interactionIndex,
+			ctx.works,
+			ctx.curated,
+			engine.history,
+			ctx.seed
+		);
+	}
+	if (!pair) pair = pickFrom(pool);
 	// Constraints are advisory: never end a session because of them.
 	if (!pair && pool !== ctx.works) pair = pickFrom(ctx.works);
 	if (!pair) {
