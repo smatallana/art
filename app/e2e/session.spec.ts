@@ -89,8 +89,8 @@ test('a finished first session is honest: no targeting promise during calibratio
 	page
 }) => {
 	await page.goto('./');
-	// Walk a full 12-pair session on a fresh profile (calibration mode).
-	for (let i = 0; i < 12; i++) {
+	// Walk the full 6-pair first session on a fresh profile (calibration mode).
+	for (let i = 0; i < 6; i++) {
 		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
 		await page.getByRole('button', { name: 'Next', exact: true }).click();
 	}

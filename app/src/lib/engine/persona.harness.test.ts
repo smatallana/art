@@ -106,8 +106,14 @@ function choiceEvent(a: string, b: string, pick: string): AppEvent {
 	} as AppEvent;
 }
 
-/** Play one full session with the real engine; returns its summary. */
-function playSession(p: Persona, log: AppEvent[]): SessionInsight {
+interface PlayedSession {
+	s: SessionInsight;
+	mode: 'calibration' | 'daily';
+	slots: string[];
+}
+
+/** Play one full session with the real engine; returns its summary + record. */
+function playSession(p: Persona, log: AppEvent[]): PlayedSession {
 	const ctx = () => ({
 		works,
 		events: log,
@@ -117,22 +123,28 @@ function playSession(p: Persona, log: AppEvent[]): SessionInsight {
 		curated
 	});
 	const engine = createSession(ctx());
+	const mode = engine.state.mode;
 	const sessionEvents: AppEvent[] = [];
+	const slots: string[] = [];
 	let answerIdx = 0;
 	while (engine.state.phase !== 'done' && engine.state.current) {
 		const wa = byId.get(engine.state.current.aId);
 		const wb = byId.get(engine.state.current.bId);
 		if (!wa || !wb) throw new Error('engine served a work missing from the catalog');
+		slots.push(engine.state.current.slot);
 		const ev = choiceEvent(wa.id, wb.id, personaPick(p, wa, wb, answerIdx++));
 		log.push(ev);
 		sessionEvents.push(ev);
 		markAnswered(engine);
 		advance(engine, ctx());
 	}
-	return sessionSummary(sessionEvents, lookup, DIMS);
+	return { s: sessionSummary(sessionEvents, lookup, DIMS), mode, slots };
 }
 
-const SESSIONS_PER_PERSONA = 7; // 4 calibration (40-answer target) + 3 daily
+// Lengths 6,8,8,… cross the 40-answer calibration target at cumulative
+// 6,14,22,30,38,46 → sessions 1-6 are calibration, 7+ daily. Nine sessions
+// preserve three daily sittings of coverage.
+const SESSIONS_PER_PERSONA = 9;
 
 /** One ending as the user would distinguish it: pattern labels, else facts. */
 function endingSignature(s: SessionInsight): string {
@@ -141,7 +153,7 @@ function endingSignature(s: SessionInsight): string {
 }
 
 describe('persona harness — real engine over the real catalog', () => {
-	const results = new Map<string, SessionInsight[]>();
+	const results = new Map<string, PlayedSession[]>();
 	for (const p of PERSONAS) {
 		const log: AppEvent[] = [];
 		results.set(
@@ -153,38 +165,55 @@ describe('persona harness — real engine over the real catalog', () => {
 	const all = [...results.values()].flat();
 
 	it('reports the measurement the tag-clip stage must move', () => {
-		const withPattern = all.filter((s) => s.patterns.length > 0);
-		const withNonEra = all.filter((s) => s.patterns.some((p) => !p.dimId.startsWith('era.')));
+		const withPattern = all.filter((r) => r.s.patterns.length > 0);
+		const withNonEra = all.filter((r) => r.s.patterns.some((p) => !p.dimId.startsWith('era.')));
 		console.log(
 			`[persona-harness] sessions=${all.length} ` +
 				`withPattern=${withPattern.length} (${Math.round((withPattern.length / all.length) * 100)}%) ` +
 				`withNonEraPattern=${withNonEra.length} (${Math.round((withNonEra.length / all.length) * 100)}%)`
 		);
-		for (const [name, sums] of results) {
-			console.log(`[persona-harness] ${name}: ${sums.map(endingSignature).join(' · ')}`);
+		for (const [name, sessions] of results) {
+			console.log(
+				`[persona-harness] ${name}: ${sessions.map((r) => endingSignature(r.s)).join(' · ')}`
+			);
 		}
 		expect(all.length).toBe(PERSONAS.length * SESSIONS_PER_PERSONA);
 	});
 
 	it('tasteful personas end most sessions with a claimable pattern', () => {
 		for (const p of PERSONAS.filter((x) => !x.contrarian)) {
-			const sums = results.get(p.name) as SessionInsight[];
-			const n = sums.filter((s) => s.patterns.length > 0).length;
-			expect(n / sums.length, p.name).toBeGreaterThanOrEqual(0.5);
+			const sessions = results.get(p.name) as PlayedSession[];
+			const n = sessions.filter((r) => r.s.patterns.length > 0).length;
+			expect(n / sessions.length, p.name).toBeGreaterThanOrEqual(0.5);
 		}
 	});
 
 	it('no persona sees the same ending every time (the five-identical-endings bug)', () => {
-		for (const [name, sums] of results) {
-			const signatures = new Set(sums.map(endingSignature));
+		for (const [name, sessions] of results) {
+			const signatures = new Set(sessions.map((r) => endingSignature(r.s)));
 			expect(signatures.size, name).toBeGreaterThanOrEqual(2);
 		}
 	});
 
 	it('every session ends sayable: a pattern or concrete facts', () => {
-		for (const s of all) {
-			const sayable = s.patterns.length > 0 || (s.answered > 0 && s.facts.erasSeen > 0);
+		for (const r of all) {
+			const sayable = r.s.patterns.length > 0 || (r.s.answered > 0 && r.s.facts.erasSeen > 0);
 			expect(sayable).toBe(true);
+		}
+	});
+
+	it('personalization shows up during calibration (progressive blending)', () => {
+		// Sessions 2+ of calibration should serve at least one smart-selected
+		// pair (its slot names the active learner, not 'calibration').
+		for (const p of PERSONAS.filter((x) => !x.contrarian)) {
+			const calibration = (results.get(p.name) as PlayedSession[]).filter(
+				(r) => r.mode === 'calibration'
+			);
+			const smartPairs = calibration
+				.slice(1)
+				.flatMap((r) => r.slots)
+				.filter((s) => s !== 'calibration');
+			expect(smartPairs.length, p.name).toBeGreaterThanOrEqual(1);
 		}
 	});
 });

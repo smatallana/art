@@ -16,6 +16,7 @@ import { CURATED_ONBOARDING } from '../engine/onboarding';
 import {
 	advance as engineAdvance,
 	createSession,
+	finishEarly,
 	markAnswered,
 	resumeSession,
 	skipCurrent,
@@ -158,7 +159,7 @@ class AppState {
 	}
 
 	/** Start a new session or resume an unfinished one (<24h old). */
-	async startOrResumeSession(): Promise<void> {
+	async startOrResumeSession(opts?: { length?: number }): Promise<void> {
 		if (this.catalog.works.length === 0) return;
 		if (!this.model) this.rebuildModel();
 		const snapshot = (await kvGet<SessionState>(SESSION_SNAPSHOT_KEY)) ?? null;
@@ -179,7 +180,7 @@ class AppState {
 			stored && Date.now() - new Date(stored.createdAt).getTime() < OBJECTIVE_TTL_MS
 				? stored
 				: null;
-		this.engine = createSession({ ...this.sessionCtx(), objective: fresh });
+		this.engine = createSession({ ...this.sessionCtx(), objective: fresh }, opts?.length);
 		await this.record({ t: 'session_start', mode: this.engine.state.mode });
 		await this.persistSnapshot();
 	}
@@ -233,6 +234,24 @@ class AppState {
 			await kvDelete(SESSION_SNAPSHOT_KEY);
 			await this.snapshotTimeline();
 		}
+	}
+
+	/**
+	 * Finish pressed mid-session with ≥3 answers: close the session in place
+	 * so the (low-confidence) summary renders — never send the user away
+	 * without the reward their answers earned. Mirrors nextPair's done-path.
+	 */
+	async finishSessionEarly(): Promise<void> {
+		if (!this.engine || this.engine.state.phase === 'done') return;
+		if (!finishEarly(this.engine)) return; // under the floor: caller exits plainly
+		this.engine = { ...this.engine };
+		await this.record({
+			t: 'session_end',
+			shown: this.engine.state.position,
+			answered: this.engine.state.position
+		});
+		await kvDelete(SESSION_SNAPSHOT_KEY);
+		await this.snapshotTimeline();
 	}
 
 	/** Deliberate user pass on the current pair (weak negative on both works). */

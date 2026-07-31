@@ -12,10 +12,38 @@ import { selectPairSmart, type SlotKind } from './active';
 import { anchorPool, onboardingPool, type CuratedOnboarding } from './curation';
 import { CONTENT_PROBLEM_ASPECTS } from './events';
 import type { TasteModel } from './model';
+import { mulberry32 } from './random';
 import { historyFromEvents, recordShown, selectPair, type SelectionHistory } from './selector';
 
-export const DEFAULT_SESSION_LENGTH = 12;
+// The first complete unit of value ends after six choices (fourth external
+// review): a fresh eye gets a short, scripted sitting; regulars get eight;
+// twelve stays available as a voluntary option from the session summary.
+export const FIRST_SESSION_LENGTH = 6;
+export const DEFAULT_SESSION_LENGTH = 8;
+export const LONG_SESSION_LENGTH = 12;
+/** "Sharpen this read" continuation offered right after the first summary. */
+export const SHARPEN_SESSION_LENGTH = 4;
+/** Below this many answers an early Finish has nothing honest to summarize. */
+export const MIN_EARLY_FINISH = 3;
 export const CALIBRATION_TARGET = 40; // pair answers before calibration ends
+
+/** Default sitting length by lifetime answers (not sessions — an abandoned
+ *  2-answer first session still deserves the short-format restart). */
+export function sessionLengthFor(totalPairAnswers: number): number {
+	return totalPairAnswers < FIRST_SESSION_LENGTH ? FIRST_SESSION_LENGTH : DEFAULT_SESSION_LENGTH;
+}
+
+/**
+ * Share of calibration pairs handed to the smart selector, so the product
+ * visibly adapts before the 40-answer calibration target: none while the
+ * scripted opening runs, then roughly a third, then half.
+ */
+export function smartShare(totalPairAnswers: number): number {
+	if (totalPairAnswers < FIRST_SESSION_LENGTH) return 0;
+	if (totalPairAnswers < 20) return 0.3;
+	if (totalPairAnswers < CALIBRATION_TARGET) return 0.5;
+	return 1;
+}
 
 /** No source may supply more than this share of works shown in one session. */
 export const SOURCE_SESSION_CAP = 0.4;
@@ -51,6 +79,8 @@ export interface SessionState {
 	startedAt: string;
 	/** Active test objective — only ever set on daily-mode sessions. */
 	objective?: { dims: string[]; label: string };
+	/** The user pressed Finish before reaching the session length. */
+	endedEarly?: boolean;
 }
 
 export function sessionMode(totalPairAnswers: number): 'calibration' | 'daily' {
@@ -76,13 +106,13 @@ export interface SessionEngine {
 	sourceShown: Map<string, number>;
 }
 
-export function createSession(ctx: SessionContext, length = DEFAULT_SESSION_LENGTH): SessionEngine {
+export function createSession(ctx: SessionContext, length?: number): SessionEngine {
 	const history = historyFromEvents(ctx.events);
 	const totalAnswers = ctx.events.filter((e) => e.t === 'pair_choice').length;
 	const state: SessionState = {
 		id: crypto.randomUUID(),
 		mode: sessionMode(totalAnswers),
-		length,
+		length: length ?? sessionLengthFor(totalAnswers),
 		position: 0,
 		current: null,
 		phase: 'choosing',
@@ -169,7 +199,13 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 		engine.state.current = null;
 		return;
 	}
-	const useSmart = engine.state.mode === 'daily' && ctx.model != null;
+	const totalAnswers = ctx.events.filter((e) => e.t === 'pair_choice').length;
+	// Progressive personalization: calibration hands a growing share of pairs
+	// to the smart selector (deterministic per-pair draw — resume-safe). Smart
+	// pairs keep their real slot so the record stays truthful.
+	const smartDraw = mulberry32(ctx.seed * 8837 + engine.history.interactionIndex * 271)();
+	const useSmart =
+		ctx.model != null && (engine.state.mode === 'daily' || smartDraw < smartShare(totalAnswers));
 	const pickFrom = (works: Work[]) =>
 		useSmart
 			? selectPairSmart(works, engine.history, ctx.model as TasteModel, ctx.events, ctx.workById, {
@@ -228,4 +264,19 @@ export function advance(engine: SessionEngine, ctx: SessionContext): void {
 export function skipCurrent(engine: SessionEngine, ctx: SessionContext): void {
 	if (engine.state.phase !== 'choosing') return;
 	nextPair(engine, ctx);
+}
+
+/**
+ * The user pressed Finish mid-session with enough answers to summarize:
+ * close the session where it stands so the summary renders instead of the
+ * exit sending them away empty-handed. Returns false below MIN_EARLY_FINISH
+ * — the caller falls back to a plain exit.
+ */
+export function finishEarly(engine: SessionEngine): boolean {
+	if (engine.state.phase === 'done' || engine.state.position < MIN_EARLY_FINISH) return false;
+	engine.state.length = engine.state.position; // progress reads honestly
+	engine.state.phase = 'done';
+	engine.state.current = null;
+	engine.state.endedEarly = true;
+	return true;
 }
