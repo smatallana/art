@@ -30,12 +30,16 @@ test('full session flow: choose, reveal, react, save, advance', async ({ page })
 	await expect(page.getByText(/CC0|public domain|©/i).first()).toBeVisible();
 	await expect(page.getByRole('link', { name: 'View at museum' })).toBeVisible();
 
-	// React + save (no typing anywhere). Reaction chips live inside the
-	// collapsed "Add context to this choice" fold — open it first.
-	await page.getByText('Add context to this choice').click();
-	await page.getByRole('button', { name: 'Intrigued' }).click();
+	// Default reveal is compact: Save is the only visible action; strength
+	// and Remember live inside the collapsed "Add context" fold (tramo 9).
+	await expect(page.getByRole('button', { name: /Remember this/ })).toHaveCount(0);
 	await page.getByRole('button', { name: 'Save', exact: true }).click();
 	await expect(page.getByRole('button', { name: 'Saved', exact: true })).toBeVisible();
+
+	// React + remember inside the fold (no typing anywhere).
+	await page.getByText('Add context to this choice').click();
+	await page.getByRole('button', { name: 'Intrigued' }).click();
+	await expect(page.getByRole('button', { name: /Remember this/ })).toBeVisible();
 
 	await page.getByRole('button', { name: 'Next', exact: true }).click();
 	await expect(page.getByRole('button', { name: 'Choose the first painting' })).toBeVisible();

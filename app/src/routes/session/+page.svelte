@@ -29,11 +29,11 @@
 	const sess = $derived(app.engine?.state ?? null);
 	// Events belonging to THIS session (ISO strings compare chronologically).
 	const sessionEvents = $derived(sess ? app.events.filter((e) => e.at >= sess.startedAt) : []);
-	let microDismissed = $state(-1);
-	const micro = $derived.by(() => {
-		if (!sess || sess.phase !== 'choosing') return null;
+	// Micro-insight shows on the REVEAL of answers 4 and 8 — after the
+	// answer, never above the next pair (pre-choice priming, review 4).
+	const revealMicro = $derived.by(() => {
+		if (!sess || sess.phase !== 'revealed') return null;
 		if (sess.position !== 4 && sess.position !== 8) return null;
-		if (microDismissed >= sess.position) return null;
 		return microInsight(sessionEvents, (id) => app.work(id), ONTOLOGY_DIMS);
 	});
 	const summary = $derived.by(() =>
@@ -206,12 +206,6 @@
 			{#if sess.current?.recovery}
 				<p class="objective">{t.session.changeDirection}</p>
 			{/if}
-			{#if micro}
-				<button class="micro" onclick={() => (microDismissed = sess.position)}>
-					<span class="micro-label">{t.session.microPrefix}</span>
-					{t.session.micro(micro)} ×
-				</button>
-			{/if}
 			<div class="pair" role="group" aria-label={t.a11y.artworkPair}>
 				<button class="art" aria-label={t.a11y.choiceA} onclick={() => choose(flipped ? 'b' : 'a')}>
 					<ArtworkImage work={firstWork} blind onError={(id) => app.reportImageFailure(id)} />
@@ -271,6 +265,7 @@
 				slot={sess.current?.slot ?? 'calibration'}
 				position={sess.position}
 				onNext={next}
+				microLine={revealMicro}
 			/>
 		{:else if sess.phase === 'done' && summary}
 			<section class="summary">
@@ -510,16 +505,6 @@
 		padding: 6px 14px 2px;
 		margin: 0;
 	}
-	.micro {
-		align-self: center;
-		color: var(--ink-muted);
-		font-size: 0.82rem;
-		border: 1px solid var(--hairline);
-		border-radius: 999px;
-		padding: 6px 14px;
-		margin-bottom: var(--space-2);
-		max-width: 90%;
-	}
 	.objective {
 		align-self: center;
 		color: var(--accent, var(--ink-muted));
@@ -531,10 +516,6 @@
 	.counter-example a {
 		color: inherit;
 		text-decoration: underline;
-	}
-	.micro-label {
-		color: var(--gold-deep);
-		letter-spacing: 0.04em;
 	}
 	.insight {
 		color: var(--ink);

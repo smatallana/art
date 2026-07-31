@@ -15,7 +15,8 @@
 		pick,
 		slot,
 		position,
-		onNext
+		onNext,
+		microLine = null
 	}: {
 		workA: Work;
 		workB: Work;
@@ -23,6 +24,9 @@
 		slot: SessionPair['slot'];
 		position: number;
 		onNext: () => void;
+		/** Mid-session micro-insight, shown AFTER the answer — never on the
+		 *  choosing screen (pre-choice priming, fourth external review). */
+		microLine?: string | null;
 	} = $props();
 
 	// The reveal must respect the answer given: only a definite pick features
@@ -140,14 +144,14 @@
 				<button class="chip" onclick={() => save(chosen)}>
 					{app.savedIds.has(chosen.id) ? t.session.saved : t.session.save}
 				</button>
-				<button class="chip" onclick={() => remember(chosen)}>
-					{app.rememberedIds.has(chosen.id) ? t.session.remembered : t.session.remember}
-				</button>
 			</div>
 		</div>
 
-		{#if askStrength && !strengthSent}
-			<div class="block strength">
+		<details class="fold">
+			<summary>{t.session.addContext}</summary>
+			{#if askStrength && !strengthSent}
+				<!-- Strength lives inside the fold (owner decision, tramo 9 —
+				     reverses the tramo-7 "selective visible" placement). -->
 				<p class="prompt-line">{t.session.strengthPrompt}</p>
 				<div class="chips">
 					<button class="chip" onclick={() => sendStrength('slight')}
@@ -160,11 +164,7 @@
 						>{t.session.strengthStrong}</button
 					>
 				</div>
-			</div>
-		{/if}
-
-		<details class="fold">
-			<summary>{t.session.addContext}</summary>
+			{/if}
 			<p class="prompt-line">{t.session.reactionPrompt}</p>
 			<div class="chips">
 				{#each EMOTIONS as [id, label] (id)}
@@ -180,6 +180,11 @@
 						{label}
 					</button>
 				{/each}
+			</div>
+			<div class="chips">
+				<button class="chip" onclick={() => remember(chosen)}>
+					{app.rememberedIds.has(chosen.id) ? t.session.remembered : t.session.remember}
+				</button>
 			</div>
 		</details>
 
@@ -237,6 +242,13 @@
 		</div>
 	{/if}
 
+	{#if microLine}
+		<p class="micro-line">
+			<span>{t.session.microPrefix}</span>
+			{t.session.micro(microLine)}
+		</p>
+	{/if}
+
 	<div class="next-bar">
 		{#if app.undoableIds.length > 0}
 			<button class="undo" onclick={() => void app.undoLastPair()}>{t.session.undo}</button>
@@ -273,6 +285,21 @@
 		font-size: 0.98rem;
 		line-height: 1.5;
 		margin: var(--space-2) 0 0;
+	}
+	.micro-line {
+		color: var(--ink-faint);
+		font-size: 0.82rem;
+		font-style: italic;
+		text-align: center;
+		margin: var(--space-2) 0 0;
+	}
+	.micro-line span {
+		color: var(--accent, var(--ink-muted));
+		font-style: normal;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		font-size: 0.72rem;
+		margin-right: 4px;
 	}
 	.rights {
 		color: var(--ink-faint);
