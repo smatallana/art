@@ -70,6 +70,9 @@ test('answers persist across reload and session resumes in place', async ({ page
 	// The profile shows recorded history.
 	await page.goto('./profile/');
 	await expect(page.getByText(/Built from \d+ recorded/)).toBeVisible({ timeout: 15000 });
+	// Past sessions appear once a session_end exists (none yet mid-session);
+	// the artists section must never phrase low exposure as low affinity.
+	await expect(page.getByText(/low affinity/)).toHaveCount(0);
 });
 
 test('pairs do not repeat within a session', async ({ page }) => {
@@ -116,9 +119,12 @@ test('finishing early after three answers earns a summary, not an exit', async (
 	// Still on the session page: the low-confidence summary renders.
 	await expect(page.getByText(/Ended early — your 3 choices still count/)).toBeVisible();
 	await expect(page.getByRole('button', { name: 'See my eye' })).toBeVisible();
-	// Leaving from here lands on the profile.
+	// Leaving from here lands on the profile, where the session's frozen
+	// conclusion is already listed under Past sessions.
 	await page.getByRole('button', { name: 'See my eye' }).click();
 	await expect(page).toHaveURL(/\/profile\/$/);
+	await page.getByText('Past sessions').click();
+	await expect(page.getByText(/3 answered/)).toBeVisible();
 });
 
 test('the sharpen continuation starts a 4-pair sitting', async ({ page }) => {

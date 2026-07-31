@@ -6,7 +6,7 @@
  */
 import type { Work } from '../catalog/types';
 import type { AppEvent, PriorSpec } from './events';
-import { evidenceTier, isConflicted, type EvidenceTier, type TasteModel } from './model';
+import { evidenceTier, features, isConflicted, type EvidenceTier, type TasteModel } from './model';
 
 export interface OntologyDim {
 	id: string;
@@ -78,6 +78,81 @@ export function patternStatusNow(
 
 function capitalize(s: string): string {
 	return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/**
+ * The works that best EMBODY the profile's strongest affinities — drawn only
+ * from works the user actually engaged (chosen winners, saves, remembers;
+ * unsaves retract). Scored by feature contribution on the top non-era dims,
+ * saves break ties, one work per artist. Honest by construction: nothing
+ * unseen can appear here.
+ */
+export function representativeWorks(
+	model: TasteModel,
+	events: AppEvent[],
+	workById: (id: string) => Work | undefined,
+	n = 3
+): Work[] {
+	// Mirror of discover.likedWorkIds — replicated so profile stays free of a
+	// discover import (discover already imports this module).
+	const liked = new Set<string>();
+	const saved = new Set<string>();
+	for (const e of events) {
+		if (e.t === 'pair_choice' && (e.pick === 'a' || e.pick === 'b')) {
+			liked.add(e.pick === 'a' ? e.a : e.b);
+		} else if (e.t === 'save' || e.t === 'remember') {
+			liked.add(e.work);
+			saved.add(e.work);
+		} else if (e.t === 'unsave') {
+			liked.delete(e.work);
+			saved.delete(e.work);
+		}
+	}
+	const dims = [...model.dims.entries()]
+		.filter(([id, d]) => !id.startsWith('era.') && !d.provisional)
+		.map(([id, d]) => ({
+			id,
+			sign: Math.sign(d.mu) || 1,
+			z: Math.abs(d.mu) / Math.sqrt(d.variance),
+			tier: evidenceTier(d)
+		}))
+		.filter((d) => d.tier !== 'insufficient')
+		.sort((a, b) => b.z - a.z)
+		.slice(0, 2);
+	if (dims.length === 0) return [];
+	const scored = [...liked]
+		.map(workById)
+		.filter((w): w is Work => w != null)
+		.map((w) => {
+			const f = features(w);
+			let score = 0;
+			for (const d of dims) score += (f.get(d.id) ?? 0) * d.sign;
+			return { w, score };
+		})
+		.filter((x) => x.score > 0)
+		.sort((x, y) => y.score - x.score || Number(saved.has(y.w.id)) - Number(saved.has(x.w.id)));
+	const out: Work[] = [];
+	const artists = new Set<string>();
+	for (const { w } of scored) {
+		if (artists.has(w.artist.name)) continue;
+		artists.add(w.artist.name);
+		out.push(w);
+		if (out.length >= n) break;
+	}
+	return out;
+}
+
+/**
+ * Exposure class for an artist row. Low exposure must read as "not enough
+ * encounters", never as low affinity (fourth external review).
+ */
+export function artistExposure(
+	a: ArtistAffinity
+): 'well-tested' | 'lightly-tested' | 'insufficient' {
+	const n = a.wins + a.losses;
+	if (n >= 8) return 'well-tested'; // the same bar isConflicted treats as real exposure
+	if (n >= 3) return 'lightly-tested'; // the model's evidence floor
+	return 'insufficient';
 }
 
 function entryFor(

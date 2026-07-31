@@ -209,6 +209,26 @@ export const t = {
 	profile: {
 		title: 'Your eye',
 		empty: 'No choices yet — your profile begins with your first session.',
+		// Portrait lead (tramo 9): one synthesis line, works, a test to run.
+		portrait: (top: string, tier: string, away: string | null) =>
+			away
+				? `Your eye leans toward ${top.toLowerCase()} (${tier}) and tends to pass on ${away.toLowerCase()}.`
+				: `Your eye leans toward ${top.toLowerCase()} (${tier}).`,
+		representative: 'Works your eye kept choosing',
+		testThis: 'Test this',
+		testQueued: 'Queued for your next session',
+		testLater: 'These become testable once calibration completes.',
+		wellTested: 'well tested',
+		lightlyTested: 'lightly tested',
+		artistLowExposure: 'not enough encounters yet',
+		pastSessions: 'Past sessions',
+		pastFacts: (n: number) => `${n} answered`,
+		pastNoPattern: 'no single pattern',
+		statusStrengthened: 'stronger since',
+		statusWeakened: 'weaker since',
+		statusChanged: 'has reversed',
+		statusHolds: 'still holds',
+		statusUnresolved: 'still open',
 		basis: (n: number) =>
 			`Built from ${n} recorded ${n === 1 ? 'choice' : 'choices'} and your saves, reactions and skips.`,
 		drawsYou: 'What draws you in',
