@@ -47,9 +47,11 @@ test('full session flow: choose, reveal, react, save, advance', async ({ page })
 	// Progress advanced to 2 of N.
 	await expect(page.getByText(/2 of \d+/)).toBeVisible();
 
-	// The saved work appears on the Saved page.
+	// The saved work appears on the Saved page; the field notebook only
+	// exists once a Snap photo has been archived (never on a fresh profile).
 	await page.goto('./saved/');
 	await expect(page.getByRole('listitem').first()).toBeVisible({ timeout: 15000 });
+	await expect(page.getByText('Field notebook')).toHaveCount(0);
 });
 
 test('answers persist across reload and session resumes in place', async ({ page }) => {

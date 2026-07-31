@@ -1,10 +1,27 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
+	import { getPhoto } from '$lib/db';
 	import { t } from '$lib/i18n/en';
 	import { app } from '$lib/state/app.svelte';
 
-	onMount(() => void app.init());
+	// Field notebook: Snap photos that matched nothing in the collection.
+	// They live only in this device's IndexedDB (photo_capture, work: null).
+	let notebook = $state<{ id: string; at: string; url: string }[]>([]);
+
+	onMount(async () => {
+		await app.init();
+		const unmatched = app.events.filter((e) => e.t === 'photo_capture' && e.work === null);
+		const out: { id: string; at: string; url: string }[] = [];
+		for (const e of unmatched.slice(-24).reverse()) {
+			const blob = await getPhoto(e.id);
+			if (blob) out.push({ id: e.id, at: e.at, url: URL.createObjectURL(blob) });
+		}
+		notebook = out;
+	});
+	onDestroy(() => {
+		for (const n of notebook) URL.revokeObjectURL(n.url);
+	});
 
 	const savedWorks = $derived([...app.savedIds].map((id) => app.work(id)).filter((w) => w != null));
 </script>
@@ -35,6 +52,21 @@
 				</li>
 			{/each}
 		</ul>
+	{/if}
+
+	{#if notebook.length > 0}
+		<section class="notebook">
+			<h2 class="nb-title">{t.saved.notebook}</h2>
+			<p class="nb-hint">{t.saved.notebookHint}</p>
+			<ul class="nb-grid">
+				{#each notebook as n (n.id)}
+					<li>
+						<img class="nb-photo" src={n.url} alt={t.saved.notebookAlt} />
+						<p class="meta">{new Date(n.at).toLocaleDateString()}</p>
+					</li>
+				{/each}
+			</ul>
+		</section>
 	{/if}
 </main>
 
@@ -84,5 +116,34 @@
 		padding: 6px 12px;
 		font-size: 0.78rem;
 		color: var(--ink-muted);
+	}
+	.notebook {
+		border-top: 1px solid var(--hairline);
+		margin-top: var(--space-5);
+		padding-top: var(--space-4);
+	}
+	.nb-title {
+		font-size: 1.2rem;
+	}
+	.nb-hint {
+		color: var(--ink-faint);
+		font-size: 0.82rem;
+		margin: var(--space-1) 0 var(--space-3);
+		max-width: 52ch;
+	}
+	.nb-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: var(--space-3);
+	}
+	.nb-photo {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 4px;
+		background: var(--surface);
 	}
 </style>

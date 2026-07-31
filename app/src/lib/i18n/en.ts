@@ -181,7 +181,11 @@ export const t = {
 	saved: {
 		title: 'Saved works',
 		empty: 'Nothing saved yet. When a work stays with you, save it here.',
-		remove: 'Remove'
+		remove: 'Remove',
+		notebook: 'Field notebook',
+		notebookHint:
+			'Paintings you photographed that are not in the collection yet. Photos never leave this device; as the collection grows they can be re-identified.',
+		notebookAlt: 'Your photo of a painting'
 	},
 
 	settings: {
@@ -221,6 +225,7 @@ export const t = {
 		wellTested: 'well tested',
 		lightlyTested: 'lightly tested',
 		artistLowExposure: 'not enough encounters yet',
+		snapCta: 'Photograph a painting you loved ↗',
 		pastSessions: 'Past sessions',
 		pastFacts: (n: number) => `${n} answered`,
 		pastNoPattern: 'no single pattern',

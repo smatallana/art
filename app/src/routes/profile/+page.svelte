@@ -153,6 +153,7 @@
 						<p class="hint">{t.profile.testLater}</p>
 					{/if}
 				{/if}
+				<a class="snap-cta" href={`${base}/snap/`}>{t.profile.snapCta}</a>
 			</section>
 		{/if}
 
@@ -399,6 +400,14 @@
 		font-size: 0.78rem;
 		min-height: 32px;
 		cursor: pointer;
+	}
+	.snap-cta {
+		display: inline-flex;
+		align-items: center;
+		color: var(--gold-deep);
+		font-size: 0.88rem;
+		margin-top: var(--space-3);
+		min-height: 44px;
 	}
 	.past-summary {
 		font-size: 1.05rem;
