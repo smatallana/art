@@ -5,7 +5,7 @@
  */
 import type { Work } from '../catalog/types';
 import type { AppEvent } from './events';
-import { features, utility, type TasteModel } from './model';
+import { evidenceTier, features, utility, type TasteModel } from './model';
 import { mulberry32, shuffle } from './random';
 import { eraBucket } from './strata';
 import type { OntologyDim } from './profile';
@@ -25,6 +25,21 @@ export function seenWorkIds(events: AppEvent[]): Set<string> {
 }
 
 /** Works the user actively liked: chose in a pair, saved, or remembered. */
+/**
+ * Whether the model has at least one real, confirmed read — a non-era,
+ * non-provisional dim at moderate evidence or better. Gates the discover
+ * heading: "For your eye" only when this is true; "Early possibilities"
+ * before (fourth external review — headings must not outrun the evidence).
+ */
+export function hasEstablishedRead(model: TasteModel): boolean {
+	for (const [id, d] of model.dims) {
+		if (id.startsWith('era.') || d.provisional) continue;
+		const tier = evidenceTier(d);
+		if (tier === 'moderate' || tier === 'strong') return true;
+	}
+	return false;
+}
+
 export function likedWorkIds(events: AppEvent[]): Set<string> {
 	const liked = new Set<string>();
 	for (const e of events) {

@@ -4,6 +4,7 @@ import {
 	applyFilter,
 	contributions,
 	exploreFilters,
+	hasEstablishedRead,
 	likedWorkIds,
 	recommendChallenge,
 	recommendClose,
@@ -12,7 +13,7 @@ import {
 	suggestArtists,
 	surpriseMe
 } from './discover';
-import { modelFromEvents } from './model';
+import { createModel, modelFromEvents } from './model';
 import type { OntologyDim } from './profile';
 import { testPool } from './testutil';
 
@@ -161,5 +162,35 @@ describe('discovery', () => {
 		for (let i = 1; i < cs.length; i++) {
 			expect(Math.abs(cs[i - 1]!.value)).toBeGreaterThanOrEqual(Math.abs(cs[i]!.value));
 		}
+	});
+});
+
+describe('hasEstablishedRead', () => {
+	const dim = (mu: number, variance: number, n = 10, provisional = false) => ({
+		mu,
+		variance,
+		n,
+		signAgreement: 1,
+		provisional
+	});
+
+	it('is false with no evidence, weak-only, provisional or era-only dims', () => {
+		const empty = createModel();
+		expect(hasEstablishedRead(empty)).toBe(false);
+		const weak = createModel();
+		weak.dims.set('color.saturation', dim(0.25, 0.1)); // z ≈ 0.79 → weak
+		expect(hasEstablishedRead(weak)).toBe(false);
+		const provisional = createModel();
+		provisional.dims.set('color.saturation', dim(0.6, 0.1, 10, true));
+		expect(hasEstablishedRead(provisional)).toBe(false);
+		const eraOnly = createModel();
+		eraOnly.dims.set('era.e1850', dim(0.8, 0.1));
+		expect(hasEstablishedRead(eraOnly)).toBe(false);
+	});
+
+	it('is true once one real dim reaches moderate evidence', () => {
+		const model = createModel();
+		model.dims.set('color.saturation', dim(0.5, 0.1)); // z ≈ 1.58 → moderate
+		expect(hasEstablishedRead(model)).toBe(true);
 	});
 });

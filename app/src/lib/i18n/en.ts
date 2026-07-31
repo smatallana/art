@@ -259,10 +259,13 @@ export const t = {
 		searchPlaceholder: 'Search artist, title, museum…',
 		results: (n: number) => (n === 1 ? '1 work found' : `${n} works found`),
 		clear: 'Clear',
-		close: 'Close to your eye',
+		close: 'For your eye',
 		closeHint: 'Unseen works the model expects you to respond to — each card says why.',
+		closeEarly: 'Early possibilities',
+		closeEarlyHint:
+			'First guesses from your choices so far — each card says why. They will sharpen.',
 		challenge: 'Challenges your eye',
-		challengeHint: 'Outside your comfort zone on purpose — the map stays honest this way.',
+		challengeHint: 'Outside your comfort zone on purpose — each card names what it pushes against.',
 		needSessions:
 			'Personal recommendations unlock after a few sessions — the explorer below works right away.',
 		surprise: 'Surprise me',

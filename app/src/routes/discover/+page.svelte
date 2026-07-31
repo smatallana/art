@@ -5,6 +5,7 @@
 	import {
 		applyFilter,
 		exploreFilters,
+		hasEstablishedRead,
 		recommendChallenge,
 		recommendClose,
 		searchWorks,
@@ -26,6 +27,7 @@
 
 	const ontologyMap = new Map(ONTOLOGY_DIMS.map((d) => [d.id, d]));
 	const ready = $derived(app.catalog.works.length > 0 && app.model != null);
+	const established = $derived(app.model != null && hasEstablishedRead(app.model));
 
 	const close = $derived.by((): Recommendation[] =>
 		ready
@@ -111,8 +113,10 @@
 	{:else}
 		{#if app.totalChoices >= 5}
 			<section>
-				<h2>{t.discover.close}</h2>
-				<p class="hint">{t.discover.closeHint}</p>
+				<!-- Honest heading: "For your eye" only once real evidence exists;
+				     until then these are stated as early possibilities. -->
+				<h2>{established ? t.discover.close : t.discover.closeEarly}</h2>
+				<p class="hint">{established ? t.discover.closeHint : t.discover.closeEarlyHint}</p>
 				<div class="row">
 					{#each close as r (r.work.id)}
 						<WorkCard work={r.work} why={r.why} />
@@ -125,7 +129,7 @@
 				<p class="hint">{t.discover.challengeHint}</p>
 				<div class="row">
 					{#each challenge as r (r.work.id)}
-						<WorkCard work={r.work} />
+						<WorkCard work={r.work} why={r.why} />
 					{/each}
 				</div>
 			</section>
