@@ -180,7 +180,8 @@ export function buildProfile(
 	model: TasteModel,
 	events: AppEvent[],
 	workById: (id: string) => Work | undefined,
-	ontologyDims: OntologyDim[]
+	ontologyDims: OntologyDim[],
+	phrases?: InterpretPhrases
 ): TasteProfile {
 	const ontology = new Map(ontologyDims.map((d) => [d.id, d]));
 	const entries: ProfileEntry[] = [];
@@ -209,7 +210,7 @@ export function buildProfile(
 		uncertain,
 		conflicts,
 		artists,
-		interpretation: interpret(model, affinities, aversions, conflicts, totalChoices),
+		interpretation: interpret(model, affinities, aversions, conflicts, totalChoices, phrases),
 		totalChoices,
 		temperature: model.temperature
 	};
@@ -278,62 +279,81 @@ const TIER_PHRASE: Record<EvidenceTier, string> = {
 	insufficient: 'not enough evidence'
 };
 
+/**
+ * The reading's sentence templates, injectable so the UI can supply a
+ * localized set (engine stays pure; English defaults live here).
+ */
+export interface InterpretPhrases {
+	tier: Record<EvidenceTier, string>;
+	beginning: string;
+	topLine: (label: string, tier: string, provisional: boolean) => string;
+	formOverSubject: (label: string) => string;
+	subjectOverForm: (label: string) => string;
+	aversionLine: (label: string, tier: string) => string;
+	conflictLine: (label: string) => string;
+	provisionalLine: (n: number) => string;
+	noisyLine: string;
+}
+
+export const ENGLISH_PHRASES: InterpretPhrases = {
+	tier: TIER_PHRASE,
+	beginning:
+		'Your profile is just beginning — keep choosing and the picture will sharpen with every session.',
+	topLine: (label, tier, provisional) =>
+		`${label} draws you in most consistently so far — ${tier}${provisional ? ' (imported hypothesis, being tested)' : ''}.`,
+	formOverSubject: (label) =>
+		`How a painting is made (${label.toLowerCase()}) currently matters more than what it depicts.`,
+	subjectOverForm: (label) =>
+		`What a painting depicts (${label.toLowerCase()}) currently outweighs how it is painted.`,
+	aversionLine: (label, tier) => `You most consistently pass on ${label.toLowerCase()} — ${tier}.`,
+	conflictLine: (label) =>
+		`Your responses to ${label.toLowerCase()} pull in both directions — the attraction may depend on context the model hasn't isolated yet.`,
+	provisionalLine: (n) =>
+		`${n} imported ${n === 1 ? 'hypothesis is' : 'hypotheses are'} still provisional — the sessions ahead will confirm or refute ${n === 1 ? 'it' : 'them'}.`,
+	noisyLine:
+		'Recent answers have been less consistent than usual, so conclusions are held more loosely for now.'
+};
+
 /** Honest natural-language reading of the current posterior. */
 export function interpret(
 	model: TasteModel,
 	affinities: ProfileEntry[],
 	aversions: ProfileEntry[],
 	conflicts: ProfileEntry[],
-	totalChoices: number
+	totalChoices: number,
+	p: InterpretPhrases = ENGLISH_PHRASES
 ): string[] {
 	const out: string[] = [];
 	if (totalChoices < 8) {
-		out.push(
-			'Your profile is just beginning — keep choosing and the picture will sharpen with every session.'
-		);
+		out.push(p.beginning);
 		return out;
 	}
 	const top = affinities[0];
 	if (top) {
-		const qualifier = top.provisional ? ' (imported hypothesis, being tested)' : '';
-		out.push(
-			`${top.label} draws you in most consistently so far — ${TIER_PHRASE[top.tier]}${qualifier}.`
-		);
+		out.push(p.topLine(top.label, p.tier[top.tier], top.provisional));
 	}
 	const subjectTop = affinities.find((e) => e.group === 'subject');
 	const formalTop = affinities.find((e) => e.group === 'form' || e.group === 'color');
 	if (subjectTop && formalTop) {
 		if (formalTop.z > subjectTop.z * 1.3) {
-			out.push(
-				`How a painting is made (${formalTop.label.toLowerCase()}) currently matters more than what it depicts.`
-			);
+			out.push(p.formOverSubject(formalTop.label));
 		} else if (subjectTop.z > formalTop.z * 1.3) {
-			out.push(
-				`What a painting depicts (${subjectTop.label.toLowerCase()}) currently outweighs how it is painted.`
-			);
+			out.push(p.subjectOverForm(subjectTop.label));
 		}
 	}
 	const avTop = aversions[0];
 	if (avTop) {
-		out.push(
-			`You most consistently pass on ${avTop.label.toLowerCase()} — ${TIER_PHRASE[avTop.tier]}.`
-		);
+		out.push(p.aversionLine(avTop.label, p.tier[avTop.tier]));
 	}
 	for (const c of conflicts.slice(0, 2)) {
-		out.push(
-			`Your responses to ${c.label.toLowerCase()} pull in both directions — the attraction may depend on context the model hasn't isolated yet.`
-		);
+		out.push(p.conflictLine(c.label));
 	}
 	const provisionalLeft = affinities.filter((e) => e.provisional).length;
 	if (provisionalLeft > 0) {
-		out.push(
-			`${provisionalLeft} imported ${provisionalLeft === 1 ? 'hypothesis is' : 'hypotheses are'} still provisional — the sessions ahead will confirm or refute ${provisionalLeft === 1 ? 'it' : 'them'}.`
-		);
+		out.push(p.provisionalLine(provisionalLeft));
 	}
 	if (model.temperature > 1.5) {
-		out.push(
-			'Recent answers have been less consistent than usual, so conclusions are held more loosely for now.'
-		);
+		out.push(p.noisyLine);
 	}
 	return out;
 }

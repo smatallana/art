@@ -32,6 +32,18 @@ test('a fresh device sees the welcome; Begin enters the session; it never return
 	await expect(page.getByText(/Choose between pairs of paintings/)).toHaveCount(0);
 });
 
+test('choosing ES on the welcome switches the app to Spanish and persists', async ({ page }) => {
+	await page.goto('./');
+	await page.getByRole('button', { name: 'ES', exact: true }).click();
+	// The welcome itself switches immediately.
+	await expect(page.getByText(/Elige entre parejas de cuadros/)).toBeVisible();
+	await page.getByRole('button', { name: 'Empezar', exact: true }).click();
+	await expect(page.getByText('¿Cuál te atrae?')).toBeVisible({ timeout: 15000 });
+	// The choice persists across a reload.
+	await page.reload();
+	await expect(page.getByText('¿Cuál te atrae?')).toBeVisible({ timeout: 15000 });
+});
+
 test('a device that already began skips the welcome entirely', async ({ page }) => {
 	await page.addInitScript(() => localStorage.setItem('beholder-welcomed', '1'));
 	await page.goto('./');

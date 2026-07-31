@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 
 	let { children } = $props();
 

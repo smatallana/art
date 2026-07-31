@@ -16,7 +16,7 @@
 		type Recommendation
 	} from '$lib/engine/discover';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 
 	let query = $state('');

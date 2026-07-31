@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { savePhoto } from '$lib/db';
 	import {
 		CONFIDENT_MATCH,

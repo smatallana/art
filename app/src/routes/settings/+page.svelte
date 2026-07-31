@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { t } from '$lib/i18n/en';
+	import { lang, setLang, t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 	import { sync } from '$lib/state/sync.svelte';
 	import { signInUrl } from '$lib/api';
@@ -90,6 +90,19 @@
 
 <main class="page">
 	<h1>{t.settings.title}</h1>
+
+	<section>
+		<!-- A language picker must be legible in both languages by design. -->
+		<h2>Language / Idioma</h2>
+		<div class="row">
+			<button class="btn" class:active={lang.current === 'en'} onclick={() => setLang('en')}>
+				English
+			</button>
+			<button class="btn" class:active={lang.current === 'es'} onclick={() => setLang('es')}>
+				Español
+			</button>
+		</div>
+	</section>
 
 	<section>
 		<h2>{t.account.title}</h2>
@@ -212,6 +225,10 @@
 	.btn.danger {
 		border-color: var(--hairline);
 		color: var(--ink-muted);
+	}
+	.btn.active {
+		border-color: var(--gold);
+		color: var(--gold);
 	}
 	a.btn {
 		display: inline-flex;

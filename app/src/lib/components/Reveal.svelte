@@ -5,7 +5,7 @@
 	import { explainPair, wantsStrength } from '../engine/insight';
 	import { ONTOLOGY_DIMS } from '../engine/ontology';
 	import type { SessionPair } from '../engine/session';
-	import { t } from '../i18n/en';
+	import { t } from '../i18n';
 	import { app } from '../state/app.svelte';
 	import ArtworkImage from './ArtworkImage.svelte';
 

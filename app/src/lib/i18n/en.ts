@@ -1,7 +1,10 @@
 /**
- * UI strings — single source so additional languages can be added without
- * touching components. English is the launch language (owner's choice).
+ * English strings — the reference language. Components import the reactive
+ * facade from '$lib/i18n' (never this file directly); es.ts mirrors this
+ * shape exactly, enforced by `Strings` and a key-tree parity test.
  */
+import { ENGLISH_PHRASES } from '../engine/profile';
+
 export const t = {
 	appName: 'Beholder',
 	tagline: 'Learn your own eye.',
@@ -254,6 +257,7 @@ export const t = {
 		tierModerate: 'moderate',
 		tierWeak: 'early signal',
 		tierInsufficient: 'not enough yet',
+		phrases: ENGLISH_PHRASES,
 		observations: (n: number) => `${n} ${n === 1 ? 'observation' : 'observations'}`,
 		honesty:
 			'Beholder never invents precision: bars show relative confidence, and every claim carries its evidence level. Conclusions change as your choices accumulate.'

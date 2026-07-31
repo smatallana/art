@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 	import { sync } from '$lib/state/sync.svelte';
 	import { markWelcomed } from '$lib/welcome';

@@ -4,7 +4,7 @@
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import { contributions } from '$lib/engine/discover';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 
 	let fullscreen = $state(false);

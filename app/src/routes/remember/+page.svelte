@@ -3,7 +3,7 @@
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import WorkCard from '$lib/components/WorkCard.svelte';
 	import { dueItems, knownItems, memoryItems } from '$lib/engine/memory';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 
 	let revealed = $state(false);

@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { t } from '$lib/i18n/en';
+	import { lang, setLang, t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 	import { sync } from '$lib/state/sync.svelte';
 	import { signInUrl } from '$lib/api';
@@ -70,6 +70,14 @@
 			<h1>{t.appName}</h1>
 			<p class="tagline">{t.tagline}</p>
 			<p class="how">{t.welcome.how}</p>
+			<div class="lang-row" role="group" aria-label="Language / Idioma">
+				<button class="lang" class:on={lang.current === 'en'} onclick={() => setLang('en')}>
+					EN
+				</button>
+				<button class="lang" class:on={lang.current === 'es'} onclick={() => setLang('es')}>
+					ES
+				</button>
+			</div>
 			<div class="actions">
 				<button class="start" onclick={begin}>{t.welcome.begin}</button>
 				{#if sync.available && sync.authReady && authUrl}
@@ -192,6 +200,25 @@
 		flex-direction: column;
 		align-items: center;
 		gap: var(--space-3);
+	}
+	.lang-row {
+		display: flex;
+		gap: var(--space-2);
+		margin-bottom: var(--space-3);
+	}
+	.lang {
+		border: 1px solid var(--hairline);
+		border-radius: 999px;
+		color: var(--ink-muted);
+		font-size: 0.8rem;
+		letter-spacing: 0.08em;
+		padding: 8px 16px;
+		min-height: 44px;
+		cursor: pointer;
+	}
+	.lang.on {
+		border-color: var(--gold);
+		color: var(--gold);
 	}
 	.status {
 		color: var(--ink-faint);

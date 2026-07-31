@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import { getPhoto } from '$lib/db';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 
 	// Field notebook: Snap photos that matched nothing in the collection.

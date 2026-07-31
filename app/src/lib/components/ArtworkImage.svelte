@@ -2,7 +2,7 @@
 	import { base } from '$app/paths';
 	import type { Work } from '../catalog/types';
 	import { blindParts } from '../engine/describe';
-	import { t } from '../i18n/en';
+	import { t } from '../i18n';
 
 	/** Dev-fixture images are site-relative; museum/R2 images are absolute. */
 	function resolveSrc(url: string): string {

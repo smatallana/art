@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { dueItems } from '$lib/engine/memory';
 	import { ONTOLOGY_DIMS, ONTOLOGY_GROUPS } from '$lib/engine/ontology';
 	import {
@@ -27,7 +27,13 @@
 
 	const profile = $derived.by((): TasteProfile | null => {
 		if (!app.model || app.catalog.works.length === 0) return null;
-		return buildProfile(app.model, app.events, (id) => app.work(id), ONTOLOGY_DIMS);
+		return buildProfile(
+			app.model,
+			app.events,
+			(id) => app.work(id),
+			ONTOLOGY_DIMS,
+			t.profile.phrases
+		);
 	});
 
 	const TIER_LABEL: Record<string, string> = {

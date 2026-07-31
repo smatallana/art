@@ -13,7 +13,7 @@
 		SHARPEN_SESSION_LENGTH,
 		sessionMode
 	} from '$lib/engine/session';
-	import { t } from '$lib/i18n/en';
+	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 
 	let shownAt = $state(0);
