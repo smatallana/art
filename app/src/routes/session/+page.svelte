@@ -401,8 +401,8 @@
 		color: var(--ink-faint);
 		font-size: 0.72rem;
 		letter-spacing: 0.04em;
-		padding: 8px 10px;
-		min-height: 36px;
+		padding: 8px 12px;
+		min-height: 44px;
 		border: none;
 		background: none;
 		cursor: pointer;
@@ -461,7 +461,7 @@
 		padding: 10px 16px;
 		border: 1px solid var(--hairline);
 		border-radius: 999px;
-		min-height: 42px;
+		min-height: 44px;
 	}
 	.more {
 		min-width: 44px;

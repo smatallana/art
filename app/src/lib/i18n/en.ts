@@ -373,7 +373,34 @@ export const t = {
 		choiceB: 'Choose the second painting',
 		artworkImage: (alt: string) => `Painting: ${alt}`,
 		// Blind phase: the identity of the work must not leak before the reveal.
-		artworkBlind: 'Painting'
+		artworkBlind: 'Painting',
+		// Identity-neutral visual description composed from tags — content
+		// parity for screen readers without naming the work or artist.
+		artworkBlindDescribed: (p: {
+			era: 'pre1500' | 'e1500' | 'e1700' | 'e1850' | 'e1900' | 'unknown';
+			subject: 'people' | 'land' | 'interior' | 'still' | 'other';
+			night: boolean;
+			mood: 'serene' | 'dramatic' | 'mysterious' | 'melancholic' | null;
+		}) => {
+			const subject = {
+				people: 'scene with people',
+				land: 'landscape',
+				interior: 'interior scene',
+				still: 'still life',
+				other: 'painting'
+			}[p.subject];
+			const noun = `${p.mood ? `${p.mood} ` : ''}${p.night ? 'night ' : ''}${subject}`;
+			const article = /^[aeiou]/.test(noun) ? 'An' : 'A';
+			const era = {
+				pre1500: ', painted before 1500',
+				e1500: ', from the 1500s or 1600s',
+				e1700: ', from the 1700s or early 1800s',
+				e1850: ', from the late 1800s',
+				e1900: ', painted after 1900',
+				unknown: ''
+			}[p.era];
+			return `${article} ${noun}${era}`;
+		}
 	}
 };
 

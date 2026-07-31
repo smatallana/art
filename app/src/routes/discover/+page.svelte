@@ -253,7 +253,7 @@
 		padding: 8px 14px;
 		font-size: 0.85rem;
 		color: var(--ink-muted);
-		min-height: 40px;
+		min-height: 44px;
 	}
 	.chip:hover {
 		border-color: var(--gold-deep);

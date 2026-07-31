@@ -335,7 +335,7 @@
 		padding: 8px 14px;
 		border: 1px solid var(--hairline);
 		border-radius: 999px;
-		min-height: 38px;
+		min-height: 44px;
 	}
 	.chip.on {
 		border-color: var(--gold);
@@ -349,7 +349,7 @@
 		color: var(--ink-muted);
 		font-size: 0.9rem;
 		cursor: pointer;
-		min-height: 40px;
+		min-height: 44px;
 		display: flex;
 		align-items: center;
 	}

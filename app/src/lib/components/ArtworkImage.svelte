@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import type { Work } from '../catalog/types';
+	import { blindParts } from '../engine/describe';
 	import { t } from '../i18n/en';
 
 	/** Dev-fixture images are site-relative; museum/R2 images are absolute. */
@@ -21,7 +22,13 @@
 		onError?: (workId: string) => void;
 	} = $props();
 
-	const altText = $derived(blind ? t.a11y.artworkBlind : t.a11y.artworkImage(work.title));
+	// Blind phase: an identity-neutral visual description when the tags allow
+	// one (content parity for screen readers), the plain fallback otherwise.
+	const altText = $derived.by(() => {
+		if (!blind) return t.a11y.artworkImage(work.title);
+		const parts = blindParts(work);
+		return parts ? t.a11y.artworkBlindDescribed(parts) : t.a11y.artworkBlind;
+	});
 
 	let loaded = $state(false);
 	let failed = $state(false);

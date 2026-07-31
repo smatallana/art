@@ -73,7 +73,7 @@
 		font-size: 0.8rem;
 		letter-spacing: 0.05em;
 		padding: 8px 10px;
-		min-height: 40px;
+		min-height: 44px;
 		display: inline-flex;
 		align-items: center;
 	}
