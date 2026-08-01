@@ -12,7 +12,7 @@ import { selectPairSmart, type SlotKind } from './active';
 import { anchorPool, onboardingPool, type CuratedOnboarding } from './curation';
 import { CONTENT_PROBLEM_ASPECTS, PROBLEM_SKIP_REASONS } from './events';
 import type { TasteModel } from './model';
-import { OPENING_SLOTS, selectOpeningPair } from './opening';
+import { OPENING_SLOTS, selectOpeningPair, type OpeningEditorialData } from './opening';
 import { mulberry32 } from './random';
 import {
 	historyFromEvents,
@@ -104,6 +104,8 @@ export interface SessionContext {
 	objective?: SessionObjective | null;
 	/** The editorial onboarding collection (injected; null in tests without one). */
 	curated?: CuratedOnboarding | null;
+	/** Committed editorial opening pairs (injected; the filter path is the fallback). */
+	opening?: OpeningEditorialData | null;
 }
 
 export interface SessionEngine {
@@ -253,7 +255,8 @@ function nextPair(engine: SessionEngine, ctx: SessionContext): void {
 			ctx.works,
 			ctx.curated,
 			engine.history,
-			ctx.seed
+			ctx.seed,
+			ctx.opening
 		);
 	}
 	if (!pair) pair = pickFrom(pool);

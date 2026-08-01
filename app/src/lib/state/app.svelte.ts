@@ -13,7 +13,7 @@ import type { AppEvent, AppEventPayload } from '../engine/events';
 import { effectiveEvents, isRetroactiveFoldEvent, makeEvent } from '../engine/events';
 import { sessionSummary, toSessionEndInsights } from '../engine/insight';
 import { applyEvent, modelFromEvents, type TasteModel } from '../engine/model';
-import { CURATED_ONBOARDING } from '../engine/onboarding';
+import { CURATED_ONBOARDING, OPENING_EDITORIAL } from '../engine/onboarding';
 import { ONTOLOGY_DIMS } from '../engine/ontology';
 import {
 	advance as engineAdvance,
@@ -82,7 +82,8 @@ class AppState {
 			model: this.model,
 			workById: (id) => this.catalog.byId.get(id),
 			seed: this.events.length + 1,
-			curated: CURATED_ONBOARDING
+			curated: CURATED_ONBOARDING,
+			opening: OPENING_EDITORIAL
 		};
 	}
 

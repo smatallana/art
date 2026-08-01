@@ -115,6 +115,41 @@ describe('onboarding.json vs committed catalog', () => {
 		}
 	});
 
+	it('every editorial opening pair is real and fits its slot', () => {
+		// data/curated/opening.json is hand-editable: every committed variant
+		// must reference catalog works that satisfy the slot's OWN side filters
+		// (a fits side a, b fits side b — the file's order is meaningful), with
+		// distinct artists and compatible aspects. Thin slots get edited, not
+		// exempted. This is also the drift guard for the pipeline's mirror of
+		// the slot filters (openingcurate.ts).
+		const opening = JSON.parse(
+			readFileSync(path.join(root, 'data', 'curated', 'opening.json'), 'utf8')
+		) as { version: number; slots: { name: string; pairs: { a: string; b: string }[] }[] };
+		const works = [...byId.values()];
+		for (const slot of OPENING_SLOTS) {
+			const entry = opening.slots.find((s) => s.name === slot.name);
+			expect(entry, `slot ${slot.name} present`).toBeTruthy();
+			if (!entry) continue;
+			expect(entry.pairs.length, `${slot.name} variants`).toBeGreaterThanOrEqual(4);
+			const sideA = new Set(sideCandidates(works, curated, slot.a).map((w) => w.id));
+			const sideB = new Set(sideCandidates(works, curated, slot.b).map((w) => w.id));
+			for (const p of entry.pairs) {
+				const wa = byId.get(p.a);
+				const wb = byId.get(p.b);
+				expect(wa, `${slot.name}: ${p.a} in catalog`).toBeTruthy();
+				expect(wb, `${slot.name}: ${p.b} in catalog`).toBeTruthy();
+				if (!wa || !wb) continue;
+				expect(sideA.has(p.a), `${slot.name}: ${p.a} fits side a`).toBe(true);
+				expect(sideB.has(p.b), `${slot.name}: ${p.b} fits side b`).toBe(true);
+				expect(wa.artist.name, `${slot.name}: ${p.a}×${p.b} artists`).not.toBe(wb.artist.name);
+				expect(aspectCompatible(wa, wb), `${slot.name}: ${p.a}×${p.b} aspects`).toBe(true);
+			}
+		}
+		const known = new Set(OPENING_SLOTS.map((s) => s.name));
+		const orphans = opening.slots.filter((s) => !known.has(s.name)).map((s) => s.name);
+		expect(orphans, 'slots without an engine counterpart').toEqual([]);
+	});
+
 	it('the welcome hero is a precached bootstrap work and a stage-1 anchor', () => {
 		// The welcome renders before any shard arrives — the hero must live in
 		// bootstrap.json or a fresh device gets a blank backdrop.

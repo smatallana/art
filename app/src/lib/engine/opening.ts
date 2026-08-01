@@ -170,20 +170,47 @@ export function sideCandidates(works: Work[], curated: CuratedOnboarding, f: Sid
 
 const SCAN = 24; // combinations scanned per side before giving up
 
+/** Committed editorial pair variants per slot (data/curated/opening.json). */
+export interface OpeningEditorialData {
+	slots: { name: string; pairs: { a: string; b: string; note?: string }[] }[];
+}
+
 /**
  * Build the pair for one opening slot, or null when the slot cannot be
  * filled under cooldown/novelty constraints (the caller falls back).
+ * Editorial variants (hand-editable, committed) outrank the filter path:
+ * an eligible editorial pair for the slot is drawn first; the filter
+ * machinery remains the fallback so an over-pruned slot never starves.
  */
 export function selectOpeningPair(
 	slotIndex: number,
 	works: Work[],
 	curated: CuratedOnboarding | null,
 	h: SelectionHistory,
-	seed: number
+	seed: number,
+	editorial?: OpeningEditorialData | null
 ): SelectedPair | null {
 	const slot = OPENING_SLOTS[slotIndex];
 	if (!slot || !curated) return null;
 	const rng = mulberry32(seed * 97 + slotIndex * 53);
+	const byId = new Map(works.map((w) => [w.id, w]));
+	const variants = editorial?.slots.find((s) => s.name === slot.name)?.pairs ?? [];
+	if (variants.length > 0) {
+		const eligibleSet = new Set(eligibleWorks(works, h).map((w) => w.id));
+		const usable = shuffle(rng, variants).filter((p) => {
+			if (!eligibleSet.has(p.a) || !eligibleSet.has(p.b)) return false;
+			if (h.seenPairs.has(pairKey(p.a, p.b))) return false;
+			const wa = byId.get(p.a);
+			const wb = byId.get(p.b);
+			return !!wa && !!wb && aspectCompatible(wa, wb);
+		});
+		const pick = usable[0];
+		if (pick) {
+			const wa = byId.get(pick.a) as Work;
+			const wb = byId.get(pick.b) as Work;
+			return { a: wa, b: wb, probe: probeOf(wa, wb) };
+		}
+	}
 	const sideA = shuffle(rng, eligibleWorks(sideCandidates(works, curated, slot.a), h));
 	const sideB = shuffle(rng, eligibleWorks(sideCandidates(works, curated, slot.b), h));
 	let fallback: SelectedPair | null = null;

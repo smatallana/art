@@ -325,6 +325,20 @@ async function cmdTagClip(): Promise<void> {
 	await cmdCoverage();
 }
 
+async function cmdCurateOpening(): Promise<void> {
+	const { runCurateOpening } = await import('./openingcurate.js');
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
+	await runCurateOpening({
+		catalogDir,
+		onboardingFile: path.join(here, '..', '..', 'data', 'curated', 'onboarding.json'),
+		outFile: path.join(here, '..', '..', 'data', 'curated', 'opening.json'),
+		force: hasFlag('force'),
+		log
+	});
+}
+
 async function cmdCurateOnboarding(): Promise<void> {
 	const { runCurateOnboarding } = await import('./curate.js');
 	const catalogDir = path.resolve(
@@ -346,6 +360,7 @@ else if (cmd === 'embed') await cmdEmbed();
 else if (cmd === 'commons-map') await cmdCommonsMap();
 else if (cmd === 'tag-clip') await cmdTagClip();
 else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
+else if (cmd === 'curate-opening') await cmdCurateOpening();
 else if (cmd === 'coverage') await cmdCoverage();
 else {
 	console.error(

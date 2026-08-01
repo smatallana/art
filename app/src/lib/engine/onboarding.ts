@@ -5,6 +5,7 @@
  * lists and never touch the bundler alias.
  */
 import raw from '$data/curated/onboarding.json';
+import rawOpening from '$data/curated/opening.json';
 
 export interface CuratedEntry {
 	id: string;
@@ -19,3 +20,10 @@ export interface CuratedOnboarding {
 }
 
 export const CURATED_ONBOARDING: CuratedOnboarding = raw as CuratedOnboarding;
+
+export interface OpeningEditorial {
+	version: number;
+	slots: { name: string; pairs: { a: string; b: string; note?: string }[] }[];
+}
+
+export const OPENING_EDITORIAL: OpeningEditorial = rawOpening as OpeningEditorial;

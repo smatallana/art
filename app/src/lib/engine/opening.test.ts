@@ -137,6 +137,58 @@ describe('selectOpeningPair', () => {
 	});
 });
 
+describe('selectOpeningPair with editorial variants', () => {
+	const { works, curated } = syntheticSetup();
+	// One committed variant for the 'pull' slot (index 0): two stage-1 anchors.
+	const editorial = {
+		slots: [{ name: 'pull', pairs: [{ a: 'calm-old', b: 'gestural' }] }]
+	};
+
+	it('an eligible editorial pair outranks the filter path', () => {
+		const pair = selectOpeningPair(0, works, curated, historyFromEvents([]), 42, editorial);
+		expect(pair?.a.id).toBe('calm-old');
+		expect(pair?.b.id).toBe('gestural');
+	});
+
+	it('falls back to the filter path when no variant is eligible', () => {
+		// Cooldown makes the only variant ineligible; the slot must still fill.
+		const h = historyFromEvents([]);
+		const a = works.find((w) => w.id === 'calm-old');
+		const b = works.find((w) => w.id === 'gestural');
+		recordShown(h, a!, b!);
+		const pair = selectOpeningPair(0, works, curated, h, 42, editorial);
+		expect(pair).not.toBeNull();
+		expect([pair?.a.id, pair?.b.id]).not.toContain('calm-old');
+		expect([pair?.a.id, pair?.b.id]).not.toContain('gestural');
+	});
+
+	it('unknown editorial ids are skipped, not fatal', () => {
+		const stale = { slots: [{ name: 'pull', pairs: [{ a: 'gone-1', b: 'gone-2' }] }] };
+		const pair = selectOpeningPair(0, works, curated, historyFromEvents([]), 42, stale);
+		expect(pair).not.toBeNull();
+	});
+
+	it('is deterministic for a given seed across many variants', () => {
+		const many = {
+			slots: [
+				{
+					name: 'pull',
+					pairs: [
+						{ a: 'calm-old', b: 'gestural' },
+						{ a: 'calm-new', b: 'smooth' },
+						{ a: 'human', b: 'atmos' },
+						{ a: 'real', b: 'dream' }
+					]
+				}
+			]
+		};
+		const p1 = selectOpeningPair(0, works, curated, historyFromEvents([]), 9, many);
+		const p2 = selectOpeningPair(0, works, curated, historyFromEvents([]), 9, many);
+		expect(p1?.a.id).toBe(p2?.a.id);
+		expect(p1?.b.id).toBe(p2?.b.id);
+	});
+});
+
 describe('sideCandidates', () => {
 	const { works, curated } = syntheticSetup();
 
