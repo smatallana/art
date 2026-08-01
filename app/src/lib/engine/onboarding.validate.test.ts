@@ -4,7 +4,7 @@
  * or an edit that breaks the spread, fails HERE by design — the rebuild
  * tramo must then update the collection.
  */
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -148,6 +148,22 @@ describe('onboarding.json vs committed catalog', () => {
 		const known = new Set(OPENING_SLOTS.map((s) => s.name));
 		const orphans = opening.slots.filter((s) => !known.has(s.name)).map((s) => s.name);
 		expect(orphans, 'slots without an engine counterpart').toEqual([]);
+	});
+
+	it('honors the human audit when it exists (no gate until then — owner decision)', () => {
+		// The audit-kit HTML (pipeline `audit-kit`) is a tool, not a gate: until
+		// the owner completes his review and commits data/curated/audit.json,
+		// nothing blocks. Once it exists, a work he REJECTED must not remain in
+		// the onboarding collection.
+		const auditFile = path.join(root, 'data', 'curated', 'audit.json');
+		if (!existsSync(auditFile)) return;
+		const audit = JSON.parse(readFileSync(auditFile, 'utf8')) as {
+			works: Record<string, { ok: boolean; notes?: string }>;
+		};
+		const reviewed = curated.works.filter((e) => audit.works[e.id] != null).length;
+		console.log(`[audit] ${reviewed}/${curated.works.length} curated works human-reviewed`);
+		const rejected = curated.works.filter((e) => audit.works[e.id]?.ok === false).map((e) => e.id);
+		expect(rejected, 'rejected works still in onboarding.json').toEqual([]);
 	});
 
 	it('the welcome hero is a precached bootstrap work and a stage-1 anchor', () => {

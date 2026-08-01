@@ -339,6 +339,20 @@ async function cmdCurateOpening(): Promise<void> {
 	});
 }
 
+async function cmdAuditKit(): Promise<void> {
+	const { runAuditKit } = await import('./auditkit.js');
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
+	await runAuditKit({
+		catalogDir,
+		onboardingFile: path.join(here, '..', '..', 'data', 'curated', 'onboarding.json'),
+		openingFile: path.join(here, '..', '..', 'data', 'curated', 'opening.json'),
+		outFile: path.join(workDir, 'audit-kit.html'),
+		log
+	});
+}
+
 async function cmdCurateOnboarding(): Promise<void> {
 	const { runCurateOnboarding } = await import('./curate.js');
 	const catalogDir = path.resolve(
@@ -361,6 +375,7 @@ else if (cmd === 'commons-map') await cmdCommonsMap();
 else if (cmd === 'tag-clip') await cmdTagClip();
 else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
 else if (cmd === 'curate-opening') await cmdCurateOpening();
+else if (cmd === 'audit-kit') await cmdAuditKit();
 else if (cmd === 'coverage') await cmdCoverage();
 else {
 	console.error(
