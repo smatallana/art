@@ -109,6 +109,11 @@ test('a finished first session is honest: no targeting promise during calibratio
 	await expect(page.getByRole('button', { name: 'See my eye' })).toBeVisible();
 	await expect(page.getByText('Test this pattern')).toHaveCount(0);
 	await expect(page.getByText(/can test/)).toHaveCount(0);
+	// The close recommendations appear WITHOUT claiming a confident read:
+	// during calibration the heading is the "early possibilities" variant.
+	await expect(page.getByText('Early possibilities for your next visit')).toBeVisible();
+	await expect(page.getByText('For your next visit', { exact: true })).toHaveCount(0);
+	await expect(page.getByText(/First guesses from your choices/)).toBeVisible();
 });
 
 test('finishing early after three answers earns a summary, not an exit', async ({ page }) => {

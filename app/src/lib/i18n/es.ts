@@ -282,6 +282,10 @@ export const es: Strings = {
 		insightOpen: (dim) => `Sigue abierto: dónde te sitúas ante ${L(dim)}.`,
 		insightNext: (dim) => `La próxima sesión puede poner a prueba ${L(dim)} directamente.`,
 		insightEvidence: 'De esta sesión',
+		nextWorks: 'Para tu próxima visita',
+		nextWorksEarly: 'Primeras posibilidades para tu próxima visita',
+		nextWorksHint:
+			'Primeras conjeturas a partir de tus elecciones — cada tarjeta dice por qué. Irán afinándose.',
 		insightRejection: (phrase, n) =>
 			`Apartaste parejas ${n} veces por lo mismo: ${phrase.toLowerCase()}.`,
 		insightShared: (phrase) =>

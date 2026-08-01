@@ -106,6 +106,12 @@ export const t = {
 		insightOpen: (dim: string) => `Still open: where you stand on ${dim}.`,
 		insightNext: (dim: string) => `The next session can test ${dim} directly.`,
 		insightEvidence: 'From this session',
+		// Session-close recommendations: heading gated by evidence (never
+		// claim a confident read the model does not have).
+		nextWorks: 'For your next visit',
+		nextWorksEarly: 'Early possibilities for your next visit',
+		nextWorksHint:
+			'First guesses from your choices so far — each card says why. They will sharpen.',
 		insightRejection: (phrase: string, n: number) =>
 			`You pushed pairs away ${n} times over the same thing: ${phrase.toLowerCase()}.`,
 		insightShared: (phrase: string) =>

@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import Reveal from '$lib/components/Reveal.svelte';
+	import WorkCard from '$lib/components/WorkCard.svelte';
+	import { hasEstablishedRead, recommendClose, type Recommendation } from '$lib/engine/discover';
 	import { microInsight, sessionSummary } from '$lib/engine/insight';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
 	import {
@@ -62,6 +64,24 @@
 		if (sessionMode(app.totalChoices) !== 'daily') return false;
 		return summary.openQuestion != null || summary.patterns.length > 0;
 	});
+	// Session-close recommendations (fifth review: every session should end
+	// with something to come back for). The heading stays honest: "For your
+	// next visit" only once a non-era read is established, "Early
+	// possibilities" before that — same gate Discover uses.
+	const ontologyMap = new Map(ONTOLOGY_DIMS.map((d) => [d.id, d]));
+	const nextWorks = $derived.by((): Recommendation[] =>
+		sess?.phase === 'done' && app.model != null && app.catalog.works.length > 0
+			? recommendClose(
+					app.model,
+					app.catalog.works,
+					app.events,
+					ontologyMap,
+					(id) => app.work(id),
+					2
+				)
+			: []
+	);
+	const established = $derived(app.model != null && hasEstablishedRead(app.model));
 
 	async function testPattern(): Promise<void> {
 		// Capture from the derived BEFORE endSession() nulls the engine —
@@ -335,6 +355,21 @@
 						</p>
 					{/if}
 				{/if}
+				{#if nextWorks.length > 0}
+					<div class="next-works">
+						<p class="evidence-label">
+							{established ? t.session.nextWorks : t.session.nextWorksEarly}
+						</p>
+						<div class="next-row">
+							{#each nextWorks as r (r.work.id)}
+								<WorkCard work={r.work} why={r.why} />
+							{/each}
+						</div>
+						{#if !established}
+							<p class="insight-sub">{t.session.nextWorksHint}</p>
+						{/if}
+					</div>
+				{/if}
 				<div class="summary-actions">
 					{#if sess.endedEarly}
 						<!-- An early finisher asked to stop: reward, no upsell. -->
@@ -556,6 +591,18 @@
 		color: var(--ink-faint);
 		font-size: 0.78rem;
 		text-align: center;
+	}
+	.next-works {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		align-items: center;
+		margin-top: var(--space-2);
+	}
+	.next-row {
+		display: flex;
+		gap: var(--space-3);
+		justify-content: center;
 	}
 	.summary {
 		flex: 1;
