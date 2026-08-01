@@ -150,6 +150,21 @@ describe('onboarding.json vs committed catalog', () => {
 		expect(orphans, 'slots without an engine counterpart').toEqual([]);
 	});
 
+	it('every curated work carries a micro-story', () => {
+		// Fifth external review: the reveal of an onboarding work must always
+		// have something true to say. Stories come from museum records or the
+		// curated overrides (data/curated/overrides.json) — factual first
+		// editions the owner edits. A rebuild that drops them fails here.
+		const missing = curated.works
+			.filter((e) => !(byId.get(e.id)?.story ?? '').trim())
+			.map((e) => e.id);
+		expect(missing, 'curated works without a story').toEqual([]);
+		const tooLong = curated.works
+			.filter((e) => (byId.get(e.id)?.story ?? '').length > 300)
+			.map((e) => e.id);
+		expect(tooLong, 'stories over the 300-char cap').toEqual([]);
+	});
+
 	it('honors the human audit when it exists (no gate until then — owner decision)', () => {
 		// The audit-kit HTML (pipeline `audit-kit`) is a tool, not a gate: until
 		// the owner completes his review and commits data/curated/audit.json,
