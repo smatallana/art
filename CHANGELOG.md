@@ -3,6 +3,42 @@
 All notable changes to Beholder are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.3.0] — 2026-08-01
+
+Five external review rounds (tramos 5–10), condensed:
+
+### Added
+- Catalog grown to 10,767 works across five sources (cma, met, rijks, wd,
+  aic) with committed coverage governance (`data/coverage.json`) and CLIP
+  zero-shot ontology tagging over the existing embeddings (98% of works
+  now carry tags; was 45%).
+- Curated onboarding collection (294 works, staged anchor/discovery/
+  contrast roles) with a scripted six-pair opening — now committed
+  editorial content (`data/curated/opening.json`, hand-editable, CI-
+  validated against the real slot filters).
+- Every curated work carries a factual micro-story (124 first editions
+  written from committed record facts only).
+- Human audit kit: `pipeline audit-kit` renders a self-contained review
+  gallery exporting `data/curated/audit.json`; validation enforces
+  rejections once the owner commits the audit (no gate before — owner
+  decision).
+- Welcome screen with purpose line, EN/ES first-run language choice and
+  full Spanish translation under a typed parity contract.
+- Sessions: 6-pair first sitting, 8 after, voluntary 12; early finish
+  with ≥3 answers earns the summary; progressive personalization during
+  calibration; session-end insights frozen into events; profile portrait
+  with Past sessions status tracking; session-close recommendations with
+  evidence-gated headings.
+- Snap field notebook; blind-phase alt text composed from tags; 44px
+  touch targets; per-deploy production smoke tests.
+
+### Fixed
+- Model integrity: image failures and reported problems never count as
+  taste; strength applies immediately; content-flagged pairs are masked
+  symmetrically; skip semantics are deliberate.
+- Truthful summaries: era patterns count, no-pattern endings state
+  concrete session facts, evidence thumbnails ranked by contribution.
+
 ## [0.2.1] — 2026-07-27
 
 ### Added

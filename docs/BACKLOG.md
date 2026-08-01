@@ -52,8 +52,11 @@ Ordered by leverage.
     compare profiles by mutual consent.
 12. **Lighthouse CI budgets** in ci.yml (LCP < 2.5s on 4G, initial JS
     < 200 KB gz, CLS < 0.1) — measured once images are first-party (R2).
-13. **Curated micro-stories** — grow `data/curated/overrides.json` for the
-    most-shown works lacking `did_you_know`-grade stories.
+13. **Curated micro-stories** — *shipped for the onboarding set in tramo
+    10* (all 294 curated works carry a story; 124 first editions in
+    `data/curated/overrides.json`, factual-only). Remaining: extend to
+    the most-shown works OUTSIDE the curated set, and owner-edit the
+    first editions.
 13. **Session-insight history in events** — ✅ *shipped in tramo 9*
     (session_end.insights + the profile's Past sessions view with
     strengthened/weakened/changed/holds/unresolved).
@@ -76,3 +79,17 @@ Ordered by leverage.
     sessions/contexts/artists; session-level copy stays early/emerging.
 20. **COVERAGE.md rendering** — a human-readable digest generated from
     data/coverage.json.
+21. **Curiosity vs. attraction vs. memorability** (review 5, P1) — the
+    event log already separates picks, saves, remembers and reactions;
+    model and profile currently collapse them into one utility. Split
+    the read: what pulls the eye, what the user wants to keep, what
+    stays with them.
+22. **Conditional preference modeling** (review 5, P1) — beyond
+    hour-of-day (#7): "X but only when Y" interactions between dims
+    (e.g. drama only in small formats), gated on per-condition evidence.
+23. **Complete the human audit** — the owner runs
+    `pipeline audit-kit`'s HTML over the 294 curated works and commits
+    `data/curated/audit.json`; validation then enforces his rejections.
+    Metadata oddities already spotted for it: works dated after the
+    artist's recorded death and one artist/date contradiction (see
+    DECISIONS tramo 10).
