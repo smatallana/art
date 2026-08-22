@@ -349,6 +349,19 @@ async function cmdCurateOpening(): Promise<void> {
 	});
 }
 
+async function cmdPhotoProbe(): Promise<void> {
+	const { runPhotoProbe } = await import('./photoprobe.js');
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
+	await runPhotoProbe({
+		catalogDir,
+		reportFile: path.join(workDir, 'photo-probe.json'),
+		top: parseInt(arg('top', '150'), 10),
+		log
+	});
+}
+
 async function cmdRepair(): Promise<void> {
 	const { runRepair } = await import('./repair.js');
 	const catalogDir = path.resolve(
@@ -404,6 +417,7 @@ else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
 else if (cmd === 'curate-opening') await cmdCurateOpening();
 else if (cmd === 'audit-kit') await cmdAuditKit();
 else if (cmd === 'repair') await cmdRepair();
+else if (cmd === 'photo-probe') await cmdPhotoProbe();
 else if (cmd === 'coverage') await cmdCoverage();
 else {
 	console.error(

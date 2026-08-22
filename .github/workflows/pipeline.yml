@@ -8,7 +8,7 @@ on:
         required: true
         default: sample
         type: choice
-        options: [sample, build, embed, tag-clip, commons-map]
+        options: [sample, build, embed, tag-clip, commons-map, photo-probe]
       limit:
         description: 'max works per source (build mode)'
         required: false
@@ -71,6 +71,12 @@ jobs:
         if: inputs.mode == 'commons-map'
         run: npm run -w pipeline run commons-map
 
+      - name: Photo-probe mode — rank photo-not-painting suspects from embeddings
+        if: inputs.mode == 'photo-probe'
+        run: npm run -w pipeline run photo-probe
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+
       - uses: actions/upload-artifact@v4
         if: inputs.mode == 'build'
         with:
@@ -83,6 +89,13 @@ jobs:
         with:
           name: tagclip-report
           path: pipeline/work/tagclip-report.json
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'photo-probe'
+        with:
+          name: photo-probe-report
+          path: pipeline/work/photo-probe.json
           retention-days: 30
 
       - name: Commit catalog to the branch
