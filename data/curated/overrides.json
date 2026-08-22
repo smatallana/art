@@ -1,4 +1,11 @@
 {
+ "wd-Q51954576": { "drop": true, "note": "Miró 'Dona' — image is a photo of the Palau del Parlament interior, not the painting (owner screenshot, 2026-08)." },
+ "wd-Q5792254": { "drop": true, "note": "Picasso 'Mountains of Málaga' — image is a photograph of the actual mountain range; filename matches the title, only human eyes catch it (owner report, 2026-08)." },
+ "wd-Q3955632": { "drop": true, "note": "Michelangelo 'Separation of the Earth and Waters' — image is the Creation of Adam, the wrong fresco." },
+ "rijks-Q106859206": { "drop": true, "note": "Image is a 'Remember Me' exhibition installation shot, not the painting." },
+ "rijks-Q116833215": { "drop": true, "note": "Image is a 'Remember Me' exhibition installation shot, not the painting." },
+ "rijks-Q116838130": { "drop": true, "note": "Image is a 'Remember Me' exhibition installation shot, not the painting." },
+ "rijks-Q30061444": { "drop": true, "note": "Image is a 'Remember Me' exhibition installation shot, not the painting." },
  "wd-Q1123378": { "story": "Titian painted Charles V on horseback in 1548 — a Venetian-school portrait, now in the Museo del Prado." },
  "wd-Q1240092": { "story": "Velázquez's portrait of Pope Innocent X — Spanish Baroque painting, kept by the Galleria Doria Pamphilj." },
  "wd-Q12841555": { "story": "Boucher portrayed Madame de Pompadour in 1756 — a Rococo portrait in the Bavarian State Painting Collections." },

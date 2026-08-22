@@ -155,11 +155,11 @@ export const PROMPTS: PromptSpec[] = [
 		kind: 'binary',
 		pos: ['a painting of a mother and child', 'an intimate family scene painting']
 	},
-	{
-		dim: 'light.nocturne',
-		kind: 'binary',
-		pos: ['a night scene painting', 'a painting of a moonlit night']
-	},
+	// light.nocturne is deliberately NOT clip-prompted: measured against the
+	// real catalog it tagged 38% of all works nocturnal (daylight harbors at
+	// the confidence ceiling included) and, with clip confidences capped
+	// below every usable floor, removal was the only honest lever (T11;
+	// meta-sourced nocturne tags remain the dim's only evidence).
 	// -- form / color / light scales ---------------------------------------
 	{
 		dim: 'form.abstraction',

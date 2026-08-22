@@ -1,8 +1,8 @@
 {
  "schemaVersion": 1,
  "ontologyVersion": 1,
- "generatedAt": "2026-08-01T10:15:39.197Z",
- "count": 10767,
+ "generatedAt": "2026-08-22T01:56:00.488Z",
+ "count": 10760,
  "shards": [
   {
    "file": "works-000.json",
@@ -178,7 +178,7 @@
   },
   {
    "file": "works-043.json",
-   "count": 17
+   "count": 10
   }
  ],
  "sources": {
@@ -195,11 +195,11 @@
    "attribution": "The Metropolitan Museum of Art — public domain, image via Wikimedia Commons"
   },
   "rijks": {
-   "count": 2200,
+   "count": 2196,
    "attribution": "Rijksmuseum — public domain, image via Wikimedia Commons"
   },
   "wd": {
-   "count": 2036,
+   "count": 2033,
    "attribution": "© Andrew Wyeth (or estate) — image linked from Wikipedia, not redistributed"
   }
  }

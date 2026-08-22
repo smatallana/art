@@ -349,6 +349,23 @@ async function cmdCurateOpening(): Promise<void> {
 	});
 }
 
+async function cmdRepair(): Promise<void> {
+	const { runRepair } = await import('./repair.js');
+	const catalogDir = path.resolve(
+		arg('out', path.join(here, '..', '..', 'app', 'static', 'catalog'))
+	);
+	await runRepair({
+		catalogDir,
+		overridesFile: path.join(here, '..', '..', 'data', 'curated', 'overrides.json'),
+		onboardingFile: path.join(here, '..', '..', 'data', 'curated', 'onboarding.json'),
+		openingFile: path.join(here, '..', '..', 'data', 'curated', 'opening.json'),
+		ontologyFile: path.join(here, '..', '..', 'data', 'ontology.json'),
+		log
+	});
+	// The republished index carries a new generatedAt — refresh coverage too.
+	await cmdCoverage();
+}
+
 async function cmdAuditKit(): Promise<void> {
 	const { runAuditKit } = await import('./auditkit.js');
 	const catalogDir = path.resolve(
@@ -386,6 +403,7 @@ else if (cmd === 'tag-clip') await cmdTagClip();
 else if (cmd === 'curate-onboarding') await cmdCurateOnboarding();
 else if (cmd === 'curate-opening') await cmdCurateOpening();
 else if (cmd === 'audit-kit') await cmdAuditKit();
+else if (cmd === 'repair') await cmdRepair();
 else if (cmd === 'coverage') await cmdCoverage();
 else {
 	console.error(

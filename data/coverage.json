@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-08-01T10:15:39.197Z",
-	"totalWorks": 10767,
+	"generatedAt": "2026-08-22T01:56:00.488Z",
+	"totalWorks": 10760,
 	"bySource": {
 		"cma": 26,
 		"met": 20.4,
@@ -22,7 +22,7 @@
 		"16c": 12.9,
 		"17c": 26.1,
 		"18c": 14.6,
-		"19c": 28.1,
+		"19c": 28.2,
 		"1c": 0,
 		"20c": 5.4,
 		"2c": 0,
@@ -141,7 +141,7 @@
 	],
 	"canon": {
 		"targetTotal": 2314,
-		"actualTotal": 3013,
+		"actualTotal": 3010,
 		"absent": [
 			"Paul Klee",
 			"Qi Baishi",
@@ -164,16 +164,16 @@
 				"deficit": 15
 			},
 			{
+				"name": "Pablo Picasso",
+				"target": 20,
+				"actual": 7,
+				"deficit": 13
+			},
+			{
 				"name": "Giorgio de Chirico",
 				"target": 16,
 				"actual": 3,
 				"deficit": 13
-			},
-			{
-				"name": "Pablo Picasso",
-				"target": 20,
-				"actual": 8,
-				"deficit": 12
 			},
 			{
 				"name": "Félix Vallotton",
@@ -190,8 +190,8 @@
 			{
 				"name": "Joan Miró",
 				"target": 12,
-				"actual": 3,
-				"deficit": 9
+				"actual": 2,
+				"deficit": 10
 			},
 			{
 				"name": "Max Ernst",
@@ -282,6 +282,12 @@
 				"target": 8,
 				"actual": 6,
 				"deficit": 2
+			},
+			{
+				"name": "Michelangelo",
+				"target": 16,
+				"actual": 15,
+				"deficit": 1
 			}
 		]
 	},
