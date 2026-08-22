@@ -548,7 +548,8 @@ export const es: Strings = {
 		discover: 'Descubrir',
 		saved: 'Guardadas',
 		profile: 'Tu mirada',
-		settings: 'Ajustes'
+		settings: 'Ajustes',
+		back: 'Atrás'
 	},
 
 	a11y: {

@@ -1,14 +1,25 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { t } from '$lib/i18n';
+	import { markNavigated } from '$lib/state/nav.svelte';
 
 	let { children } = $props();
 
 	const path = $derived(page.url.pathname);
 	const onSession = $derived(path.includes('/session'));
+
+	// Real in-app navigations arm history-back; a cold deep link leaves the
+	// BackBar on its fallback route instead of exiting the standalone PWA.
+	// type 'enter' covers the initial load AND the router's own first-load
+	// URL normalization, which reports a non-null `from` — only link/goto/
+	// popstate navigations put a real prior entry in the history stack.
+	afterNavigate((nav) => {
+		if (nav.from && nav.type !== 'enter') markNavigated();
+	});
 
 	onMount(async () => {
 		// Register the service worker (production builds only — the virtual
@@ -30,13 +41,17 @@
 			<a href={`${base}/session/`} class:active={false}>{t.nav.play}</a>
 			<a
 				href={`${base}/discover/`}
-				class:active={path.startsWith(`${base}/discover`) || path.startsWith(`${base}/work`)}
+				class:active={path.startsWith(`${base}/discover`) ||
+					path.startsWith(`${base}/work`) ||
+					path.startsWith(`${base}/snap`)}
 			>
 				{t.nav.discover}
 			</a>
 			<a
 				href={`${base}/profile/`}
-				class:active={path.startsWith(`${base}/profile`) || path.startsWith(`${base}/settings`)}
+				class:active={path.startsWith(`${base}/profile`) ||
+					path.startsWith(`${base}/settings`) ||
+					path.startsWith(`${base}/remember`)}
 			>
 				{t.nav.profile}
 			</a>

@@ -375,7 +375,8 @@ export const t = {
 		discover: 'Discover',
 		saved: 'Saved',
 		profile: 'Your eye',
-		settings: 'Settings'
+		settings: 'Settings',
+		back: 'Back'
 	},
 
 	a11y: {

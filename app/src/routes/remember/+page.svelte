@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import BackBar from '$lib/components/BackBar.svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import WorkCard from '$lib/components/WorkCard.svelte';
 	import { dueItems, knownItems, memoryItems } from '$lib/engine/memory';
@@ -34,6 +35,7 @@
 </svelte:head>
 
 <main class="page">
+	<BackBar fallback="/profile/" />
 	<h1>{t.memory.title}</h1>
 
 	{#if !ready}

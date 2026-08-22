@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import BackBar from '$lib/components/BackBar.svelte';
 	import { lang, setLang, t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 	import { sync } from '$lib/state/sync.svelte';
@@ -89,6 +90,7 @@
 </svelte:head>
 
 <main class="page">
+	<BackBar fallback="/profile/" />
 	<h1>{t.settings.title}</h1>
 
 	<section>

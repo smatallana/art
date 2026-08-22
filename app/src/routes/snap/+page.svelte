@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import BackBar from '$lib/components/BackBar.svelte';
 	import ArtworkImage from '$lib/components/ArtworkImage.svelte';
 	import { t } from '$lib/i18n';
 	import { savePhoto } from '$lib/db';
@@ -86,6 +87,7 @@
 </svelte:head>
 
 <main class="page">
+	<BackBar fallback="/discover/" />
 	<h1>{t.snap.title}</h1>
 
 	{#if phase === 'pick'}
