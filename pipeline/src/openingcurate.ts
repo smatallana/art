@@ -149,6 +149,16 @@ function sideCandidates(byId: Map<string, Work>, curated: CuratedEntry[], f: Sid
 
 const VARIANTS = 6;
 const MAX_WORK_USES = 2; // per slot, across its variants
+// Global caps across the WHOLE file (T11): the first edition reused the same
+// top-quality anchors everywhere — 17 distinct works in 36 variants, the same
+// canonical pair in four slots — which turned any repetition bug into a
+// RECOGNIZABLE repeat. Pass 1 admits a work at most twice file-wide; pass 2
+// relaxes to four only if a slot cannot reach its variant count. A canonical
+// pair is never admitted twice anywhere.
+const MAX_GLOBAL_USES = 2;
+const MAX_GLOBAL_USES_RELAXED = 4;
+
+const canonicalKey = (a: string, b: string): string => (a < b ? `${a}::${b}` : `${b}::${a}`);
 
 export async function runCurateOpening(opts: {
 	catalogDir: string;
@@ -172,6 +182,8 @@ export async function runCurateOpening(opts: {
 	const curated = (JSON.parse(await readFile(onboardingFile, 'utf8')) as { works: CuratedEntry[] })
 		.works;
 
+	const globalUses = new Map<string, number>();
+	const globalPairKeys = new Set<string>();
 	const slots = SLOTS.map((slot) => {
 		const a = sideCandidates(byId, curated, slot.a).sort(
 			(x, y) => y.quality.score - x.quality.score
@@ -201,21 +213,36 @@ export async function runCurateOpening(opts: {
 				? Number(y.cross) - Number(x.cross)
 				: y.score - x.score
 		);
-		for (const c of candidates) {
+		// Two passes: strict global cap first; relax only if the slot cannot
+		// fill (over-used works get demoted, never hard-picked; a canonical
+		// pair is globally unique in both passes).
+		for (const globalCap of [MAX_GLOBAL_USES, MAX_GLOBAL_USES_RELAXED]) {
+			for (const c of candidates) {
+				if (pairs.length >= VARIANTS) break;
+				const key = canonicalKey(c.wa.id, c.wb.id);
+				if (globalPairKeys.has(key)) continue;
+				if ((uses.get(c.wa.id) ?? 0) >= MAX_WORK_USES) continue;
+				if ((uses.get(c.wb.id) ?? 0) >= MAX_WORK_USES) continue;
+				if ((globalUses.get(c.wa.id) ?? 0) >= globalCap) continue;
+				if ((globalUses.get(c.wb.id) ?? 0) >= globalCap) continue;
+				uses.set(c.wa.id, (uses.get(c.wa.id) ?? 0) + 1);
+				uses.set(c.wb.id, (uses.get(c.wb.id) ?? 0) + 1);
+				globalUses.set(c.wa.id, (globalUses.get(c.wa.id) ?? 0) + 1);
+				globalUses.set(c.wb.id, (globalUses.get(c.wb.id) ?? 0) + 1);
+				globalPairKeys.add(key);
+				pairs.push({
+					a: c.wa.id,
+					b: c.wb.id,
+					note: `${c.wa.artist.name} — ${c.wa.title} × ${c.wb.artist.name} — ${c.wb.title}`
+				});
+			}
 			if (pairs.length >= VARIANTS) break;
-			if ((uses.get(c.wa.id) ?? 0) >= MAX_WORK_USES) continue;
-			if ((uses.get(c.wb.id) ?? 0) >= MAX_WORK_USES) continue;
-			uses.set(c.wa.id, (uses.get(c.wa.id) ?? 0) + 1);
-			uses.set(c.wb.id, (uses.get(c.wb.id) ?? 0) + 1);
-			pairs.push({
-				a: c.wa.id,
-				b: c.wb.id,
-				note: `${c.wa.artist.name} — ${c.wa.title} × ${c.wb.artist.name} — ${c.wb.title}`
-			});
 		}
 		log(`${slot.name}: ${pairs.length} editorial pairs (from ${candidates.length} candidates)`);
 		return { name: slot.name, pairs };
 	});
+	const maxUses = Math.max(0, ...globalUses.values());
+	log(`distinct works across all slots: ${globalUses.size}, max per-work uses: ${maxUses}`);
 
 	await writeFile(
 		outFile,

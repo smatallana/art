@@ -41,34 +41,34 @@
    "name": "human-vs-atmosphere",
    "pairs": [
     {
-     "a": "aic-100342",
-     "b": "aic-100191",
-     "note": "Peter Paul Rubens — Saint Francis × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-100342",
-     "b": "aic-109314",
-     "note": "Peter Paul Rubens — Saint Francis × Vincent van Gogh — Fishing in Spring, the Pont de Clichy (Asnières)"
-    },
-    {
-     "a": "aic-105600",
-     "b": "aic-100191",
-     "note": "Thomas Gainsborough — Sarah Dupont × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-105600",
-     "b": "aic-109314",
-     "note": "Thomas Gainsborough — Sarah Dupont × Vincent van Gogh — Fishing in Spring, the Pont de Clichy (Asnières)"
-    },
-    {
-     "a": "aic-105945",
+     "a": "aic-110541",
      "b": "aic-110663",
-     "note": "Frans Hals — Portrait of a Lady × Eugène Delacroix — The Combat of the Giaour and Hassan"
+     "note": "Camille Pissarro — The Crystal Palace × Eugène Delacroix — The Combat of the Giaour and Hassan"
     },
     {
-     "a": "aic-105945",
+     "a": "aic-111062",
      "b": "aic-111318",
-     "note": "Frans Hals — Portrait of a Lady × Claude Monet — Stack of Wheat"
+     "note": "Paul Gauguin — Te raau rahi (The Big Tree) × Claude Monet — Stack of Wheat"
+    },
+    {
+     "a": "aic-111062",
+     "b": "aic-11392",
+     "note": "Paul Gauguin — Te raau rahi (The Big Tree) × Bartolomé Esteban Murillo — Ecce Agnus Dei"
+    },
+    {
+     "a": "aic-111442",
+     "b": "aic-111318",
+     "note": "Mary Cassatt — The Child's Bath × Claude Monet — Stack of Wheat"
+    },
+    {
+     "a": "aic-111442",
+     "b": "aic-11392",
+     "note": "Mary Cassatt — The Child's Bath × Bartolomé Esteban Murillo — Ecce Agnus Dei"
+    },
+    {
+     "a": "aic-111478",
+     "b": "aic-16633",
+     "note": "James McNeill Whistler — Portrait of Dr. William McNeill Whistler × Alfred Sisley — The Seine at Port-Marly, Piles of Sand"
     }
    ]
   },
@@ -76,34 +76,34 @@
    "name": "calm-vs-tension",
    "pairs": [
     {
-     "a": "aic-110541",
-     "b": "aic-100191",
-     "note": "Camille Pissarro — The Crystal Palace × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-110541",
-     "b": "aic-100342",
-     "note": "Camille Pissarro — The Crystal Palace × Peter Paul Rubens — Saint Francis"
-    },
-    {
-     "a": "aic-110663",
-     "b": "aic-100191",
-     "note": "Eugène Delacroix — The Combat of the Giaour and Hassan × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-110663",
-     "b": "aic-100342",
-     "note": "Eugène Delacroix — The Combat of the Giaour and Hassan × Peter Paul Rubens — Saint Francis"
-    },
-    {
-     "a": "aic-111062",
-     "b": "aic-109314",
-     "note": "Paul Gauguin — Te raau rahi (The Big Tree) × Vincent van Gogh — Fishing in Spring, the Pont de Clichy (Asnières)"
-    },
-    {
-     "a": "aic-111062",
+     "a": "aic-14598",
      "b": "aic-111478",
-     "note": "Paul Gauguin — Te raau rahi (The Big Tree) × James McNeill Whistler — Portrait of Dr. William McNeill Whistler"
+     "note": "Claude Monet — The Beach at Sainte-Adresse × James McNeill Whistler — Portrait of Dr. William McNeill Whistler"
+    },
+    {
+     "a": "aic-14598",
+     "b": "aic-11434",
+     "note": "Claude Monet — The Beach at Sainte-Adresse × Guido Reni — Salome with the Head of Saint John the Baptist"
+    },
+    {
+     "a": "aic-14647",
+     "b": "aic-11434",
+     "note": "Pierre-Auguste Renoir — Young Woman Sewing × Guido Reni — Salome with the Head of Saint John the Baptist"
+    },
+    {
+     "a": "aic-14647",
+     "b": "aic-11723",
+     "note": "Pierre-Auguste Renoir — Young Woman Sewing × Berthe Morisot — Woman at Her Toilette"
+    },
+    {
+     "a": "aic-153799",
+     "b": "aic-11723",
+     "note": "Camille Pissarro — Woman Bathing Her Feet in a Brook × Berthe Morisot — Woman at Her Toilette"
+    },
+    {
+     "a": "aic-153799",
+     "b": "aic-14309",
+     "note": "Camille Pissarro — Woman Bathing Her Feet in a Brook × James McNeill Whistler — Coast Scene, Bathers"
     }
    ]
   },
@@ -111,34 +111,34 @@
    "name": "finish-vs-brushwork",
    "pairs": [
     {
-     "a": "aic-100342",
-     "b": "aic-100191",
-     "note": "Peter Paul Rubens — Saint Francis × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-100342",
-     "b": "aic-105600",
-     "note": "Peter Paul Rubens — Saint Francis × Thomas Gainsborough — Sarah Dupont"
-    },
-    {
-     "a": "aic-11434",
-     "b": "aic-100191",
-     "note": "Guido Reni — Salome with the Head of Saint John the Baptist × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-11434",
-     "b": "aic-105600",
-     "note": "Guido Reni — Salome with the Head of Saint John the Baptist × Thomas Gainsborough — Sarah Dupont"
+     "a": "aic-16485",
+     "b": "aic-14309",
+     "note": "Giovanni Battista Tiepolo — Rinaldo and Armida in Her Garden × James McNeill Whistler — Coast Scene, Bathers"
     },
     {
      "a": "aic-16485",
-     "b": "aic-109314",
-     "note": "Giovanni Battista Tiepolo — Rinaldo and Armida in Her Garden × Vincent van Gogh — Fishing in Spring, the Pont de Clichy (Asnières)"
+     "b": "aic-14591",
+     "note": "Giovanni Battista Tiepolo — Rinaldo and Armida in Her Garden × Édouard Manet — Woman Reading"
     },
     {
-     "a": "aic-16485",
-     "b": "aic-110541",
-     "note": "Giovanni Battista Tiepolo — Rinaldo and Armida in Her Garden × Camille Pissarro — The Crystal Palace"
+     "a": "aic-16488",
+     "b": "aic-14591",
+     "note": "Giovanni Battista Tiepolo — Armida Encounters the Sleeping Rinaldo × Édouard Manet — Woman Reading"
+    },
+    {
+     "a": "aic-16488",
+     "b": "aic-14594",
+     "note": "Giovanni Battista Tiepolo — Armida Encounters the Sleeping Rinaldo × Édouard Manet — Portrait of a Woman with a Black Fichu"
+    },
+    {
+     "a": "cma-106088",
+     "b": "aic-14594",
+     "note": "Winslow Homer — Early Morning After a Storm at Sea × Édouard Manet — Portrait of a Woman with a Black Fichu"
+    },
+    {
+     "a": "cma-106088",
+     "b": "aic-14655",
+     "note": "Winslow Homer — Early Morning After a Storm at Sea × Pierre-Auguste Renoir — Two Sisters (On the Terrace)"
     }
    ]
   },
@@ -146,34 +146,34 @@
    "name": "real-vs-dreamlike",
    "pairs": [
     {
-     "a": "aic-100342",
-     "b": "aic-100191",
-     "note": "Peter Paul Rubens — Saint Francis × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-100342",
-     "b": "aic-111062",
-     "note": "Peter Paul Rubens — Saint Francis × Paul Gauguin — Te raau rahi (The Big Tree)"
-    },
-    {
-     "a": "aic-105600",
-     "b": "aic-100191",
-     "note": "Thomas Gainsborough — Sarah Dupont × Claude Monet — Stack of Wheat (Thaw, Sunset)"
-    },
-    {
-     "a": "aic-105600",
-     "b": "aic-111062",
-     "note": "Thomas Gainsborough — Sarah Dupont × Paul Gauguin — Te raau rahi (The Big Tree)"
-    },
-    {
-     "a": "aic-105945",
-     "b": "aic-111478",
-     "note": "Frans Hals — Portrait of a Lady × James McNeill Whistler — Portrait of Dr. William McNeill Whistler"
-    },
-    {
-     "a": "aic-105945",
+     "a": "aic-16434",
      "b": "aic-14664",
-     "note": "Frans Hals — Portrait of a Lady × Henri de Toulouse-Lautrec — Moulin de la Galette"
+     "note": "Giovanni Battista Tiepolo — Virgin and Child with Saints Dominic and Hyacinth × Henri de Toulouse-Lautrec — Moulin de la Galette"
+    },
+    {
+     "a": "aic-16434",
+     "b": "aic-154235",
+     "note": "Giovanni Battista Tiepolo — Virgin and Child with Saints Dominic and Hyacinth × Edvard Munch — The Girl by the Window"
+    },
+    {
+     "a": "aic-16499",
+     "b": "aic-14664",
+     "note": "Édouard Manet — Jesus Mocked by the Soldiers × Henri de Toulouse-Lautrec — Moulin de la Galette"
+    },
+    {
+     "a": "aic-16499",
+     "b": "aic-154235",
+     "note": "Édouard Manet — Jesus Mocked by the Soldiers × Edvard Munch — The Girl by the Window"
+    },
+    {
+     "a": "aic-16551",
+     "b": "aic-16146",
+     "note": "Dante Gabriel Rossetti — Beata Beatrix × Henri de Toulouse-Lautrec — Equestrienne (At the Cirque Fernando)"
+    },
+    {
+     "a": "aic-16551",
+     "b": "aic-16496",
+     "note": "Dante Gabriel Rossetti — Beata Beatrix × Paul Gauguin — No te aha oe riri (Why Are You Angry?)"
     }
    ]
   },
@@ -181,34 +181,34 @@
    "name": "legible-challenge",
    "pairs": [
     {
-     "a": "aic-100191",
+     "a": "aic-14655",
      "b": "cma-101461",
-     "note": "Claude Monet — Stack of Wheat (Thaw, Sunset) × William Merritt Chase — Portrait of My Daughter Alice"
+     "note": "Pierre-Auguste Renoir — Two Sisters (On the Terrace) × William Merritt Chase — Portrait of My Daughter Alice"
     },
     {
-     "a": "aic-100191",
-     "b": "cma-102578",
-     "note": "Claude Monet — Stack of Wheat (Thaw, Sunset) × William Merritt Chase — Portrait of Dora Wheeler"
-    },
-    {
-     "a": "aic-100342",
+     "a": "aic-153798",
      "b": "cma-101461",
-     "note": "Peter Paul Rubens — Saint Francis × William Merritt Chase — Portrait of My Daughter Alice"
+     "note": "Berthe Morisot — Woman in a Garden × William Merritt Chase — Portrait of My Daughter Alice"
     },
     {
-     "a": "aic-100342",
+     "a": "aic-153798",
      "b": "cma-102578",
-     "note": "Peter Paul Rubens — Saint Francis × William Merritt Chase — Portrait of Dora Wheeler"
+     "note": "Berthe Morisot — Woman in a Garden × William Merritt Chase — Portrait of Dora Wheeler"
     },
     {
-     "a": "aic-105600",
+     "a": "aic-154121",
+     "b": "cma-102578",
+     "note": "Gustave Caillebotte — Calf's Head and Ox Tongue × William Merritt Chase — Portrait of Dora Wheeler"
+    },
+    {
+     "a": "aic-154121",
      "b": "cma-113202",
-     "note": "Thomas Gainsborough — Sarah Dupont × Filippino Lippi — The Holy Family with Saint John the Baptist and Saint Margaret"
+     "note": "Gustave Caillebotte — Calf's Head and Ox Tongue × Filippino Lippi — The Holy Family with Saint John the Baptist and Saint Margaret"
     },
     {
-     "a": "aic-105600",
-     "b": "cma-121946",
-     "note": "Thomas Gainsborough — Sarah Dupont × Peter Lely — Portrait of Mrs. Leneve"
+     "a": "aic-16146",
+     "b": "cma-113202",
+     "note": "Henri de Toulouse-Lautrec — Equestrienne (At the Cirque Fernando) × Filippino Lippi — The Holy Family with Saint John the Baptist and Saint Margaret"
     }
    ]
   }

@@ -150,6 +150,36 @@ describe('onboarding.json vs committed catalog', () => {
 		expect(orphans, 'slots without an engine counterpart').toEqual([]);
 	});
 
+	it('editorial variants are diverse across the whole file (T11)', () => {
+		// The first edition reused 17 works across 36 variants with the same
+		// canonical pair in four slots — every repetition bug became a
+		// RECOGNIZABLE repeat. These caps freeze the generator's global-dedup
+		// invariants; edits that concentrate the opening again fail here.
+		const opening = JSON.parse(
+			readFileSync(path.join(root, 'data', 'curated', 'opening.json'), 'utf8')
+		) as { slots: { name: string; pairs: { a: string; b: string }[] }[] };
+		const allKeys: string[] = [];
+		const globalUses = new Map<string, number>();
+		for (const slot of opening.slots) {
+			const perSlot = new Map<string, number>();
+			for (const p of slot.pairs) {
+				allKeys.push(p.a < p.b ? `${p.a}::${p.b}` : `${p.b}::${p.a}`);
+				for (const id of [p.a, p.b]) {
+					perSlot.set(id, (perSlot.get(id) ?? 0) + 1);
+					globalUses.set(id, (globalUses.get(id) ?? 0) + 1);
+				}
+			}
+			for (const [id, n] of perSlot) {
+				expect(n, `${slot.name}: ${id} appears ${n}× in one slot`).toBeLessThanOrEqual(2);
+			}
+		}
+		expect(new Set(allKeys).size, 'canonical pairs must be globally unique').toBe(allKeys.length);
+		expect(globalUses.size, 'distinct works across the file').toBeGreaterThanOrEqual(26);
+		for (const [id, n] of globalUses) {
+			expect(n, `${id} appears ${n}× across the file`).toBeLessThanOrEqual(4);
+		}
+	});
+
 	it('every curated work carries a micro-story', () => {
 		// Fifth external review: the reveal of an onboarding work must always
 		// have something true to say. Stories come from museum records or the
