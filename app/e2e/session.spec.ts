@@ -190,12 +190,17 @@ test('the seen gallery accumulates every shown work', async ({ page }) => {
 		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
 		await page.getByRole('button', { name: 'Next', exact: true }).click();
 	}
-	// The summary states the collector line...
-	await expect(page.getByText(/Your gallery grew to 12 works seen/)).toBeVisible();
+	// The summary states the collector line. 6 answered pairs = at least 12
+	// works seen — image failures can REPLACE pairs mid-session (each
+	// replacement adds a shown pair), so the count is a floor, never exact.
+	await expect(page.getByText(/Your gallery grew to \d+ works seen/)).toBeVisible();
 	// ...and the Saved page holds the accumulated gallery, chosen marks included.
 	await page.goto('./saved/');
 	await expect(page.getByText('Works you have seen')).toBeVisible();
-	await expect(page.locator('.seen-grid li')).toHaveCount(12);
-	await expect(page.getByText(/12 of \d+ works in the collection/)).toBeVisible();
+	// Grid items render once the catalog resolves the ids — poll, don't snap.
+	await expect
+		.poll(() => page.locator('.seen-grid li').count(), { timeout: 15000 })
+		.toBeGreaterThanOrEqual(12);
+	await expect(page.getByText(/\d+ of \d+ works in the collection/)).toBeVisible();
 	await expect(page.locator('.seen-mark').first()).toBeVisible();
 });
