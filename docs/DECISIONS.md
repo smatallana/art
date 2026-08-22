@@ -516,3 +516,99 @@ the final gate is human. The harness is a regression instrument — it
 catches engine-level starvation (as it did when sessions shortened),
 not delight. The real-user protocol already exists in USER-TESTING.md;
 running it with ~10 people is the owner's next step, not the code's.
+
+## 2026-08-02 — Tramo 11: the owner's own field test (sixth round of findings)
+
+The sixth round came from the owner himself, using the installed PWA on
+his iPhone, with screenshots: no back button; repeated paintings and
+even repeated exact pairs; "what is the value add — how many rounds
+until I learn anything? shouldn't that be transparent from the start?";
+one missing image (a Heade permanently blank on his phone); and one
+work whose "image" was a photograph of a boardroom — Miró's "Dona",
+whose Wikidata P18 is the Palau del Parlament interior. In conversation
+he added a second wrong image (Picasso's "Mountains of Málaga" — a
+photo of the actual mountains), asked for a per-work report button,
+asked for visibility of the accumulated works seen, and asked how that
+accumulation could power an honest habit loop.
+
+**Repetition — the measured root cause.** Selection history was rebuilt
+from `pair_choice` events only, so every pair that reached the screen
+without being answered (abandoned sitting, skip, report, image error,
+early Finish) was forgotten with the session object. Simulated against
+the real catalog: 100% painting repetition and 64–88% exact-pair
+repetition between sessions 1 and 2 whenever that happened. Amplifiers:
+the tramo-10 editorial opening reused 17 works across 36 variants with
+one canonical pair in four slots; a resume desync re-ran the same
+opening slot; the opening's fallback path collapsed cooldowns to as low
+as 4 interactions; the artist cooldown never survived a session
+boundary; the consistency probe re-showed an exact early pair unlabeled.
+
+**The fix: durable `pair_shown`.** A new infrastructure event records
+first exhibition; history rebuilds consume it (interaction count, work
+AND artist cooldowns, permanent pair-novelty) and deduplicate the
+matching `pair_choice`, so pre-upgrade logs behave byte-identically.
+The worker stores unknown event types opaquely and every fold ignores
+them — old clients degrade cleanly. Undo deliberately does not mask it
+(the user did see the pair) and now rolls the session position back.
+Accepted cost: seeds shift (~2 events per answered pair), one visual-
+baseline regeneration. The editorial opening was regenerated with
+file-global caps (37 distinct works, max 2 uses, no canonical pair
+twice — frozen by validation). The consistency probe stays (owner
+decision) but draws from mid-history and says on screen "Shown again
+on purpose — a consistency check."
+
+**Navigation.** BackBar with origin-aware back on /work, /settings,
+/remember, /snap: real history when it exists, the parent route on a
+cold deep link (standalone PWA — history.back() there would exit the
+app). Tab lighting now covers /remember and /snap.
+
+**Transparency.** engine/progress.ts is the single source of the real
+unlock thresholds (recommendations 5, first read 8, calibration 40 —
+Discover and the profile now import them instead of hardcoding).
+Surfaces: welcome journey line, "N of 40 calibration choices" + next
+unlock countdown on every calibration summary and on the profile
+header, exact remaining counts in testLater and the Discover gate. The
+early profile no longer contradicts itself: ranked bars wait until the
+first read exists.
+
+**Images.** (a) Cache poisoning: the SW caches images CacheFirst 60
+days accepting opaque responses — a cached 403 served forever explains
+the blank Heade; ArtworkImage now evicts + forces a network refetch
+before degrading. (b) The detail page reports failures (image_error
+context 'detail' finally has an emitter), disables zoom, promotes the
+museum link and offers Retry. (c) Catalog repaired in place (new
+`repair` command, idempotent, safety-gated against curated
+references): 7 confirmed wrong-image works dropped via the new
+overrides.json `drop` switch — Miró, Picasso, a Michelangelo carrying
+the wrong fresco, four Rijksmuseum exhibition shots — catalog 10,767 →
+10,760; 566 genid artist URLs → 'Unknown artist'; wd rights relabeled
+by the conservative rule (PD only if the artist died before 1956, or
+unknown death and work before 1930): 69 flips, wd now 1,932 PD / 101
+in-copyright with the linked-image attribution; duplicated quality
+flags cleaned (1,978 records; the --merge dedup bug is fixed at the
+source). (d) clip-sourced `light.nocturne` stripped from **4,081**
+works (the tramo-11 commit message says 4,062 — the correct measured
+figure is 4,081) and the prompt removed from tag-clip: the dim was
+measurably miscalibrated and clip confidences are capped below every
+usable floor, so removal was the only honest lever (owner decision;
+the alternative — banning clip from ALL explanations — goes to BACKLOG
+as an experiment). Explore filters now require meta/curated sources.
+(e) The Picasso case proved filename heuristics cannot decide (its
+filename matches the title), so detection at scale is the new
+`photo-probe` pipeline mode: committed embeddings scored against
+photo-vs-painting prompts, ranked suspects report for the HUMAN audit,
+drops only via overrides.
+
+**Gallery + honest habit.** The Saved page becomes the collection:
+saved works, the seen-works gallery (derived purely from the log,
+abandoned pairs included, chosen marks, "N of 10,760" and "N of 5
+eras" counters), and the field notebook. Every summary closes with
+"Your gallery grew to N works seen." The habit thesis, agreed with the
+owner: collector-loop compulsion and curiosity gaps with real numbers —
+no punitive streaks, no fabricated FOMO; weekly recap and a playable
+"did your eye change?" go to BACKLOG.
+
+**Reports.** Per-work "Report a problem" on the detail page
+(wrong-image / not-a-painting / bad-metadata / other → work_report,
+ignored by every fold). Owner decision: reports stay LOCAL — Settings
+lists them with an export button; synced content-reports go to BACKLOG.

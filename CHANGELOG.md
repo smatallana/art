@@ -3,6 +3,43 @@
 All notable changes to Beholder are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.0] — 2026-08-02
+
+The owner's own field test (installed PWA, iPhone) — six findings, all
+addressed:
+
+### Fixed
+- **Repetition**: shown-but-unanswered pairs now leave a durable
+  pair_shown event, so abandoned/skipped/errored pairs can never return
+  (measured before the fix: 100% painting and 64–88% exact-pair
+  repetition between early sessions). Resume desync fixed; artist
+  cooldown survives sessions; opening cooldown floor restored; undo no
+  longer shortens sittings; the editorial opening regenerated with
+  global caps (37 distinct works, was 17); the consistency probe is
+  labeled on screen and draws from mid-history.
+- **Images**: SW cache-poison recovery (evict + fresh refetch on error);
+  detail-page failure UI with retry and promoted museum link; 7
+  wrong-image works dropped (Miró "Dona", Picasso "Mountains of
+  Málaga", a mislabeled Michelangelo fresco, 4 exhibition shots); 566
+  URL-artist names fixed; wd rights relabeled conservatively (69 flip
+  to linked-image ©); miscalibrated clip "nocturne" stripped from 4,081
+  works and its prompt retired; Explore filters require museum-grade
+  tag sources.
+
+### Added
+- Back navigation (origin-aware BackBar) on work/settings/remember/snap.
+- Progress toward value in real numbers: welcome journey line, "N of 40"
+  + next-unlock countdowns on summaries and the profile, exact counts in
+  every gate copy.
+- The seen-works gallery in Saved (chosen marks, "N of 10,760", era
+  coverage) and the summary's collector line "Your gallery grew to N".
+- Per-work problem reporting on the detail page, collected locally in
+  Settings with JSON export.
+- Pipeline: `repair` (in-place catalog fixes, safety-gated),
+  `photo-probe` (embeddings-based photo-vs-painting suspect ranking for
+  the human audit), overrides.json `drop` switch, conservative wdRights
+  rule, genid artist mapping, P18 filename triage, flag dedup.
+
 ## [0.3.0] — 2026-08-01
 
 Five external review rounds (tramos 5–10), condensed:

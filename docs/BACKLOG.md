@@ -92,4 +92,16 @@ Ordered by leverage.
     `data/curated/audit.json`; validation then enforces his rejections.
     Metadata oddities already spotted for it: works dated after the
     artist's recorded death and one artist/date contradiction (see
-    DECISIONS tramo 10).
+    DECISIONS tramo 10). The `photo-probe` report (tramo 11) feeds this
+    audit with ranked photo-not-painting suspects at catalog scale.
+24. **Weekly recap** (tramo 11 design note) — an in-app, no-push rollup:
+    sessions held, works added to the gallery, reads that strengthened.
+25. **"Did your eye change?" as a labeled game** — deliberate re-exposure
+    of long-ago passed works, framed as a challenge (distinct from the
+    consistency probe); feeds the conditional-preference work (#22).
+26. **Synced content reports** — opt-in channel for work_report events
+    (id + reason only, no taste data) to a curator view in the Worker;
+    declined for now (owner decision, tramo 11: local + export).
+27. **Src-gated explanations experiment** — ban clip tags from ALL
+    user-facing why-chips (not just nocturne): fully truthful, much
+    sparser. Measure how often chips vanish before deciding.

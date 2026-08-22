@@ -96,3 +96,17 @@
    the fold (owner decision, tramo 9): the model falls back to weight 1.0
    more often. Watch whether intensity-driven distinctions in the profile
    thin out.
+21. **pair_shown grows the event log** (~+1 event per answered pair, more
+   with skips). Sync payloads and rebuild times stay trivial at personal
+   scale (thousands of events); revisit if logs reach 10^5.
+22. **Old logs lack pair_shown** — history rebuilds use the compat branch
+   (full-increment on bare pair_choice), so pre-upgrade answers count
+   correctly, but pairs abandoned BEFORE the upgrade remain forgettable
+   once their snapshot expired. One-time exposure, self-healing forward.
+23. **Rights relabels changed visible lines**: 69 wd works now show the ©
+   linked-image attribution instead of "Public domain". Legally more
+   correct, and consistent with the tramo-5 linking stance — but any
+   downstream copy quoting "public domain" counts should be re-checked.
+24. **The seen gallery renders up to 96 thumbnails** on one page; at
+   thousands of seen works the capped grid stays fast but the counter is
+   the only complete view. Pagination goes with the memory redesign.
