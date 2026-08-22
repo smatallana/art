@@ -183,3 +183,19 @@ test('export produces a JSON download without any typing', async ({ page }) => {
 	const download = await downloadPromise;
 	expect(download.suggestedFilename()).toMatch(/beholder-export-.*\.json/);
 });
+
+test('the seen gallery accumulates every shown work', async ({ page }) => {
+	await page.goto('./');
+	for (let i = 0; i < 6; i++) {
+		await page.getByRole('button', { name: 'Choose the first painting' }).click({ timeout: 15000 });
+		await page.getByRole('button', { name: 'Next', exact: true }).click();
+	}
+	// The summary states the collector line...
+	await expect(page.getByText(/Your gallery grew to 12 works seen/)).toBeVisible();
+	// ...and the Saved page holds the accumulated gallery, chosen marks included.
+	await page.goto('./saved/');
+	await expect(page.getByText('Works you have seen')).toBeVisible();
+	await expect(page.locator('.seen-grid li')).toHaveCount(12);
+	await expect(page.getByText(/12 of \d+ works in the collection/)).toBeVisible();
+	await expect(page.locator('.seen-mark').first()).toBeVisible();
+});

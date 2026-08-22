@@ -284,6 +284,8 @@ export const es: Strings = {
 		insightNext: (dim) => `La próxima sesión puede poner a prueba ${L(dim)} directamente.`,
 		insightEvidence: 'De esta sesión',
 		calibrationProgress: (n, target) => `${n} de ${target} elecciones de calibración.`,
+		galleryGrew: (n) =>
+			n === 1 ? 'Tu galería creció a 1 obra vista.' : `Tu galería creció a ${n} obras vistas.`,
 		nextWorks: 'Para tu próxima visita',
 		nextWorksEarly: 'Primeras posibilidades para tu próxima visita',
 		nextWorksHint:
@@ -365,6 +367,11 @@ export const es: Strings = {
 		title: 'Obras guardadas',
 		empty: 'Aún no hay nada guardado. Cuando una obra se quede contigo, guárdala aquí.',
 		remove: 'Quitar',
+		seenTitle: 'Obras vistas',
+		seenCount: (n, total) => `${n} de ${total} obras de la colección.`,
+		seenEras: (n, total) => `Tu mirada ha cruzado ${n} de ${total} épocas de la pintura.`,
+		seenChosen: 'elegida',
+		seenLatest: 'Se muestran las más recientes.',
 		notebook: 'Cuaderno de campo',
 		notebookHint:
 			'Cuadros que fotografiaste y que aún no están en la colección. Las fotos nunca salen de este dispositivo; a medida que la colección crezca podrán identificarse.',

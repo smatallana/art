@@ -109,6 +109,8 @@ export const t = {
 		insightEvidence: 'From this session',
 		// Calibration progress (real thresholds — see engine/progress.ts).
 		calibrationProgress: (n: number, target: number) => `${n} of ${target} calibration choices.`,
+		galleryGrew: (n: number) =>
+			n === 1 ? 'Your gallery grew to 1 work seen.' : `Your gallery grew to ${n} works seen.`,
 		// Session-close recommendations: heading gated by evidence (never
 		// claim a confident read the model does not have).
 		nextWorks: 'For your next visit',
@@ -195,6 +197,11 @@ export const t = {
 		title: 'Saved works',
 		empty: 'Nothing saved yet. When a work stays with you, save it here.',
 		remove: 'Remove',
+		seenTitle: 'Works you have seen',
+		seenCount: (n: number, total: number) => `${n} of ${total} works in the collection.`,
+		seenEras: (n: number, total: number) => `Your eye has crossed ${n} of ${total} painting eras.`,
+		seenChosen: 'chosen',
+		seenLatest: 'Showing the most recent.',
 		notebook: 'Field notebook',
 		notebookHint:
 			'Paintings you photographed that are not in the collection yet. Photos never leave this device; as the collection grows they can be re-identified.',

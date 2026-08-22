@@ -8,6 +8,7 @@
 	import { hasEstablishedRead, recommendClose, type Recommendation } from '$lib/engine/discover';
 	import { microInsight, sessionSummary } from '$lib/engine/insight';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
+	import { seenGallery } from '$lib/engine/gallery';
 	import { CALIBRATION_TARGET, nextMilestone } from '$lib/engine/progress';
 	import {
 		FIRST_SESSION_LENGTH,
@@ -83,6 +84,8 @@
 			: []
 	);
 	const established = $derived(app.model != null && hasEstablishedRead(app.model));
+	/** Distinct works ever seen — the summary's collector line. */
+	const seenCount = $derived(sess?.phase === 'done' ? seenGallery(app.events).length : 0);
 
 	async function testPattern(): Promise<void> {
 		// Capture from the derived BEFORE endSession() nulls the engine —
@@ -361,6 +364,10 @@
 						</p>
 					{/if}
 				{/if}
+				<!-- The collector loop: the gallery visibly grows every sitting. -->
+				<p class="insight-sub calibration-line">
+					{t.session.galleryGrew(seenCount)}
+				</p>
 				{#if sess.mode === 'calibration'}
 					<!-- Progress in real numbers (real-user finding: the unlock
 					     thresholds existed but were never surfaced). -->
