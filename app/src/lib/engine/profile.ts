@@ -7,6 +7,7 @@
 import type { Work } from '../catalog/types';
 import type { AppEvent, PriorSpec } from './events';
 import { evidenceTier, features, isConflicted, type EvidenceTier, type TasteModel } from './model';
+import { PORTRAIT_UNLOCK } from './progress';
 
 export interface OntologyDim {
 	id: string;
@@ -324,7 +325,7 @@ export function interpret(
 	p: InterpretPhrases = ENGLISH_PHRASES
 ): string[] {
 	const out: string[] = [];
-	if (totalChoices < 8) {
+	if (totalChoices < PORTRAIT_UNLOCK) {
 		out.push(p.beginning);
 		return out;
 	}

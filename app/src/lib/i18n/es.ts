@@ -185,6 +185,7 @@ export const es: Strings = {
 
 	welcome: {
 		how: 'Elige entre parejas de cuadros. Beholder aprende qué ama tu mirada — y te muestra por qué.',
+		journey: 'Tu primera lectura aparece tras 8 elecciones; un perfil calibrado hacia las 40.',
 		begin: 'Empezar',
 		heroCredit: (artist, title, museum) => `${artist} — ${title} · ${museum}`
 	},
@@ -282,6 +283,7 @@ export const es: Strings = {
 		insightOpen: (dim) => `Sigue abierto: dónde te sitúas ante ${L(dim)}.`,
 		insightNext: (dim) => `La próxima sesión puede poner a prueba ${L(dim)} directamente.`,
 		insightEvidence: 'De esta sesión',
+		calibrationProgress: (n, target) => `${n} de ${target} elecciones de calibración.`,
 		nextWorks: 'Para tu próxima visita',
 		nextWorksEarly: 'Primeras posibilidades para tu próxima visita',
 		nextWorksHint:
@@ -401,7 +403,10 @@ export const es: Strings = {
 		representative: 'Obras que tu mirada eligió una y otra vez',
 		testThis: 'Ponerlo a prueba',
 		testQueued: 'En cola para tu próxima sesión',
-		testLater: 'Se podrán poner a prueba cuando termine la calibración.',
+		testLater: (k) =>
+			k === 1
+				? 'Se podrán poner a prueba cuando termine la calibración — falta 1 elección.'
+				: `Se podrán poner a prueba cuando termine la calibración — faltan ${k} elecciones.`,
 		wellTested: 'bien probado',
 		lightlyTested: 'poco probado',
 		artistLowExposure: 'aún sin encuentros suficientes',
@@ -455,8 +460,10 @@ export const es: Strings = {
 		challenge: 'Desafía tu mirada',
 		challengeHint:
 			'Fuera de tu zona de confort a propósito — cada tarjeta nombra contra qué empuja.',
-		needSessions:
-			'Las recomendaciones personales se desbloquean tras unas sesiones — el explorador de abajo funciona desde ya.',
+		needSessions: (k) =>
+			k === 1
+				? 'Las recomendaciones personales se desbloquean tras 1 elección más — el explorador de abajo funciona desde ya.'
+				: `Las recomendaciones personales se desbloquean tras ${k} elecciones más — el explorador de abajo funciona desde ya.`,
 		surprise: 'Sorpréndeme',
 		artists: 'Artistas que aún no conoces',
 		artistsHint: 'Predicho a partir de toda su obra en la colección.',
@@ -541,6 +548,21 @@ export const es: Strings = {
 		notYet: 'Aún no',
 		allDone: 'Nada pendiente ahora — tus obras marcadas volverán cuando toque.',
 		knownTitle: (n) => `Obras que reconoces (${n})`
+	},
+
+	progress: {
+		nextRecs: (k) =>
+			k === 1
+				? '1 elección más hasta las recomendaciones personales.'
+				: `${k} elecciones más hasta las recomendaciones personales.`,
+		nextPortrait: (k) =>
+			k === 1
+				? '1 elección más hasta tu primera lectura de perfil.'
+				: `${k} elecciones más hasta tu primera lectura de perfil.`,
+		nextCalibrated: (k) =>
+			k === 1
+				? '1 elección más y la calibración termina — las sesiones pasarán a poner a prueba tu mirada directamente.'
+				: `${k} elecciones más y la calibración termina — las sesiones pasarán a poner a prueba tu mirada directamente.`
 	},
 
 	nav: {

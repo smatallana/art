@@ -8,6 +8,7 @@
 	import { hasEstablishedRead, recommendClose, type Recommendation } from '$lib/engine/discover';
 	import { microInsight, sessionSummary } from '$lib/engine/insight';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
+	import { CALIBRATION_TARGET, nextMilestone } from '$lib/engine/progress';
 	import {
 		FIRST_SESSION_LENGTH,
 		LONG_SESSION_LENGTH,
@@ -359,6 +360,21 @@
 							{t.session.insightNext(summary.openQuestion.label)}
 						</p>
 					{/if}
+				{/if}
+				{#if sess.mode === 'calibration'}
+					<!-- Progress in real numbers (real-user finding: the unlock
+					     thresholds existed but were never surfaced). -->
+					{@const m = nextMilestone(app.totalChoices)}
+					<p class="insight-sub calibration-line">
+						{t.session.calibrationProgress(app.totalChoices, CALIBRATION_TARGET)}
+						{#if m}
+							{m.kind === 'recs'
+								? t.progress.nextRecs(m.at - app.totalChoices)
+								: m.kind === 'portrait'
+									? t.progress.nextPortrait(m.at - app.totalChoices)
+									: t.progress.nextCalibrated(m.at - app.totalChoices)}
+						{/if}
+					</p>
 				{/if}
 				{#if nextWorks.length > 0}
 					<div class="next-works">

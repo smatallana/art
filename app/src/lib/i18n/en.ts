@@ -11,6 +11,7 @@ export const t = {
 
 	welcome: {
 		how: 'Choose between pairs of paintings. Beholder learns what your eye loves — and shows you why.',
+		journey: 'Your first read appears after 8 choices; a calibrated profile after about 40.',
 		begin: 'Begin',
 		heroCredit: (artist: string, title: string, museum: string) =>
 			`${artist} — ${title} · ${museum}`
@@ -106,6 +107,8 @@ export const t = {
 		insightOpen: (dim: string) => `Still open: where you stand on ${dim}.`,
 		insightNext: (dim: string) => `The next session can test ${dim} directly.`,
 		insightEvidence: 'From this session',
+		// Calibration progress (real thresholds — see engine/progress.ts).
+		calibrationProgress: (n: number, target: number) => `${n} of ${target} calibration choices.`,
 		// Session-close recommendations: heading gated by evidence (never
 		// claim a confident read the model does not have).
 		nextWorks: 'For your next visit',
@@ -231,7 +234,8 @@ export const t = {
 		representative: 'Works your eye kept choosing',
 		testThis: 'Test this',
 		testQueued: 'Queued for your next session',
-		testLater: 'These become testable once calibration completes.',
+		testLater: (k: number) =>
+			`These become testable once calibration completes — ${k} ${k === 1 ? 'choice' : 'choices'} to go.`,
 		wellTested: 'well tested',
 		lightlyTested: 'lightly tested',
 		artistLowExposure: 'not enough encounters yet',
@@ -282,8 +286,8 @@ export const t = {
 			'First guesses from your choices so far — each card says why. They will sharpen.',
 		challenge: 'Challenges your eye',
 		challengeHint: 'Outside your comfort zone on purpose — each card names what it pushes against.',
-		needSessions:
-			'Personal recommendations unlock after a few sessions — the explorer below works right away.',
+		needSessions: (k: number) =>
+			`Personal recommendations unlock after ${k} more ${k === 1 ? 'choice' : 'choices'} — the explorer below works right away.`,
 		surprise: 'Surprise me',
 		artists: 'Artists you have not met',
 		artistsHint: 'Predicted from their whole body of work in the collection.',
@@ -368,6 +372,16 @@ export const t = {
 		notYet: 'Not yet',
 		allDone: 'Nothing due right now - your remembered works will return when the time is right.',
 		knownTitle: (n: number) => `Works you recognize (${n})`
+	},
+
+	// Progress-toward-value milestone lines (numbers from engine/progress.ts).
+	progress: {
+		nextRecs: (k: number) =>
+			`${k} more ${k === 1 ? 'choice' : 'choices'} until personal recommendations.`,
+		nextPortrait: (k: number) =>
+			`${k} more ${k === 1 ? 'choice' : 'choices'} until your first profile read.`,
+		nextCalibrated: (k: number) =>
+			`${k} more ${k === 1 ? 'choice' : 'choices'} until calibration completes — sessions then test your eye directly.`
 	},
 
 	nav: {

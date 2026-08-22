@@ -16,6 +16,7 @@
 		type Recommendation
 	} from '$lib/engine/discover';
 	import { ONTOLOGY_DIMS } from '$lib/engine/ontology';
+	import { RECS_UNLOCK } from '$lib/engine/progress';
 	import { t } from '$lib/i18n';
 	import { app } from '$lib/state/app.svelte';
 
@@ -111,7 +112,7 @@
 			</div>
 		</section>
 	{:else}
-		{#if app.totalChoices >= 5}
+		{#if app.totalChoices >= RECS_UNLOCK}
 			<section>
 				<!-- Honest heading: "For your eye" only once real evidence exists;
 				     until then these are stated as early possibilities. -->
@@ -134,7 +135,7 @@
 				</div>
 			</section>
 		{:else}
-			<p class="hint">{t.discover.needSessions}</p>
+			<p class="hint">{t.discover.needSessions(RECS_UNLOCK - app.totalChoices)}</p>
 		{/if}
 
 		<section class="surprise-wrap">

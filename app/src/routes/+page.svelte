@@ -70,6 +70,7 @@
 			<h1>{t.appName}</h1>
 			<p class="tagline">{t.tagline}</p>
 			<p class="how">{t.welcome.how}</p>
+			<p class="how journey">{t.welcome.journey}</p>
 			<div class="lang-row" role="group" aria-label="Language / Idioma">
 				<button class="lang" class:on={lang.current === 'en'} onclick={() => setLang('en')}>
 					EN
@@ -194,6 +195,11 @@
 		line-height: 1.55;
 		max-width: 38ch;
 		margin: 0 0 var(--space-4);
+	}
+	.how.journey {
+		color: var(--ink-faint);
+		font-size: 0.85rem;
+		margin-top: calc(-1 * var(--space-3));
 	}
 	.actions {
 		display: flex;

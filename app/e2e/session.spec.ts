@@ -114,6 +114,9 @@ test('a finished first session is honest: no targeting promise during calibratio
 	await expect(page.getByText('Early possibilities for your next visit')).toBeVisible();
 	await expect(page.getByText('For your next visit', { exact: true })).toHaveCount(0);
 	await expect(page.getByText(/First guesses from your choices/)).toBeVisible();
+	// Progress toward value is stated in real numbers.
+	await expect(page.getByText(/6 of 40 calibration choices/)).toBeVisible();
+	await expect(page.getByText(/2 more choices until your first profile read/)).toBeVisible();
 });
 
 test('finishing early after three answers earns a summary, not an exit', async ({ page }) => {

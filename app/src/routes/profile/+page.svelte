@@ -13,6 +13,7 @@
 		type PatternStatus,
 		type TasteProfile
 	} from '$lib/engine/profile';
+	import { CALIBRATION_TARGET, nextMilestone, PORTRAIT_UNLOCK } from '$lib/engine/progress';
 	import { sessionMode } from '$lib/engine/session';
 	import { app, type TimelineSnapshot } from '$lib/state/app.svelte';
 
@@ -48,7 +49,7 @@
 		app.model ? representativeWorks(app.model, app.events, (id) => app.work(id)) : []
 	);
 	const portraitLine = $derived.by(() => {
-		if (!profile || profile.totalChoices < 8) return null;
+		if (!profile || profile.totalChoices < PORTRAIT_UNLOCK) return null;
 		const top = profile.affinities[0];
 		if (!top) return null;
 		return t.profile.portrait(
@@ -115,6 +116,21 @@
 		<h1>{t.profile.title}</h1>
 		<a class="settings-link" href={`${base}/settings/`}>{t.nav.settings}</a>
 	</header>
+	{#if app.totalChoices < CALIBRATION_TARGET}
+		<!-- Progress toward value, in real numbers (real-user finding: the
+		     thresholds existed but no surface ever said so). -->
+		{@const m = nextMilestone(app.totalChoices)}
+		<p class="calibration-line">
+			{t.session.calibrationProgress(app.totalChoices, CALIBRATION_TARGET)}
+			{#if m}
+				{m.kind === 'recs'
+					? t.progress.nextRecs(m.at - app.totalChoices)
+					: m.kind === 'portrait'
+						? t.progress.nextPortrait(m.at - app.totalChoices)
+						: t.progress.nextCalibrated(m.at - app.totalChoices)}
+			{/if}
+		</p>
+	{/if}
 	{#if memoryDue > 0}
 		<a class="memory-cta" href={`${base}/remember/`}>{t.memory.dueCount(memoryDue)} →</a>
 	{/if}
@@ -156,7 +172,7 @@
 						{/each}
 					</div>
 					{#if !canQueueTest}
-						<p class="hint">{t.profile.testLater}</p>
+						<p class="hint">{t.profile.testLater(CALIBRATION_TARGET - app.totalChoices)}</p>
 					{/if}
 				{/if}
 				<a class="snap-cta" href={`${base}/snap/`}>{t.profile.snapCta}</a>
@@ -172,7 +188,10 @@
 			</p>
 		</section>
 
-		{#if profile.affinities.length > 0}
+		{#if profile.affinities.length > 0 && app.totalChoices >= PORTRAIT_UNLOCK}
+			<!-- Before the first portrait read exists, a ten-item ranked list
+			     would contradict the "just beginning" interpretation line —
+			     the bars wait until there is a read to anchor them. -->
 			<section>
 				<h2>{t.profile.drawsYou}</h2>
 				<ul class="dims">
@@ -196,7 +215,7 @@
 			</section>
 		{/if}
 
-		{#if profile.aversions.length > 0}
+		{#if profile.aversions.length > 0 && app.totalChoices >= PORTRAIT_UNLOCK}
 			<section>
 				<h2>{t.profile.leavesYou}</h2>
 				<ul class="dims">
@@ -320,6 +339,11 @@
 </main>
 
 <style>
+	.calibration-line {
+		color: var(--ink-faint);
+		font-size: 0.82rem;
+		margin: calc(-1 * var(--space-2)) 0 var(--space-3);
+	}
 	.page-head {
 		display: flex;
 		align-items: baseline;
