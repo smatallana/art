@@ -16,6 +16,7 @@ import { OPENING_SLOTS, selectOpeningPair, type OpeningEditorialData } from './o
 import { mulberry32 } from './random';
 import {
 	historyFromEvents,
+	pairKey,
 	recordShown,
 	selectPair,
 	type SelectedPair,
@@ -116,7 +117,7 @@ export interface SessionEngine {
 }
 
 export function createSession(ctx: SessionContext, length?: number): SessionEngine {
-	const history = historyFromEvents(ctx.events);
+	const history = historyFromEvents(ctx.events, ctx.workById);
 	const totalAnswers = ctx.events.filter((e) => e.t === 'pair_choice').length;
 	const state: SessionState = {
 		id: crypto.randomUUID(),
@@ -143,19 +144,37 @@ export function resumeSession(
 	events: AppEvent[],
 	workById?: (id: string) => Work | undefined
 ): SessionEngine {
-	// Rebuild the per-session source counts from this session's answers
-	// (skipped-but-shown pairs are lost to a resume; an acceptable undercount).
+	// Rebuild the per-session source counts from this session's shown pairs
+	// (pair_shown covers skipped/abandoned pairs too; answers from logs that
+	// predate the event still count via pair_choice).
 	const sourceShown = new Map<string, number>();
+	const counted = new Set<string>();
 	if (workById) {
 		for (const e of events) {
-			if (e.t !== 'pair_choice' || e.at < snapshot.startedAt) continue;
+			if ((e.t !== 'pair_shown' && e.t !== 'pair_choice') || e.at < snapshot.startedAt) continue;
+			const key = pairKey(e.a, e.b);
+			if (counted.has(key)) continue;
+			counted.add(key);
 			for (const id of [e.a, e.b]) {
 				const src = workById(id)?.source;
 				if (src) sourceShown.set(src, (sourceShown.get(src) ?? 0) + 1);
 			}
 		}
 	}
-	return { state: snapshot, history: historyFromEvents(events), sourceShown };
+	const history = historyFromEvents(events, workById);
+	// Pre-upgrade logs: the pair on screen was shown but never recorded — put
+	// it into the in-memory history so the same slot cannot re-run and the
+	// pair cannot be re-selected after this sitting's answers.
+	if (
+		snapshot.current &&
+		workById &&
+		!history.seenPairs.has(pairKey(snapshot.current.aId, snapshot.current.bId))
+	) {
+		const a = workById(snapshot.current.aId);
+		const b = workById(snapshot.current.bId);
+		if (a && b) recordShown(history, a, b);
+	}
+	return { state: snapshot, history, sourceShown };
 }
 
 /**
@@ -286,6 +305,18 @@ export function markAnswered(engine: SessionEngine): void {
 	if (engine.state.phase !== 'choosing' || !engine.state.current) return;
 	engine.state.position++;
 	engine.state.phase = 'revealed';
+}
+
+/**
+ * Undo from the reveal: the answer is retracted, the SAME pair goes back on
+ * screen, and the position rolls back so the sitting keeps its full length
+ * (it used to end one pair early per undo). History keeps the pair as shown
+ * — the user did see it; only the recorded answer is masked.
+ */
+export function undoAnswer(engine: SessionEngine): void {
+	if (engine.state.phase !== 'revealed') return;
+	engine.state.position = Math.max(0, engine.state.position - 1);
+	engine.state.phase = 'choosing';
 }
 
 /** Leave the reveal → select the next pair (or finish). */

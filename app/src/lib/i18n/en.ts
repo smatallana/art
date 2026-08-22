@@ -119,6 +119,7 @@ export const t = {
 		insightCounterExample: 'You also once chose the opposite:',
 		objectiveActive: (label: string) => `Testing: ${label.toLowerCase()}`,
 		changeDirection: "Let's change direction.",
+		consistencyNote: 'Shown again on purpose — a consistency check.',
 		microPrefix: 'So far:',
 		micro: (label: string) => `you are leaning toward ${label.toLowerCase()}.`,
 		// Reveal branches

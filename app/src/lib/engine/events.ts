@@ -87,6 +87,25 @@ export type AppEvent = Base &
 				context: 'session' | 'detail';
 		  }
 		| {
+				/** Infrastructure: a pair reached the screen. Consumed by the
+				 *  selection history only (durable repetition guard — an abandoned
+				 *  or skipped pair must never be forgotten); the model fold ignores
+				 *  it. Emitted on FIRST show only, never on a resume re-render.
+				 *  Deliberately not maskable by undo: the user did see the pair. */
+				t: 'pair_shown';
+				a: string;
+				b: string;
+		  }
+		| {
+				/** A user-reported problem with one work (wrong image, not a
+				 *  painting, bad metadata). Curation feedback, never preference:
+				 *  every fold ignores it. Collected locally in Settings for the
+				 *  owner to export. */
+				t: 'work_report';
+				work: string;
+				reason: 'wrong-image' | 'not-a-painting' | 'bad-metadata' | 'other';
+		  }
+		| {
 				/** Tombstone: the listed event ids are excluded from every fold
 				 *  (sync-safe undo — events are never deleted, only masked). */
 				t: 'undo';

@@ -293,6 +293,7 @@ export const es: Strings = {
 		insightCounterExample: 'También elegiste una vez lo contrario:',
 		objectiveActive: (label) => `Poniendo a prueba: ${L(label)}`,
 		changeDirection: 'Cambiemos de dirección.',
+		consistencyNote: 'Se muestra de nuevo a propósito — una comprobación de consistencia.',
 		microPrefix: 'Por ahora:',
 		micro: (label) => `te inclinas hacia ${L(label)}.`,
 		bothTitle: 'Ambas te atrajeron',

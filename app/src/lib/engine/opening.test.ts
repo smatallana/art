@@ -200,3 +200,35 @@ describe('sideCandidates', () => {
 		expect(challenge.map((w) => w.id)).toEqual(['challenge']);
 	});
 });
+
+describe('opening cooldown strength (T11 regression)', () => {
+	it('derives cooldowns from the full catalog, not the thin side list', () => {
+		// 15 calm + 15 tense curated works inside a 90-work catalog. With the
+		// old per-side eligibility, effectiveCooldowns saw a 15-work list and
+		// collapsed the work cooldown to 5 — a work shown 6 interactions ago
+		// could reappear inside the same sitting. Against the full catalog the
+		// window is 30.
+		const calm = Array.from({ length: 15 }, (_, i) =>
+			testWork(`calm-${i}`, { year: 1700 + i, tags: { 'mood.serenity': 0.8 } })
+		);
+		const tense = Array.from({ length: 15 }, (_, i) =>
+			testWork(`tense-${i}`, { year: 1800 + i, tags: { 'mood.drama': 0.8 } })
+		);
+		const filler = Array.from({ length: 60 }, (_, i) => testWork(`fill-${i}`, {}));
+		const works = [...calm, ...tense, ...filler];
+		const curated: CuratedOnboarding = {
+			version: 1,
+			works: [...calm, ...tense].map((w) => ({ id: w.id, stage: 1, role: 'anchor' as const }))
+		};
+		const h = historyFromEvents([]);
+		recordShown(h, calm[0]!, tense[0]!); // shown at interaction 1
+		for (let i = 0; i < 6; i++) recordShown(h, filler[2 * i]!, filler[2 * i + 1]!);
+		// Gap since calm-0 = 6 < 30: it must NOT reappear, for any seed.
+		for (let seed = 1; seed <= 30; seed++) {
+			const pair = selectOpeningPair(2, works, curated, h, seed);
+			if (!pair) continue;
+			expect([pair.a.id, pair.b.id]).not.toContain(calm[0]!.id);
+			expect([pair.a.id, pair.b.id]).not.toContain(tense[0]!.id);
+		}
+	});
+});

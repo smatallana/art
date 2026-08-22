@@ -159,3 +159,39 @@ describe('selectPairSmart', () => {
 		expect(seenKeys).toContain(key);
 	});
 });
+
+describe('consistency probe draw window (T11)', () => {
+	it('re-shows only mid-history pairs — never the memorable opening ones', () => {
+		const pool = testPool(60);
+		const answered: AppEvent[] = Array.from({ length: 20 }, (_, i) => ({
+			id: `c${i}`,
+			at: new Date(1700000000000 + i * 1000).toISOString(),
+			device: 'd',
+			hour: 12,
+			t: 'pair_choice' as const,
+			a: pool[2 * i]!.id,
+			b: pool[2 * i + 1]!.id,
+			pick: 'a' as const,
+			ms: null
+		}));
+		// Middle half of 20 answered pairs = indexes 5..14.
+		const allowed = new Set<number>();
+		for (let i = 5; i < 15; i++) allowed.add(i);
+		let probes = 0;
+		for (let seed = 1; seed < 40 && probes < 8; seed++) {
+			const h = historyFromEvents([]);
+			h.interactionIndex = 14; // probe schedule: % 15 === 14
+			const pair = selectPairSmart(pool, h, createModel(), answered, ctxFor(pool), { seed });
+			if (pair?.slot !== 'consistency') continue;
+			probes++;
+			const idx = answered.findIndex(
+				(e) =>
+					e.t === 'pair_choice' &&
+					((e.a === pair.a.id && e.b === pair.b.id) || (e.a === pair.b.id && e.b === pair.a.id))
+			);
+			expect(idx).toBeGreaterThanOrEqual(0);
+			expect(allowed.has(idx), `probe drew opening-adjacent pair #${idx}`).toBe(true);
+		}
+		expect(probes).toBeGreaterThan(0);
+	});
+});

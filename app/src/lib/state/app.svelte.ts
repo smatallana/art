@@ -22,11 +22,13 @@ import {
 	markAnswered,
 	resumeSession,
 	skipCurrent,
+	undoAnswer,
 	type SessionContext,
 	type SessionEngine,
 	type SessionObjective,
 	type SessionState
 } from '../engine/session';
+import { pairKey } from '../engine/selector';
 
 const SESSION_SNAPSHOT_KEY = 'session-snapshot';
 const TIMELINE_KEY = 'profile-timeline';
@@ -58,6 +60,9 @@ class AppState {
 	engine = $state<SessionEngine | null>(null);
 	/** Event ids of the current pair's choice + reveal annotations (undo scope). */
 	undoableIds = $state<string[]>([]);
+	/** Canonical key of the last pair whose pair_shown was recorded — guards
+	 *  against double-recording on resume re-renders and undo re-presents. */
+	private lastShownKey: string | null = null;
 	savedIds = $state<Set<string>>(new SvelteSet());
 	rememberedIds = $state<Set<string>>(new SvelteSet());
 	initialized = $state(false);
@@ -161,6 +166,21 @@ class AppState {
 		await kvSet(NEXT_OBJECTIVE_KEY, objective);
 	}
 
+	/**
+	 * Record pair_shown for the pair now on screen, once per first show.
+	 * Durable repetition memory: a pair that reached the screen — answered or
+	 * not — enters the event log and can never be re-selected by a rebuilt
+	 * history. Never fired for resume re-renders (the log already has it).
+	 */
+	private async recordPairShown(): Promise<void> {
+		const cur = this.engine?.state.current;
+		if (!cur || this.engine?.state.phase !== 'choosing') return;
+		const key = pairKey(cur.aId, cur.bId);
+		if (key === this.lastShownKey) return;
+		this.lastShownKey = key;
+		await this.record({ t: 'pair_shown', a: cur.aId, b: cur.bId });
+	}
+
 	/** Start a new session or resume an unfinished one (<24h old). */
 	async startOrResumeSession(opts?: { length?: number }): Promise<void> {
 		if (this.catalog.works.length === 0) return;
@@ -174,6 +194,15 @@ class AppState {
 			// A resumed session keeps its own objective via the snapshot; the
 			// stored next-objective (if any) waits for the next fresh session.
 			this.engine = resumeSession(snapshot, this.events, (id) => this.catalog.byId.get(id));
+			// The resumed pair was recorded when first shown — unless the log
+			// predates pair_shown; record it once then, so it becomes durable.
+			const cur = this.engine.state.current;
+			if (cur) {
+				const key = pairKey(cur.aId, cur.bId);
+				const logged = this.events.some((e) => e.t === 'pair_shown' && pairKey(e.a, e.b) === key);
+				this.lastShownKey = logged ? key : null;
+				if (!logged) await this.recordPairShown();
+			}
 			return;
 		}
 		// Consume the stored objective exactly once, expired ones silently.
@@ -185,6 +214,7 @@ class AppState {
 				: null;
 		this.engine = createSession({ ...this.sessionCtx(), objective: fresh }, opts?.length);
 		await this.record({ t: 'session_start', mode: this.engine.state.mode });
+		await this.recordPairShown();
 		await this.persistSnapshot();
 	}
 
@@ -236,6 +266,7 @@ class AppState {
 		this.undoableIds = [];
 		engineAdvance(this.engine, this.sessionCtx());
 		this.engine = { ...this.engine };
+		await this.recordPairShown();
 		await this.persistSnapshot();
 		if (this.engine.state.phase === 'done') {
 			await this.record({
@@ -276,6 +307,7 @@ class AppState {
 		await this.record({ t: 'skip', work: bId, reason: 'pass' });
 		skipCurrent(this.engine, this.sessionCtx());
 		this.engine = { ...this.engine };
+		await this.recordPairShown();
 		await this.persistSnapshot();
 	}
 
@@ -291,6 +323,7 @@ class AppState {
 		await this.record({ t: 'skip', work: bId, reason });
 		skipCurrent(this.engine, this.sessionCtx());
 		this.engine = { ...this.engine };
+		await this.recordPairShown();
 		await this.persistSnapshot();
 	}
 
@@ -303,6 +336,7 @@ class AppState {
 		await this.record({ t: 'image_error', work: workId, context: 'session' });
 		skipCurrent(this.engine, this.sessionCtx());
 		this.engine = { ...this.engine };
+		await this.recordPairShown();
 		await this.persistSnapshot();
 	}
 
@@ -313,7 +347,7 @@ class AppState {
 		await this.record({ t: 'undo', ids: [...this.undoableIds] });
 		this.undoableIds = [];
 		this.rebuildModel();
-		this.engine.state.phase = 'choosing';
+		undoAnswer(this.engine);
 		this.engine = { ...this.engine };
 		await this.persistSnapshot();
 	}

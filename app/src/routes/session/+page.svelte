@@ -226,6 +226,11 @@
 			{#if sess.current?.recovery}
 				<p class="objective">{t.session.changeDirection}</p>
 			{/if}
+			{#if sess.current?.slot === 'consistency'}
+				<!-- A deliberate exact-pair repeat (temperature estimation). Say so
+				     — an unlabeled repeat reads as a bug (real-user finding). -->
+				<p class="objective">{t.session.consistencyNote}</p>
+			{/if}
 			<div class="pair" role="group" aria-label={t.a11y.artworkPair}>
 				<button class="art" aria-label={t.a11y.choiceA} onclick={() => choose(flipped ? 'b' : 'a')}>
 					<ArtworkImage work={firstWork} blind onError={(id) => app.reportImageFailure(id)} />

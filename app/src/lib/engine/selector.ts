@@ -22,8 +22,21 @@ export function pairKey(a: string, b: string): string {
 	return a < b ? `${a}::${b}` : `${b}::${a}`;
 }
 
-/** Build selection history by replaying the event log. */
-export function historyFromEvents(events: AppEvent[]): SelectionHistory {
+/**
+ * Build selection history by replaying the event log.
+ *
+ * `pair_shown` (recorded at show time) is the durable memory: it counts the
+ * interaction, cools both works AND both artists (via `workById`), and marks
+ * the pair seen — so an abandoned, skipped or errored pair can never return.
+ * A `pair_choice` whose pair was already counted by its `pair_shown` must not
+ * count twice; logs from before the event existed (or synthetic test logs)
+ * carry only choices and get the full increment, byte-identical to the old
+ * behavior.
+ */
+export function historyFromEvents(
+	events: AppEvent[],
+	workById?: (id: string) => Work | undefined
+): SelectionHistory {
 	const h: SelectionHistory = {
 		shownCount: new Map(),
 		lastShownIndex: new Map(),
@@ -31,14 +44,28 @@ export function historyFromEvents(events: AppEvent[]): SelectionHistory {
 		seenPairs: new Set(),
 		interactionIndex: 0
 	};
+	const pendingShown = new Set<string>();
+	const count = (a: string, b: string): void => {
+		h.interactionIndex++;
+		for (const id of [a, b]) {
+			h.shownCount.set(id, (h.shownCount.get(id) ?? 0) + 1);
+			h.lastShownIndex.set(id, h.interactionIndex);
+			const artist = workById?.(id)?.artist.name;
+			if (artist) h.artistLastIndex.set(artist, h.interactionIndex);
+		}
+		h.seenPairs.add(pairKey(a, b));
+	};
 	for (const e of events) {
-		if (e.t === 'pair_choice') {
-			h.interactionIndex++;
-			for (const id of [e.a, e.b]) {
-				h.shownCount.set(id, (h.shownCount.get(id) ?? 0) + 1);
-				h.lastShownIndex.set(id, h.interactionIndex);
+		if (e.t === 'pair_shown') {
+			count(e.a, e.b);
+			pendingShown.add(pairKey(e.a, e.b));
+		} else if (e.t === 'pair_choice') {
+			const key = pairKey(e.a, e.b);
+			if (pendingShown.has(key)) {
+				pendingShown.delete(key); // already counted at show time
+			} else {
+				count(e.a, e.b);
 			}
-			h.seenPairs.add(pairKey(e.a, e.b));
 		}
 	}
 	return h;

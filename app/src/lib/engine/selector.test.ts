@@ -120,3 +120,78 @@ describe('selectPair', () => {
 		expect(h.seenPairs.has(pairKey('w001', 'w002'))).toBe(true);
 	});
 });
+
+describe('historyFromEvents with pair_shown (durable repetition memory)', () => {
+	const base = { device: 'd', hour: 10 };
+	const shownEv = (id: string, a: string, b: string) => ({
+		...base,
+		id,
+		at: `2026-01-01T10:00:0${id}Z`,
+		t: 'pair_shown' as const,
+		a,
+		b
+	});
+	const choiceEv = (id: string, a: string, b: string) => ({
+		...base,
+		id,
+		at: `2026-01-01T10:01:0${id}Z`,
+		t: 'pair_choice' as const,
+		a,
+		b,
+		pick: 'a' as const,
+		ms: null
+	});
+
+	it('a shown-but-unanswered pair cools its works, its ARTISTS, and the pair', () => {
+		const pool = testPool(60);
+		const byId = new Map(pool.map((w) => [w.id, w]));
+		const [wa, wb] = [pool[0]!, pool[1]!];
+		const h = historyFromEvents([shownEv('1', wa.id, wb.id)], (id) => byId.get(id));
+		expect(h.interactionIndex).toBe(1);
+		expect(h.shownCount.get(wa.id)).toBe(1);
+		expect(h.lastShownIndex.get(wb.id)).toBe(1);
+		expect(h.artistLastIndex.get(wa.artist.name)).toBe(1);
+		expect(h.artistLastIndex.get(wb.artist.name)).toBe(1);
+		expect(h.seenPairs.has(pairKey(wa.id, wb.id))).toBe(true);
+	});
+
+	it('a shown pair that was then answered counts exactly once', () => {
+		const h = historyFromEvents([shownEv('1', 'w001', 'w002'), choiceEv('2', 'w001', 'w002')]);
+		expect(h.interactionIndex).toBe(1);
+		expect(h.shownCount.get('w001')).toBe(1);
+		expect(h.shownCount.get('w002')).toBe(1);
+	});
+
+	it('a choices-only log (pre-upgrade) behaves exactly as before', () => {
+		const events = [choiceEv('1', 'w001', 'w002'), choiceEv('2', 'w003', 'w004')];
+		const h = historyFromEvents(events);
+		expect(h.interactionIndex).toBe(2);
+		expect(h.shownCount.get('w003')).toBe(1);
+		expect(h.lastShownIndex.get('w004')).toBe(2);
+		// Without a workById resolver the artist cooldown stays unpopulated —
+		// byte-identical to the pre-pair_shown behavior.
+		expect(h.artistLastIndex.size).toBe(0);
+		expect(h.seenPairs.has(pairKey('w003', 'w004'))).toBe(true);
+	});
+
+	it('an abandoned pair is never selected again, even after cooldowns lapse', () => {
+		// Realistic pool: the abandoned pair's works recycle once the cooldown
+		// window passes, but the exact pair stays blocked by seenPairs on the
+		// novelty-respecting selection path. (The documented terminal fallback
+		// relaxes pair-novelty only when EVERY novel combination is exhausted —
+		// unreachable at catalog scale, so it is out of scope here.)
+		const pool = testPool(60);
+		const [wa, wb] = [pool[0]!, pool[1]!];
+		const abandoned = pairKey(wa.id, wb.id);
+		const h = historyFromEvents([shownEv('1', wa.id, wb.id)]);
+		for (let i = 0; i < 30; i++) {
+			const pair = selectPair(pool, h, { seed: i + 1 });
+			if (!pair) {
+				h.interactionIndex++;
+				continue;
+			}
+			expect(pairKey(pair.a.id, pair.b.id)).not.toBe(abandoned);
+			recordShown(h, pair.a, pair.b);
+		}
+	});
+});

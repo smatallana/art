@@ -106,8 +106,12 @@ function consistencyProbe(
 			e.t === 'pair_choice' && (e.pick === 'a' || e.pick === 'b')
 	);
 	if (answered.length < 10) return null;
-	// prefer pairs answered a while ago (first half of history)
-	const pool = answered.slice(0, Math.max(1, Math.floor(answered.length / 2)));
+	// Draw from the MIDDLE half of history: old enough that the answer is not
+	// fresh, but never the scripted opening pairs — those are the most
+	// memorable, and re-showing them reads as a bug (real-user finding).
+	const q1 = Math.floor(answered.length / 4);
+	const q3 = Math.max(q1 + 1, Math.floor((3 * answered.length) / 4));
+	const pool = answered.slice(q1, q3);
 	for (let i = 0; i < 8; i++) {
 		const e = pool[Math.floor(rng() * pool.length)];
 		if (!e) break;

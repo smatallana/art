@@ -194,9 +194,13 @@ export function selectOpeningPair(
 	if (!slot || !curated) return null;
 	const rng = mulberry32(seed * 97 + slotIndex * 53);
 	const byId = new Map(works.map((w) => [w.id, w]));
+	// Eligibility is computed ONCE against the full catalog so the cooldown
+	// window stays at its configured strength. (Filtering the side-candidate
+	// lists through eligibleWorks let effectiveCooldowns see a 13-work list
+	// and collapse the cooldown to 4 interactions — inside a single sitting.)
+	const eligibleSet = new Set(eligibleWorks(works, h).map((w) => w.id));
 	const variants = editorial?.slots.find((s) => s.name === slot.name)?.pairs ?? [];
 	if (variants.length > 0) {
-		const eligibleSet = new Set(eligibleWorks(works, h).map((w) => w.id));
 		const usable = shuffle(rng, variants).filter((p) => {
 			if (!eligibleSet.has(p.a) || !eligibleSet.has(p.b)) return false;
 			if (h.seenPairs.has(pairKey(p.a, p.b))) return false;
@@ -211,8 +215,14 @@ export function selectOpeningPair(
 			return { a: wa, b: wb, probe: probeOf(wa, wb) };
 		}
 	}
-	const sideA = shuffle(rng, eligibleWorks(sideCandidates(works, curated, slot.a), h));
-	const sideB = shuffle(rng, eligibleWorks(sideCandidates(works, curated, slot.b), h));
+	const sideA = shuffle(
+		rng,
+		sideCandidates(works, curated, slot.a).filter((w) => eligibleSet.has(w.id))
+	);
+	const sideB = shuffle(
+		rng,
+		sideCandidates(works, curated, slot.b).filter((w) => eligibleSet.has(w.id))
+	);
 	let fallback: SelectedPair | null = null;
 	for (const a of sideA.slice(0, SCAN)) {
 		for (const b of sideB.slice(0, SCAN)) {

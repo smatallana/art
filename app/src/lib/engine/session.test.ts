@@ -13,8 +13,10 @@ import {
 	sessionMode,
 	skipCurrent,
 	smartShare,
+	undoAnswer,
 	type SessionContext
 } from './session';
+import { pairKey } from './selector';
 import { testPool } from './testutil';
 
 beforeEach(() => {
@@ -307,5 +309,54 @@ describe('progressive personalization during calibration', () => {
 			return ids.join('|');
 		};
 		expect(walk()).toBe(walk());
+	});
+});
+
+describe('durable shown-pair memory across sessions (T11)', () => {
+	const shownEv = (id: string, a: string, b: string): AppEvent => ({
+		id,
+		at: `2026-01-01T09:00:00.00${id}Z`,
+		device: 'd',
+		hour: 9,
+		t: 'pair_shown',
+		a,
+		b
+	});
+
+	it('an abandoned pair enters the new session already seen', () => {
+		const pool = testPool(80);
+		const [wa, wb] = [pool[0]!, pool[1]!];
+		const ctx = ctxFor(pool, [shownEv('1', wa.id, wb.id)]);
+		const engine = createSession(ctx, 5);
+		expect(engine.history.seenPairs.has(pairKey(wa.id, wb.id))).toBe(true);
+		expect(engine.history.interactionIndex).toBeGreaterThanOrEqual(1);
+		// The artist cooldown survived the session boundary too.
+		expect(engine.history.artistLastIndex.get(wa.artist.name)).toBe(1);
+		const cur = engine.state.current;
+		expect(cur && pairKey(cur.aId, cur.bId)).not.toBe(pairKey(wa.id, wb.id));
+	});
+
+	it('resume with a pre-upgrade log records the on-screen pair into history', () => {
+		const pool = testPool(80);
+		const ctx = ctxFor(pool);
+		const engine = createSession(ctx, 5);
+		const cur = engine.state.current!;
+		// Simulate the old world: snapshot exists, log has NO pair_shown.
+		const resumed = resumeSession(JSON.parse(JSON.stringify(engine.state)), [], ctx.workById);
+		expect(resumed.history.seenPairs.has(pairKey(cur.aId, cur.bId))).toBe(true);
+		expect(resumed.history.interactionIndex).toBe(1);
+	});
+
+	it('undoAnswer rolls the position back and re-presents the pair', () => {
+		const pool = testPool(80);
+		const engine = createSession(ctxFor(pool), 5);
+		const before = engine.state.current;
+		markAnswered(engine);
+		expect(engine.state.position).toBe(1);
+		expect(engine.state.phase).toBe('revealed');
+		undoAnswer(engine);
+		expect(engine.state.position).toBe(0);
+		expect(engine.state.phase).toBe('choosing');
+		expect(engine.state.current).toEqual(before);
 	});
 });

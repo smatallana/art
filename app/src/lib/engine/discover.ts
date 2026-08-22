@@ -14,7 +14,7 @@ import { directionLabel } from './profile';
 export function seenWorkIds(events: AppEvent[]): Set<string> {
 	const seen = new Set<string>();
 	for (const e of events) {
-		if (e.t === 'pair_choice') {
+		if (e.t === 'pair_choice' || e.t === 'pair_shown') {
 			seen.add(e.a);
 			seen.add(e.b);
 		} else if ('work' in e && typeof e.work === 'string') {
