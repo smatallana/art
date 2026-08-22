@@ -80,10 +80,7 @@ export async function runPhotoProbe(opts: {
 		const id = store.ids[i] as string;
 		const w = byId.get(id);
 		if (!w) continue;
-		const vec = dequantizeRow(
-			store.data.subarray(i * DIM, (i + 1) * DIM),
-			store.scales[i] as number
-		);
+		const vec = dequantizeRow(store.rows[i] as Uint8Array, store.scales[i] as number);
 		const margin = dot(vec, photo) - dot(vec, painting);
 		if (margin > 0) {
 			suspects.push({
