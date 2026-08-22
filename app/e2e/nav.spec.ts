@@ -45,3 +45,15 @@ test('settings goes back to the profile', async ({ page }) => {
 	await page.getByRole('button', { name: 'Back' }).click();
 	await expect(page).toHaveURL(/\/profile\/$/);
 });
+
+test('a reported work lands in the Settings report list', async ({ page }) => {
+	await page.goto('./work/aic-100191/');
+	await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 15000 });
+	await page.getByText('Report a problem with this work').click();
+	await page.getByRole('button', { name: 'Wrong image' }).click();
+	await expect(page.getByText(/Reported — thank you/)).toBeVisible();
+	await page.goto('./settings/');
+	await expect(page.getByText('Reported works')).toBeVisible();
+	await expect(page.getByText(/wrong image ·/)).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Export reports (JSON)' })).toBeVisible();
+});

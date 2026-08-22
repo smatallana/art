@@ -210,6 +210,16 @@ export const t = {
 
 	settings: {
 		title: 'Settings',
+		reportsTitle: 'Reported works',
+		reportsHint:
+			'Problems you flagged on individual works. They stay on this device — export the list to send it to the curator.',
+		reportsExport: 'Export reports (JSON)',
+		reportReason: {
+			'wrong-image': 'wrong image',
+			'not-a-painting': 'not a painting',
+			'bad-metadata': 'wrong title or artist',
+			other: 'other'
+		} as Record<string, string>,
 		data: 'Your data',
 		exportBtn: 'Export my data (JSON)',
 		exportHint: 'Everything: your responses, saves and notes. Yours to keep.',
@@ -305,6 +315,12 @@ export const t = {
 		whyTitle: 'Why this might speak to you',
 		imageUnavailable: 'The image could not be loaded.',
 		imageRetry: 'Try again',
+		reportTitle: 'Report a problem with this work',
+		reportWrongImage: 'Wrong image',
+		reportNotPainting: 'Not a painting',
+		reportBadMetadata: 'Wrong title or artist',
+		reportOther: 'Something else',
+		reportDone: 'Reported — thank you. Your reports live in Settings.',
 		viewFull: 'View full screen',
 		closeFull: 'Close full screen',
 		seenInPerson: 'Seen in person',

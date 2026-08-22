@@ -38,6 +38,17 @@
 	const seenInPerson = $derived(
 		work ? app.events.some((e) => e.t === 'seen_in_person' && e.work === work.id) : false
 	);
+	// Per-work problem report (owner decision: local + export from Settings —
+	// curation feedback, never taste; the fold ignores work_report).
+	const reported = $derived(
+		work ? app.events.some((e) => e.t === 'work_report' && e.work === work.id) : false
+	);
+	async function reportWork(
+		reason: 'wrong-image' | 'not-a-painting' | 'bad-metadata' | 'other'
+	): Promise<void> {
+		if (!work || reported) return;
+		await app.record({ t: 'work_report', work: work.id, reason });
+	}
 	const notes = $derived(
 		work
 			? app.events.filter(
@@ -152,6 +163,28 @@
 			</div>
 		</section>
 
+		{#if reported}
+			<p class="report-done">{t.work.reportDone}</p>
+		{:else}
+			<details class="report">
+				<summary>{t.work.reportTitle}</summary>
+				<div class="report-row">
+					<button class="chip" onclick={() => reportWork('wrong-image')}>
+						{t.work.reportWrongImage}
+					</button>
+					<button class="chip" onclick={() => reportWork('not-a-painting')}>
+						{t.work.reportNotPainting}
+					</button>
+					<button class="chip" onclick={() => reportWork('bad-metadata')}>
+						{t.work.reportBadMetadata}
+					</button>
+					<button class="chip" onclick={() => reportWork('other')}>
+						{t.work.reportOther}
+					</button>
+				</div>
+			</details>
+		{/if}
+
 		<p class="attribution">{work.rights.attribution}</p>
 	</main>
 
@@ -196,6 +229,28 @@
 	.chip.gold {
 		color: var(--gold);
 		border-color: color-mix(in srgb, var(--gold) 45%, transparent);
+	}
+	.report {
+		margin-top: var(--space-4);
+	}
+	.report summary {
+		color: var(--ink-faint);
+		font-size: 0.82rem;
+		cursor: pointer;
+		min-height: 44px;
+		display: flex;
+		align-items: center;
+	}
+	.report-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		padding: var(--space-2) 0;
+	}
+	.report-done {
+		margin-top: var(--space-4);
+		color: var(--ink-faint);
+		font-size: 0.82rem;
 	}
 	h1 {
 		font-size: 1.5rem;

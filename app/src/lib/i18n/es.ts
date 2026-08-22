@@ -380,6 +380,16 @@ export const es: Strings = {
 
 	settings: {
 		title: 'Ajustes',
+		reportsTitle: 'Obras reportadas',
+		reportsHint:
+			'Problemas que señalaste en obras concretas. Se quedan en este dispositivo — exporta la lista para enviársela al curador.',
+		reportsExport: 'Exportar reportes (JSON)',
+		reportReason: {
+			'wrong-image': 'imagen incorrecta',
+			'not-a-painting': 'no es una pintura',
+			'bad-metadata': 'título o artista incorrectos',
+			other: 'otro'
+		} as Record<string, string>,
 		data: 'Tus datos',
 		exportBtn: 'Exportar mis datos (JSON)',
 		exportHint: 'Todo: tus respuestas, guardados y notas. Tuyos para siempre.',
@@ -481,6 +491,12 @@ export const es: Strings = {
 		whyTitle: 'Por qué podría hablarte',
 		imageUnavailable: 'La imagen no se pudo cargar.',
 		imageRetry: 'Reintentar',
+		reportTitle: 'Reportar un problema con esta obra',
+		reportWrongImage: 'Imagen incorrecta',
+		reportNotPainting: 'No es una pintura',
+		reportBadMetadata: 'Título o artista incorrectos',
+		reportOther: 'Otra cosa',
+		reportDone: 'Reportada — gracias. Tus reportes viven en Ajustes.',
 		viewFull: 'Ver a pantalla completa',
 		closeFull: 'Cerrar pantalla completa',
 		seenInPerson: 'Vista en persona',

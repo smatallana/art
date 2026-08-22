@@ -25,6 +25,35 @@
 		await sync.deleteAccount();
 	}
 
+	// Reported works (owner decision: reports stay local; this list + export
+	// is how they reach the curator — nothing leaves the device on its own).
+	const reports = $derived(
+		app.events
+			.filter((e): e is Extract<typeof e, { t: 'work_report' }> => e.t === 'work_report')
+			.map((e) => ({ ...e, title: app.work(e.work)?.title ?? e.work }))
+			.reverse()
+	);
+
+	function download(json: string, name: string): void {
+		const blob = new Blob([json], { type: 'application/json' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = name;
+		document.body.appendChild(a);
+		a.click();
+		a.remove();
+		URL.revokeObjectURL(url);
+	}
+
+	function exportReports(): void {
+		const out = reports.map((r) => ({ work: r.work, title: r.title, reason: r.reason, at: r.at }));
+		download(
+			JSON.stringify({ version: 1, reports: out }, null, 1),
+			`beholder-reports-${new Date().toISOString().slice(0, 10)}.json`
+		);
+	}
+
 	async function exportData(): Promise<void> {
 		const json = await app.exportData();
 		const blob = new Blob([json], { type: 'application/json' });
@@ -139,6 +168,26 @@
 		{/if}
 	</section>
 
+	{#if reports.length > 0}
+		<section>
+			<h2>{t.settings.reportsTitle}</h2>
+			<p class="hint">{t.settings.reportsHint}</p>
+			<ul class="reports">
+				{#each reports as r (r.id)}
+					<li>
+						<span class="report-work">{r.title}</span>
+						<span class="report-meta">
+							{t.settings.reportReason[r.reason]} · {new Date(r.at).toLocaleDateString()}
+						</span>
+					</li>
+				{/each}
+			</ul>
+			<div class="row">
+				<button class="btn" onclick={exportReports}>{t.settings.reportsExport}</button>
+			</div>
+		</section>
+	{/if}
+
 	<section>
 		<h2>{t.settings.data}</h2>
 		<p class="hint">{t.settings.exportHint}</p>
@@ -209,6 +258,29 @@
 		color: var(--ink-muted);
 		font-size: 0.88rem;
 		margin: var(--space-2) 0;
+	}
+	.reports {
+		list-style: none;
+		margin: 0 0 var(--space-3);
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+	.reports li {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--space-3);
+		font-size: 0.85rem;
+		border-bottom: 1px solid var(--hairline);
+		padding: 6px 0;
+	}
+	.report-work {
+		color: var(--ink-muted);
+	}
+	.report-meta {
+		color: var(--ink-faint);
+		white-space: nowrap;
 	}
 	.row {
 		display: flex;
