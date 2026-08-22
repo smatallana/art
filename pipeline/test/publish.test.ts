@@ -73,3 +73,13 @@ describe('artistSlug', () => {
 		expect(artistSlug('Vilhelm Hammershøi')).toBe('vilhelm-hammersh-i');
 	});
 });
+
+describe('scoreQuality flag idempotence (T11)', () => {
+	it('re-scoring an already-scored work never duplicates flags', () => {
+		const w = makeWork('aic-low');
+		w.images.width = 800; // → low-res flag
+		const once = scoreQuality(w);
+		const twice = scoreQuality(once);
+		expect(twice.quality.flags.filter((f) => f === 'low-res')).toHaveLength(1);
+	});
+});

@@ -22,6 +22,7 @@
  * silently dropped.
  */
 import { readFile } from 'node:fs/promises';
+import { suspectImageFilename, wdRights } from '../rights.js';
 import type { Work } from '../types.js';
 import { fetchJson, mapLimit, sleep } from '../util.js';
 import { tagFromMetadata } from '../tagger.js';
@@ -223,6 +224,15 @@ export async function fetchWorkRows(
 			if (!file || !title) continue;
 			const qid = qidOf(v(row, 'item') as string);
 			if (/^Q\d+$/.test(title)) continue; // unlabeled item
+			// P18 sanity: reject obvious room/exhibition photos; log near-misses
+			// for the human audit (filenames cannot catch a photo of the
+			// painting's SUBJECT — that one only human eyes find).
+			const sus = suspectImageFilename(file, title);
+			if (sus === 'reject') {
+				log(`canon: [rejected-image] ${qid} "${title}" — ${file}`);
+				continue;
+			}
+			if (sus === 'suspect') log(`canon: [suspect-image] ${qid} "${title}" — ${file}`);
 			const rawDate = v(row, 'date');
 			const year = rawDate ? parseInt(rawDate.slice(0, rawDate.startsWith('-') ? 5 : 4), 10) : NaN;
 			out.push({
@@ -468,10 +478,7 @@ export async function fetchCanonWorks(
 			collection: r.collection,
 			info: i,
 			sourceUrl: `https://www.wikidata.org/wiki/${r.qid}`,
-			rights: {
-				status: 'public-domain',
-				attribution: 'Public domain — image via Wikimedia Commons'
-			}
+			rights: wdRights(artist, r.year)
 		});
 		if (w) works.push(w);
 	}

@@ -29,7 +29,13 @@ export function scoreQuality(work: Work): Work {
 
 	return {
 		...work,
-		quality: { score: Math.max(0, Math.min(1, score)), flags: [...work.quality.flags, ...flags] }
+		quality: {
+			score: Math.max(0, Math.min(1, score)),
+			// Set-dedupe: --merge rebuilds re-score already-scored works, and
+			// plain concatenation duplicated flags on every pass (1,978 works
+			// carried e.g. 'low-res' three times).
+			flags: [...new Set([...work.quality.flags, ...flags])]
+		}
 	};
 }
 

@@ -202,15 +202,25 @@ async function cmdBuild(): Promise<void> {
 
 	let scored = unique.map(scoreQuality);
 
-	// Curated overrides (micro-stories, tag corrections) merge last and win.
+	// Curated overrides (micro-stories, tag corrections, drops) merge last
+	// and win. `drop: true` is the id-keyed kill switch for works whose
+	// image or record is confirmed wrong (human audit / owner reports) —
+	// `drop` and `note` are override metadata and never reach the Work.
 	let overridden = 0;
-	scored = scored.map((w) => {
-		const o = overrides[w.id];
-		if (!o) return w;
+	let dropped = 0;
+	scored = scored.flatMap((w) => {
+		const o = overrides[w.id] as (Partial<Work> & { drop?: boolean; note?: string }) | undefined;
+		if (!o) return [w];
+		if (o.drop) {
+			dropped++;
+			return [];
+		}
 		overridden++;
-		return { ...w, ...o, tags: { ...w.tags, ...(o.tags ?? {}) } };
+		const { drop: _drop, note: _note, ...patch } = o;
+		return [{ ...w, ...patch, tags: { ...w.tags, ...(patch.tags ?? {}) } }];
 	});
 	if (overridden) log(`curated overrides applied: ${overridden}`);
+	if (dropped) log(`curated drops applied: ${dropped}`);
 
 	let report: unknown = null;
 	if (!hasFlag('skip-probe')) {

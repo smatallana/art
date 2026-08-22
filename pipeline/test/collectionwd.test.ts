@@ -62,3 +62,23 @@ describe('parseCollectionRows', () => {
 		expect(MET_CONFIG.attribution).toContain('Wikimedia Commons');
 	});
 });
+
+describe('genid creators and suspect images (T11)', () => {
+	it('maps raw blank-node URIs to Unknown artist', () => {
+		const rows = parseCollectionRows([
+			row(
+				'Q10',
+				'Crown of thorns',
+				'http://www.wikidata.org/.well-known/genid/1dd982bbc481a29647b58069a891aad9'
+			)
+		]);
+		expect(rows[0]?.artist).toBe('Unknown artist');
+	});
+
+	it('hard-rejects exhibition-shot filenames at parse time', () => {
+		const rows = parseCollectionRows([
+			row('Q11', 'Portrait of a man', 'Rembrandt', 'Remember_Me_exhibition,_Rijksmuseum_35.jpg')
+		]);
+		expect(rows).toEqual([]);
+	});
+});

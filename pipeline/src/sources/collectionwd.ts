@@ -12,6 +12,7 @@
  */
 import { tagFromMetadata } from '../tagger.js';
 import type { Work } from '../types.js';
+import { suspectImageFilename, wdRights } from '../rights.js';
 import { fetchJson, isCultureNotArtist, sleep } from '../util.js';
 import { commonsFileFromP18, _internal } from './canonwd.js';
 
@@ -83,9 +84,15 @@ export function parseCollectionRows(
 		const file = commonsFileFromP18(v(row, 'image') ?? '');
 		const title = v(row, 'itemLabel');
 		if (!file || !title || /^Q\d+$/.test(title)) continue;
+		if (suspectImageFilename(file, title) === 'reject') continue;
 		const creator = v(row, 'creatorLabel');
+		// Unlabeled creators surface as bare QIDs OR as raw blank-node URIs
+		// (…/.well-known/genid/…) — 566 works rendered a URL as artist name.
 		const artist =
-			!creator || /^Q\d+$/.test(creator) || isCultureNotArtist(creator)
+			!creator ||
+			/^Q\d+$/.test(creator) ||
+			/^https?:\/\//.test(creator) ||
+			isCultureNotArtist(creator)
 				? 'Unknown artist'
 				: creator;
 		const rawDate = v(row, 'date');
@@ -176,7 +183,13 @@ export async function fetchCollectionWorks(
 				accession: null,
 				url: `https://www.wikidata.org/wiki/${r.qid}`
 			},
-			rights: { status: 'public-domain', attribution: cfg.attribution },
+			// Death year is not in the collection query; the conservative rule
+			// falls back to the work date (< 1930 → PD, else linked-only ©).
+			// PD works keep the museum-specific attribution line.
+			rights: ((rr) =>
+				rr.status === 'public-domain' ? { ...rr, attribution: cfg.attribution } : rr)(
+				wdRights({ name: r.artist, died: null }, r.year)
+			),
 			images: {
 				aspect: Math.round(aspect * 1000) / 1000,
 				width: i.width,
