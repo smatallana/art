@@ -328,6 +328,14 @@ class AppState {
 	}
 
 	/**
+	 * An artwork image failed on the DETAIL page: record it for diagnostics
+	 * (context 'detail' — no session to advance, no model impact).
+	 */
+	async noteImageFailure(workId: string): Promise<void> {
+		await this.record({ t: 'image_error', work: workId, context: 'detail' });
+	}
+
+	/**
 	 * An artwork image failed to load: pure infrastructure. Log it for
 	 * diagnostics, advance to a fresh pair — the taste model never sees it.
 	 */

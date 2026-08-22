@@ -32,6 +32,7 @@
 
 	let loaded = $state(false);
 	let failed = $state(false);
+	let triedFresh = $state(false);
 	let triedFallback = $state(false);
 
 	const primarySrc = $derived(
@@ -43,13 +44,51 @@
 		src = primarySrc;
 		loaded = false;
 		failed = false;
+		triedFresh = false;
 		triedFallback = false;
 	});
 
+	/**
+	 * The service worker caches images CacheFirst for 60 days, and no-cors
+	 * image responses are opaque — a 403/429 or a truncated body gets cached
+	 * as if it were a picture and then served forever (real-user finding: one
+	 * artwork permanently blank on one phone). On error, evict the poisoned
+	 * entries and retry once from the network before degrading.
+	 */
+	async function evictCached(current: string): Promise<void> {
+		try {
+			if ('caches' in window) {
+				const cache = await caches.open('artwork-images');
+				await cache.delete(resolveSrc(work.images.display), { ignoreVary: true });
+				await cache.delete(resolveSrc(work.images.thumb), { ignoreVary: true });
+			}
+		} catch {
+			// cache API unavailable (private mode) — nothing to evict
+		}
+		try {
+			// The browser's OWN http cache may hold the same opaque failure;
+			// cache:'reload' forces a network round-trip that refreshes both.
+			await fetch(current, { mode: 'no-cors', cache: 'reload' });
+		} catch {
+			// offline — the retry below will fail and degrade normally
+		}
+	}
+
 	function handleError(): void {
+		if (!triedFresh) {
+			// step 1: drop the (possibly poisoned) cache entries, refetch fresh
+			triedFresh = true;
+			const current = src;
+			void evictCached(current).then(() => {
+				// fragment change re-triggers the <img> load; the request URL
+				// (fragment stripped) now misses the cache → network
+				src = current.includes('#') ? current : `${current}#fresh`;
+			});
+			return;
+		}
 		const alternate = resolveSrc(size === 'display' ? work.images.thumb : work.images.display);
 		if (!triedFallback && alternate !== src) {
-			// display failed → degrade to the other variant before giving up
+			// step 2: degrade to the other size variant before giving up
 			triedFallback = true;
 			src = alternate;
 			return;

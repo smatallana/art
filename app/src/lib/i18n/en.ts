@@ -296,6 +296,8 @@ export const t = {
 
 	work: {
 		whyTitle: 'Why this might speak to you',
+		imageUnavailable: 'The image could not be loaded.',
+		imageRetry: 'Try again',
 		viewFull: 'View full screen',
 		closeFull: 'Close full screen',
 		seenInPerson: 'Seen in person',

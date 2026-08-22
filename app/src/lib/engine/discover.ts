@@ -259,6 +259,17 @@ const SUBJECT_FILTERS: [string, string][] = [
 	['subject.genre', 'Everyday life'],
 	['light.nocturne', 'Night']
 ];
+/**
+ * Explore filters make a factual claim ("Night" → night scenes), so they
+ * require museum-grade evidence: value ≥ 0.5 AND a meta/curated source.
+ * Clip tags stay out — the nocturne miscalibration put ~4,000 daylight
+ * works behind the "Night" chip (real-user-visible wrongness).
+ */
+export function filterTagOn(w: Work, dim: string): boolean {
+	const t = w.tags[dim];
+	return !!t && t.v >= 0.5 && (t.src === 'meta' || t.src === 'curated');
+}
+
 const ERA_LABELS: Record<string, string> = {
 	pre1500: 'Before 1500',
 	e1500: '1500–1700',
@@ -279,8 +290,7 @@ export function exploreFilters(works: Work[]): ExploreFilter[] {
 		if (w.movement) movements.set(w.movement, (movements.get(w.movement) ?? 0) + 1);
 		museums.set(w.museum.name, (museums.get(w.museum.name) ?? 0) + 1);
 		for (const [dim] of SUBJECT_FILTERS) {
-			const t = w.tags[dim];
-			if (t && t.v >= 0.5) subjects.set(dim, (subjects.get(dim) ?? 0) + 1);
+			if (filterTagOn(w, dim)) subjects.set(dim, (subjects.get(dim) ?? 0) + 1);
 		}
 	}
 	for (const [id, count] of eras) {
@@ -309,7 +319,7 @@ export function applyFilter(works: Work[], filter: ExploreFilter): Work[] {
 			return works.filter((w) => w.museum.name === filter.id);
 		case 'subject':
 		case 'mood':
-			return works.filter((w) => (w.tags[filter.id]?.v ?? 0) >= 0.5);
+			return works.filter((w) => filterTagOn(w, filter.id));
 	}
 }
 

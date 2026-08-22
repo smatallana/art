@@ -67,9 +67,12 @@ export default defineConfig({
 						handler: 'CacheFirst',
 						options: {
 							cacheName: 'artwork-images',
+							// Opaque (status 0) responses are indistinguishable from
+							// failures — a cached 403 would serve for 60 days. The
+							// client evicts + refetches on image error (ArtworkImage).
 							cacheableResponse: { statuses: [0, 200] },
 							expiration: {
-								maxEntries: 600,
+								maxEntries: 1200,
 								maxAgeSeconds: 60 * 60 * 24 * 60,
 								purgeOnQuotaError: true
 							}

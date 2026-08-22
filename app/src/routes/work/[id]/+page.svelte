@@ -11,6 +11,19 @@
 	let fullscreen = $state(false);
 	let noteDraft = $state('');
 	let noteSaved = $state(false);
+	// Image failure on the detail page: no silent grey eye — say so, promote
+	// the museum link, offer a retry (real-user finding on a poisoned cache).
+	let imageFailed = $state(false);
+	let retryCount = $state(0);
+
+	function onImageError(id: string): void {
+		imageFailed = true;
+		void app.noteImageFailure(id);
+	}
+	function retryImage(): void {
+		imageFailed = false;
+		retryCount++;
+	}
 
 	onMount(() => void app.init());
 
@@ -62,9 +75,27 @@
 {#if work}
 	<main class="page">
 		<BackBar fallback="/discover/" />
-		<button class="art" onclick={() => (fullscreen = true)} aria-label={t.work.viewFull}>
-			<ArtworkImage {work} />
+		<button
+			class="art"
+			onclick={() => (fullscreen = true)}
+			aria-label={t.work.viewFull}
+			disabled={imageFailed}
+		>
+			{#key retryCount}
+				<ArtworkImage {work} onError={onImageError} />
+			{/key}
 		</button>
+		{#if imageFailed}
+			<div class="image-fail">
+				<p class="meta">{t.work.imageUnavailable}</p>
+				<div class="row">
+					<button class="chip" onclick={retryImage}>{t.work.imageRetry}</button>
+					<a class="chip gold" href={work.museum.url} target="_blank" rel="noopener">
+						{t.reveal.viewAtMuseum}
+					</a>
+				</div>
+			</div>
+		{/if}
 
 		<h1>{work.title}</h1>
 		<p class="meta">
@@ -148,6 +179,23 @@
 		width: 100%;
 		margin-bottom: var(--space-4);
 		cursor: zoom-in;
+	}
+	.art:disabled {
+		cursor: default;
+	}
+	.image-fail {
+		margin: calc(-1 * var(--space-3)) 0 var(--space-4);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+	.image-fail .row {
+		display: flex;
+		gap: var(--space-2);
+	}
+	.chip.gold {
+		color: var(--gold);
+		border-color: color-mix(in srgb, var(--gold) 45%, transparent);
 	}
 	h1 {
 		font-size: 1.5rem;

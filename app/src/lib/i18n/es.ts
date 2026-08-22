@@ -472,6 +472,8 @@ export const es: Strings = {
 
 	work: {
 		whyTitle: 'Por qué podría hablarte',
+		imageUnavailable: 'La imagen no se pudo cargar.',
+		imageRetry: 'Reintentar',
 		viewFull: 'Ver a pantalla completa',
 		closeFull: 'Cerrar pantalla completa',
 		seenInPerson: 'Vista en persona',

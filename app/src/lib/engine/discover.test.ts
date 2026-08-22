@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { AppEvent } from './events';
 import {
+	filterTagOn,
 	applyFilter,
 	contributions,
 	exploreFilters,
@@ -15,7 +16,7 @@ import {
 } from './discover';
 import { createModel, modelFromEvents } from './model';
 import type { OntologyDim } from './profile';
-import { testPool } from './testutil';
+import { testPool, testWork } from './testutil';
 
 const ONTOLOGY: OntologyDim[] = [
 	{ id: 'subject.portrait', group: 'subject', kind: 'binary', label: 'Portraits' },
@@ -192,5 +193,18 @@ describe('hasEstablishedRead', () => {
 		const model = createModel();
 		model.dims.set('color.saturation', dim(0.5, 0.1)); // z ≈ 1.58 → moderate
 		expect(hasEstablishedRead(model)).toBe(true);
+	});
+});
+
+describe('filterTagOn (T11 — explore filters need museum-grade evidence)', () => {
+	it('requires value AND a meta/curated source', () => {
+		const meta = testWork('m1', { tags: { 'light.nocturne': 0.9 } }); // src meta
+		const clip = testWork('c1', {});
+		clip.tags['light.nocturne'] = { v: 0.9, c: 0.55, src: 'clip' };
+		const low = testWork('l1', { tags: { 'light.nocturne': 0.3 } });
+		expect(filterTagOn(meta, 'light.nocturne')).toBe(true);
+		expect(filterTagOn(clip, 'light.nocturne')).toBe(false);
+		expect(filterTagOn(low, 'light.nocturne')).toBe(false);
+		expect(filterTagOn(testWork('n1', {}), 'light.nocturne')).toBe(false);
 	});
 });

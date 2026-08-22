@@ -35,6 +35,7 @@ export default ts.config(
 				Node: 'readonly',
 				HTMLInputElement: 'readonly',
 				HTMLElement: 'readonly',
+				caches: 'readonly',
 				HTMLButtonElement: 'readonly',
 				HTMLDivElement: 'readonly',
 				setTimeout: 'readonly',
